@@ -77,6 +77,20 @@
 
 \section{Úvod}
 
+\subsection{Sylabus semináře}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
+
 \subsection{K čemu je počítač?}
 
 \begin{frame}{K čemu je počítač?}
@@ -112,8 +126,8 @@
 
 \begin{frame}{Zadání}
   \begin{block}{\# 2}
-    Při přípravě základního kritického experimentu je pomocí MCNP potřeba najít kritickou polohu regulační tyče R2. 
-    
+    Při přípravě základního kritického experimentu je pomocí MCNP potřeba najít kritickou polohu regulační tyče R2.
+
     Jak se tato poloha změní při změně polohy tyče R1?
   \end{block}
 \end{frame}
@@ -169,20 +183,20 @@
   \begin{verbatim}
     gnuplot> plot "data1.csv"
   \end{verbatim}
-  \pause 
+  \pause
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{gnuplot_interactive}      
+    \includegraphics[width=0.6\textwidth]{gnuplot_interactive}
   \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Vykreslení všech grafů v gnuplotu}
   \begin{verbatim}
-    gnuplot> plot "data1.csv", "data2.csv", 
+    gnuplot> plot "data1.csv", "data2.csv",
                   "data3.csv", "data4.csv"
   \end{verbatim}
   \pause
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{gnuplot_interactive_all}  
+    \includegraphics[width=0.6\textwidth]{gnuplot_interactive_all}
   \end{center}
 \end{frame}
 
@@ -194,9 +208,9 @@
     plot "data/data1.csv", "data/data2.csv", \
          "data/data3.csv", "data/data4.csv"
   \end{verbatim}
-  \pause 
+  \pause
   \begin{center}
-    \includegraphics[width=0.6\textwidth]{../gnuplot/plot4}  
+    \includegraphics[width=0.6\textwidth]{../gnuplot/plot4}
   \end{center}
 \end{frame}
 
@@ -208,10 +222,10 @@
 \end{frame}
 
 \begin{frame}[fragile]{BAT soubor s parametrem}
-  Co takhle adresář pro každý den? Nemá smysl pokaždé ručně kopírovat vstup pro gnuplot a tak dále... 
-  
+  Co takhle adresář pro každý den? Nemá smysl pokaždé ručně kopírovat vstup pro gnuplot a tak dále...
+
   Stačí vědět, že BAT soubor může mít na příkazové řádce parametry. První parametr je uložen do proměnné \texttt{\%1} a to se nám bude hodit.
-  
+
   \begin{verbatim}
     cd %1
     gnuplot ../plot.gp
@@ -221,7 +235,7 @@
 
 \begin{frame}[fragile]{BAT soubor s parametrem - vylepšení}
   Pokud si budeme chtít prohlédnout grafy, bude nutné vždy vlézt do adresáře a otevřít \texttt{plot.png}. Jde to ovšem vylepšit pomocí jednoduchého triku:
-  
+
   \begin{verbatim}
     cd %1
     gnuplot ../plot.gp
@@ -234,7 +248,7 @@
 
 \begin{frame}{Jak moc jsme si pomohli?}
   \begin{itemize}
-    \item 
+    \item
   \end{itemize}
 \end{frame}
 
@@ -255,29 +269,78 @@
 \subsection{Úvod do skriptování}
 
 \begin{frame}{``klasické'' programování -- Pascal, C++}
-  
+  \begin{itemize}
+    \item napsat zdroják, zkompilovat, slinkovat ...
+    \item ... muset řešit binárku, která někde funguje a někde ne ...
+    \item ... moc práce!
+    \item (i když výhody jsou zřejmé)
+    \item bylo by lepší mít někdy místo motorové pily sekeru
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Interpretované jazyky / skripty}
-  
+  \begin{itemize}
+    \item textový vstupní soubor (zdrojový kód) + interpret
+    \item vhodné pro aplikace bez vysokých nároků na systém
+    \item nebo tam, kde je zásadní snížit nároky na vývoj
+    \item tj. ideální pro jednoúčelové a krátkodobě žijící programy
+    \item většinou ``volnější'' pojetí programování, z čehož plyne například řádově elegantnější práce s textem
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vlastnosti skriptovacích jazyků}
+  \begin{block}{Výhody}
+    \begin{itemize}
+      \item dokonalá přenositelnost (textové vstupní soubory)
+      \item nic se nekompiluje
+      \item většinou syntakticky úsporné
+    \end{itemize}
+  \end{block}
+  \begin{block}{Nevýhody}
+    \begin{itemize}
+      \item zdrojový kód je otevřený (ne vždy se to hodí)
+      \item pomalé a paměťově náročné
+      \item bez kontroly správnosti při kompilaci
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Přehled hlavních jazyků}
+  \begin{description}
+    \item[BAT] -- vhodné pouze pro to nejjednodušší použití; i když jsou k mání některé trochu složitější funkce, jejich použití je hodně neobratné a neefektivní
+    \item[BASH] -- podstatně mocnější alternativa BAT souborů v prostředí Unixu; nepříliš intuitivní syntaxe a absence náročnějších operací
+    \item[Perl] -- kompaktní a efektní jazyk, který je všude nainstalovaný, ale nedá se (vůbec) číst a už i pole apod. jsou nekřesťansky obskurní
+    \item[Python] -- velmi slušný jazyk, který snese i ``vážnější'' využití, ale za cenu trochu vyšší obtížnosti
+    \item[Ruby] -- elixír síly a zázračná pilulka: intuitivní, snadný, všemocný, rozšířený a k tomu ryze objektový
+  \end{description}
 \end{frame}
 
 \subsection{Úvod do jazyka Ruby}
+
+\begin{frame}{Jazyk Ruby}
+  \begin{itemize}
+    \item čistě objektový interpretovaný jazyk
+    \item interprety existují pro širokou škálu platforem
+    \item velmi elegantní syntaxe
+    \item nevýhodou je stále ještě relativní pomalost
+    \item aktuální verze 1.9.3
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]{Ukázka Ruby (1)}
   Každý programátor tím začíná ...
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       puts "Hello world!"
-    \end{verbatim}    
+    \end{verbatim}}
   \end{block}
   \pause
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       Hello world!
-    \end{verbatim}
+    \end{verbatim}}
   \end{block}
 \end{frame}
 
@@ -285,19 +348,19 @@
   Proměnné, \texttt{print} vs. \texttt{puts}, aritmetika
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       a = 4
       b = 5
       print "4 + 5 = "
       puts a + b
-    \end{verbatim}    
+    \end{verbatim}}
   \end{block}
   \pause
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       4 + 5 = 9
-    \end{verbatim}
+    \end{verbatim}}
   \end{block}
 \end{frame}
 
@@ -305,18 +368,18 @@
   In-line výrazy v řetězcích
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       a = 4
       b = 5
       puts "#{a} + #{b} = #{a+b}"
-    \end{verbatim}    
+    \end{verbatim}}
   \end{block}
   \pause
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       4 + 5 = 9
-    \end{verbatim}
+    \end{verbatim}}
   \end{block}
 \end{frame}
 
@@ -324,22 +387,22 @@
   Rozsahy a cykly
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       (1..5).each do |i|
         puts "#{i} * #{i} = #{i * i}"
       end
-    \end{verbatim}    
+    \end{verbatim}}
   \end{block}
   \pause
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       1 * 1 = 1
       2 * 2 = 4
       3 * 3 = 9
       4 * 4 = 16
       5 * 5 = 25
-    \end{verbatim}
+    \end{verbatim}}
   \end{block}
 \end{frame}
 
@@ -348,27 +411,181 @@
   Pětkrát nic umořilo osla (opakování, ne cyklus)
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       5.times do
         puts "nic"
       end
-    \end{verbatim}    
+    \end{verbatim}}
   \end{block}
   \pause
   \begin{block}{}
     \smallskip \footnotesize
-    \begin{verbatim}
+    {\scriptsize \begin{verbatim}
       nic
       nic
       nic
       nic
       nic
-    \end{verbatim}
+    \end{verbatim}}
   \end{block}
 \end{frame}
 
+\subsection{První kroky s Ruby}
 
+\begin{frame}[fragile]{IRb}
+  Pro první ozkoušení (a i pro některé úkoly v praktickém životě) se hodí ``příkazová řádka'' Ruby, tzv. \textbf{Interactive Ruby} (\texttt{IRb}):
+  \pause
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      1.9.2-p290 :001 > 2+2
+       => 4
+      1.9.2-p290 :002 > a = 5
+       => 5
+      1.9.2-p290 :003 > b = 6
+       => 6
+      1.9.2-p290 :004 > a * b
+       => 30
+    \end{verbatim}}
+  \end{block}
 
+\end{frame}
+
+\begin{frame}[fragile]{Proměnné, výpis na terminál}
+  V Ruby (jak je u skriptů zvykem) se proměnné nedeklarují:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      a = 5
+      a = a * a
+      long_string = "looooong string"
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Výpis se děje pomocí print, resp. puts (bez/s koncem řádku); \texttt{\#\{...\}} vkládá do řetězce libovolný výraz:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      print a
+      puts "a = #{a}"
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Pole a hashe}
+  Pole je seznam:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      a = []
+      a << 5
+      a += [6]
+      puts a.size
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Hash, neboli slovník či asociativní pole:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      b = {}
+      b[3] = 7
+      b["foo"] = "bar"
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Rozsahy a cykly}
+  Rozsahy (ranges) - se dvěma tečkami včetně posledního elementu, se třemi bez něj
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      a = (1..5)
+      b = (1...5)
+      puts "yay!" if a.size == b.size + 1
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Ruby nepoužívá klasický cyklus, ale iterátor (přes téměř cokoliv):
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      (1..5).each do |i|
+        puts i * i
+      end
+      b = {}; b["key1"] = 6; b["key2"] = 8
+      b.each do |key, value|
+        puts "#{key} => #{value}"
+      end
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Práce s řetězci, include, split, sub}
+  Řetězce v Ruby jsou neomezené délky (pár mega se tam určitě vejde) a dá se s nimi provádět ledacos.
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      s = "lazy dog"
+      if s.include?("lazy")
+        puts "lazy!!!"
+      end
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Rozdělit? Nahradit?
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      puts s.sub("lazy", "crazy")
+      a = s.split
+      puts "#{a[1]} #{a[0]}"
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Načítání a zápis do souboru}
+  Soubor a terminál, to je vlastně jedno:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      File.open("animals.txt", "w") do |f|
+        f.puts "quick brown fox"
+      end
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Nejjednodušší čtení je po řádcích:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      IO.foreach("data.csv") do |line|
+        ...
+      end
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Práce s adresářem}
+  Jak projít všechny soubory v adresáři? V Pascalu utrpení, v Ruby iterátor:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      Dir["*"].each do |filename|
+        puts filename
+      end
+    \end{verbatim}}
+  \end{block}
+  \pause
+  Lze použít podle očekávání libovolnou masku nebo cestu:
+  \begin{block}{}
+    {\scriptsize \begin{verbatim}
+      Dir["data/*.csv"].each do |filename|
+        IO.foreach(filename) do |line|
+          puts line
+        end
+      end
+    \end{verbatim}}
+  \end{block}
+\end{frame}
+
+\section{Řešení problému č. 2}
+
+\subsection{Obecný rozbor}
+
+\begin{frame}{}
+
+\end{frame}
+
+\subsection{Načítání výstupního souboru}
 
 \begin{frame}[fragile]{Určení poloh tyčí}
   \tiny
@@ -384,9 +601,13 @@
   \end{verbatim}
 \end{frame}
 
+\subsection{Generování vstupních souborů}
+
+\subsection{Zápis všech výsledků do tabulky}
+
 \begin{frame}{A to je vše, přátelé!}
   \begin{center}
-    \includegraphics[width=\textwidth]{looney_tunes}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
   \end{center}
 \end{frame}
 
