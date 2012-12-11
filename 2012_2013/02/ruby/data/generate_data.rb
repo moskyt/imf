@@ -28,7 +28,7 @@ slova = %w{kapr tykev hruska letadlo strom posed auto degu moloch proutek mrak m
   File.open("text_#{i}.txt", 'w') do |f|
     rlen(1000).times do
       rlen(10).times do
-        f.print slova.rand
+        f.print slova.sample
         f.print " "
       end
       f.puts

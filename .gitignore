@@ -1,0 +1,12 @@
+
+*.aux
+
+*.log
+
+*.snm
+
+*.toc
+
+*.vrb
+
+*.nav

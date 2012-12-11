@@ -38,7 +38,7 @@
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
-\date{semestr 2012/2013\\11. prosince 2012}
+\date{akademický rok 2012/2013\\11. prosince 2012}
 
 \institute[ORF ÚJV Řež]
 {ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
@@ -66,7 +66,7 @@
 \begin{frame}{}
   \begin{itemize}
     \item základní principy automatizace
-    \item Gnuplot
+    \item CSV soubory a Gnuplot
     \item příkazový řádek / terminál
     \item dávkové (BAT) soubory
     \item představení skriptovacích jazyků
@@ -77,264 +77,296 @@
 
 \section{Úvod do jazyka Ruby}
 
-\begin{frame}{Jazyk Ruby}
+\subsection{Ještě chvilku v IRb}
+
+\begin{frame}[fragile]{OOP - volání metod}
+  Klasickým příkladem je například počet znaků v řetězci.
+  \begin{block}{procedurální jazyky}
+    \begin{verbatim}
+      strlen("retezec")
+    \end{verbatim}
+  \end{block}
+  \pause
+  Můžeme místo toho nahlížet na řetězec jako na objekt:
+  \pause
+  \begin{block}{objektově orientované jazyky}
+    \begin{verbatim}
+      "retezec".length
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Hrátky s řetězci}
+  \begin{block}{Délka řetězce}
+    \begin{verbatim}
+      "krabice".length
+      "kocour".size
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Ořez mezer}
+    \begin{verbatim}
+      "   hromada ".strip
+      " koleso   ".lstrip
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Hrátky s řetězci}
+  \begin{block}{Hledání}
+    \begin{verbatim}
+      "koleno na kole".include?("kole")
+      "koleno na kole".count("kole")
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Nahrazení}
+    \begin{verbatim}
+      "volej kolej".sub("olej", "yber")
+      "baba a deda".gsub("ba", "ta")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dokumentace}
+  \begin{block}{Google is your friend}
+    \texttt{ruby api string}
+  \end{block}
+  \begin{block}{API dokumentace}
+    \texttt{http://www.ruby-doc.org/core-1.9.3/String.html}
+  \end{block}
+\end{frame}
+
+\subsection{Pole}
+
+\begin{frame}[fragile]{Ztracen v poli}
+  \begin{block}{Literál, přiřazení}
+    \begin{verbatim}
+      a = []
+      a << 1
+      a << "string"
+      b = []
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Délka, řazení, vypletí, převracení}
+    \begin{verbatim}
+      [4, 2, 6].sort
+      [2, 5, 3, 3, 4, 1, 2, 1].uniq.sort
+      [4, 2, 6].reverse
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ztracen v poli}
+  \begin{block}{Indexace}
+    \begin{verbatim}
+      a = [1,2,3]
+      a[1]
+      a[3]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Do mínusu, odkud kam}
+    \begin{verbatim}
+      a = [1,2,3,4,5,6]
+      a[-1]
+      a[-2]
+      a[0..3]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Pole z řetězů}
+  \begin{block}{Řetězec, pole znaků}
+    \begin{verbatim}
+      "kopr"[2]
+      "mikroskop"[0..4]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Leccos funguje!}
+    \begin{verbatim}
+      "abcd".reverse
+      [1,2,3].size
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Sekáček na maso}
+    \begin{verbatim}
+      "a b  c d".split
+      "a b,c d".split(",")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Operátor a operatér}
+  \begin{block}{Malé bezvýznamné plus}
+    \begin{verbatim}
+      "alfa" + "beta"
+      [1, 2] + [3, 4]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Násobilka}
+    \begin{verbatim}
+      "kolo" * 5
+      [1, 2, 3] * 3
+      ["a", "b", "c"] * ","
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{block}{Převádět přes ulici}
+    \begin{verbatim}
+      "123".to_i
+      1250.to_s
+      "0.6".to_f
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Hash / slovník}
+    \begin{verbatim}
+      a = {}
+      a["xyz"] = 555
+      b = {'a' => 4, 'c' => 6}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{block}{Vocaď pocaď}
+    \begin{verbatim}
+      (1..4)
+      (0...10)
+      (1..5).to_a
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Symbolika}
+    \begin{verbatim}
+      "letadlo"
+      :letadlo
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Konverze II}
+    \begin{itemize}
+      \item vyzkoumejte, jak se chová \texttt{to\_f} a \texttt{to\_i} pro řetězce, které nejsou tak úplně číslo
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Palindrom}
+    \begin{itemize}
+      \item z libovolného řetězce vyrobte palindrom (osel $\to$ oselleso)
+      \item z libovolného řetězce vyrobte palindrom s lichým počtem znaků (osel $\to$ oseleso)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Vstup a výstup}
+
+\begin{frame}[fragile]{Výpis z účtu}
+  \begin{block}{Tiskem}
+    \begin{verbatim}
+      print "jedna"
+      puts "dve"
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Inspektor Clouseau}
+    \begin{verbatim}
+      puts "2 + 2 = #{2+2}"
+      puts [1,2,3].inspect
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Cyklistika}
+  \begin{block}{Jednoduchý rozsah}
+    \begin{verbatim}
+      (1..5).each do
+        puts "Cislo"
+      end
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{S polem a proměnnou}
+    \begin{verbatim}
+      [1, 2, 3].each do |i|
+        puts "Cislo #{i}"
+      end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úlohy}
   \begin{itemize}
-    \item čistě objektový interpretovaný jazyk
-    \item interprety existují pro širokou škálu platforem
-    \item velmi elegantní syntaxe
-    \item nevýhodou je stále ještě relativní pomalost
-    \item aktuální verze 1.9.3
+    \item vypište prvních deset druhých mocnin (1 * 1 = 1, 2 * 2 = 4 atd.)
+    \item vypište malou násobilku
+    \item vypište prvních N členů Fibonacciho posloupnosti (1, 1, 2, 3, 5, 8 ...)
+    \item metodou Erathostenova síta nalezněte prvočísla menší než N
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Ukázka Ruby (1)}
-  Každý programátor tím začíná ...
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      puts "Hello world!"
-    \end{verbatim}}
-  \end{block}
-  \pause
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      Hello world!
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Ukázka Ruby (2)}
-  Proměnné, \texttt{print} vs. \texttt{puts}, aritmetika
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      a = 4
-      b = 5
-      print "4 + 5 = "
-      puts a + b
-    \end{verbatim}}
-  \end{block}
-  \pause
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      4 + 5 = 9
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Ukázka Ruby (3)}
-  In-line výrazy v~řetězcích
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      a = 4
-      b = 5
-      puts "#{a} + #{b} = #{a+b}"
-    \end{verbatim}}
-  \end{block}
-  \pause
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      4 + 5 = 9
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Ukázka Ruby (4)}
-  Rozsahy a cykly
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      (1..5).each do |i|
-        puts "#{i} * #{i} = #{i * i}"
-      end
-    \end{verbatim}}
-  \end{block}
-  \pause
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      1 * 1 = 1
-      2 * 2 = 4
-      3 * 3 = 9
-      4 * 4 = 16
-      5 * 5 = 25
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-
-\begin{frame}[fragile]{Ukázka Ruby (4)}
-  Pětkrát nic umořilo osla (opakování, ne cyklus)
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      5.times do
-        puts "nic"
-      end
-    \end{verbatim}}
-  \end{block}
-  \pause
-  \begin{block}{}
-    \smallskip \footnotesize
-    {\scriptsize \begin{verbatim}
-      nic
-      nic
-      nic
-      nic
-      nic
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\subsection{První kroky s~Ruby}
-
-\begin{frame}[fragile]{IRb}
-  Pro první ozkoušení (a i pro některé úkoly v~praktickém životě) se hodí ``příkazová řádka'' Ruby, tzv. \textbf{Interactive Ruby} (\texttt{IRb}):
-  \pause
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      1.9.2-p290 :001 > 2+2
-       => 4
-      1.9.2-p290 :002 > a = 5
-       => 5
-      1.9.2-p290 :003 > b = 6
-       => 6
-      1.9.2-p290 :004 > a * b
-       => 30
-    \end{verbatim}}
-  \end{block}
-
-\end{frame}
-
-\begin{frame}[fragile]{Proměnné, výpis na terminál}
-  V Ruby (jak je u skriptů zvykem) se proměnné nedeklarují:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      a = 5
-      a = a * a
-      long_string = "looooong string"
-    \end{verbatim}}
-  \end{block}
-  \pause
-  Výpis se děje pomocí print, resp. puts (bez/s~koncem řádku); \texttt{\#\{...\}} vkládá do řetězce libovolný výraz:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      print a
-      puts "a = #{a}"
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Pole a hashe}
-  Pole je seznam:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      a = []
-      a << 5
-      a += [6]
-      puts a.size
-    \end{verbatim}}
-  \end{block}
-  \pause
-  Hash, neboli slovník či asociativní pole:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      b = {}
-      b[3] = 7
-      b["foo"] = "bar"
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Rozsahy a cykly}
-  Rozsahy (ranges) - se dvěma tečkami včetně posledního elementu, se třemi bez něj
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      a = (1..5)
-      b = (1...5)
-      puts "yay!" if a.size == b.size + 1
-    \end{verbatim}}
-  \end{block}
-  \pause
-  Ruby nepoužívá klasický cyklus, ale iterátor (přes téměř cokoliv):
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      (1..5).each do |i|
-        puts i * i
-      end
-      b = {}; b["key1"] = 6; b["key2"] = 8
-      b.each do |key, value|
-        puts "#{key} => #{value}"
-      end
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Práce s~řetězci, include, split, sub}
-  Řetězce v~Ruby jsou neomezené délky (pár mega se tam určitě vejde) a dá se s~nimi provádět ledacos.
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      s = "lazy dog"
-      if s.include?("lazy")
-        puts "lazy!!!"
-      end
-    \end{verbatim}}
-  \end{block}
-  \pause
-  Rozdělit? Nahradit?
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      puts s.sub("lazy", "crazy")
-      a = s.split
-      puts "#{a[1]} #{a[0]}"
-    \end{verbatim}}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Načítání a zápis do souboru}
-  Soubor a terminál, to je vlastně jedno:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      File.open("animals.txt", "w") do |f|
-        f.puts "quick brown fox"
-      end
-    \end{verbatim}}
-  \end{block}
-  \pause
-  Nejjednodušší čtení je po řádcích:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      IO.foreach("data.csv") do |line|
+\begin{frame}[fragile]{Česko čte dětem}
+  \begin{block}{Šikovný iterátor}
+    \begin{verbatim}
+      IO.foreach("data.txt") do |line|
         ...
       end
-    \end{verbatim}}
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{V kuse}
+    \begin{verbatim}
+      string = IO.read("data.txt")
+    \end{verbatim}
   \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Práce s~adresářem}
-  Jak projít všechny soubory v~adresáři? V Pascalu utrpení, v~Ruby iterátor:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      Dir["*"].each do |filename|
-        puts filename
-      end
-    \end{verbatim}}
+\begin{frame}{Úlohy}
+  V souboru \texttt{data/text\_1.txt}:
+  \begin{itemize}
+    \item spočítejte všechny řádky
+    \item spočítejte všechny řádky s výskytem slova kapr
+    \item spočítejte počet výskytů slova kapr (po řádcích i v kuse)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Zápis do katastru}
+  \begin{block}{Soubor se otevře a pak už to známe}
+    \begin{verbatim}
+      f = File.open("text.txt", 'w')
+      f.puts "Nazdar!"
+      f.close
+    \end{verbatim}
   \end{block}
   \pause
-  Lze použít podle očekávání libovolnou masku nebo cestu:
-  \begin{block}{}
-    {\scriptsize \begin{verbatim}
-      Dir["data/*.csv"].each do |filename|
-        IO.foreach(filename) do |line|
-          puts line
-        end
+  \begin{block}{The Ruby way}
+    \begin{verbatim}
+      File.open("text.txt", 'w') do |f|
+        f.puts "Nazdar!"
       end
-    \end{verbatim}}
+    \end{verbatim}
   \end{block}
+\end{frame}
+
+\begin{frame}{Úlohy}
+  Z dat v souboru \texttt{data/data\_two\_1.csv}:
+  \begin{itemize}
+    \item vyberte pouze druhý sloupec
+    \item sečtěte oba sloupce do jednoho
+    \item vypočtěte součet obou sloupců
+    \item vypočtěte průměr a RMS druhého sloupce
+  \end{itemize}
+  S hvězdičkou: 
+  \begin{itemize}
+    \item použijte soubory \texttt{*multi*}
+    \item proveďte pro všechny čtyři CSV soubory 
+  \end{itemize}
 \end{frame}
 
 \section{Zpracování textu}
