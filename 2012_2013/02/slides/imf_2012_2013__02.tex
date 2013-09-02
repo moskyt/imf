@@ -251,6 +251,25 @@
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Boolean nebolí}
+  \begin{block}{Jednoduchá porovnání}
+    \begin{verbatim}
+      2 + 2 < 5
+      "alfa" != "beta"
+      (x == y) and (y == z)
+    \end{verbatim}
+  \end{block}
+  (pozor na \texttt{=} versus \texttt{==})
+  \pause
+  \begin{block}{Chytré metody}
+    \begin{verbatim}
+      [1, 2, 3].include?(3)
+      "abc".include?("bc")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
 \begin{frame}[fragile]{Úlohy}
   \begin{block}{Konverze II}
     \begin{itemize}
@@ -327,6 +346,28 @@
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{V podmínce}
+  \begin{block}{If nebo Unless}
+    \scriptsize
+    \begin{verbatim}
+      if "kapr".include?("pr")
+        puts "prrrr"
+      end
+      unless 7 > 8
+        puts "poporadku"
+      end
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Přirozený jazyk}
+    \scriptsize
+    \begin{verbatim}
+      puts "je tam!" if "podvodnik".include? "vodnik"
+      puts "pocty" unless 2 + 2 == 5
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
 \begin{frame}{Úlohy}
   V souboru \texttt{data/text\_1.txt}:
   \begin{itemize}
@@ -362,10 +403,10 @@
     \item vypočtěte součet obou sloupců
     \item vypočtěte průměr a RMS druhého sloupce
   \end{itemize}
-  S hvězdičkou: 
+  S hvězdičkou:
   \begin{itemize}
     \item použijte soubory \texttt{*multi*}
-    \item proveďte pro všechny čtyři CSV soubory 
+    \item proveďte pro všechny čtyři CSV soubory
   \end{itemize}
 \end{frame}
 
