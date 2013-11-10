@@ -11,7 +11,7 @@
 }
 
 
-\usepackage{graphicx, ifthen, listings}
+\usepackage{graphicx, ifthen, listings, fancyvrb}
 
 \usepackage[czech]{babel}
 % \usefonttheme{professionalfonts}
@@ -34,11 +34,11 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (3)]{Informatika pro moderní fyziky (3)\\ladění programů a zpracování textu}
+\title[IMF (4)]{Informatika pro moderní fyziky (4)\\komplexnější projekt, generování dokumentů}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
-\date{akademický rok 2013/2014\\29. října 2013}
+\date{akademický rok 2013/2014\\5. listopadu 2013}
 
 \institute[ORF ÚJV Řež]
 {ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
@@ -68,73 +68,6 @@
     \item čtení ze souboru, automatické vyhledání výrazu
     \item jak dostat keff z výstupu MCNP
     \item výroba vstupních souborů pomocí šablon
-  \end{itemize}
-\end{frame}
-
-\section{Opakování a dotažení}
-
-\begin{frame}{Co dál}
-  \begin{itemize}
-    \item máme soubor s daty pro polohy tyčí (data/keff.csv)
-    \item vykreslit graf! pro každou z 11 poloh R1 jedna čára (závislost keff na R2)
-    \item (= csv soubor, gnuplot, znáte to)
-    \item najít automaticky kritickou polohu R2 pro každou z 11 poloh R1
-    \item a zase graf... (kritická poloha R2 v závislosti na R1)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Ruční hledání}
-  \begin{itemize}
-    \item v takových datech se hrozně špatně hledá
-    \item pokud bych měl na 11 řádcích (pro každou polohu R1) 11 hodnot (pro každou polohu R2), tak už ``kouknu a vidím''
-    \item na to se ale snadno napíše skript ...
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Úloha 2}
-    \scriptsize
-\begin{verbatim}
-  keff = {}
-  IO.foreach("keff.csv") do |line|
-    ary = line.strip.split
-    r1, r2, k = ary[0].to_i, ary[1].to_i, ary[2].to_f
-    keff[[r1,r2]] = k
-  end
-
-  (0..10).each do |i|
-    (0..10).each do |j|
-      print "%8.5f" % keff[[i*10, j*10]]
-    end
-    puts
-  end
-\end{verbatim}
-\end{frame}
-
-
-\begin{frame}[fragile]{Úloha 2}
-    \scriptsize
-\begin{verbatim}
-0.94800 0.94850 0.95000 0.95250 0.95600 0.96050 0.96600 0.97250 0.98000 0.98850 0.99800
-0.94900 0.94950 0.95100 0.95350 0.95700 0.96150 0.96700 0.97350 0.98100 0.98950 0.99900
-0.95000 0.95050 0.95200 0.95450 0.95800 0.96250 0.96800 0.97450 0.98200 0.99050 1.00000
-0.95100 0.95150 0.95300 0.95550 0.95900 0.96350 0.96900 0.97550 0.98300 0.99150 1.00100
-0.95200 0.95250 0.95400 0.95650 0.96000 0.96450 0.97000 0.97650 0.98400 0.99250 1.00200
-0.95300 0.95350 0.95500 0.95750 0.96100 0.96550 0.97100 0.97750 0.98500 0.99350 1.00300
-0.95400 0.95450 0.95600 0.95850 0.96200 0.96650 0.97200 0.97850 0.98600 0.99450 1.00400
-0.95500 0.95550 0.95700 0.95950 0.96300 0.96750 0.97300 0.97950 0.98700 0.99550 1.00500
-0.95600 0.95650 0.95800 0.96050 0.96400 0.96850 0.97400 0.98050 0.98800 0.99650 1.00600
-0.95700 0.95750 0.95900 0.96150 0.96500 0.96950 0.97500 0.98150 0.98900 0.99750 1.00700
-0.95800 0.95850 0.96000 0.96250 0.96600 0.97050 0.97600 0.98250 0.99000 0.99850 1.00800
-\end{verbatim}
-\end{frame}
-
-\begin{frame}{Najít kritickou polohu automaticky}
-  \begin{itemize}
-    \item pro každou polohu R1 snadno najdu odpovídající R2
-    \item jak? najdu nejdřív interval, ve kterém leží keff=1
-    \item a potom už je to jen obyčejná lineární interpolace
-    \item (nevzdávat, vymyslet!)
-    \item a nakonec zase nakreslit graf
   \end{itemize}
 \end{frame}
 
@@ -181,6 +114,118 @@ rake -T
   \end{block}
 \end{frame}
 
+\section{Opakování a dotažení}
+
+\begin{frame}{Co dál}
+  \begin{itemize}
+    \item máme soubor s daty pro polohy tyčí (\texttt{keff.csv})
+    \item vykreslit graf! pro každou z 11 poloh R1 jedna čára (závislost keff na R2)
+    \item (= csv soubor, gnuplot, znáte to)
+    \item najít automaticky kritickou polohu R2 pro každou z 11 poloh R1
+    \item a zase graf... (kritická poloha R2 v závislosti na R1)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Spouštění programů z Ruby}
+  Je otrava psát pořád cestu ke gnuplotu a vůbec, takže lze samozřejmě vyrobit rake task:
+    \scriptsize
+\begin{verbatim}
+task :plot do
+  system("\"C:/Program Files/gnuplot/bin/wgnuplot.exe\" plot1.p")
+end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Gnuplot - připomenutí}
+  \begin{verbatim}
+    set terminal png
+    set output "r1_50.png"
+    plot "r1_50.csv" with linespoints
+  \end{verbatim}
+  V souboru \texttt{r1\_50.csv} mám ve dvou sloupcích R2 a keff pro R1=50 cm.
+\end{frame}
+
+\begin{frame}[fragile]{Definice funkce}
+  \scriptsize
+  \begin{verbatim}
+    def load
+      keff = {}
+      IO.foreach("keff.csv") do |line|
+        ary = line.strip.split
+        r1, r2, k = ary[0].to_i, ary[1].to_i, ary[2].to_f
+        keff[[r1,r2]] = k
+      end
+      keff
+    end
+
+    task :rearrange do
+      keff = load
+      ...
+    end
+
+    task :plot do
+      keff = load
+      ...
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Ruční hledání}
+  \begin{itemize}
+    \item v takových datech se hrozně špatně hledá
+    \item pokud bych měl na 11 řádcích (pro každou polohu R1) 11 hodnot (pro každou polohu R2), tak už ``kouknu a vidím''
+    \item na to se ale snadno napíše skript ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Hezká tabulka}
+    \scriptsize
+\begin{verbatim}
+  keff = {}
+  IO.foreach("keff.csv") do |line|
+    ary = line.strip.split
+    r1, r2, k = ary[0].to_i, ary[1].to_i, ary[2].to_f
+    keff[[r1,r2]] = k
+  end
+
+  (0..10).each do |i|
+    (0..10).each do |j|
+      print "%8.5f" % keff[[i*10, j*10]]
+    end
+    puts
+  end
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]{Hezká tabulka}
+    \tiny
+\begin{verbatim}
+0.94800 0.94850 0.95000 0.95250 0.95600 0.96050 0.96600 0.97250 0.98000 0.98850 0.99800
+0.94900 0.94950 0.95100 0.95350 0.95700 0.96150 0.96700 0.97350 0.98100 0.98950 0.99900
+0.95000 0.95050 0.95200 0.95450 0.95800 0.96250 0.96800 0.97450 0.98200 0.99050 1.00000
+0.95100 0.95150 0.95300 0.95550 0.95900 0.96350 0.96900 0.97550 0.98300 0.99150 1.00100
+0.95200 0.95250 0.95400 0.95650 0.96000 0.96450 0.97000 0.97650 0.98400 0.99250 1.00200
+0.95300 0.95350 0.95500 0.95750 0.96100 0.96550 0.97100 0.97750 0.98500 0.99350 1.00300
+0.95400 0.95450 0.95600 0.95850 0.96200 0.96650 0.97200 0.97850 0.98600 0.99450 1.00400
+0.95500 0.95550 0.95700 0.95950 0.96300 0.96750 0.97300 0.97950 0.98700 0.99550 1.00500
+0.95600 0.95650 0.95800 0.96050 0.96400 0.96850 0.97400 0.98050 0.98800 0.99650 1.00600
+0.95700 0.95750 0.95900 0.96150 0.96500 0.96950 0.97500 0.98150 0.98900 0.99750 1.00700
+0.95800 0.95850 0.96000 0.96250 0.96600 0.97050 0.97600 0.98250 0.99000 0.99850 1.00800
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Najít kritickou polohu automaticky}
+  \begin{itemize}
+    \item pro každou polohu R1 snadno najdu odpovídající R2
+    \item jak? najdu nejdřív interval, ve kterém leží keff=1
+    \item a potom už je to jen obyčejná lineární interpolace
+    \item (nevzdávat, vymyslet!)
+    \item a nakonec zase nakreslit graf
+  \end{itemize}
+\end{frame}
+
 \section{Závěrečná zpráva}
 
 \begin{frame}{Jak vyrobit zprávu?}
@@ -196,8 +241,8 @@ rake -T
 \begin{frame}{Jak vygenerovat text?}
   \begin{itemize}
     \item zase potřebujeme lepší nástroj na text, než jsou WYSIWYG (What You See Is What You Get) editory
-    \item ideálně něco, co bude mít plain-text vstup (který můžeme s úspěchem generovat v Ruby) a co se pak 
-    \item odpověď zní LaTeX (\LaTeX) /ˈleɪtɛk/
+    \item ideálně něco, co bude mít plain-text vstup (který můžeme s úspěchem generovat v Ruby) a co se pak
+    \item odpověď zní LaTeX (\LaTeX)
     \item nejvíc nejlepší text-processor na světě
   \end{itemize}
 \end{frame}
@@ -217,8 +262,66 @@ rake -T
   \begin{itemize}
     \item viz (document.tex)
     \item není potřeba úplně všemu rozumět, zatím to jen budeme upravovat v mezích zákona
-    \item všechny příkazy začínají zpětným lomítkem
+    \item všechny příkazy začínají zpětným lomítkem, parametry jsou ve složených závorkách
     \item napíšu \texttt{pdflatex document.tex} a dostanu pdfko!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Text}
+  \begin{itemize}
+    \item konce řádku nejsou důležité
+    \item nový odstavec se dělá prázdným řádkem
+    \item nové (pod)kapitoly pomocí příkazů \texttt{section}, \texttt{subsection}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tabulka}
+  \begin{itemize}
+    \item prostředí (= \texttt{begin} ... \texttt{end})
+    \item sloupce se
+  \end{itemize}
+      \scriptsize
+  \begin{verbatim}
+\begin{tabular}
+a & b \\
+c & d \\
+\end{tabular}
+  \end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Úkol}
+  \begin{itemize}
+    \item vyrobit PDF s výsledky
+    \item 11 grafů keff
+    \item 1 graf závislosti kritické polohy R2 na poloze R1
+    \item tabulka keff
+    \item tabulka kritických poloh
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pozor na backslash}
+  \begin{itemize}
+    \item v Ruby se v řetězci backslash \texttt{\textbackslash} používá jako escape character
+    \item např konec řádky je \texttt{\textbackslash n}
+    \item pokud chci vytiskout zpětné lomítko (což bude asi pro LaTeX potřeba), musím ho zdvojit: \texttt{\textbackslash \textbackslash}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Složitější práce}
+  \begin{itemize}
+    \item LaTeX je ideální pro rozsáhlé texty
+    \item výzkumák, diplomka, disertace se naformátuje sama a všechno funguje bez trápení a snažení
+    \item odkazy, reference, citace .. všechno bez starostí
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Prezentace}
+  \begin{itemize}
+    \item balíček \texttt{beamer}
+    \item bez nutnosti se uklikat to samo od sebe vypadá slušně
+    \item viz tahle prezentace
+    \item nevýhoda(?): obtížnost přizpůsobit rozmístění textu apod., ale na druhou stranu to aspoň drží jednotný styl
   \end{itemize}
 \end{frame}
 

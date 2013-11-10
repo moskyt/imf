@@ -1,0 +1,921 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\ XXX}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\12. listopadu 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item komplexnější řešení úlohy na zpracování dat, vykreslování sady grafů
+    \item organizace jednoduchých skriptů - rake
+    \item rychlý úvod do LaTeXu
+  \end{itemize}
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
+    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme
+    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (XXXX Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{ }
+  \scriptsize
+  \begin{block}{ }
+    \scriptsize
+    \begin{verbatim}
+
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+Základní syntaxe ERb (1)
+Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+<% a = b + 5 %>
+<% list = ary * ", " %>
+
+Základní syntaxe ERb (2)
+Pokud chci něco vložit, stačí přidat rovnítko
+<%= a %>
+<%= ary[1] %>
+<%= b + 5 %>
+
+Základní syntaxe ERb (3)
+Radost je možnost použít bloky a tedy i iterátory apod.:
+<% (1..5).each do |i| %>
+Number <%= i %>
+<% end %>
+<% ary.each do |x| %>
+Array contains <%= x %>
+<% end %>
+
+Důležité upozornění
+
+- oddělení modelu a view
+- přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+- je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+- a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+
+
+
+
+
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+1   gnuplot
+2   ruby
+3   z mcnp
+4   rake, latex
+
+
+5   erb, more latex, vcs intro
+  - jak funguje erb
+  - load, require, def
+  - tyce revisited
+  - vyrobit z latexu tabulku
+  - about vcs
+  - github -- clone imf repo
+
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\ XXX}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\12. listopadu 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item komplexnější řešení úlohy na zpracování dat, vykreslování sady grafů
+    \item organizace jednoduchých skriptů - rake
+    \item rychlý úvod do LaTeXu
+  \end{itemize}
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
+    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme
+    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (XXXX Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+Základní syntaxe ERb (1)
+Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+<% a = b + 5 %>
+<% list = ary * ", " %>
+
+Základní syntaxe ERb (2)
+Pokud chci něco vložit, stačí přidat rovnítko
+<%= a %>
+<%= ary[1] %>
+<%= b + 5 %>
+
+Základní syntaxe ERb (3)
+Radost je možnost použít bloky a tedy i iterátory apod.:
+<% (1..5).each do |i| %>
+Number <%= i %>
+<% end %>
+<% ary.each do |x| %>
+Array contains <%= x %>
+<% end %>
+
+Důležité upozornění
+
+- oddělení modelu a view
+- přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+- je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+- a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+
+
+
+
+
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+1   gnuplot
+2   ruby
+3   z mcnp
+4   rake, latex
+
+
+5   erb, more latex, vcs intro
+  - jak funguje erb
+  - load, require, def
+  - tyce revisited
+  - vyrobit z latexu tabulku
+  - about vcs
+  - github -- clone imf repo
+
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\ XXX}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\12. listopadu 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item komplexnější řešení úlohy na zpracování dat, vykreslování sady grafů
+    \item organizace jednoduchých skriptů - rake
+    \item rychlý úvod do LaTeXu
+  \end{itemize}
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
+    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme
+    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (XXXX Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+Základní syntaxe ERb (1)
+Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+<% a = b + 5 %>
+<% list = ary * ", " %>
+
+Základní syntaxe ERb (2)
+Pokud chci něco vložit, stačí přidat rovnítko
+<%= a %>
+<%= ary[1] %>
+<%= b + 5 %>
+
+Základní syntaxe ERb (3)
+Radost je možnost použít bloky a tedy i iterátory apod.:
+<% (1..5).each do |i| %>
+Number <%= i %>
+<% end %>
+<% ary.each do |x| %>
+Array contains <%= x %>
+<% end %>
+
+Důležité upozornění
+
+- oddělení modelu a view
+- přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+- je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+- a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+
+
+
+
+
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+1   gnuplot
+2   ruby
+3   z mcnp
+4   rake, latex
+
+
+5   erb, more latex, vcs intro
+  - jak funguje erb
+  - load, require, def
+  - tyce revisited
+  - vyrobit z latexu tabulku
+  - about vcs
+  - github -- clone imf repo
+
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\ XXX}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\12. listopadu 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item komplexnější řešení úlohy na zpracování dat, vykreslování sady grafů
+    \item organizace jednoduchých skriptů - rake
+    \item rychlý úvod do LaTeXu
+  \end{itemize}
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
+    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme
+    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (XXXX Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+Základní syntaxe ERb (1)
+Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+<% a = b + 5 %>
+<% list = ary * ", " %>
+
+Základní syntaxe ERb (2)
+Pokud chci něco vložit, stačí přidat rovnítko
+<%= a %>
+<%= ary[1] %>
+<%= b + 5 %>
+
+Základní syntaxe ERb (3)
+Radost je možnost použít bloky a tedy i iterátory apod.:
+<% (1..5).each do |i| %>
+Number <%= i %>
+<% end %>
+<% ary.each do |x| %>
+Array contains <%= x %>
+<% end %>
+
+Důležité upozornění
+
+- oddělení modelu a view
+- přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+- je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+- a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+
+
+
+
+
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+1   gnuplot
+2   ruby
+3   z mcnp
+4   rake, latex
+
+
+5   erb, more latex, vcs intro
+  - jak funguje erb
+  - load, require, def
+  - tyce revisited
+  - vyrobit z latexu tabulku
+  - about vcs
+  - github -- clone imf repo
+
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?
