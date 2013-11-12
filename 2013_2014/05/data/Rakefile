@@ -134,7 +134,7 @@ task :badtables do
 end
 
 task :doc do
-  require '../ruby/erb'
+  require '../ruby/erb_compiler'
   list = Dir["*.csv"].map do |fn|
     fn.split(".").first
   end
