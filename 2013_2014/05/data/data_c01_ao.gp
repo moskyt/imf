@@ -1,5 +1,9 @@
-set terminal png
+set terminal postscript eps enhanced
+set title "Axial offset in c01"
+set xlabel "date"
+set ylabel "Axial offset"
 set xdata time
 set timefmt "%m/%d/%Y"
-set output "data_c01_ao.png"
+set output "data_c01_ao.eps"
+set key off
 plot "data_c01.csv" using 1:3

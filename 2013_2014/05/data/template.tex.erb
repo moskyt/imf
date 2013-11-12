@@ -6,20 +6,68 @@
 \usepackage{graphicx}
 \usepackage[margin=2cm]{geometry}
 
+\title{Provozní záznamy JE Třeskoprsky}
+\author{Informatika pro moderní fyziky (5)}
+
 \begin{document}
+
+\maketitle
+
+\tableofcontents
 
 \section{Grafy}
 
 \subsection{Koncentrace kyseliny borité}
 
 <% files.each do |f| %>
-\includegraphics[width=\textwidth]{<%= f %>_bc.png}
+
+\subsubsection{Kampaň <%= f.split('_').last %>}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{<%= f %>_bc.eps}
+\end{center}
 <% end %>
 
 \subsection{Axiální ofset}
 
 <% files.each do |f| %>
-\includegraphics[width=\textwidth]{<%= f %>_ao.png}
+
+\subsubsection{Kampaň <%= f.split('_').last %>}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{<%= f %>_ao.eps}
+\end{center}
+<% end %>
+
+\section{Tabulky}
+
+\subsection{Koncentrace kyseliny borité}
+
+<% files.each do |f| %>
+
+\subsubsection{Kampaň <%= f.split('_').last %>}
+
+\begin{tabular}{|l|l||l|l||l|l|}
+\hline
+Datum & cB [g/kg] & Datum & cB [g/kg] & Datum & cB [g/kg] \\
+\hline
+\input{<%= f %>_bc}
+\end{tabular}
+
+<% end %>
+
+\subsection{Axiální ofset}
+
+<% files.each do |f| %>
+
+\subsubsection{Kampaň <%= f.split('_').last %>}
+
+\begin{tabular}{|l|l||l|l||l|l|}
+\hline
+Datum & ofset [\%] & Datum & ofset [\%] & Datum & ofset [\%]\\
+\hline
+\input{<%= f %>_ao}
+\end{tabular}
+
 <% end %>
 
 \end{document}
