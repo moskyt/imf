@@ -1,0 +1,147 @@
+title = {
+  'bc' => "Boric acid concentration",
+  'ao' => "Axial offset"
+}
+
+task :data do
+  require 'date'
+
+  l  = (1..5).map{|x| 210 + (rand-0.5)*30}
+  b0 = (1..5).map{|x| 4.5 + (rand-0.5)*0.5}
+  aolin = (1..5).map{|x| 0.001 + (rand-0.5)*0.005}
+  ao0 =   (1..5).map{|x| -4.0 + (rand-0.5)*0.5}
+  d  = (1..5).map{|x| (35 + (rand-0.5)*10).to_i}
+
+  date = Date.civil(1991,5,4)
+  %w{01 02 03 04 05}.each do |c|
+    ci = c.to_i-1
+    File.open("data_c#{c}.csv", 'w') do |f|
+      n = 0
+      while n < l[ci]
+        bc = (1 - n/l[ci])*b0[ci] * (1 + (rand-0.5)*0.01)
+        ao = (ao0[ci] + n * aolin[ci] + n ** 0.5 * 0.2) * (1 + (rand-0.5)*0.05)
+        f.puts "%s %.3f %.3f" % [date.strftime("%m/%d/%Y"), bc, ao]
+        date += 3
+        n += 3
+      end
+      date += d[ci]
+    end
+  end
+end
+
+task :old_plot do
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+
+    File.open("#{base}_bc.gp", 'w') do |f|
+      f.puts "set terminal png"
+      f.puts "set xdata time"
+      f.puts "set timefmt \"%m/%d/%Y\""
+      f.puts "set output \"#{base}_bc.png\""
+      f.puts "plot \"#{base}.csv\" using 1:2"
+    end
+    `gnuplot #{base}_bc.gp`
+
+    File.open("#{base}_ao.gp", 'w') do |f|
+      f.puts "set terminal png"
+      f.puts "set output \"#{base}_ao.png\""
+      f.puts "set xdata time"
+      f.puts "set timefmt \"%m/%d/%Y\""
+      f.puts "plot \"#{base}.csv\" using 1:3"
+    end
+    `gnuplot #{base}_ao.gp`
+  end
+end
+
+task :plot do
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+    {'bc' => 2, 'ao' => 3}.each do |var, col|
+      File.open("#{base}_#{var}.gp", 'w') do |f|
+        f.puts "set terminal png"
+        f.puts "set xdata time"
+        f.puts "set timefmt \"%m/%d/%Y\""
+        f.puts "set output \"#{base}_#{var}.png\""
+        f.puts "plot \"#{base}.csv\" using 1:#{col}"
+      end
+      `gnuplot #{base}_#{var}.gp`
+    end
+  end
+end
+
+task :niceplot do
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+    name = base.split("_").last
+    {'bc' => 2, 'ao' => 3}.each do |var, col|
+      File.open("#{base}_#{var}.gp", 'w') do |f|
+        f.puts "set terminal postscript eps enhanced"
+        f.puts "set title \"#{title[var]} in #{name}\""
+        f.puts "set xlabel \"date\""
+        f.puts "set ylabel \"#{title[var]}\""
+        f.puts "set xdata time"
+        f.puts "set timefmt \"%m/%d/%Y\""
+        f.puts "set output \"#{base}_#{var}.eps\""
+        f.puts "set key off"
+        f.puts "set rmargin 2"
+        f.puts "plot \"#{base}.csv\" using 1:#{col}"
+      end
+      `gnuplot #{base}_#{var}.gp`
+    end
+  end
+end
+
+task :tables do
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+    {'bc' => 2, 'ao' => 3}.each do |var, col|
+      File.open("#{var}_#{base[5..-1]}.tex", 'w') do |f|
+        data = []
+        IO.foreach(fn) do |line|
+          ary = line.strip.split
+          date = ary[0].split("/")
+          data << ["#{date[1]}. #{date[0]}. #{date[2]}", ary[col-1]]
+        end
+        k = data.size/3
+        (0...data.size/3).each do |j|
+          f.puts "%s & %s & " % [data[j][0], data[j][1]]
+          if data[j+k]
+            f.puts "%s & %s & " % [data[j+k][0], data[j+k][1]]
+          else
+            f.puts " &  & "
+          end
+          if data[j+2*k]
+            f.puts "%s & %s \\\\" % [data[j+2*k][0], data[j+2*k][1]]
+          else
+            f.puts " &  \\\\"
+          end
+          f.puts "\\hline"
+        end
+      end
+    end
+  end
+end
+
+task :badtables do
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+    {'bc' => 2, 'ao' => 3}.each do |var, col|
+      File.open("bad#{base}_#{var}.tex", 'w') do |f|
+        IO.foreach(fn) do |line|
+          ary = line.strip.split
+          f.puts "%s & %s \\\\" % [ary[0], ary[col-1]]
+        end
+      end
+    end
+  end
+end
+
+task :doc do
+  require '../ruby/erb_compiler'
+  list = Dir["*.csv"].map do |fn|
+    fn.split(".").first
+  end
+  erb("template.tex.erb", "report.tex", {:files => list})
+  system("pdflatex report.tex")
+  system("pdflatex report.tex")
+end
