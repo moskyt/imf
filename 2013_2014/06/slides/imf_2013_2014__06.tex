@@ -33,7 +33,7 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (6)]{Informatika pro moderní fyziky (6)\\ Tvorba textových dokumentů}
+\title[IMF (6)]{Informatika pro moderní fyziky (6)\\ Chytré šablony a interaktivní dokumenty}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
@@ -65,7 +65,8 @@
 \begin{frame}{}
   \begin{itemize}
     \item používání klávesových zkratek
-    \item
+    \item generování většího množství grafů, práce se všemi soubory v adresáři
+    \item tvorba tabulek v LaTeXu, jejich vložení do dokumentu
   \end{itemize}
 \end{frame}
 
@@ -82,211 +83,19 @@ puts "#{a}"
 
 \begin{frame}{Co už máme}
   \begin{itemize}
-    \item
+    \item soubory \texttt{data\_*.csv} - data ve třech sloupcích (datum, koncentrace kyseliny borité v chladivu, axiální ofset)
+    \item vyrobené tabulky (jistě si všichni zpracovali doma) (\texttt{ao\_c??.tex}, \texttt{bc\_c??.tex})
+    \item hezké grafy (\texttt{ao\_c??.eps}, \texttt{bc\_c??.eps})
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Co nám ještě chybí}
   \begin{itemize}
-    \item
+    \item slepit všechno do jednoho dokumentu -- s hezkou strukturou, s vloženými
+    \item de facto potřebujeme vyrobit celý LaTeX dokument automaticky (kromě hlavičky) vyrobit automaticky
+    \item jaké máme možnosti?
   \end{itemize}
 \end{frame}
-
-\begin{frame}{Přepínání jazyků}
-  \begin{itemize}
-    \item je dobré se mu vyhnout, protože to opravdu trochu otravuje (i když se s tím dá docela dobře žít, pokud máte dobrou klávesovou zkratku)
-    \item rozhodně stojí za to zjistit -- například pro psaní v LaTeXu -- kde na české klávesnici máte potřebné speciální znaky (v tomto případě zejména backslash a složené závorky)
-    \item chytré editory mají různé pochystávky a makra, která vám umožní se těmto speciálním znakům defacto vyhnout
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Klávesové zkratky}
-  \begin{itemize}
-    \item jako s programováním -- musím se něco naučit / zapamatovat, ale pak mi to ušetří hromadu času
-    \item minimálně základní sadu stojí za to se naučit
-    \item často jdou ručně editovat, ale většinou to není nutné (a je to stejně na houby, pokud zrovna nesedíte u svého počítače)
-    \item jako s hudebním nástrojem -- za čas už neznáte ty zkratky, ale prostě je umíte zmáčknout bez přemýšlení
-    \item hodně jich je sdílených napříč programy a editory
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Klávesové zkratky - MS Windows}
-  \begin{itemize}
-    \item copy-paste
-    \item undo
-    \item přepínání aplikací
-    \item přepínání oken v rámci aplikace
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Klávesové zkratky -- Notepad++}
-  \begin{itemize}
-    \item pohyb v textu po slovech a stránkách
-    \item uložení, otevření, zavření
-    \item změna odsazení bloku \texttt{Tab / Shift+Tab}
-    \item přepínání mezi soubory
-    \item zakomentovat/odkomentovat \texttt{Ctrl+Q}
-  \end{itemize}
-\end{frame}
-
-\section{Výroba dokumentu v praxi}
-
-\begin{frame}{Úkol na dnešek}
-  \begin{itemize}
-    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
-    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
-    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Rozbor}
-  \begin{itemize}
-    \item načíst tabulky a vykreslit grafy umíme
-    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
-    \item vložit obrázek do latexu taky umíme
-    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Tak nejdřív ty grafy}
-  \begin{itemize}
-    \item to už je vážně obehraná písnička, ale tady je aspoň trochu změna
-    \item potřebujeme vybrat, které dva sloupce použít - parametr \texttt{using}
-    \item \texttt{plot ``data.csv'' using 1:2}
-    \item datum na vodorovné ose -- potřeba načíst ve správném formátu atd.
-    \item \texttt{set xdata time}
-    \item \texttt{set timefmt ``\%m/\%d/\%Y''}
-    \item s hvězdičkou: nastavit nadpis a popisky os
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Ne tak úplně chytře}
-  \tiny
-\begin{verbatim}
-  Dir["*.csv"].each do |fn|
-    base = fn.split(".").first
-
-    File.open("#{base}_bc.gp", 'w') do |f|
-      f.puts "set terminal png"
-      f.puts "set xdata time"
-      f.puts "set timefmt \"%m/%d/%Y\""
-      f.puts "set output \"#{base}_bc.png\""
-      f.puts "plot \"#{base}.csv\" using 1:2"
-    end
-    `gnuplot #{base}_bc.gp`
-
-    File.open("#{base}_ao.gp", 'w') do |f|
-      f.puts "set terminal png"
-      f.puts "set output \"#{base}_ao.png\""
-      f.puts "set xdata time"
-      f.puts "set timefmt \"%m/%d/%Y\""
-      f.puts "plot \"#{base}.csv\" using 1:3"
-    end
-    `gnuplot #{base}_ao.gp`
-  end
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{DRY}
-  \begin{itemize}
-    \item základní paradigma: DRY = don't repeat yourself
-    \item nemá cenu psát dvě věci stejně
-    \item použití \texttt{copy and paste} při programování je varovný signál
-    \item pokud nejsou stejně, ale skoro stejně, je potřeba trochu chytrosti
-    \item připomeňme si hash: \texttt{\{'a' => 1, 'b' => 2\}}
-    \item přes hash se dá iterovat: \\ \texttt{\{'a' => 1, 'b' => 2\}.each do |key, value|}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Grafy -- DRY}
-  \tiny
-  \begin{verbatim}
-    Dir["*.csv"].each do |fn|
-      base = fn.split(".").first
-      {'bc' => 2, 'ao' => 3}.each do |var, col|
-        File.open("#{base}_#{var}.gp", 'w') do |f|
-          f.puts "set terminal png"
-          f.puts "set xdata time"
-          f.puts "set timefmt \"%m/%d/%Y\""
-          f.puts "set output \"#{base}_#{var}.png\""
-          f.puts "plot \"#{base}.csv\" using 1:#{col}"
-        end
-        `gnuplot #{base}_#{var}.gp`
-      end
-    end
-  \end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Jak na tabulky}
-  \begin{itemize}
-    \item tabulky budou dost rozsáhlé a montovat je přímo nějak do latexových vstupů je asi spíš nepraktické, naštěstí to jde i jinak
-    \item naštěstí má LaTex příkaz \texttt{\textbackslash{}input}, kterým můžeme prostě vložit do dokumentu nějaký externí soubor
-    \item takže si nejdřív přichystáme soubory s tabulkami a pak se na ně budeme už jenom odkazovat
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Jak na tabulky v LaTeXu (1)}
-  \begin{block}{ }
-    Základem tabulky je prostředí \texttt{tabular} s definicí počtu a zarovnání sloupců:
-    \scriptsize
-    \begin{verbatim}
-\begin{tabular}{lrr}
-  ...
-\end{tabular}
-    \end{verbatim}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Jak na tabulky v LaTeXu (2)}
-  \begin{block}{ }
-    Uvnitř tabulky se sloupce oddělují ampersandem a řádky dvojitým backslashem:
-    \scriptsize
-    \begin{verbatim}
-\begin{tabular}{lrr}
-  Data 1 & a & 1.0 \\
-  Data 2 & b & 2.0 \\
-  Data 3 & c & 3.0 \\
-\end{tabular}
-    \end{verbatim}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Jak na tabulky v LaTeXu (3)}
-  \begin{block}{ }
-    Přidání mřížky je nesnadné, leč proveditelné a vlastně docela dobře vymyšlené - přidáváme jednotlivé čáry po sloupcích a řádcích:
-    \scriptsize
-    \begin{verbatim}
-\begin{tabular}{|l|r|r|}
-  \hline
-  Data 1 & a & 1.0 \\
-  \hline
-  Data 2 & b & 2.0 \\
-  \hline
-  Data 3 & c & 3.0 \\
-  \hline
-\end{tabular}
-    \end{verbatim}
-  \end{block}
-\end{frame}
-
-\begin{frame}{Úkol na teď: výroba tabulek}
-  \begin{itemize}
-    \item vyrobit z CSV souboru (tři sloupce) dvě LaTeX tabulky (po dvou sloupcích)
-    \item postarat se, aby byly hezké
-    \item chytré je vyrobit tabulku třeba o šesti sloupcích (jakože tři dvousloupce), pak už se to na stránku v klidu vejde
-  \end{itemize}
-\end{frame}
-
-% ukol ted: vytahnout z trisloupcoveho CSV dvousloupcovou latex tabulku
-%
-% (ukazat, s vysledkem)
-%
-% pak: do tri dvousloupcu
-%
-% (vysledek)
-%
-% (ukazat)
-
 
 \section{Na šablony chytře}
 
@@ -422,6 +231,42 @@ end
   \end{enumerate}
 \end{frame}
 
+\section{HTML jako prezentační nástroj}
+
+\begin{frame}{Výhody HTML+JS}
+  \begin{itemize}
+    \item PDF zpráva je fajn, ale umožňuje jen ``plochou'' strukturu
+    \item často je potřeba prezentovat tak velké množství informací, že to nejde jenom nalepit za sebe
+    \item hodilo by se něco klikacího
+    \item příklad -- ASTRID (výstup z programu ANDREA)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HTML}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{javaScript}
+  \begin{itemize}
+    \item trochu divný jazyk, historicky vzniknul jako ideový koncept a omylem se z toho stala definitivní verze
+    \item potvora s nejasnou syntaxí a dost netradiční
+    \item naštěstí na většinu základního využití
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{A to je vše, přátelé!}
   \begin{center}
@@ -430,6 +275,14 @@ end
 \end{frame}
 
 \end{document}
+
+% 7 - dodelavka z minula (asi JS)
+%   -
+%
+%
+%! VCS, SVG, rubygems, bundler, import/export exl
+
+
 
 % 1   gnuplot
 % 2   ruby

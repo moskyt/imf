@@ -61,7 +61,7 @@ task :plot do
         f.puts "set terminal png"
         f.puts "set xdata time"
         f.puts "set timefmt \"%m/%d/%Y\""
-        f.puts "set output \"#{base}_#{var}.png\""
+        f.puts "set output \"#{var}_#{base[5..-1]}.png\""
         f.puts "plot \"#{base}.csv\" using 1:#{col}"
       end
       `gnuplot #{base}_#{var}.gp`
@@ -81,7 +81,7 @@ task :niceplot do
         f.puts "set ylabel \"#{title[var]}\""
         f.puts "set xdata time"
         f.puts "set timefmt \"%m/%d/%Y\""
-        f.puts "set output \"#{base}_#{var}.eps\""
+        f.puts "set output \"#{var}_#{base[5..-1]}.eps\""
         f.puts "set key off"
         f.puts "set rmargin 2"
         f.puts "plot \"#{base}.csv\" using 1:#{col}"
