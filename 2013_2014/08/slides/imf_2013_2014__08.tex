@@ -1,9 +1,3 @@
-/ kodovani
-/ ukol: signaly z detektoru a obrazky
-/ SVG - vyklad, rucni generovani, samotne generovani obrazku
-/ generovat soustavu html souboru
-/ ???? sinatra (aspon uvod)
-
 \documentclass{beamer}
 
 \def\Tiny{\fontsize{6pt}{6pt}\selectfont}
@@ -180,9 +174,81 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Jak na obrázky}
+  \begin{itemize}
+    \item pěkný formát na tvorbu vektorových obrázku je SVG (Scalable Vector Graphics)
+    \item je to dobrá věc především na internet -- všechny prohlížeče ho umí
+    \item stejně jako HTML je postaven na XML, takže už to vlastně umíme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jednoduchý příklad}
+  \tiny
+  \begin{verbatim}
+    <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect x="0.0" y="0.0" width="40.0" height="40.0" fill="blue" />
+      <rect x="40.0" y="0.0" width="40.0" height="40.0" fill="red" />
+      <rect x="0.0" y="40.0" width="40.0" height="40.0" fill="green" />
+      <rect x="40.0" y="40.0" width="40.0" height="40.0" fill="yellow" />
+    </svg>
+  \end{verbatim}
+  \includegraphics[width=0.15\textwidth]{example}
+\end{frame}
+
+\begin{frame}{SVG -- co a jak}
+  \begin{itemize}
+    \item souřadný systém z levého horního rohu
+    \item je potřeba udat celkovou šířku a výšku
+    \item zatím nám stačí obdélník -- tag \texttt{rect}
+    \item pozor, je to striktní XML, tedy je nutné \texttt{rect} tag uzavřít (!)
+    \item vyzkoušejte -- nejdřív jen tak, potom vygenerovat 8x8 mapu (zatím klidně prázdnou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak vložit do HTML}
+  \begin{itemize}
+    \item jsou různé metody, jak vložit ze souboru
+    \item my se bez toho v pohodě obejdeme - vložíme přímo (\texttt{IO.read})
+    \item v tu chvíli je totiž mj. možné naplácat na SVG objekty javascriptové handlery
+    \item ... tedy na čtverečku můžu mít onclick
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zpracovat data}
+  \begin{itemize}
+    \item pro každý CSV soubor chceme mít graf (gnuplot/png)
+    \item pro každý den mapu 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Další JS chytrosti}
+  \begin{itemize}
+    \item v jQuery už známe \texttt{\$(`\#id')}
+    \item ale ve skutečnosti jde použít jakýkoli CSS selektor, takže třeba \texttt{\$(`p')}
+    \item pokročilý CSS selektor -- vnoření: \texttt{\#my\_list img} vybere všechny obrázky (\texttt{img}) které jsou uvnitř elementu s id \texttt{my\_list}
+    \item ... použiju v situacích, kdy chci schovat nějakou množinu elementů a pak jeden z nich zobrazit (tj. když mám hromadu obrázků a chci, aby byl vidět jen jeden)
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}{}
   \begin{itemize}
-    \item
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{}
+  \begin{itemize}
+    \item 
   \end{itemize}
 \end{frame}
 
