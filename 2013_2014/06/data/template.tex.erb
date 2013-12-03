@@ -19,22 +19,26 @@
 
 \subsection{Koncentrace kyseliny borité}
 
-<% files.each do |f| %>
+<% campaigns.each do |c| %>
 
-\subsubsection{Kampaň <%= f.split('_').last %>}
+
+
+\subsubsection{Kampaň <%= c %>}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{<%= f %>_bc.eps}
+\includegraphics[width=0.8\textwidth]{bc_<%= c %>.eps}
 \end{center}
 <% end %>
 
 \subsection{Axiální ofset}
 
-<% files.each do |f| %>
+<% campaigns.each do |c| %>
 
-\subsubsection{Kampaň <%= f.split('_').last %>}
+
+
+\subsubsection{Kampaň <%= c %>}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{<%= f %>_ao.eps}
+\includegraphics[width=0.8\textwidth]{ao_<%= c %>.eps}
 \end{center}
 <% end %>
 
@@ -42,30 +46,34 @@
 
 \subsection{Koncentrace kyseliny borité}
 
-<% files.each do |f| %>
+<% campaigns.each do |c| %>
 
-\subsubsection{Kampaň <%= f.split('_').last %>}
+
+
+\subsubsection{Kampaň <%= c %>}
 
 \begin{tabular}{|l|l||l|l||l|l|}
 \hline
 Datum & cB [g/kg] & Datum & cB [g/kg] & Datum & cB [g/kg] \\
 \hline
-\input{<%= f %>_bc}
+\input{bc_<%= c %>}
 \end{tabular}
 
 <% end %>
 
 \subsection{Axiální ofset}
 
-<% files.each do |f| %>
+<% campaigns.each do |c| %>
 
-\subsubsection{Kampaň <%= f.split('_').last %>}
+
+
+\subsubsection{Kampaň <%= c %>}
 
 \begin{tabular}{|l|l||l|l||l|l|}
 \hline
 Datum & ofset [\%] & Datum & ofset [\%] & Datum & ofset [\%]\\
 \hline
-\input{<%= f %>_ao}
+\input{ao_<%= c %>}
 \end{tabular}
 
 <% end %>

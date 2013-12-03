@@ -1,0 +1,228 @@
+/ kodovani
+/ ukol: signaly z detektoru a obrazky
+/ SVG - vyklad, rucni generovani, samotne generovani obrazku
+/ generovat soustavu html souboru
+/ ???? sinatra (aspon uvod)
+
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (8)]{Informatika pro moderní fyziky (8)\\ CSS - stylování dokumentů, jednoduché webové aplikace}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\3. prosince 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item HTML pro běžné použití
+    \item procvičení ERb
+    \item základy použití JS
+  \end{itemize}
+\end{frame}
+
+\section{Něco o kódování}
+
+\begin{frame}{Kódování}
+  \begin{itemize}
+    \item znaky v počítači: 1 znak = 1 byte = 256 možností
+    \item cca polovina je ``normální text'', zbytek jsou tak trochu speciální znaky
+    \item jsou tam ale jen `západní' znaky, na středoevropské se nedostalo
+    \item co teprv azbuky, japonština, čínština, ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kódování}
+  \begin{itemize}
+    \item varianta 1: nahrazovat druhou polovinu znaků tím, co zrovna potřebuju (ěščř...)
+    \item výhoda: nezabírá místo, pořád platí znak=byte, jednoduché řešení
+    \item nevýhoda: pro různé jazyky různá kódování
+    \item další nevýhoda: na leckterý jazyk (neevropský) to naprosto nestačí
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kódování}
+  \begin{itemize}
+    \item varianta 2: přejít na reprezentaci jednoho znaku více byty
+    \item výhoda: podstatně se rozšíří počet znaků, takže není nutné `přepínat'
+    \item nevýhoda: zvětšuje velikost textu
+    \item další nevýhoda: míra rozsypanosti čaje při špatné interpretaci se zvyšuje (je možné způsobit i nečitelnost `obyčejných' znaků)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kódování - obecné problémy}
+  \begin{itemize}
+    \item soubory neobsahují informaci o tom, v jakém kódování jsou, takže je nutné dodávat metadata
+    \item manipulace s kódováním je otravná, obtížná a snadno způsobí problémy
+    \item je nutné synchronizovat/řešit kódování na všech vrstvách aplikace (soubory / databáze / databázový klient / aplikace / server / klient)
+    \item ... pokud existuje 100 různých variant, řeší se to obvykle tím, že se vymyslí nějaká 101. ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kódování}
+  \begin{itemize}
+    \item naštěstí to (minimálně v euroamerickém prostředí) už dneska nemusíme řešit, existuje jednotný standard -- Unicode (UTF-8)
+    \item starší systémy občas poskytují data v jiných kódováních, je dobré vědět, že pro češtinu se můžete setkat s \texttt{Windows/CP1250} a \texttt{ISO-9981-2}
+    \item pokud budete chtít pracovat s exotickými jazyky (Afrika, Oceánie), budete asi muset využít UTF-16/32 (naneštěstí opět více variant)
+    \item z historických důvodů je nejednotnost také pro japonská kódování
+    \item to hlavní: používejte UTF-8. Tečka. Nezapomeňte: v editoru, v hlavičce HTML, v hlavičce LaTeXu, všude...
+  \end{itemize}
+\end{frame}
+
+\section{Stylování dokumentů}
+
+\begin{frame}{CSS}
+  \begin{itemize}
+    \item jazyk pro popis vzhledu HTML dokumentu
+    \item v nejjednodušším přístupu definuje styly pro jednotlivé typy elementů
+    \item dále umožňuje definovat tzv. třídy (skupiny elementů, pomocí atributu \texttt{class} v HTML) a také styly pro konkrétní elementy (id)
+    \item složitější selekory -- vnoření, souslednost atd.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{CSS - jednoduchý příklad}
+  \begin{itemize}
+    \item základní selektory: \emph{element}, \emph{.třída} a \emph{\#id}
+    \item základní syntaxe \emph{vlastnost: hodnota;}
+  \end{itemize}
+  \scriptsize
+  \begin{verbatim}
+    a {
+      color: blue;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #core_map { float:left; }
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{CSS - kam s ním}
+  \begin{itemize}
+    \item přímo k tagu (\texttt{<div style=``display:none''>}) -- možná dobré na rychlé ladění/patlání, ale vesměs vždy špatně; jedinou výjimkou je \texttt{display:none} pro elementy, které mají být vidět až později, tam to jinak nejde
+    \item v hlavičce (\texttt{head}) HTML dokumentu: \texttt{<style type=``text/css''>...</style>}
+    \item v externím souboru (obvykle jediné správné řešení) -- pomocí tagu \texttt{link} v hlavičce
+    \item my vystačíme se \texttt{style} tagem v hlavičcce
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rychlé procvičení}
+  \begin{itemize}
+    \item vezměte si svoje krásné HTML z minula a doplňte do něj trochu toho stylování
+    \item minimum: změnit font (\texttt{font-family}), nastavit rozumné velikosti písma a barvy
+    \item zrušit podtrhávání odkazů (\texttt{text-decoration})
+    \item bonus: jiná barva odkazů na přepínání tabulka/graf
+  \end{itemize}
+\end{frame}
+
+\section{Tvorba obrázků}
+
+\begin{frame}{Zadání dnešní úlohy}
+  \begin{itemize}
+    \item každý den data z 1-9 detektorů
+    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic)
+    \item je potřeba hezky zobrazit na každý den mapu AZ a grafy signálů z detektorů
+    \item viz \texttt{html/document.html}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+  %
+  %
+  % kodovani
+  % stylovani - vytunit tu vec z minula (? nebude to automatizace a tak dal, zejo)
+  % serverside - prezentace zaznamu z reaktoru ...
+  % ?generovani obrazku
+  %
+  %
+  % zaznamy z detektoru, polohy, kresleni obrazku s polohou, mazce!
+  %
+  %
+
+
+
+% \section{Server-side interaktivita}
+%
+% \begin{frame}{Principy webových aplikací}
+%   \begin{itemize}
+%     \item poskytování HTML (a dalšího) obsahu pomocí protokolu HTTP
+%     \item webový prohlížeč pošle dotaz (request), který se skládá z adresy (URL) a případných parametrů
+%     \item interakce je v podstatě bezstavová = na stejný dotaz dostanu stejnou odpověď
+%     \item stav lze udržovat v tzv. session (rozumné např. pro autentizaci), ale měl by se používat jen minimálně
+%   \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Jak se píše webová aplikace}
+%   \begin{itemize}
+%     \item MVC - model/view/controller
+%     \item model obsahuje tzv. business logic -- všechnu chytrost s daty, bez ohledu na to, jak se k nim přistupuje
+%     \item controller zpracovává interakci uživatele s aplikací -- analyzuje request a rozhodne, co se má zobrazit
+%     \item view je například ERb šablona
+%   \end{itemize}
+% \end{frame}

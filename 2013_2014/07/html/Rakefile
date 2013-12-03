@@ -1,0 +1,18 @@
+require 'erb'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+task :compile do
+  Dir["*.html.erb"].each do |fn|
+    erb(fn, fn.sub(".erb", ""), {:campaigns => %w{c01 c02 c03 c04 c05}})
+  end
+end

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Provozní záznamy JE Třeskoprsky</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1>Provozní záznamy JE Třeskoprsky</h1>
+  <% campaigns.each do |c| %>
+
+    <h2>Kampaň <%= c %></h2>
+
+    <h3>Koncentrace kyseliny borité</h3>
+    <img src="bc_<%= c %>.png">
+    <%= IO.read("bc_#{c}.html") %>
+
+    <h3>Axiální ofset</h3>
+    <img src="ao_<%= c %>.png">
+    <%= IO.read("ao_#{c}.html") %>
+
+  <% end %>
+</body>
+</html>

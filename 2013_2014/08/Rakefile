@@ -1,0 +1,107 @@
+require 'active_support/all'
+require 'fileutils'
+require 'erb'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+def load_data
+  dmap = {}
+  Dir["data/*.csv"].each do |fn|
+    File.open(fn) do |f|
+      line = f.gets
+      date, c = *line[1..-1].strip.split
+      puts date
+      d, m, y = *date.split(".").map(&:to_i)
+      i, j = c.split(',').map(&:to_i)
+      dmap[date] ||= {}
+      dmap[date][[i,j]] = File.basename(fn, '.csv')
+    end
+  end
+  dmap
+end
+
+task :html do
+  dmap = load_data
+  erb("html/document.html.erb", "html/document.html", {:dmap => dmap})
+end
+
+task :svg do
+  FileUtils.mkdir_p('svg')
+  `rm -f svg/*`
+  dmap = load_data
+  pitch = 40
+  dmap.keys.each do |date|
+    File.open("svg/#{date.gsub(".", "_")}.svg", 'w') do |f|
+      f.puts %{<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">}
+      (0..7).each do |x|
+        (0..7).each do |y|
+          if fn = dmap[date][[x,y]]
+            f.puts %{<rect x="#{(x+0.05)*pitch}" y="#{(y+0.05)*pitch}" width="#{pitch*0.9}" height="#{pitch*0.9}" fill="red" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_#{fn}').show();"/>}
+            f.puts %{<text x="#{(x+0.5)*pitch}" y="#{(y+0.5)*pitch+7}" text-anchor="middle" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_#{fn}').show();">#{x},#{y}</text>}
+          else
+            f.puts %{<rect x="#{(x+0.05)*pitch}" y="#{(y+0.05)*pitch}" width="#{pitch*0.9}" height="#{pitch*0.9}" fill="blue" />}
+          end
+        end
+      end
+      f.puts %{</svg>}
+    end
+  end
+end
+
+task :png do
+  FileUtils.mkdir_p('png')
+  `rm -f png/*`
+  File.open("png/data.gp", 'w') do |f|
+    f.puts "set terminal png"
+    f.puts "set nokey"
+    f.puts "set xdata time"
+    f.puts "set timefmt \"%H:%M\""
+    f.puts "set xtics format \"%H:%M\""
+    Dir["data/*.csv"].each do |full_fn|
+      fn = File.basename(full_fn, '.csv')
+      f.puts %{set title "#{fn}"}
+      f.puts %{set output "png/#{fn}.png"}
+      f.puts %{plot "data/#{fn}.csv" using 1:2 with lines}
+    end
+  end
+  `gnuplot png/data.gp`
+end
+
+task :data do
+  FileUtils.mkdir_p('data')
+  `rm -f data/*`
+  d = 1.month.ago
+  24.times do
+    n = 3 + rand(4)
+    pos = (1..n).map do
+      [rand(8), rand(8)]
+    end.uniq
+    pos.each_with_index do |p, i|
+      File.open("data/#{d.strftime("%Y%m%d")}_#{i+1}.csv", 'w') do |f|
+        f.puts "##{d.day}.#{d.month}.#{d.year} #{p[0]},#{p[1]}"
+        m = 100 + rand(100)
+        t = d.to_datetime + (8 + rand(6)).hours + rand(60).minutes
+        x = (1 + rand) * 1e6
+        q = 1.0
+        m.times do
+          f.puts "#{t.strftime("%H:%M")} #{"%.4e" % x} #{"%.4e" % q}"
+          t += 1.minute
+          q = [q, 0.95].max
+          q = [q, 1.05].min
+          q += (rand - 0.5) / 10
+          x *= q
+        end
+      end
+    end
+    d += 1.day
+  end
+end

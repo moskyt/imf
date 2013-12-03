@@ -1,0 +1,25 @@
+- základy HTML
+  - stromová struktura tagů - sice trochu zdlouhavá, ale zato srozumitelná a přehledná
+
+- HyperText Markup Language
+  - jazyk pro internetové stránky
+  - logicky strukturované dokumenty, klíčovým prvkem jsou odkazy
+  - při správném používání stejně jako LaTeX definuje strukturu a obsah, nikoli vzhled
+
+- CSS, JS
+  - radosti pro web:
+  - Cascading StyleSheets - snadná a pohodlná cesta ke stylování
+  - javaScript - jazyk pro client-side interaktivitu
+
+- HTML/CSS/JS a automatizace
+  - opět se jedná o plaintext dokumenty, takže je můžeme vesele generovat z libovolného skriptu
+  - jednak lze použít jako prezentační vrstvu (vzpomeňte model/view z minula) různých webových aplikací
+  - jednak lze použít jako samostatné interaktivní client-side dokumenty, které mohou být hezké, přenositelné
+
+- Standardy na webu
+   - pro HTML, CSS, JS existuje závazná specifikace, kterou dodržují všechny standardní prohlížeče
+   - nečestnou výjimku tvoří Internet Explorer -- funguje prostě jinak a
+   - s každou verzí IE se ale podpora zlepšuje (od v.7 výš to není naprostá katastrofa)
+   - i mezi standardními prohlížeči mohou být drobné rozdíly, zejména v nových částech specifikace
+   - problematiku rozdílů (zejm. v CSS) a těžkopádnost jazyka (zejm. v JS) řeší různé CSS/JS frameworky, které poskytují moderní cross-browser rozhraní a pohodlnou práci
+

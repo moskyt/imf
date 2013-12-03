@@ -1,0 +1,70 @@
+<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<rect x="2.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="2.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="82.0" width="36.0" height="36.0" fill="red" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_1').show();"/>
+<text x="60.0" y="107.0" text-anchor="middle" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_1').show();">1,2</text>
+<rect x="42.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="42.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="82.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="202.0" width="36.0" height="36.0" fill="red" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_3').show();"/>
+<text x="140.0" y="227.0" text-anchor="middle" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_3').show();">3,5</text>
+<rect x="122.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="122.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="122.0" width="36.0" height="36.0" fill="red" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_4').show();"/>
+<text x="180.0" y="147.0" text-anchor="middle" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_4').show();">4,3</text>
+<rect x="162.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="162.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="162.0" width="36.0" height="36.0" fill="red" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_2').show();"/>
+<text x="220.0" y="187.0" text-anchor="middle" onclick="$('#chart').show();$('#chart div').hide(); $('#chart_20131124_2').show();">5,4</text>
+<rect x="202.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="202.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="242.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="2.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="42.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="82.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="122.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="162.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="202.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="242.0" width="36.0" height="36.0" fill="blue" />
+<rect x="282.0" y="282.0" width="36.0" height="36.0" fill="blue" />
+</svg>

@@ -81,9 +81,12 @@ task :niceplot do
         f.puts "set ylabel \"#{title[var]}\""
         f.puts "set xdata time"
         f.puts "set timefmt \"%m/%d/%Y\""
-        f.puts "set output \"#{var}_#{base[5..-1]}.eps\""
         f.puts "set key off"
         f.puts "set rmargin 2"
+        f.puts "set output \"#{var}_#{base[5..-1]}.eps\""
+        f.puts "plot \"#{base}.csv\" using 1:#{col}"
+        f.puts "set terminal png"
+        f.puts "set output \"#{var}_#{base[5..-1]}.png\""
         f.puts "plot \"#{base}.csv\" using 1:#{col}"
       end
       `gnuplot #{base}_#{var}.gp`
@@ -96,26 +99,36 @@ task :tables do
     base = fn.split(".").first
     {'bc' => 2, 'ao' => 3}.each do |var, col|
       File.open("#{var}_#{base[5..-1]}.tex", 'w') do |f|
-        data = []
-        IO.foreach(fn) do |line|
-          ary = line.strip.split
-          date = ary[0].split("/")
-          data << ["#{date[1]}. #{date[0]}. #{date[2]}", ary[col-1]]
-        end
-        k = data.size/3
-        (0...data.size/3).each do |j|
-          f.puts "%s & %s & " % [data[j][0], data[j][1]]
-          if data[j+k]
-            f.puts "%s & %s & " % [data[j+k][0], data[j+k][1]]
-          else
-            f.puts " &  & "
+        File.open("#{var}_#{base[5..-1]}.html", 'w') do |ff|
+          ff.puts "<table>"
+          data = []
+          IO.foreach(fn) do |line|
+            ary = line.strip.split
+            date = ary[0].split("/")
+            data << ["#{date[1]}. #{date[0]}. #{date[2]}", ary[col-1]]
           end
-          if data[j+2*k]
-            f.puts "%s & %s \\\\" % [data[j+2*k][0], data[j+2*k][1]]
-          else
-            f.puts " &  \\\\"
+          k = data.size/3
+          (0...data.size/3).each do |j|
+            f.puts "%s & %s & " % [data[j][0], data[j][1]]
+            ff.puts "<tr><td>%s</td> <td>%s</td>" % [data[j][0], data[j][1]]
+            if data[j+k]
+              f.puts "%s & %s & " % [data[j+k][0], data[j+k][1]]
+              ff.puts "<td>%s</td><td>%s</td>" % [data[j+k][0], data[j+k][1]]
+            else
+              f.puts " &  & "
+              ff.puts ""
+            end
+            if data[j+2*k]
+              f.puts "%s & %s \\\\" % [data[j+2*k][0], data[j+2*k][1]]
+              ff.puts "<td>%s</td><td>%s</td>" % [data[j+2*k][0], data[j+2*k][1]]
+            else
+              f.puts " &  \\\\"
+              ff.puts ""
+            end
+            f.puts "\\hline"
+            ff.puts "</tr>"
           end
-          f.puts "\\hline"
+          ff.puts "</table>"
         end
       end
     end
@@ -139,9 +152,17 @@ end
 task :doc do
   require '../ruby/erb_compiler'
   list = Dir["*.csv"].map do |fn|
-    fn.split(".").first
+    fn.split(".").first.split('_').last
   end
-  erb("template.tex.erb", "report.tex", {:files => list})
+  erb("template.tex.erb", "report.tex", {:campaigns => list})
   system("pdflatex report.tex")
   system("pdflatex report.tex")
+end
+
+task :html do
+  require '../ruby/erb_compiler'
+  list = Dir["*.csv"].map do |fn|
+    fn.split(".").first.split('_').last
+  end
+  erb("template.html.erb", "report.html", {:campaigns => list})
 end
