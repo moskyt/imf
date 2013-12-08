@@ -33,7 +33,7 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (8)]{Informatika pro moderní fyziky (8)\\ CSS - stylování dokumentů, jednoduché webové aplikace}
+\title[IMF (8)]{Informatika pro moderní fyziky (8)\\ CSS - stylování dokumentů, SVG - tvorba obrázků, složitější interaktivní dokument}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
@@ -167,8 +167,8 @@
 
 \begin{frame}{Zadání dnešní úlohy}
   \begin{itemize}
-    \item každý den data z 1-9 detektorů
-    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic)
+    \item každý den data z 1-9 detektorů (\texttt{data/*.csv})
+    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic) -- včetně data je uvedena na prvním řádku CSV souboru
     \item je potřeba hezky zobrazit na každý den mapu AZ a grafy signálů z detektorů
     \item viz \texttt{html/document.html}
   \end{itemize}
@@ -217,10 +217,9 @@
 \begin{frame}{Zpracovat data}
   \begin{itemize}
     \item pro každý CSV soubor chceme mít graf (gnuplot/png)
-    \item pro každý den mapu 
+    \item pro každý den mapu (nejdřív obyčejnou, potom klikací, pak třeba s textem)
   \end{itemize}
 \end{frame}
-
 
 \begin{frame}{Další JS chytrosti}
   \begin{itemize}
@@ -231,26 +230,26 @@
   \end{itemize}
 \end{frame}
 
-
-\begin{frame}{}
+\begin{frame}{Další CSS chytrosti}
   \begin{itemize}
-    \item 
+    \item normálně se jednotlivé elementy řadí pod sebe
+    \item můžu místo toho použít tzv. floating, kdy se začnou elementy řadit nalevo nebo napravo
+    \item efekt znáte např. z webových galerií, kde mi fotky vyplní celou šířku okna a jdou po řádcích
+    \item \texttt{float:left}
+    \item barvu pozadí nastavím např. \texttt{background-color:red} nebo \texttt{background-color:\#ddddff}
   \end{itemize}
 \end{frame}
 
 
-\begin{frame}{}
+\begin{frame}{Další SVG chytrosti}
   \begin{itemize}
-    \item 
+    \item kromě \texttt{rect} se bude hodit také \texttt{text}
+    \item jako text se zobrazí obsah příslušného elementu
+    \item opět použiju atributy \texttt{x}, \texttt{y} (levý dolní roh) a můžu přihodit \texttt{text-anchor=``middle''}, aby to byl dolní prostředek
+    \item pozor, text mi překryje čtvereček, takže budu muset zopakovat onclick!
   \end{itemize}
 \end{frame}
 
-
-\begin{frame}{}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\end{frame}
 
 \begin{frame}{A to je vše, přátelé!}
   \begin{center}

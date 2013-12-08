@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Signály z detektorů</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
   <style type="text/css">
+    html {
+      font-family: Verdana;
+      font-size: 11px;
+    }
+    h3 {
+      margin-top: 0px;
+      padding-top: 0px;
+    }
     #date_selector, #core_map, #chart {
       float:left;
       padding:20px;
@@ -40,15 +49,16 @@
   <div id="core_map" style="display:none">
     <% dmap.keys.each_with_index do |date, i| %>
       <div id="core_map_<%= i %>" style="display:none">
+        <h3>Datum <%= date %></h3>
         <%= IO.read "svg/#{date.gsub(".","_")}.svg" %>
       </div>
     <% end %>
   </div>
   <div id="chart" style="display:none">
-    <% dmap.values.each do |list| %>
+    <% dmap.each do |date, list| %>
     <% list.each do |coords, fn| %>
       <div id="chart_<%= fn %>" style="display:none">
-        <p>Detektor na pozici <%= coords.inspect %></p>
+        <h3>Detektor na pozici <%= coords.inspect %></h3>
 
         <img src="../png/<%=fn%>.png">
       </div>
