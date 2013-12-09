@@ -1,0 +1,68 @@
+require 'active_support/all'
+
+task :build do
+  n1 = %w{Arnost Bedrich Jarmil Emil Jan Jiri Evzen Kamil Sergej Filip Roman Josef Bohous Alfons David}
+  n2 = %w{Bachor Cejn Drab Hrabal Janovec Strouhal Koukal Dubsky Hron Baloun Zabrana Winter Novak}
+  people = {}
+  code = rand(999999-100000)+100000
+  100.times do
+    code = rand(999999-100000)+100000 while people[code]
+    name = n1[rand(n1.size)] + ' ' + n2[rand(n2.size)]
+    people[code] = name
+  end
+  File.open("lide.csv", 'w') do |f|
+    people.keys.sort.each do |k|
+      f.puts "#{k};#{people[k]}"
+    end
+  end
+  File.open("dochazka.csv", 'w') do |f|
+    (1..31).each do |day|
+      date = Date.civil(2013,1,day)
+      people.keys.each do |code|
+        if rand > 0.02
+          t1 = date + 7.hours + rand(120).minutes
+          t2 = date + 14.hours + rand(120).minutes
+          f.puts "#{date.strftime("%d.%m.%Y")};#{code};#{t1.strftime("%H:%M")};#{t2.strftime("%H:%M")}"
+        end
+      end
+    end
+  end
+end
+
+task :eval do
+  people = {}
+  IO.foreach("lide.csv") do |line|
+    code, name = *line.strip.split(";")
+    people[code] = name
+  end
+  sums = {}
+  dates = {}
+  all_dates = []
+  IO.foreach("dochazka.csv") do |line|
+    date, code, time1, time2 = *line.strip.split(";")
+    h1, m1 = *time1.split(":").map(&:to_i)
+    h2, m2 = *time2.split(":").map(&:to_i)
+    dt = m2-m1 + 60*(h2-h1)
+    sums[code] ||= 0
+    sums[code] += dt
+    dates[code] ||= []
+    dates[code] << date
+    all_dates << date
+  end
+  all_dates.uniq!
+  File.open("celkem.csv", 'w') do |f|
+    people.each do |code, name|
+      f.puts "#{name} (#{code});#{"%.1f" % (sums[code]/60.0)}"
+    end
+  end
+  File.open("kolik_dnu.csv", 'w') do |f|
+    people.each do |code, name|
+      f.puts "#{name} (#{code});#{dates[code].size}"
+    end
+  end
+  File.open("absence.csv", 'w') do |f|
+    people.each do |code, name|
+      f.puts "#{name} (#{code});#{(all_dates - dates[code])*","}"
+    end
+  end
+end
