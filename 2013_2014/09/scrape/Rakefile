@@ -1,0 +1,52 @@
+require 'rubygems'
+require 'nokogiri'
+require 'open-uri'
+require 'fileutils'
+require 'erb'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+task :list do
+  doc = Nokogiri::HTML(File.open "redmeat.html")
+  doc.css("ul li a").each do |x|
+    puts "#{x.text} => #{x.attributes['href']}"
+  end
+end
+
+task :images do
+  doc = Nokogiri::HTML(File.open "redmeat.html")
+  i = 0
+  doc.css("ul li a").each do |x|
+    i += 1
+    href = x.attributes['href'].to_s
+    dir = href.split("/")[1]
+    src = "http://www.redmeat.com/redmeat/#{dir}/index-1.gif"
+    puts "#{x.text} => #{src}"
+    File.open("redmeat_#{dir}.gif", 'wb') do |fwrite|
+      open(src, 'rb') do |fread|
+        fwrite.write fread.read
+      end
+    end
+  end
+end
+
+task :doc do
+  Dir["redmeat_*.gif"].each do |x|
+    xp = x.sub('.gif','.png')
+    unless File.exist?(xp)
+      puts x
+      `convert #{x} #{xp}`
+    end
+  end
+  list = Dir["redmeat_*.png"]
+  erb("book.tex.erb", "book.tex", {:list => list})
+end

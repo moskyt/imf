@@ -1,0 +1,213 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (10)]{Informatika pro moderní fyziky (9)\\ složitější interaktivní dokument, správa zdrojového kódu}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2013/2014\\10. prosince 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item procvičení zpracování dat
+    \item stylování dokumentů s CSS
+    \item vektorové obrázky na webu -- SVG
+    \item procvičení zpracování dat
+  \end{itemize}
+\end{frame}
+
+\section{Vzájemně provázaná data}
+
+\begin{frame}{Zadání}
+  \begin{itemize}
+    \item zpracovat data o docházce do práce z ledna 2013
+    \item soubor lide.csv obsahuje čísla průkazů a jména
+    \item soubor dochazka.csv obsahuje datum, číslo průkazu, čas příchodu, čas odchodu
+    \item kolik hodin byl kdo v lednu v práci?
+    \item které dny kdo chyběl?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Inspirace}
+  \begin{itemize}
+    \item mám tady vztah číslo-člověk a pak záznamy číslo+časy
+    \item mapa číslo-člověk je typický příklad použití hashe!
+    \item pro agregaci záznamů ze dnů k lidem je také chytré použít hash (číslo průkazu jako klíč)
+    \item pomněte paradigma \texttt{hash[key] ||= []}
+  \end{itemize}
+\end{frame}
+
+\section{Navážeme na předminulou hodinu}
+
+\begin{frame}{Zadání -- připomenutí}
+  \begin{itemize}
+    \item každý den data z 1-9 detektorů (\texttt{data/*.csv})
+    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic) -- včetně data je uvedena na prvním řádku CSV souboru
+    \item je potřeba hezky zobrazit na každý den mapu AZ a grafy signálů z detektorů
+    \item viz \texttt{html/document.html}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co už máme}
+  \begin{itemize}
+    \item grafy pro jednotlivé detektory ve formátu PNG
+    \item mapy zóny, ale zatím neklikací (SVG)
+    \item umíme načíst data o jednotlivých detektorech -- víme, které pozice jsou v jednotlivé dny obsazeny
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co nám chybí}
+  \begin{itemize}
+    \item mít schované i názvy souborů pro jednotlivé detektory (hash! hash!)
+    \item vyrobit si HTML dokument, který by zobrazoval jednotlivé mapy
+    \item doplnit interaktivitu do SVG obrázků
+    \item zobrazovat po kliknutí do mapy správný graf
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Krok číslo jedna}
+  \begin{itemize}
+    \item z datových souborů si vyrobit takovou datovou strukturu, která mi bude říkat, pro který den a na které poloze je který soubor
+    \item tj. radím například takovýto hash: {datum => {poloha => soubor}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další JS chytrosti}
+  \begin{itemize}
+    \item v jQuery už známe \texttt{\$(`\#id')}
+    \item ale ve skutečnosti jde použít jakýkoli CSS selektor, takže třeba \texttt{\$(`p')}
+    \item pokročilý CSS selektor -- vnoření: \texttt{\#my\_list img} vybere všechny obrázky (\texttt{img}) které jsou uvnitř elementu s id \texttt{my\_list}
+    \item ... použiju v situacích, kdy chci schovat nějakou množinu elementů a pak jeden z nich zobrazit (tj. když mám hromadu obrázků a chci, aby byl vidět jen jeden)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další CSS chytrosti}
+  \begin{itemize}
+    \item normálně se jednotlivé elementy řadí pod sebe
+    \item můžu místo toho použít tzv. floating, kdy se začnou elementy řadit nalevo nebo napravo
+    \item efekt znáte např. z webových galerií, kde mi fotky vyplní celou šířku okna a jdou po řádcích
+    \item \texttt{float:left}
+    \item barvu pozadí nastavím např. \texttt{background-color:red} nebo \texttt{background-color:\#ddddff}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Další SVG chytrosti}
+  \begin{itemize}
+    \item kromě \texttt{rect} se bude hodit také \texttt{text}
+    \item jako text se zobrazí obsah příslušného elementu
+    \item opět použiju atributy \texttt{x}, \texttt{y} (levý dolní roh) a můžu přihodit \texttt{text-anchor=``middle''}, aby to byl dolní prostředek
+    \item pozor, text mi překryje čtvereček, takže budu muset zopakovat onclick! (musí být na textu i na čtverečku)
+  \end{itemize}
+\end{frame}
+
+\section{Správa zdrojového kódu}
+
+\begin{frame}{Jak mít uložený zdrojový kód}
+  \begin{itemize}
+    \item to, že mám na disku hromadu souborů a `jen tak' je edituju, přináší spoustu problémů
+    \item
+    \item
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Práce v týmu}
+  \begin{itemize}
+    \item pokud na projektu pracuje víc lidí, stává se z problému noční můra
+    \item jak dát dohromady
+    \item jak zajistit, že všichni používají stejnou verzi?
+    \item pro dokumenty už jsou různá více či méně dobrá řešení (slučování změn v MS Office, online nástroje jako Google Documents)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+    \item
+    \item
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+    \item
+    \item
+    \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item
+    \item
+    \item
+    \item
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

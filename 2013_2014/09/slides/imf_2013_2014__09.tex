@@ -33,7 +33,7 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (8)]{Informatika pro moderní fyziky (9)\\ zpracování dat se vzájemnými vazbami, složitější interaktivní dokument}
+\title[IMF (9)]{Informatika pro moderní fyziky (9)\\ zpracování dat se vzájemnými vazbami, složitější interaktivní dokument}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
@@ -140,12 +140,124 @@
   \end{itemize}
 \end{frame}
 
+\section{Předvánoční oddych -- komiks (= HTML scraping)}
+
 \begin{frame}{Zpracování cizích zdrojů na webu -- HTML scraping}
   \begin{itemize}
-    \item dosud jsme ...
+    \item dosud jsme zpracovávali pouze lokální, hezky formátovaná data
+    \item i leckteré externí služby poskytují pěkná API ve formátech JSON nebo XML
+    \item ale leckdy taky ne a zajímavé informace
+    \item protože jsme chytré horákyně, naučíme se, jak data automaticky získat
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Zadání úkolu}
+  \begin{itemize}
+    \item protože po práci si chceme oddychnout a netrápit se přitom náročnou intelektuální činností, přečteme si rádi dobrý komiks
+    \item a protože jsme přiměřeně cyničtí a také si chceme pocvičit angličtinu, přečteme si redmeat
+    \item www.redmeat.com
+    \item .. ale nechceme klikat a nechceme číst na internetu, takže si zhotovíme PDFko se všemi díly najednou
+    \item zvládneme to snadno v LaTeXu, ale potřebujeme postahovat ty obrázky
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Knihovny pro Ruby -- příkaz require}
+  \begin{itemize}
+    \item už umíme používat \texttt{require} pro lokální soubory
+    \item také funguje pro \emph{core library} -- soubor knihoven dodávaných v rámci distribuce Ruby
+    \item kromě toho můžu využít i další zdroj knihoven -- ruby gems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Knihovny pro Ruby -- \emph{Ruby Gems}}
+  \begin{itemize}
+    \item viz www.rubygems.org
+    \item nepřeberné hromady
+    \item require `rubygems'
+    \item require `něco'
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Správa knihoven -- bundler}
+  \begin{itemize}
+    \item  nejjednodušší je instalovat knihovny někam ``k sobě''
+    \item  \texttt{bundle -v}
+    \item  \texttt{bundle init}
+    \item  Gemfile -- seznam potřebných gemů(knihoven)
+    \item  \texttt{bundle install --path vendor/bundle}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Gem nokogiri}
+  \begin{itemize}
+    \item nejlepší nástroj na parsování XML/HTML pod Ruby
+    \item nevýhoda -- binární (C extension), takže mohou být potíže s instalací
+    \item umí spoustu věcí, nám postačí přistupovat k elementům pomocí CSS selektorů (protože ty už umíme)
+    \item každý element má metody \texttt{attributes} a \texttt{text}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Vypiš všechny odkazy}
+  Otevřu si dokument (buď řetězec, nebo jakýkoli \emph{stream}, což je například soubor) a pak můžu iterovat přes všechny elementy vyhovující danému selektoru:
+  \scriptsize
+  \begin{verbatim}
+    doc = Nokogiri::HTML(File.open("redmeat.html"))
+    doc.css("a").each do |x|
+      puts "#{x.text} => #{x.attributes['href']}"
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Jak na to}
+  \begin{itemize}
+    \item \texttt{http://www.redmeat.com/}, meat locker
+    \item podíváme se na zdroják a koukáme -- vidíme, že máme velké štěstí, protože tam jsou dva \texttt{ul} seznamy
+    \item po rozkliknutí a inspekci vidíme, že se obrázek jmenuje stejně, což je výhra
+    \item stačí tedy rozparsovat dokument se seznamem, tak si ho uložíme na disk
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Stahování dat}
+  Součást standardní knihovny -- \texttt{open-uri}
+  \scriptsize
+\begin{verbatim}
+  require 'open-uri'
+  File.open(local_filename, 'wb') do |f2|
+    open(remote_url, 'rb') do |f1|
+      f2.write f1.read
+    end
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Relativní URL}
+  \begin{itemize}
+    \item http://www.redmeat.com/redmeat/meatlocker/index.html
+    \item relativní \texttt{../2013-12-03/index.html}
+    \item $\to$ http://www.redmeat.com/redmeat/2013-12-03/index.html
+    \item relativní \texttt{index-1.gif}
+    \item $\to$ http://www.redmeat.com/redmeat/2013-12-03/index-1.gif
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Problémy s formáty}
+  \begin{itemize}
+    \item stažené obrázky jsou ve formátu GIF
+    \item LaTeX umí z rastrů jen PNG a JPG
+    \item potřeba převést -- pro automatizaci je vhodný balík \texttt{ImageMagick}
+    \item ale protože jsem nezařídil jeho nainstalování, tak to neuděláme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vygenerovat PDF}
+  \begin{itemize}
+    \item zase triviální, už to umíme, rychlá akce na deset minut!
+    \item ERb šablona, použít \texttt{erb\_compiler}
+    \item seznam souborů vzít z \texttt{Dir["redmeat\_*.png"]}
+    \item co a jak s LaTeXem viz např. šestou přednášku
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{A to je vše, přátelé!}
   \begin{center}
@@ -154,36 +266,3 @@
 \end{frame}
 
 \end{document}
-  %
-  %
-  % kodovani
-  % stylovani - vytunit tu vec z minula (? nebude to automatizace a tak dal, zejo)
-  % serverside - prezentace zaznamu z reaktoru ...
-  % ?generovani obrazku
-  %
-  %
-  % zaznamy z detektoru, polohy, kresleni obrazku s polohou, mazce!
-  %
-  %
-
-
-
-% \section{Server-side interaktivita}
-%
-% \begin{frame}{Principy webových aplikací}
-%   \begin{itemize}
-%     \item poskytování HTML (a dalšího) obsahu pomocí protokolu HTTP
-%     \item webový prohlížeč pošle dotaz (request), který se skládá z adresy (URL) a případných parametrů
-%     \item interakce je v podstatě bezstavová = na stejný dotaz dostanu stejnou odpověď
-%     \item stav lze udržovat v tzv. session (rozumné např. pro autentizaci), ale měl by se používat jen minimálně
-%   \end{itemize}
-% \end{frame}
-%
-% \begin{frame}{Jak se píše webová aplikace}
-%   \begin{itemize}
-%     \item MVC - model/view/controller
-%     \item model obsahuje tzv. business logic -- všechnu chytrost s daty, bez ohledu na to, jak se k nim přistupuje
-%     \item controller zpracovává interakci uživatele s aplikací -- analyzuje request a rozhodne, co se má zobrazit
-%     \item view je například ERb šablona
-%   \end{itemize}
-% \end{frame}

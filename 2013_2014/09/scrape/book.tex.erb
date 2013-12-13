@@ -1,0 +1,23 @@
+\documentclass[a4paper,twoside,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+\title{Red Meat}
+\author{Max Cannon}
+\date{www.redmeat.com}
+
+\begin{document}
+
+\maketitle
+
+<% list.each do |x| %>
+
+\includegraphics[width=\textwidth]{<%= x %>}
+
+<% end %>
+
+\end{document}
