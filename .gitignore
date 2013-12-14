@@ -1,6 +1,6 @@
 
 *.aux
-
+**/slides/*.out
 *.log
 
 *.snm
