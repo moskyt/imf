@@ -71,27 +71,6 @@
   \end{itemize}
 \end{frame}
 
-\section{Vzájemně provázaná data}
-
-\begin{frame}{Zadání}
-  \begin{itemize}
-    \item zpracovat data o docházce do práce z ledna 2013
-    \item soubor lide.csv obsahuje čísla průkazů a jména
-    \item soubor dochazka.csv obsahuje datum, číslo průkazu, čas příchodu, čas odchodu
-    \item kolik hodin byl kdo v lednu v práci?
-    \item které dny kdo chyběl?
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Inspirace}
-  \begin{itemize}
-    \item mám tady vztah číslo-člověk a pak záznamy číslo+časy
-    \item mapa číslo-člověk je typický příklad použití hashe!
-    \item pro agregaci záznamů ze dnů k lidem je také chytré použít hash (číslo průkazu jako klíč)
-    \item pomněte paradigma \texttt{hash[key] ||= []}
-  \end{itemize}
-\end{frame}
-
 \section{Navážeme na předminulou hodinu}
 
 \begin{frame}{Zadání -- připomenutí}
@@ -170,8 +149,9 @@
 \begin{frame}{Jak mít uložený zdrojový kód}
   \begin{itemize}
     \item to, že mám na disku hromadu souborů a `jen tak' je edituju, přináší spoustu problémů
-    \item
-    \item
+    \item pokud udělám chybu/něco se rozbije, nemám se jak vrátit, nemám přehled o průběhu změn
+    \item pokud chci mít víc verzí najednou (stabilní / vývojová), nemám jak zajistit konzistenci
+    \item není jak se vracet ke starším verzím, problémy de facto nelze reproduktovat
     \item
   \end{itemize}
 \end{frame}
@@ -185,10 +165,10 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Jaké jsou možnosti}
   \begin{itemize}
-    \item
-    \item
+    \item nabízí se schovávat si každý týden verzi a pokusit se v tom udržet pořádek
+    \item dbát na správná jména složek/souborů
     \item
     \item
   \end{itemize}
