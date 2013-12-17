@@ -152,7 +152,6 @@
     \item pokud udělám chybu/něco se rozbije, nemám se jak vrátit, nemám přehled o průběhu změn
     \item pokud chci mít víc verzí najednou (stabilní / vývojová), nemám jak zajistit konzistenci
     \item není jak se vracet ke starším verzím, problémy de facto nelze reproduktovat
-    \item
   \end{itemize}
 \end{frame}
 
@@ -169,28 +168,76 @@
   \begin{itemize}
     \item nabízí se schovávat si každý týden verzi a pokusit se v tom udržet pořádek
     \item dbát na správná jména složek/souborů
-    \item
-    \item
+    \item za žádnou cenu nemodifikovat verzovanou složku (read-only...)
+    \item vést záznam o změnách, všechno podrobně dokumentovat
   \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Jak se to dělá správně}
   \begin{itemize}
-    \item
-    \item
-    \item
-    \item
+    \item existují takzvané version control systems -- VCS, které se o řešení tohoto problému postarají za nás
+    \item základní princip: neukládám aktuální verze souborů, ale pouze \emph{změny}
+    \item k čemu to je -- změny je možné mezi sebou \textbf{sčítat}, což je (po lehkém zamyšlení) naprosto geniální a řeší to všechno
+    \item pokud mám paralelní změny (dva různí lidé něco změní), není to obvykle vůbec žádný problém, pokud
+    \item můžu rekonstruovat libovolný bod v historii
   \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Řešení konfliktů -- merging}
   \begin{itemize}
-    \item
-    \item
-    \item
-    \item
+    \item pokud dva uživatelé udělají změnu zároveň, co se stane?
+    \item když konflikt nenastal na stejném řádku stejného souboru, tak je to v pořádku
+    \item v opačném případě to prostě musí vyřešit uživatel ručně (ale není to častá situace)
+    \item spojení změn se ale vždycky musí dělat lokálně (na straně uživatele), aby se zamezilo sémantickému konfliktu
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Paralelní větve -- branches}
+  \begin{itemize}
+    \item často se hodí mít víc verzí najednou
+    \item jednak různé stupně experimentálnosti (stabilní, testovací, vývojová)
+    \item jednak pokud chci přidat větší feature, tak to nechci míchat s hlavní větví vývoje
+    \item VCS to většinou umí řešit -- strom vývoje nemusí být lineární, ale může se větvit
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Přehled VCS}
+  \begin{itemize}
+    \item CVS -- první standardní VCS, dnes již zcela překonaný
+    \item SVN -- moderní centralizovaný VCS, donedávna nejpoužívanější řešení
+    \item Git -- dnešní de facto standard, pokročilý distribuovaný VCS s geniální podporou branches
+    \item Mercurial, Bazaar -- méně obvyklé alternativy Gitu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Centralizovaný vs. distribuovaný VCS}
+  \begin{itemize}
+    \item centralizovaný: mám jeden centrální repozitář, do kterého ukládají změny všichni uživatelé
+    \item distribuovaný: každý uživatel má celý repozitář u sebe
+    \item výhody -- lokální commity (bez spojení se serverem!), lokální branche, bezpečnost (vysoká redundance)
+    \item nevýhody -- někomu to dělá problém pochopit a přijmout
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kdy je dobré používat VCS}
+  \begin{itemize}
+    \item vlastně vždycky, pokud pracuju s plaintextovými soubory (tj. zejména zdrojové kódy, skripty)
+    \item využití pro binární data (což se týká de facto i wordovského dokumentu...) je velice omezené
+    \item -- další důvod používat LaTeX! tam je samozřejmě všechno v pořádku
+    \item výhody verzování (oproti tomu to ``jen někde mít'') jsou nedozírné
+    \item za sebe můžu říct, že asi úplně všechnu svoji práci mám v nějakém repo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ukázka a příklad veřejných repozitářů}
+  \begin{itemize}
+    \item http://github.com
+    \item vhodné zejména pro open source projekty, ale umožňuje i soukromé repo (za poplatek)
+    \item velmi hezké GUI (přehledy změn, grafy větvení, issue tracker, komunikace mezi vývojáři)
+    \item samozřejmě není problém si nainstalovat repozitář (např. \texttt{gitolite}) někde u sebe na serveru
+  \end{itemize}
+\end{frame}
+
 
 
 \begin{frame}{A to je vše, přátelé!}
