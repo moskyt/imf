@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signály z detektorů</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+  <style type="text/css">
+    #menu {
+      float:left;
+      background-color:red;
+      padding:15px;
+      list-style-type:none;
+    }
+    a {
+      text-decoration: none;
+      font-weight:bold;
+      color: green;
+    }
+    #maps {
+      float:left;
+      padding:15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Signály z detektorů</h1>
+  <ul id="menu">
+     <% list.each do |date, map| %>
+      <li><a href="#" onclick="$('#maps div').hide(); $('#map_<%= date.gsub('.','_') %>').show(); return false;"><%= date %></a></li>
+     <% end %>
+  </ul>
+  <div id="maps">
+    <% list.each do |date, map| %>
+      <div id="map_<%= date.gsub('.','_') %>" style="display:none">
+        <h3>Detektory z <%= date %></h3>
+        <%= IO.read("svg/#{date.gsub('.','_')}.svg") %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>
