@@ -1,0 +1,344 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (6)]{Informatika pro moderní fyziky (6)\\ Chytré šablony a interaktivní dokumenty}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2014/2015\\29. října 2013}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item používání klávesových zkratek
+    \item úvod do LaTeXu
+    \item tvorba tabulek v LaTeXu, jejich vložení do dokumentu
+  \end{itemize}
+\end{frame}
+
+\section{Tvorba dokumentu -- dokončení}
+
+\begin{frame}{Co už máme}
+  \begin{itemize}
+    \item soubory \texttt{data\_*.csv} - data ve třech sloupcích (datum, koncentrace kyseliny borité v chladivu, axiální ofset)
+    \item vyrobené tabulky (jistě si všichni zpracovali doma) (\texttt{ao\_c??.tex}, \texttt{bc\_c??.tex})
+    \item hezké grafy (\texttt{ao\_c??.eps}, \texttt{bc\_c??.eps})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co nám ještě chybí}
+  \begin{itemize}
+    \item slepit všechno do jednoho dokumentu -- s hezkou strukturou, s vloženými
+    \item de facto potřebujeme vyrobit celý LaTeX dokument automaticky (kromě hlavičky) vyrobit automaticky
+    \item jaké máme možnosti?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vektorové a rastrové formáty}
+  \begin{itemize}
+    \item rozdíl asi každý zná
+    \item pro tisk buď potřebuju vektor anebo 300 dpi rastr
+    \item pokud to není fotka nebo sken, tak je vždycky lepší vektor než rastr
+    \item LaTeX i Gnuplot podporují EPS (Encapsulated Postscript), další populární formáty jsou AI, WMF, DWG
+    \item PDF je metaformát (ale hodně se používá i pro vektory...)
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (Embedded Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Základní syntaxe ERb (1)}
+  \begin{block}{ }
+    Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+    \scriptsize
+    \begin{verbatim}
+      <% a = b + 5 %>
+      <% list = ary * ", " %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (2)}
+  \begin{block}{ }
+    Pokud chci něco vložit, stačí přidat rovnítko
+    \scriptsize
+    \begin{verbatim}
+      <%= a %>
+      <%= ary[1] %>
+      <%= b + 5 %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (3)}
+  \begin{block}{ }
+    Radost je možnost použít bloky a tedy i iterátory apod. v~propojení s vkládaným textem:
+    \scriptsize
+    \begin{verbatim}
+      <% (1..5).each do |i| %>
+      Number <%= i %>
+      <% end %>
+      <% ary.each do |x| %>
+      Array contains <%= x %>
+      <% end %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{ERb -- shrnutí}
+  \begin{itemize}
+    \item dobrý sluha, ale špatný pán
+    \item můžu s tím vyrobit hromadu užitečných věcí na malém prostoru
+    \item daň je velké riziko zamotaného kódu a nízké přehlednosti (struktura naprosto není patrná na první pohled, proto je namístě ji držet maximálně jednoduchou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Důležité upozornění}
+  \begin{itemize}
+    \item oddělení modelu a view
+    \item přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+    \item je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+    \item a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb_compiler'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Lokální proměnné v ERb šabloně}
+    \scriptsize
+    funkce \texttt{erb} je chytře napsaná tak, že umožňuje vložit libovolné proměnné pomocí hashe (tedy v příkladu výše budou v šabloně definovány proměnné \texttt{x} a \texttt{y})
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Takže v latexu třeba}
+\scriptsize
+\begin{verbatim}
+  \subsection{Koncentrace kyseliny borité}
+
+  <% files.each do |f| %>
+
+  \subsubsection{Kampaň <%= f.split('_').last %>}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{<%= f %>_bc.eps}
+  \end{center}
+  <% end %>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{A teď už to jenom dejte dohromady...}
+  \begin{enumerate}
+    \item připravit si základní kostru dokumentu v latexu
+    \item převést na šablonu: mít seznam souborů, správně generovat kapitoly
+    \item vyrobit grafy
+    \item vložit grafy do šablony
+    \item vyrobit tabulky
+    \item vložit tabulky do šablony
+    \item A JE TO!
+  \end{enumerate}
+\end{frame}
+
+\section{HTML jako prezentační nástroj}
+
+\begin{frame}{Výhody HTML+JS}
+  \begin{itemize}
+    \item PDF zpráva je fajn, ale umožňuje jen ``plochou'' strukturu
+    \item často je potřeba prezentovat tak velké množství informací, že to nejde jenom nalepit za sebe
+    \item hodilo by se něco klikacího
+    \item příklad -- ASTRID (výstup z programu ANDREA)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Výhody HTML+JS}
+  \begin{itemize}
+    \item absolutní přenositelnost
+    \item použitelné ve webových aplikacích i offline
+    \item celkem snadno se zařídí, aby to vypadalo dobře
+    \item JS zajišťuje slušný stupeň interaktivity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HTML}
+  \begin{itemize}
+    \item poměrně rozumný jazyk
+    \item byť trochu ``ukecaný'', tak struktura je dostatečně jasná a přehledná
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{javaScript}
+  \begin{itemize}
+    \item trochu divný jazyk, historicky vzniknul jako ideový koncept a omylem se z toho stala definitivní verze
+    \item potvora s nejasnou syntaxí a dost netradiční
+    \item naštěstí na většinu základního využití není potřeba mu moc rozumět (já jsem důkazem)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dnes jen samotné HTML}
+  \begin{itemize}
+    \item příklad viz report.html
+    \item základem jsou tagy -- stromová struktura
+    \item \texttt{<tag> ... </tag>}
+    \item \texttt{<tag atribut=''hodnota''> ... </tag>}
+    \item základní strukturu (hlavička) obšlehněte ze vzoru
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Úkol trochu nadlouho - ale jednoduchý}
+  \begin{itemize}
+    \item to samé co je v LaTeXu udělat v HTML
+    \item příště doplníme interaktivitu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+% 7 - dodelavka z minula (asi JS)
+%   -
+%
+%
+%! VCS, SVG, rubygems, bundler, import/export exl
+
+
+
+% 1   gnuplot
+% 2   ruby
+% 3   z mcnp
+% 4   rake, latex
+%
+%
+% 5   erb, more latex, vcs intro
+%   - jak funguje erb
+%   - load, require, def
+%   - tyce revisited
+%   - vyrobit z latexu tabulku
+%   - about vcs
+%   - github -- clone imf repo
+%
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?
