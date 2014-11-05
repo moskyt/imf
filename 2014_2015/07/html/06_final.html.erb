@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>(6) Provozní záznamy JE Třeskoprsky</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <h1>Provozní záznamy JE Třeskoprsky</h1>
+
+    <p>Tento dokument obsahuje provozní záznamy z jaderné elektrárny Třeskoprsky.</p>
+
+    <ul>
+      <% campaigns.each do |c| %>
+        <li><a href="#campaign_<%= c %>">kampaň <%= c %></a></li>
+      <% end %>
+    </ul>
+
+    <% campaigns.each do |c| %>
+
+    <a name="campaign_<%=c%>" />
+    <h2>Kampaň <%=c%> </h2>
+
+    <h3>Koncentrace kyseliny borité</h3>
+
+    <p>
+      <a href="#" onclick="$('#campaign_<%=c%>_bc_table').toggle(); $('#campaign_<%=c%>_bc_figure').toggle(); return false;">tabulka / graf</a>
+    </p>
+
+    <div id="campaign_<%=c%>_bc_table" style="display:none">
+      <%= IO.read("data/bc_#{c}.html") %>
+    </div>
+
+    <div id="campaign_<%=c%>_bc_figure">
+      <img src="data/bc_<%=c%>.png" />
+    </div>
+
+    <h3>Axiální ofset</h3>
+
+    <p>
+      <a href="#" onclick="$('#campaign_<%=c%>_ao_table').toggle(); $('#campaign_<%=c%>_ao_figure').toggle(); return false;">tabulka / graf</a>
+    </p>
+
+    <div id="campaign_<%=c%>_ao_table" style="display:none">
+      <%= IO.read("data/ao_#{c}.html") %>
+    </div>
+
+    <div id="campaign_<%=c%>_ao_figure">
+      <img src="data/ao_<%=c%>.png" />
+    </div>
+
+    <% end %>
+
+</html>

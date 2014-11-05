@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>(7) Provozní záznamy JE Třeskoprsky</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <h1>Provozní záznamy JE Třeskoprsky</h1>
+
+    <p>Tento dokument obsahuje provozní záznamy z jaderné elektrárny Třeskoprsky.</p>
+
+    <ul>
+      <% campaigns.each do |c| %>
+        <li><a href="#campaign_<%= c %>">kampaň <%= c %></a></li>
+      <% end %>
+    </ul>
+
+    <% campaigns.each do |c| %>
+
+    <a name="campaign_<%=c%>" />
+    <h2>Kampaň <%=c%> </h2>
+
+
+    <% {'bc' => 'Koncentrace kyseliny borité', 'ao' => 'Axiální ofset'}.each do |variable, title| %>
+
+    <h3><%= title %></h3>
+
+    <p>
+      <a href="#" onclick="$('#campaign_<%=c%>_<%= variable %>_table').toggle(); $('#campaign_<%=c%>_<%= variable %>_figure').toggle(); return false;">tabulka / graf</a>
+    </p>
+
+    <div id="campaign_<%=c%>_<%= variable %>_table" style="display:none">
+      <%= IO.read("data/#{variable}_#{c}.html") %>
+    </div>
+
+    <div id="campaign_<%=c%>_<%= variable %>_figure">
+      <img src="data/<%= variable %>_<%=c%>.png" />
+    </div>
+
+    <% end %>
+
+    <% end %>
+
+</html>

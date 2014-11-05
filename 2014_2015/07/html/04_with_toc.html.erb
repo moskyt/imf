@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>(4) Provozní záznamy JE Třeskoprsky</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+    <h1>Provozní záznamy JE Třeskoprsky</h1>
+
+    <p>Tento dokument obsahuje provozní záznamy z jaderné elektrárny Třeskoprsky.</p>
+
+    <ul>
+      <% campaigns.each do |c| %>
+        <li><a href="#campaign_<%= c %>">kampaň <%= c %></a></li>
+      <% end %>
+    </ul>
+
+    <% campaigns.each do |c| %>
+
+    <a name="campaign_<%=c%>" />
+    <h2>Kampaň <%=c%> </h2>
+
+    <h3>Koncentrace kyseliny borité</h3>
+
+    <%= IO.read("data/bc_#{c}.html") %>
+
+    <img src="data/bc_<%=c%>.png" />
+
+    <h3>Axiální ofset</h3>
+
+    <%= IO.read("data/bc_#{c}.html") %>
+
+    <img src="data/ao_<%=c%>.png" />
+
+    <% end %>
+
+</html>
