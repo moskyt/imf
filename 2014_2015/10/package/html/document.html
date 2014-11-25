@@ -4,31 +4,6 @@
   <title>Signály z detektorů</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
-  <script type="text/javascript">
-  
-  var selected_map = null;
-  
-  function show_map(n) {
-    $('#maps div').hide();
-    $('#charts').hide();
-    if (selected_map == n) {
-      selected_map = null;
-    } else {
-      $('#' + n).show();
-      selected_map = n;
-    }
-  }
-  
-  function show_chart(n, fn) {
-    
-  }
-  
-  </script>
-  
-  onclick="show_map(4); return false;"
-  
-  onclick="show_chart(5, '20131102_4'); return false;"
-  
   <style type="text/css">
     html {
       font-family: Verdana;
@@ -67,7 +42,7 @@
   <div id="date_selector">
     <ul>
       
-        <li><a href="#" onclick="$('#core_map div').hide(); $('#chart').hide(); $('#core_map').show(); if (selected == 0) { $('#charts').hide(); } else { $('#core_map_0').show(); }; selected = 0; return false;">2.11.2013</a></li>
+        <li><a href="#" onclick="$('#core_map div').hide(); $('#chart').hide(); $('#core_map').show(); $('#core_map_0').show();;return false;">2.11.2013</a></li>
       
         <li><a href="#" onclick="$('#core_map div').hide(); $('#chart').hide(); $('#core_map').show(); $('#core_map_1').show();;return false;">3.11.2013</a></li>
       
