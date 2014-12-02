@@ -50,7 +50,7 @@
     <% dmap.keys.each_with_index do |date, i| %>
       <div id="core_map_<%= i %>" style="display:none">
         <h3>Datum <%= date %></h3>
-        <%= IO.read("svg/#{date.gsub(".","_")}.svg") %>
+        <%= IO.read "svg/#{date.gsub(".","_")}.svg" %>
       </div>
     <% end %>
   </div>

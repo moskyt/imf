@@ -1,0 +1,29 @@
+require 'erb'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+task :html do
+  list = {}
+  Dir["../data/*.csv"].each do |fn|
+    File.open(fn) do |f|
+      line = f.gets
+      date, c = *line[1..-1].strip.split
+      puts date
+      d, m, y = *date.split(".").map(&:to_i)
+      i, j = c.split(',').map(&:to_i)
+      list[date] ||= {}
+      list[date][[i,j]] = File.basename(fn, '.csv')
+    end
+  end
+
+  erb("document.html.erb", "document.html", {:list => list})
+end

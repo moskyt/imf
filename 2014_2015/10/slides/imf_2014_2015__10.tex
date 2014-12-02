@@ -1,0 +1,272 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (10)]{Informatika pro moderní fyziky (10)\\ složitější interaktivní dokument, získávání informací z webu}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2014/2015\\24. listopadu 2014}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item další procvičení zpracování dat - data s vazbami
+    \item CSS selektory
+    \item získávání informací z webu
+    \item LaTex a ERb -- opakování
+  \end{itemize}
+\end{frame}
+
+\section{Navážeme na předminulou hodinu}
+
+\begin{frame}{Zadání -- připomenutí}
+  \begin{itemize}
+    \item každý den data z 1-9 detektorů (\texttt{data/*.csv})
+    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic) -- včetně data je uvedena na prvním řádku CSV souboru
+    \item je potřeba hezky zobrazit na každý den mapu AZ a grafy signálů z detektorů
+    \item viz \texttt{html/document.html}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co už máme}
+  \begin{itemize}
+    \item grafy pro jednotlivé detektory ve formátu PNG
+    \item mapy zóny, ale zatím neklikací (SVG)
+    \item umíme načíst data o jednotlivých detektorech -- víme, které pozice jsou v jednotlivé dny obsazeny
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co nám chybí}
+  \begin{itemize}
+    \item mít schované i názvy souborů pro jednotlivé detektory (hash! hash!)
+    \item vyrobit si HTML dokument, který by zobrazoval jednotlivé mapy
+    \item doplnit interaktivitu do SVG obrázků
+    \item zobrazovat po kliknutí do mapy správný graf
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Krok číslo jedna}
+  \begin{itemize}
+    \item z datových souborů si vyrobit takovou datovou strukturu, která mi bude říkat, pro který den a na které poloze je který soubor
+    \item tj. radím například takovýto hash: {datum => {poloha => soubor}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další kroky}
+  \begin{itemize}
+    \item dopsat do mapy detektorů text - polohu
+    \item vyrobit zatím verzi, kde si budu moci prohlížet jednotlivé mapy (zatím bez grafů)
+    \item zobrazit grafy detektorů - zatím všechny
+    \item dokončit -- zobrazovat grafy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další JS chytrosti}
+  \begin{itemize}
+    \item v jQuery už známe \texttt{\$(`\#id')}
+    \item ale ve skutečnosti jde použít jakýkoli CSS selektor, takže třeba \texttt{\$(`p')}
+    \item pokročilý CSS selektor -- vnoření: \texttt{\#my\_list img} vybere všechny obrázky (\texttt{img}) které jsou uvnitř elementu s id \texttt{my\_list}
+    \item ... použiju v situacích, kdy chci schovat nějakou množinu elementů a pak jeden z nich zobrazit (tj. když mám hromadu obrázků a chci, aby byl vidět jen jeden)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další CSS chytrosti}
+  \begin{itemize}
+    \item normálně se jednotlivé elementy řadí pod sebe
+    \item můžu místo toho použít tzv. floating, kdy se začnou elementy řadit nalevo nebo napravo
+    \item efekt znáte např. z webových galerií, kde mi fotky vyplní celou šířku okna a jdou po řádcích
+    \item \texttt{float:left}
+    \item barvu pozadí nastavím např. \texttt{background-color:red} nebo \texttt{background-color:\#ddddff}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Další SVG chytrosti}
+  \begin{itemize}
+    \item kromě \texttt{rect} se bude hodit také \texttt{text}
+    \item jako text se zobrazí obsah příslušného elementu
+    \item opět použiju atributy \texttt{x}, \texttt{y} (levý dolní roh) a můžu přihodit \texttt{text-anchor=``middle''}, aby to byl dolní prostředek
+    \item pozor, text mi překryje čtvereček, takže budu muset zopakovat onclick! (musí být na textu i na čtverečku)
+  \end{itemize}
+\end{frame}
+
+\section{Předvánoční oddych -- komiks (= HTML scraping)}
+
+\begin{frame}{Zpracování cizích zdrojů na webu -- HTML scraping}
+  \begin{itemize}
+    \item dosud jsme zpracovávali pouze lokální, hezky formátovaná data
+    \item i leckteré externí služby poskytují pěkná API ve formátech JSON nebo XML
+    \item ale leckdy taky ne a zajímavé informace
+    \item protože jsme chytré horákyně, naučíme se, jak data automaticky získat
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zadání úkolu}
+  \begin{itemize}
+    \item protože po práci si chceme oddychnout a netrápit se přitom náročnou intelektuální činností, přečteme si rádi dobrý komiks
+    \item a protože jsme přiměřeně cyničtí a také si chceme pocvičit angličtinu, přečteme si redmeat
+    \item www.redmeat.com
+    \item .. ale nechceme klikat a nechceme číst na internetu, takže si zhotovíme PDFko se všemi díly najednou
+    \item zvládneme to snadno v LaTeXu, ale potřebujeme postahovat ty obrázky
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Knihovny pro Ruby -- příkaz require}
+  \begin{itemize}
+    \item už umíme používat \texttt{require} pro lokální soubory
+    \item také funguje pro \emph{core library} -- soubor knihoven dodávaných v rámci distribuce Ruby
+    \item kromě toho můžu využít i další zdroj knihoven -- ruby gems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Knihovny pro Ruby -- \emph{Ruby Gems}}
+  \begin{itemize}
+    \item viz www.rubygems.org
+    \item nepřeberné hromady
+    \item require `rubygems'
+    \item require `něco'
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Správa knihoven -- bundler}
+  \begin{itemize}
+    \item  nejjednodušší je instalovat knihovny někam ``k sobě''
+    \item  \texttt{bundle -v}
+    \item  \texttt{bundle init}
+    \item  Gemfile -- seznam potřebných gemů(knihoven)
+    \item  \texttt{bundle install --path vendor/bundle}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Gem nokogiri}
+  \begin{itemize}
+    \item nejlepší nástroj na parsování XML/HTML pod Ruby
+    \item nevýhoda -- binární (C extension), takže mohou být potíže s instalací
+    \item umí spoustu věcí, nám postačí přistupovat k elementům pomocí CSS selektorů (protože ty už umíme)
+    \item každý element má metody \texttt{attributes} a \texttt{text}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Vypiš všechny odkazy}
+  Otevřu si dokument (buď řetězec, nebo jakýkoli \emph{stream}, což je například soubor) a pak můžu iterovat přes všechny elementy vyhovující danému selektoru:
+  \scriptsize
+  \begin{verbatim}
+    doc = Nokogiri::HTML(File.open("redmeat.html"))
+    doc.css("a").each do |x|
+      puts "#{x.text} => #{x.attributes['href']}"
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Jak na to}
+  \begin{itemize}
+    \item \texttt{http://www.redmeat.com/}, meat locker
+    \item podíváme se na zdroják a koukáme -- vidíme, že máme velké štěstí, protože tam jsou dva \texttt{ul} seznamy
+    \item po rozkliknutí a inspekci vidíme, že se obrázek jmenuje stejně, což je výhra
+    \item stačí tedy rozparsovat dokument se seznamem, tak si ho uložíme na disk
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Stahování dat}
+  Součást standardní knihovny -- \texttt{open-uri}
+  \scriptsize
+\begin{verbatim}
+  require 'open-uri'
+  File.open(local_filename, 'wb') do |f2|
+    open(remote_url, 'rb') do |f1|
+      f2.write f1.read
+    end
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Relativní URL}
+  \begin{itemize}
+    \item http://www.redmeat.com/redmeat/meatlocker/index.html
+    \item relativní \texttt{../2013-12-03/index.html}
+    \item $\to$ http://www.redmeat.com/redmeat/2013-12-03/index.html
+    \item relativní \texttt{index-1.gif}
+    \item $\to$ http://www.redmeat.com/redmeat/2013-12-03/index-1.gif
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Problémy s formáty}
+  \begin{itemize}
+    \item stažené obrázky jsou ve formátu GIF
+    \item LaTeX umí z rastrů jen PNG a JPG
+    \item potřeba převést -- pro automatizaci je vhodný balík \texttt{ImageMagick}
+    \item ... a jeho příkaz \texttt{convert}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vygenerovat PDF}
+  \begin{itemize}
+    \item zase triviální, už to umíme, rychlá akce na deset minut!
+    \item ERb šablona, použít \texttt{erb\_compiler}
+    \item seznam souborů vzít z \texttt{Dir["redmeat\_*.png"]}
+    \item co a jak s LaTeXem viz např. šestou přednášku
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
