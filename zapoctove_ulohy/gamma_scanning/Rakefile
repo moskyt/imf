@@ -1,0 +1,60 @@
+require 'fileutils'
+require 'grafikon'
+
+NODES = [1.0] * 10 + [5.0] * 8 + [2.0] * 16 + [5.0] * 8 + [1.0] * 10
+
+task :data do
+  FileUtils.mkdir_p("data")
+  FileUtils.mkdir_p("plots")
+  
+  z_total = NODES.inject(&:+)
+  
+  (1..100).each do |i|
+    fn = "data/assembly_%03d.csv" % i
+    fng = "plots/assembly_%03d.png" % i
+    z0 = 0.0
+    dg = []
+    aid = "A%06d" % rand(100000)
+    File.open(fn, 'w') do |f|
+      f.puts "# #{aid}"
+      NODES.each_with_index do |dz, zi|
+        z = z0 + dz / 2.0
+        rz = z / z_total
+        y0 = Math::sin(rz * 3.1415) ** 0.5
+        
+        y = y0 * (0.9 + 0.2*rand)
+        
+        f.print y*dz
+        if rand < 0.7
+          f.print " "*(rand(5) + 1)
+        else
+          f.puts
+        end
+        
+        dg << [z - dz/2.0, y]
+        dg << [z + dz/2.0, y]
+      
+        z0 += dz
+      end
+    end
+    puts dg.inspect
+    Grafikon::Chart::Line.new do 
+      title "Assembly ID #{aid}"
+      axes "axial coordinate [cm]", "signal intensity [n/cm]"
+      add dg
+    end.gnuplot(output: fng, format: :png_medium)
+    
+  end
+  
+end
+
+=begin
+10 nódů po 1 cm, 8 nódů po 5 cm, 16 nódů po 2 cm, 8 nódů po 5 cm, 10 nódů po 1 cm
+
+V souborech assembly*.csv jsou uloženy profily z gamma scanů.
+- na prvním řádku je identifikátor kazety
+- jednotlivé hodnoty jsou odděleny libovolným počtem mezer nebo novým řádkem
+
+Úkol:
+- vykreslit grafy pro všechny PS (podle vzoru)
+=end

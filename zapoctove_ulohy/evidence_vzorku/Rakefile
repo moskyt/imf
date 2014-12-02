@@ -1,0 +1,21 @@
+require 'date'
+require 'fileutils'
+
+task :data do
+  n = 1000 + rand(1000)
+  d0 = Date.civil(2010, 1, 1)
+  list = []
+  (1..n).each do |i|
+    id = "%06x" % (1000 + rand(10000000))
+    d1 = d0 + rand(500)
+    d2 = d1 + rand(100)
+    x = 1e4 * (1 + rand)
+    list << [d1, id, x]
+    list << [d2, id, x * 0.5 * rand]
+  end
+  File.open("data.csv", 'w') do |f|
+    list.sort_by{|x| x[0]}.each do |t, id, x|
+      f.puts "#{t.strftime("%Y/%m/%d")} #{id} #{"%.4e" % x}"
+    end
+  end
+end
