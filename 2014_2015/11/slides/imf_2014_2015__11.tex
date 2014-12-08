@@ -1,0 +1,144 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (11)]{Informatika pro moderní fyziky (11)\\ web scraping; serializace; zadání zápočtových úloh}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2014/2015\\3. prosince 2014}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Navážeme na předminulou hodinu}
+
+\begin{frame}{HTML scraping}
+  \begin{itemize}
+    \item získávání 
+    \item 
+    \item pozor, možné úskalí:
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Připomenutí obecného postupu}
+  \begin{itemize}
+    \item 
+    \item 
+    \item 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Nalezení vhodného selektoru}
+  \begin{itemize}
+    \item 
+    \item 
+    \item 
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Práce s XML / HTML}
+  Knihovna \texttt{nokogiri}
+  \scriptsize
+\begin{verbatim}
+  doc = Nokogiri::HTML(File.open("redmeat.html"))
+  doc.css("li.archiveImage a").each do |x|
+    url = x.attributes['href']
+    ...
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Knihovna open-uri}
+umožňuje otevírat URL jako soubory
+  \scriptsize
+\begin{verbatim}
+require 'open-uri'
+doc = Nokogiri::HTML(File.open("http://redmeat.com"))
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Stahování dat}
+  Součást standardní knihovny -- \texttt{open-uri}
+  \scriptsize
+\begin{verbatim}
+  require 'open-uri'
+  File.open(local_filename, 'wb') do |f2|
+    open(remote_url, 'rb') do |f1|
+      f2.write f1.read
+    end
+  end
+\end{verbatim}
+\end{frame}
+
+
+\begin{frame}{Serializace dat}
+  \begin{itemize}
+    \item
+    \item
+    \item
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
