@@ -1,0 +1,26 @@
+task :data do
+  (1..50).each do |n|
+    fn = "data/file_%02d.csv" % n
+    ncol = 1 + rand(6)
+    periods1 = (1..ncol).map{0.1 * rand}
+    periods2 = (1..ncol).map{0.5 * rand}
+    periods3 = (1..ncol).map{1.5 * rand}
+    data = (1...(1000+rand(1000)).round).map do |i|
+      t = i / 100.0
+      row = {"time" => t}
+      (0...ncol).each do |j|
+        row["y#{j+1}"] = ((0.9 + 0.2*rand) * (Math::sin(t/periods1[j]) + Math::sin(t/periods2[j]) + Math::sin(t/periods3[j]))).round(4)
+      end
+      row
+    end
+    headers = ["time"] + (1..ncol).map{|j| "y#{j}"}
+    headers = headers.shuffle
+    File.open(fn, 'w') do |f|
+      f.puts "#" + headers * " "
+      data.each do |row|
+        f.puts headers.map{|x| row[x]} * " "
+      end
+    end
+  end
+  
+end

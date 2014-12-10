@@ -11,7 +11,7 @@ task :data do
     d2 = d1 + rand(100)
     x = 1e4 * (1 + rand)
     list << [d1, id, x]
-    list << [d2, id, x * 0.5 * rand]
+    list << [d2, id, x * 0.1 * rand]
   end
   File.open("data.csv", 'w') do |f|
     list.sort_by{|x| x[0]}.each do |t, id, x|
