@@ -1,0 +1,7 @@
+Dobrý den,
+
+posílám vám zápočtový program. Vycházel jsem z toho, že soubor data jsem uložil do samostatné složky data. Také jsem bral, že vzorek přišel vždy ráno a odešel večer, takže i vzorek,který přišel a odešel v jeden den, byl počítán jako by tam ten jeden den byl.
+
+S pozdravem
+
+Jiří Kurka

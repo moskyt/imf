@@ -1,0 +1,95 @@
+task :vzorky do
+	require "time"
+	require "fileutils" #pro vytvoreni slozek
+	
+	Filename="data.csv" #konstanta nazvu vstupniho souboru (kdyby nahodou)
+	Cesta="\"gnuplot\"" #konstanta pro spusteni GNUPlotu
+	
+	dtb={}
+	polecasu,radek=[],[]
+	id=""
+	cetnost=0	#pomocny scitac
+	maxcetnost=0 #pomocna promenna pro definici yrange v gnuplotu
+	maxakt=0 #pomocna promenna pro definici yrange v gnuplotu
+
+	IO.foreach(Filename) do |line| #vytvareni hashe
+		radek=line.strip.split
+		id=radek[1]
+		datum=Date.strptime(radek[0], "%Y/%m/%d") #data v tomto formatu, aby se dala odecitat
+		dtb[id]||={}
+		if dtb[id]=={} then #pro kazde id jen 2 zaznamy => prvni je vstup, druhy vystup
+				dtb[id][:in]=datum
+				dtb[id][:prikonin]=((radek[2].to_f)/(24*1000*3600)) #hned prevod na Sv/s
+			else
+				dtb[id][:out]=datum
+				dtb[id][:prikonout]=((radek[2].to_f)/(24*1000*3600)) #není zaokrouhleno kvuli velmi nizkym hodnotam
+			end
+	end
+	
+	dtb.each do |id, hodnota| #vypocet doby pobytu
+		doba=hodnota[:out]-hodnota[:in]
+		dtb[id][:doba]=(doba*24*60).to_i #doba v sekundach
+		polecasu<<(doba*24*60).to_i
+	end
+	
+	dtb.each do |id, hodnota| #vypocet aktivity pres exponencielu
+		a=hodnota[:prikonout]
+		b=((1.0/hodnota[:doba])*Math.log(hodnota[:prikonin]/hodnota[:prikonout]))
+		dtb[id][:akt]=(((a/b)*(1-Math.exp(-b*hodnota[:doba]))))
+	end
+	
+	polecasu=polecasu.sort
+	uniqpole=polecasu.uniq
+	FileUtils.mkdir_p("histogram")
+	FileUtils.mkdir_p("scatter")
+	
+	File.open("histogram/histogram.csv", "w") do |f|
+		uniqpole.each do |prvek|
+			polecasu.each do |hodnota|
+				if hodnota==prvek then
+						cetnost=cetnost+1 #pocet vyskytu vzorku s danou dobou pobytu, asi by slo elegantneji
+					end
+			end
+			if (cetnost>maxcetnost) then #zjistovani maximalni cetnosti pro yrange v gnuplotu
+				maxcetnost=cetnost
+			end
+			f.puts "#{prvek} #{cetnost}" #do souboru se zapisuje doba pobytu a pocet vzorku s touto dobou pobytu
+		end
+	end
+	
+	File.open("scatter/scatter.csv", "w") do |g|
+		dtb.each do |id, hodnota|
+			g.puts "#{hodnota[:doba]} #{hodnota[:akt]}"
+			if hodnota[:akt]>maxakt then #zjistovani maximalni aktivity pro yrange v gnuplotu
+				maxakt=hodnota[:akt]
+			end
+		end
+	end
+	
+	File.open("histogram/histogram.gp", "w") do |f| #zapis pro GNUPlot pro histogram
+		f.puts "set terminal png size 1024,768"
+		f.puts "set boxwidth 0.5 relative"
+		f.puts "set style fill solid 0.5 noborder"
+		f.puts "set output 'histogram/histogram.png'"
+		f.puts "set xlabel 'Doba pobytu [s]'"
+		f.puts "set xrange [0:#{polecasu.last+2000}]" #pole je serazene podle velikosti doby pobytu
+		f.puts "set ylabel 'Pocet vzorku [-]'"
+		f.puts "set yrange [0:#{maxcetnost+20}]"
+		f.puts "set title 'Histogram doby pobytu vzorku v laboratori'"
+		f.puts "plot 'histogram/histogram.csv' using 1:2 with boxes lc rgb'green' notitle"
+	end
+	
+	File.open("scatter/scatter.gp", "w") do |g| #zapis pro GNUPlot pro scatter
+		g.puts "set terminal png size 1024,768"
+		g.puts "set output 'scatter/scatter.png'"
+		g.puts "set xlabel 'Doba pobytu [s]'"
+		g.puts "set xrange [0:#{polecasu.last+2000}]" #pole je serazene podle velikosti doby pobytu
+		g.puts "set ylabel 'Celkova aktivita [-]'"
+		g.puts "set yrange [0:#{maxakt+0.2}]"
+		g.puts "set title 'Zavislost celkove aktivity vzorku na dobe pobytu v laboratori'"
+		g.puts "plot 'scatter/scatter.csv' using 1:2 notitle"
+	end
+	
+	system("#{Cesta} histogram/histogram.gp")	#spousteni GNUPlotu
+	system("#{Cesta} scatter/scatter.gp")
+end

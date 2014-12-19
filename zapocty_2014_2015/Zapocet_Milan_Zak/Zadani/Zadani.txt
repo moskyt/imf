@@ -1,0 +1,16 @@
+Kartogramy pro VVER-1000
+
+Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 
+(levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s 
+barvičkami podle typu palivového souboru. Co dodat.
+
+Příklad:
+
+   *     *   A30E9  A20   A13    A20   A30E9   A13    A30E9
+      *  A40E6    A20        A13   A30E9   A13    A20
+          *   P40E9   A30E9     A13    A20   A13
+               *   P36E9   A20      A13   A30E9
+                    *   P36E9   A30E9   A13
+                          *  P40E9   A20
+                               *  A40E6
+                                   *
