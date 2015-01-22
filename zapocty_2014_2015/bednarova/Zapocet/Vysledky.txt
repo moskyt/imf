@@ -1,0 +1,4 @@
+Největší dávka je: 733270.59 mSv od vzorku 75a542
+Datum vstupu: 2011/01/17 a datum výstupu: 2011/04/23
+Nejmenší dávka je: 3005.67 mSv od vorku 5c0e2f
+Datum vstupu: 2010/06/12 a datum výstupu: 2010/06/13
