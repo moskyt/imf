@@ -1,0 +1,642 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (2)]{Informatika pro moderní fyziky (2)\\základy Ruby, zpracování textu}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2015/2016\\6. října 2015}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item základní principy automatizace
+    \item CSV soubory a Gnuplot
+    \item příkazový řádek / terminál
+    \item dávkové (BAT) soubory
+    \item představení skriptovacích jazyků
+    \item interpret Ruby a IRb
+    \item letem světem Ruby 
+  \end{itemize}
+\end{frame}
+
+
+\section{Úvod do jazyka Ruby}
+
+\subsection{Ještě chvilku v IRb}
+
+\begin{frame}[fragile]{OOP - volání metod}
+  Klasickým příkladem je například počet znaků v řetězci.
+  \begin{block}{procedurální jazyky}
+    \begin{verbatim}
+      strlen("retezec")
+    \end{verbatim}
+  \end{block}
+  \pause
+  Můžeme místo toho nahlížet na řetězec jako na objekt:
+  \pause
+  \begin{block}{objektově orientované jazyky}
+    \begin{verbatim}
+      "retezec".length
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Hrátky s řetězci}
+  \begin{block}{Délka řetězce}
+    \begin{verbatim}
+      "krabice".length
+      "kocour".size
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Ořez mezer}
+    \begin{verbatim}
+      "   hromada ".strip
+      " koleso   ".lstrip
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Hrátky s řetězci}
+  \begin{block}{Hledání}
+    \begin{verbatim}
+      "koleno na kole".include?("kole")
+      "koleno na kole".count("kole")
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Nahrazení}
+    \begin{verbatim}
+      "volej kolej".sub("olej", "yber")
+      "baba a deda".gsub("ba", "ta")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dokumentace}
+  \begin{block}{GIYF: Google is your friend}
+    \texttt{ruby api string}
+  \end{block}
+  \begin{block}{API dokumentace}
+    \texttt{http://www.ruby-doc.org/core-1.9.3/String.html}
+  \end{block}
+\end{frame}
+
+\subsection{Pole}
+
+\begin{frame}[fragile]{Ztracen v poli}
+  \begin{block}{Literál, přiřazení}
+    \begin{verbatim}
+      a = []
+      a << 1
+      a << "string"
+      b = []
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Délka, řazení, vypletí, převracení}
+    \begin{verbatim}
+      [4, 2, 6].sort
+      [2, 5, 3, 3, 4, 1, 2, 1].uniq.sort
+      [4, 2, 6].reverse
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Ztracen v poli}
+  \begin{block}{Indexace}
+    \begin{verbatim}
+      a = [1,2,3]
+      a[1]
+      a[3]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Do mínusu, odkud kam}
+    \begin{verbatim}
+      a = [1,2,3,4,5,6]
+      a[-1]
+      a[-2]
+      a[0..3]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Pole z řetězů}
+  \begin{block}{Řetězec, pole znaků}
+    \begin{verbatim}
+      "kopr"[2]
+      "mikroskop"[0..4]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Leccos funguje!}
+    \begin{verbatim}
+      "abcd".reverse
+      [1,2,3].size
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Sekáček na maso}
+    \begin{verbatim}
+      "a b  c d".split
+      "a b,c d".split(",")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Operátor a operatér}
+  \begin{block}{Malé bezvýznamné plus}
+    \begin{verbatim}
+      "alfa" + "beta"
+      [1, 2] + [3, 4]
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Násobilka}
+    \begin{verbatim}
+      "kolo" * 5
+      [1, 2, 3] * 3
+      ["a", "b", "c"] * ","
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{block}{Převádět přes ulici}
+    \begin{verbatim}
+      "123".to_i
+      1250.to_s
+      "0.6".to_f
+    \end{verbatim}
+  \end{block}
+  \pause
+  % \begin{block}{Hash / slovník}
+  %   \begin{verbatim}
+  %     a = {}
+  %     a["xyz"] = 555
+  %     b = {'a' => 4, 'c' => 6}
+  %   \end{verbatim}
+  % \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{block}{Vocaď pocaď}
+    \begin{verbatim}
+      (1..4)
+      (0...10)
+      (1..5).to_a
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Symbolika}
+    \begin{verbatim}
+      "letadlo"
+      :letadlo
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Boolean nebolí}
+  \begin{block}{Jednoduchá porovnání}
+    \begin{verbatim}
+      2 + 2 < 5
+      "alfa" != "beta"
+      (x == y) and (y == z)
+    \end{verbatim}
+  \end{block}
+  (pozor na \texttt{=} versus \texttt{==})
+  \pause
+  \begin{block}{Chytré metody}
+    \begin{verbatim}
+      [1, 2, 3].include?(3)
+      "abc".include?("bc")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Konverze II}
+    \begin{itemize}
+      \item vyzkoumejte, jak se chová \texttt{to\_f} a \texttt{to\_i} pro řetězce, které nejsou tak úplně číslo
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Palindrom}
+    \begin{itemize}
+      \item z libovolného řetězce vyrobte palindrom (osel $\to$ oselleso)
+      \item z libovolného řetězce vyrobte palindrom s lichým počtem znaků (osel $\to$ oseleso)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Palindrom / řešení}
+\begin{verbatim}
+  s = "osel"
+
+  puts s + s.reverse
+  puts s[0..-2] + s.reverse
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\subsection{Vstup a výstup}
+
+\begin{frame}[fragile]{Výpis z účtu}
+  \begin{block}{Tiskem}
+    \begin{verbatim}
+      print "jedna"
+      puts "dve"
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Inspektor Clouseau}
+    \begin{verbatim}
+      puts "2 + 2 = #{2+2}"
+      puts [1,2,3].inspect
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Cyklistika}
+  \begin{block}{Jednoduchý rozsah}
+    \begin{verbatim}
+      (1..5).each do
+        puts "Cislo"
+      end
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{S polem a proměnnou}
+    \begin{verbatim}
+      [1, 2, 3].each do |i|
+        puts "Cislo #{i}"
+      end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úlohy}
+  \begin{itemize}
+    \item vypište prvních deset druhých mocnin (1 * 1 = 1, 2 * 2 = 4 atd.)
+    \item vypište malou násobilku
+    \item vypište prvních N členů Fibonacciho posloupnosti (1, 1, 2, 3, 5, 8 ...)
+    \item metodou Erathostenova síta nalezněte prvočísla menší než N
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Mocniny / řešení}
+\begin{verbatim}
+  (1..10).each do |x|
+    print x
+    print " * "
+    print x
+    print " = "
+    puts x*x
+  end
+\end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Mocniny / lepší řešení}
+\begin{verbatim}
+  (1..10).each do |x|
+    puts "#{x} * #{x} = #{x*x}"
+  end
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Násobilka / řešení}
+\begin{verbatim}
+(1..10).each do |a|
+  (1..10).each do |b|
+    puts "#{b} * #{a} = #{a*b}"
+  end
+end
+\end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Násobilka / jiné řešení}
+\begin{verbatim}
+(1..10).each do |a|
+  (1..10).each do |b|
+    puts "%2d * %2d = %3d" % [b, a, a * b]
+  end
+end
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Fibonacci / řešení}
+\begin{verbatim}
+a, b = 1, 1
+
+20.times do
+  c = a + b
+  puts a
+  a = b
+  b = c
+end
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Erathostenes / řešení}
+\begin{verbatim}
+n = 100
+
+ary = (2..n).to_a
+ary.each do |x|
+  y = x
+  while y <= n
+    y += x
+    ary.delete(y)
+  end
+end
+
+puts ary.inspect
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Česko čte dětem}
+  \begin{block}{Šikovný iterátor}
+    \begin{verbatim}
+      IO.foreach("data.txt") do |line|
+        ...
+      end
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{V kuse}
+    \begin{verbatim}
+      string = IO.read("data.txt")
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{V podmínce}
+  \begin{block}{If nebo Unless}
+    \scriptsize
+    \begin{verbatim}
+      if "velikost".include?("kost")
+        puts "s kosti"
+      end
+      unless 7 > 8
+        puts "poporadku"
+      end
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{Přirozený jazyk}
+    \scriptsize
+    \begin{verbatim}
+      puts "je tam!" if "podvodnik".include? "vodnik"
+      puts "pocty" unless 2 + 2 == 5
+      a = [1]
+      a << a.last * 2 while a.size < 10
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úlohy}
+  V souboru \texttt{data/text\_1.txt}:
+  \begin{itemize}
+    \item spočítejte všechny řádky
+    \item spočítejte všechny řádky s výskytem slova kapr
+    \item spočítejte počet výskytů slova kapr (po řádcích i v kuse)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{Kapři / řešení}
+    \scriptsize
+\begin{verbatim}
+  n, n_kapr, nn_kapr = 0, 0, 0
+  IO.foreach("../data/text_1.txt") do |line|
+    n += 1
+    n_kapr += 1 if line.include?("kapr")
+    nn_kapr += line.count("kapr")
+  end
+
+  nn_kapr_bis = IO.read("../data/text_1.txt").count("kapr")
+
+  puts "Celkem radku: #{n}"
+  puts "Radku s kaprem: #{n_kapr}"
+  puts "Celkem kapru: #{nn_kapr}"
+  puts "        nebo: #{nn_kapr_bis}"
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Zápis do katastru}
+  \begin{block}{Soubor se otevře a pak už to známe}
+    \begin{verbatim}
+      f = File.open("text.txt", 'w')
+      f.puts "Nazdar!"
+      f.close
+    \end{verbatim}
+  \end{block}
+  \pause
+  \begin{block}{The Ruby way}
+    \begin{verbatim}
+      File.open("text.txt", 'w') do |f|
+        f.puts "Nazdar!"
+      end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úlohy}
+  Z dat v souboru \texttt{data/data\_two\_1.csv}:
+  \begin{itemize}
+    \item vyberte pouze druhý sloupec
+    \item sečtěte oba sloupce do jednoho
+    \item vypočtěte součet obou sloupců
+    \item vypočtěte průměr a RMS druhého sloupce
+  \end{itemize}
+  S hvězdičkou:
+  \begin{itemize}
+    \item použijte soubory \texttt{*multi*}
+    \item proveďte pro všechny čtyři CSV soubory
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{CSV(1) / řešení}
+    \scriptsize
+\begin{verbatim}
+  File.open("druhy_sloupec.csv", 'w') do |f|
+    IO.foreach("../data/data_two_1.csv") do |line|
+      f.puts line.strip.split[1]
+    end
+  end
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{CSV(2) / řešení}
+    \scriptsize
+\begin{verbatim}
+  File.open("sectene_sloupce.csv", 'w') do |f|
+    IO.foreach("../data/data_two_1.csv") do |line|
+      data = line.strip.split
+      f.puts data[0].to_f + data[1].to_f
+    end
+  end
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{CSV(3) / řešení}
+    \scriptsize
+\begin{verbatim}
+  x0 = 0
+  x1 = 0
+  n = 0
+  IO.foreach("../data/data_two_1.csv") do |line|
+    data = line.strip.split
+    x0 += data[0].to_f
+    x1 += data[1].to_f
+    n += 1
+  end
+  puts "Prvni sloupec: soucet #{x0}"
+  puts "Druhy sloupec: soucet #{x1}"
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Úlohy}
+  \begin{block}{CSV(4) / řešení}
+    \scriptsize
+\begin{verbatim}
+...
+a0 = x0 / n
+a1 = x1 / n
+
+rms0 = 0
+rms1 = 1
+IO.foreach("../data/data_two_1.csv") do |line|
+  data = line.strip.split
+  rms0 += (data[0].to_f - a0) ** 2
+  rms1 += (data[1].to_f - a1) ** 2
+  n += 1
+end
+rms0 = (rms0 / n) ** 0.5
+rms1 = (rms1 / n) ** 0.5
+puts "Prvni sloupec: RMS #{rms0}"
+puts "Druhy sloupec: RMS #{rms1}"
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\subsection{Problém č. 2: jehla v kupce sena}
+
+\begin{frame}{Zadání}
+  \begin{block}{\# 2}
+    Adresář plný CSV souborů (stovky souborů) obsahuje data, která jsou záznamy signálů s lineární závislostí.
+    
+    V pěti z nich jsou ale poruchy - data ležící zcela mimo přímku.
+    
+    Kde?
+  \end{block}
+\end{frame}
+
+\begin{frame}{Příklad - dobrý signál}
+  \begin{center}
+      \includegraphics[width=0.6\columnwidth]{search_good}
+      \end{center}
+\end{frame}
+\begin{frame}{Příklad - špatný signál}
+  \begin{center}
+      \includegraphics[width=0.6\columnwidth]{search_bad}
+      \end{center}
+\end{frame}
+
+\begin{frame}{Řešení}
+  \begin{itemize}
+    \item stačí vykreslit grafy pro všechny
+    \item \texttt{Dir} pro najití souborů
+    \item připravit a spustit \texttt{gnuplot}  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Znovu a lépe}
+  \begin{itemize}
+    \item pořád je to ještě spousta práce; navíc co když bude souborů tisíckrát víc?
+    \item nabízí se několik řešení, od těžkopádných a robustních (LLS) přes chytré (selská regrese) až po jednoduché (detekce delta-y)
+    \item hurá do toho, už je to jenom práce a skvělé cvičení
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
