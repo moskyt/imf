@@ -1,0 +1,63 @@
+task :output do
+  File.open("zke.csv", 'w') do |f|
+    f.print "%12s" % "keff"
+    (0..10).each do |i1|
+      f.print " %12.1f" % (i1*6.4)
+    end
+    f.puts
+    (0..10).each do |i2|
+      f.print "%12.1f" % (i2*6.4)
+      (0..10).each do |i1|
+        k = find_keff("../package/mcnp_outputs/c_#{i1}_#{i2}o")
+        f.print " %12.5f" % k
+      end
+      f.puts
+    end
+  end
+end
+
+task :input do
+  f = File.open("inputs/zke.bat", 'w')
+  (0..10).each do |i1|
+    (0..10).each do |i2|
+      poloha1 = i1 * 6.4
+      poloha2 = i2 * 6.4
+  
+      variables = { :r1 => poloha1, :r2 => poloha2 }
+      variables[:r1x] = (variables[:r1] + 7.102).round(3)
+      variables[:r2x] = (variables[:r2] + 7.102).round(3)
+  
+      fn = "c#{i1}_#{i2}i"
+  
+      make_input("template", "inputs/#{fn}", variables)  
+      f.puts "mcnp5 #{fn}"
+    end
+  end
+  f.close
+end
+
+
+
+def make_input(template_fn, input_fn, variables)
+  File.open(input_fn, "w") do |f|
+
+    template = IO.read(template_fn)
+
+    variables.each do |key, value|
+      template.gsub!("%#{key}%", value.to_s)
+    end    
+
+    f.puts template    
+  end  
+end
+
+def find_keff(fn)
+  keff = nil
+  IO.foreach(fn) do |line|
+    if line.include?("final estimated combined")
+      a = line.split("=")
+      b = a[1].split
+      keff = b[0]
+  end end
+  keff
+end
