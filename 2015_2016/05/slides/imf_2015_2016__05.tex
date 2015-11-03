@@ -1,0 +1,295 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (4)\\vstupní a výstupní soubory pro výpočetní programy}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2015/2016\\3. listopadu 2015}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item trocha přemýšlení při příležitosti 
+    \item rozšiřování možností jazyka Ruby (definice vlastních funkcí, doplnění nových metod)
+    \item základ načítání výstupů
+  \end{itemize}
+\end{frame}
+
+
+\section{Načítání složitějšího výstupu}
+
+\begin{frame}[fragile]{HELIOS}
+  Tabulka výstupů:
+  \scriptsize
+  \begin{verbatim}
+List name       : list
+List Title(s)  1) This is a table
+               2) of some data
+               3) in many columns
+               4) and has a long title!
+
+               bup        kinf          ab          ab        u235        u238       pu239
+ 0001     0.00E+00     1.16949  9.7053E-03  7.6469E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0002     0.00E+00     1.13213  9.7478E-03  7.9058E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0003     1.00E+01     1.13149  9.7488E-03  7.9070E-02  1.8797E-04  7.5509E-03  2.3647E-09
+ 0004     5.00E+01     1.13004  9.7521E-03  7.9093E-02  1.8760E-04  7.5506E-03  5.3144E-08
+ 0005     1.00E+02     1.12826  9.7559E-03  7.9218E-02  1.8714E-04  7.5503E-03  1.8746E-07
+ 0006     1.50E+02     1.12664  9.7594E-03  7.9407E-02  1.8668E-04  7.5500E-03  3.7495E-07
+ 0007     2.50E+02     1.12399  9.7657E-03  7.9869E-02  1.8577E-04  7.5493E-03  8.4139E-07
+ 0008     5.00E+02     1.12007  9.7812E-03  8.1065E-02  1.8351E-04  7.5476E-03  2.1882E-06
+ 0009     1.00E+03     1.11561  9.8203E-03  8.3169E-02  1.7914E-04  7.5443E-03  4.8723E-06
+ 0010     2.00E+03     1.10542  9.9329E-03  8.6731E-02  1.7088E-04  7.5376E-03  9.6873E-06
+ 0011     3.00E+03     1.09354  1.0067E-02  8.9717E-02  1.6316E-04  7.5309E-03  1.3879E-05
+ 0012     4.00E+03     1.08126  1.0207E-02  9.2299E-02  1.5591E-04  7.5242E-03  1.7571E-05
+ 0013     6.00E+03     1.05755  1.0474E-02  9.6562E-02  1.4258E-04  7.5105E-03  2.3760E-05
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Co bychom chtěli}
+  \begin{itemize}
+    \item mít načtené jednotlivé tabulky
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+\section{Automatizace tvorby vstupů}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  Ve vstupním souboru si najdeme relevantní část:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  příklad \texttt{c1\_10\_20}:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Výroba šablon}
+  Jak dostat polohy tyčí do vstupního souboru? Vyrobíme šablonu, tzn nahradíme
+  \begin{verbatim}
+    67 pz 47.6000    $ dolni hranice absoberu r1
+  \end{verbatim}
+  \pause
+  nějakou značkou (\emph{placeholder}):
+  \begin{verbatim}
+    67 pz %r1%    $ dolni hranice absoberu r1
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Chytáky a zádrhele}
+  \begin{itemize}
+    \item kromě samotné plochy konce absorbéru je nutno správně umístit i z-plochu konce hlavice o 7,102 cm níže
+    \item obecně je na místě ohlídat si, že placeholder nebude kolidovat s ničím jiným
+  \end{itemize}
+  Doporučené nástroje jsou:
+  \begin{itemize}
+    \item již známá funkce \texttt{sub} pro nahrazení jednoho řetězce jiným
+    \item pro pragmatické lenochy funkce \texttt{IO.read} načítající celý soubor do řetězce (na což nelze v Pascalu ani pomyslet)
+    \item možno ovšem použít i \texttt{IO.readlines} (v čem je to lepší?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Realizace}
+  \scriptsize
+  \begin{verbatim}
+    DELTA = 44.8000 - 37.6980
+
+    template = IO.read("template")
+    (0..10).each do |i1|
+      (0..10).each do |i2|
+        r1 = i1 * 50
+        r2 = i2 * 50
+        File.open("inputs/c_#{i1}_#{i2}", "w") do |f|
+          s = template.sub("%r1%", r1.to_s)
+          s = s.sub("%r1_%", (r1 - DELTA).to_s)
+          s = s.sub("%r2%", r2.to_s)
+          s = s.sub("%r2_%", (r2 - DELTA).to_s)
+          f.puts template
+        end
+      end
+    end
+  \end{verbatim}
+\end{frame}
+
+\subsection{Zápis všech výsledků do tabulky}
+
+\begin{frame}{Jak na to}
+  Máme všechno, co potřebujeme:
+  \begin{itemize}
+    \item načtení keff z~jednoho výstupního souboru (\texttt{IO.foreach}, \texttt{include} a \texttt{split})
+    \item procházení adresáře (\texttt{Dir.each})
+    \item zápis do souboru (\texttt{File.open} s~parametrem \texttt{w})
+  \end{itemize}
+  Takže už to stačí jen vhodným způsobem spojit dohromady!
+\end{frame}
+
+\begin{frame}[fragile]{Realizace}
+  \scriptsize
+  \begin{verbatim}
+    Dir["*o"].each do |filename|
+      keff = nil
+
+      IO.foreach(filename) do |line|
+        if line.include?("final estimated combined")
+          a = line.split("=")
+          b = a[1].split
+          keff = b[0]
+        end
+      end
+
+      puts "#{filename} #{keff}"
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Výstup}
+  Výsledkem je perfektní tabulka:
+  {\scriptsize
+  \begin{verbatim}
+    outputs/c_0_0o 0.94800
+    outputs/c_0_10o 0.99800
+    outputs/c_0_1o 0.94850
+    outputs/c_0_2o 0.95000
+    outputs/c_0_3o 0.95250
+    outputs/c_0_4o 0.95600
+    ...
+  \end{verbatim}}
+  Hloupé je, že nikde nemáme tu polohu tyčí.
+\end{frame}
+
+
+\begin{frame}[fragile]{Chytrá horákyně}
+  ... by jistě vyrobila toto:
+  {\scriptsize
+  \begin{verbatim}
+    0 0 0.94800
+    0 10 0.99800
+    0 1 0.94850
+    0 2 0.95000
+    0 3 0.95250
+    0 4 0.95600
+    ...
+  \end{verbatim}
+  }
+  Nápovědou je funkce \texttt{split} (podle podtržítka) a funkce \texttt{to\_i} (co asi dělá?)
+\end{frame}
+
+\begin{frame}[fragile]{Realizace chytré horákyně}
+  \scriptsize
+  \begin{verbatim}
+    Dir["outputs/*o"].each do |filename|
+      keff = nil
+
+      IO.foreach(filename) do |line|
+        if line.include?("final estimated combined")
+          a = line.split("=")
+          b = a[1].split
+          keff = b[0]
+        end
+      end
+
+      s = filename.split("_")
+      puts "#{s[1].to_i} #{s[2].to_i} #{keff}"
+    end
+  \end{verbatim}
+\end{frame}
+
+\subsection{Co dál?}
+
+\begin{frame}{Navážeme na úspěchy z minulých týdnů}
+  \begin{itemize}
+    \item vykreslit graf! pro každou z 11 poloh R1 jedna čára (závislost keff na R2)
+    \item (= csv soubor, gnuplot, znáte to)
+    \item najít automaticky kritickou polohu R2 pro každou z 11 poloh R1
+    \item a zase graf... (kritická poloha R2 v závislosti na R1)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
