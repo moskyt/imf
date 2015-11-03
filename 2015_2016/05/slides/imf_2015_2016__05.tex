@@ -34,7 +34,7 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (5)]{Informatika pro moderní fyziky (4)\\vstupní a výstupní soubory pro výpočetní programy}
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\vstupní a výstupní soubory pro výpočetní programy}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
@@ -103,13 +103,41 @@ List Title(s)  1) This is a table
 
 \begin{frame}{Co bychom chtěli}
   \begin{itemize}
-    \item mít načtené jednotlivé tabulky
+    \item mít načtené jednotlivé tabulky (zatím jen jednu, ale bude jich víc)
+    \item asi po jednotlivých sloupcích, sloupec = pole (hodnot po řádcích)
+    \item sloupce se jmenují, tedy použijeme \texttt{Hash}
+    \item \texttt{table['kinf']}
+    \item pozor na \texttt{ab}, asi budeme muset vyrobit něco jako \texttt{ab1}, \texttt{ab2} (ale to až za chvíli)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Nástrahy, chytáky a podobně}
   \begin{itemize}
-    \item 
+    \item tabulka skládající se z více bloků
+    \item více tabulek
+    \item tabulky mají jméno \texttt{list name} a popisek \texttt{list title(s)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak uspořádat data?}
+  \begin{itemize}
+    \item pole s tabulkami + pole s názvy + pole s titulky?
+    \pause
+    \item co hashe tabulky[název] a titulky[název]?
+    \pause
+    \item nejchytřeji: \texttt{ \{'a' => \{:title => 'Table title', data => \{'kinf' => ...\}\}\} }
+    \pause
+    \item 'nová' syntaxe: \texttt{ \{'a' => \{title: 'Table title', data: \{'kinf' => ...\}\}\} }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Z příkazové řádky}
+  \begin{itemize}
+    \item a co takhle z toho udělat skript, který lze pustit s argumentem = univerzální
+    \item \texttt{ruby read\_helios.rb helios1.out}
+    \item vypíše seznam všech tabulek, seznam jejich sloupců, počet řádků
+    \item pole \texttt{ARGV} 
+    \item vylepšení – provede pro všechny zadané soubory: \texttt{ruby read\_helios.rb helios1.out helios2.out}
   \end{itemize}
 \end{frame}
 
@@ -192,97 +220,11 @@ List Title(s)  1) This is a table
   \end{verbatim}
 \end{frame}
 
-\subsection{Zápis všech výsledků do tabulky}
-
-\begin{frame}{Jak na to}
-  Máme všechno, co potřebujeme:
+\begin{frame}{A co takhle trocha zobecnění?}
   \begin{itemize}
-    \item načtení keff z~jednoho výstupního souboru (\texttt{IO.foreach}, \texttt{include} a \texttt{split})
-    \item procházení adresáře (\texttt{Dir.each})
-    \item zápis do souboru (\texttt{File.open} s~parametrem \texttt{w})
-  \end{itemize}
-  Takže už to stačí jen vhodným způsobem spojit dohromady!
-\end{frame}
-
-\begin{frame}[fragile]{Realizace}
-  \scriptsize
-  \begin{verbatim}
-    Dir["*o"].each do |filename|
-      keff = nil
-
-      IO.foreach(filename) do |line|
-        if line.include?("final estimated combined")
-          a = line.split("=")
-          b = a[1].split
-          keff = b[0]
-        end
-      end
-
-      puts "#{filename} #{keff}"
-    end
-  \end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Výstup}
-  Výsledkem je perfektní tabulka:
-  {\scriptsize
-  \begin{verbatim}
-    outputs/c_0_0o 0.94800
-    outputs/c_0_10o 0.99800
-    outputs/c_0_1o 0.94850
-    outputs/c_0_2o 0.95000
-    outputs/c_0_3o 0.95250
-    outputs/c_0_4o 0.95600
-    ...
-  \end{verbatim}}
-  Hloupé je, že nikde nemáme tu polohu tyčí.
-\end{frame}
-
-
-\begin{frame}[fragile]{Chytrá horákyně}
-  ... by jistě vyrobila toto:
-  {\scriptsize
-  \begin{verbatim}
-    0 0 0.94800
-    0 10 0.99800
-    0 1 0.94850
-    0 2 0.95000
-    0 3 0.95250
-    0 4 0.95600
-    ...
-  \end{verbatim}
-  }
-  Nápovědou je funkce \texttt{split} (podle podtržítka) a funkce \texttt{to\_i} (co asi dělá?)
-\end{frame}
-
-\begin{frame}[fragile]{Realizace chytré horákyně}
-  \scriptsize
-  \begin{verbatim}
-    Dir["outputs/*o"].each do |filename|
-      keff = nil
-
-      IO.foreach(filename) do |line|
-        if line.include?("final estimated combined")
-          a = line.split("=")
-          b = a[1].split
-          keff = b[0]
-        end
-      end
-
-      s = filename.split("_")
-      puts "#{s[1].to_i} #{s[2].to_i} #{keff}"
-    end
-  \end{verbatim}
-\end{frame}
-
-\subsection{Co dál?}
-
-\begin{frame}{Navážeme na úspěchy z minulých týdnů}
-  \begin{itemize}
-    \item vykreslit graf! pro každou z 11 poloh R1 jedna čára (závislost keff na R2)
-    \item (= csv soubor, gnuplot, znáte to)
-    \item najít automaticky kritickou polohu R2 pro každou z 11 poloh R1
-    \item a zase graf... (kritická poloha R2 v závislosti na R1)
+    \item když budu chtít přidat další tyče nebo jiné parametry, bude to děsně bobtnat
+    \item funkce \texttt{process("template", "inputs/c\_\#\{i1\}\_\#\{i2\}", \{'r1' => r1, 'r2' => r2, .....\})}
+    \item všechno víme, známe, umíme
   \end{itemize}
 \end{frame}
 

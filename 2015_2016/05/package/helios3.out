@@ -36,7 +36,7 @@
  1<<< Z E N I T H >>>      Version: 2.1.01               <<< Z E N I T H >>>                   09 Oct 2015,  10:12 hs       Page   3
  pincell study                                                                                                                      
 
- List name       : list
+ List name       : listA
  List Title(s)  1) This is a table
                 2) of some data
                 3) in many columns
@@ -96,7 +96,7 @@
  1<<< Z E N I T H >>>      Version: 2.1.01               <<< Z E N I T H >>>                   09 Oct 2015,  10:12 hs       Page   4
  pincell study                                                                                                                      
 
- List name       : list
+ List name       : listB
  List Title(s)  1) This is another table
                 2) of some data
                 3) in many columns, but some are missing
