@@ -117,7 +117,6 @@
   \begin{block}{Hledání}
     \begin{verbatim}
       "koleno na kole".include?("kole")
-      "koleno na kole".count("kole")
     \end{verbatim}
   \end{block}
   \pause
@@ -477,10 +476,10 @@ puts ary.inspect
   IO.foreach("../data/text_1.txt") do |line|
     n += 1
     n_kapr += 1 if line.include?("kapr")
-    nn_kapr += line.count("kapr")
+    nn_kapr += line.scan("kapr").size
   end
 
-  nn_kapr_bis = IO.read("../data/text_1.txt").count("kapr")
+  nn_kapr_bis = IO.read("../data/text_1.txt").scan("kapr").size
 
   puts "Celkem radku: #{n}"
   puts "Radku s kaprem: #{n_kapr}"
