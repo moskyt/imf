@@ -1,0 +1,648 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (7)]{Informatika pro moderní fyziky (6)\\Tvorba textových dokumentů}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2015/2016\\24. listopadu 2015}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item technika šablonování a její použití pro tvorbu vstupních souborů pro výpočetní programy
+    \item generování většího množství grafů s využitím šablon
+  \end{itemize}
+\end{frame}
+
+\section{Pracky pryč, padouchu!}
+
+\begin{frame}{Klávesnice a myš}
+  \begin{itemize}
+    \item myš je dobrá na grafiku a jako alternativa k tabletu
+    \item taky se hodí tam, kde se potřebuju přesouvat mezi položkami, které nemají jednoznačné pořadí nebo prostorový vztah (neseřazené ikony na ploše, rozhraní s mrakem oken atd.)
+    \item případně ještě na použití menu pro úkony, které dělám jednou za uherský rok
+    \item naopak na programování je nejlepší na myš vůbec nešahat a používat skoro jenom klávesnici
+    \item extrémní školy dokonce brojí proti kurzorovým šipkám, protože (na velké klávesnici) nutí měnit polohu rukou, což je pomalé
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Přepínání jazyků}
+  \begin{itemize}
+    \item je dobré se mu vyhnout, protože to opravdu trochu otravuje (i když se s tím dá docela dobře žít, pokud máte dobrou klávesovou zkratku)
+    \item rozhodně stojí za to zjistit -- například pro psaní v LaTeXu -- kde na české klávesnici máte potřebné speciální znaky (v tomto případě zejména backslash a složené závorky)
+    \item chytré editory mají různé pochystávky a makra, která vám umožní se těmto speciálním znakům defacto vyhnout
+    \item pokud můžu, pracuju celou dobu s anglickou (tj. pokud výjimečně nepíšu český dokument)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klávesové zkratky}
+  \begin{itemize}
+    \item jako s programováním -- musím se něco naučit / zapamatovat, ale pak mi to ušetří hromadu času
+    \item minimálně základní sadu stojí za to se naučit
+    \item často jdou ručně editovat, ale většinou to není nutné (a je to stejně na houby, pokud zrovna nesedíte u svého počítače)
+    \item jako s hudebním nástrojem -- za čas už neznáte ty zkratky, ale prostě je umíte zmáčknout bez přemýšlení
+    \item hodně jich je sdílených napříč programy a editory
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klávesové zkratky - MS Windows}
+  \begin{itemize}
+    \item copy-paste \texttt{Ctrl+C/V}
+    \item undo \texttt{Ctrl+Z}
+    \item přepínání aplikací \texttt{Alt+Tab}
+    \item přepínání oken v rámci aplikace \texttt{Ctrl+Tab}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klávesové zkratky -- Notepad++}
+  \begin{itemize}
+    \item pohyb v textu po slovech a stránkách  \texttt{Ctrl+}šipky, \texttt{PgUp/PgDn}
+    \item uložení, otevření, zavření  \texttt{Ctrl+S, O, W}
+    \item změna odsazení bloku \texttt{Tab / Shift+Tab}
+    \item přepínání mezi soubory
+    \item zakomentovat/odkomentovat \texttt{Ctrl+Q}
+  \end{itemize}
+\end{frame}
+
+\section{Automatizace tvorby vstupů}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  Ve vstupním souboru si najdeme relevantní část:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  příklad \texttt{c1\_10\_20}:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Výroba šablon}
+  Jak dostat polohy tyčí do vstupního souboru? Vyrobíme šablonu, tzn nahradíme
+  \begin{verbatim}
+    67 pz 47.6000    $ dolni hranice absoberu r1
+  \end{verbatim}
+  \pause
+  nějakou značkou (\emph{placeholder}):
+  \begin{verbatim}
+    67 pz %r1%    $ dolni hranice absoberu r1
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Chytáky a zádrhele}
+  \begin{itemize}
+    \item kromě samotné plochy konce absorbéru je nutno správně umístit i z-plochu konce hlavice o 7,102 cm níže
+    \item obecně je na místě ohlídat si, že placeholder nebude kolidovat s ničím jiným
+  \end{itemize}
+  Doporučené nástroje jsou:
+  \begin{itemize}
+    \item již známá funkce \texttt{sub} pro nahrazení jednoho řetězce jiným
+    \item pro pragmatické lenochy funkce \texttt{IO.read} načítající celý soubor do řetězce (na což nelze v Pascalu ani pomyslet)
+    \item možno ovšem použít i \texttt{IO.readlines} (v čem je to lepší?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Realizace}
+  \scriptsize
+  \begin{verbatim}
+    DELTA = 44.8000 - 37.6980
+
+    template = IO.read("template")
+    (0..10).each do |i1|
+      (0..10).each do |i2|
+        r1 = i1 * 50
+        r2 = i2 * 50
+        File.open("inputs/c_#{i1}_#{i2}", "w") do |f|
+          s = template.sub("%r1%", r1.to_s)
+          s = s.sub("%r1_%", (r1 - DELTA).to_s)
+          s = s.sub("%r2%", r2.to_s)
+          s = s.sub("%r2_%", (r2 - DELTA).to_s)
+          f.puts template
+        end
+      end
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{A co takhle trocha zobecnění?}
+  \begin{itemize}
+    \item když budu chtít přidat další tyče nebo jiné parametry, bude to děsně bobtnat
+    \item funkce \texttt{process("template", "inputs/c\_\#\{i1\}\_\#\{i2\}", \{'r1' => r1, 'r2' => r2, .....\})}
+    \item všechno víme, známe, umíme
+  \end{itemize}
+\end{frame}
+
+\section{Závěrečná zpráva}
+
+\begin{frame}{Jak vyrobit zprávu?}
+  \begin{itemize}
+    \item potřebujeme udělat hezké PDF shrnující výsledky našich výpočtů
+    \item takže úvod, popis toho co jsme dělali a pak přehled výsledků
+    \item tabulka s hodnotami, 11+1 graf
+    \item co by znamenalo to dělat ve Wordu ..... ?
+    \item hodilo by se to zautomatizovat!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak vygenerovat text?}
+  \begin{itemize}
+    \item zase potřebujeme lepší nástroj na text, než jsou WYSIWYG (What You See Is What You Get) editory
+    \item ideálně něco, co bude mít plain-text vstup (který můžeme s úspěchem generovat v Ruby) a co se pak
+    \item odpověď zní \LaTeX
+    \item nejvíc nejlepší text-processor na světě
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Koncepce oddělení obsahu a formy}
+  \begin{itemize}
+    \item když píšu, nechci říct, že je text tučně a o dva body větší, ale že je to nadpis kapitoly
+    \item ideálně chci popsat někde, jak bude dokument vypadat a nemíchat vzhled s obsahem
+    \item styly ve Wordu se tomu vzdáleně blíží
+    \item v LaTeXu vlastně píšu jen obsah a o formu se musím starat jen hodně málo
+    \item je samozřejmostí zadarmo obsah, rejstřík atd.
+    \item kdo píše diplomku v něčem jiném, kazí si život
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Příklad jednoduchého dokumentu}
+  \begin{itemize}
+    \item viz \texttt{document.tex}
+    \item není potřeba úplně všemu rozumět, zatím to jen budeme upravovat v mezích zákona
+    \item všechny příkazy začínají zpětným lomítkem, parametry jsou ve složených závorkách
+    \item napíšu \texttt{pdflatex document.tex} a dostanu pdfko!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Text}
+  \begin{itemize}
+    \item konce řádku nejsou důležité
+    \item nový odstavec se dělá prázdným řádkem
+    \item nové (pod)kapitoly pomocí příkazů \texttt{section}, \texttt{subsection}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tabulka}
+  \begin{itemize}
+    \item prostředí (= \texttt{begin} ... \texttt{end})
+    \item sloupce se
+  \end{itemize}
+      \scriptsize
+  \begin{verbatim}
+\begin{tabular}{ll}
+a & b \\
+c & d \\
+\end{tabular}
+  \end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Úkol}
+  \begin{itemize}
+    \item vyrobit PDF s výsledky
+    \item 11 grafů keff
+    \item 1 graf závislosti kritické polohy R2 na poloze R1
+    \item tabulka keff
+    \item tabulka kritických poloh
+    \item (a my to dělat nebudeme)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pozor na backslash}
+  \begin{itemize}
+    \item v Ruby se v řetězci backslash \texttt{\textbackslash} používá jako escape character
+    \item např konec řádky je \texttt{\textbackslash n}
+    \item pokud chci vytiskout zpětné lomítko (což bude asi pro LaTeX potřeba), musím ho zdvojit: \texttt{\textbackslash \textbackslash}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Složitější práce}
+  \begin{itemize}
+    \item LaTeX je ideální pro rozsáhlé texty
+    \item výzkumák, diplomka, disertace se naformátuje sama a všechno funguje bez trápení a snažení
+    \item odkazy, reference, citace .. všechno bez starostí
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Prezentace}
+  \begin{itemize}
+    \item balíček \texttt{beamer}
+    \item bez nutnosti se uklikat to samo od sebe vypadá slušně
+    \item viz tahle prezentace
+    \item nevýhoda(?): obtížnost přizpůsobit rozmístění textu apod., ale na druhou stranu to aspoň drží jednotný styl
+  \end{itemize}
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k tomu i tabulky
+    \item data pro jednotlivé kampaně mám v CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme
+    \item převést tabulky v CSV na tabulky v LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tak nejdřív ty grafy}
+  \begin{itemize}
+    \item to už je vážně obehraná písnička, ale tady je aspoň trochu změna
+    \item potřebujeme vybrat, které dva sloupce použít - parametr \texttt{using}
+    \item \texttt{plot ``data.csv'' using 1:2}
+    \item datum na vodorovné ose -- potřeba načíst ve správném formátu atd.
+    \item \texttt{set xdata time}
+    \item \texttt{set timefmt ``\%m/\%d/\%Y''}
+    \item s hvězdičkou: nastavit nadpis a popisky os
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ne tak úplně chytře}
+  \tiny
+\begin{verbatim}
+  Dir["*.csv"].each do |fn|
+    base = fn.split(".").first
+
+    File.open("#{base}_bc.gp", 'w') do |f|
+      f.puts "set terminal png"
+      f.puts "set xdata time"
+      f.puts "set timefmt \"%m/%d/%Y\""
+      f.puts "set output \"#{base}_bc.png\""
+      f.puts "plot \"#{base}.csv\" using 1:2"
+    end
+    `gnuplot #{base}_bc.gp`
+
+    File.open("#{base}_ao.gp", 'w') do |f|
+      f.puts "set terminal png"
+      f.puts "set output \"#{base}_ao.png\""
+      f.puts "set xdata time"
+      f.puts "set timefmt \"%m/%d/%Y\""
+      f.puts "plot \"#{base}.csv\" using 1:3"
+    end
+    `gnuplot #{base}_ao.gp`
+  end
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{DRY}
+  \begin{itemize}
+    \item základní paradigma: DRY = don't repeat yourself
+    \item nemá cenu psát dvě věci stejně
+    \item použití \texttt{copy and paste} při programování je varovný signál
+    \item pokud nejsou stejně, ale skoro stejně, je potřeba trochu chytrosti
+    \item připomeňme si hash: \texttt{\{'a' => 1, 'b' => 2\}}
+    \item přes hash se dá iterovat: \\ \texttt{\{'a' => 1, 'b' => 2\}.each do |key, value|}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Grafy -- DRY}
+  \tiny
+  \begin{verbatim}
+    Dir["*.csv"].each do |fn|
+      base = fn.split(".").first
+      {'bc' => 2, 'ao' => 3}.each do |var, col|
+        File.open("#{base}_#{var}.gp", 'w') do |f|
+          f.puts "set terminal png"
+          f.puts "set xdata time"
+          f.puts "set timefmt \"%m/%d/%Y\""
+          f.puts "set output \"#{base}_#{var}.png\""
+          f.puts "plot \"#{base}.csv\" using 1:#{col}"
+        end
+        `gnuplot #{base}_#{var}.gp`
+      end
+    end
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky}
+  \begin{itemize}
+    \item tabulky budou dost rozsáhlé a montovat je přímo nějak do latexových vstupů je asi spíš nepraktické, naštěstí to jde i jinak
+    \item naštěstí má LaTex příkaz \texttt{\textbackslash{}input}, kterým můžeme prostě vložit do dokumentu nějaký externí soubor
+    \item takže si nejdřív přichystáme soubory s tabulkami a pak se na ně budeme už jenom odkazovat
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v LaTeXu (1)}
+  \begin{block}{ }
+    Základem tabulky je prostředí \texttt{tabular} s definicí počtu a zarovnání sloupců:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{lrr}
+  ...
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v LaTeXu (2)}
+  \begin{block}{ }
+    Uvnitř tabulky se sloupce oddělují ampersandem a řádky dvojitým backslashem:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{lrr}
+  Data 1 & a & 1.0 \\
+  Data 2 & b & 2.0 \\
+  Data 3 & c & 3.0 \\
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v LaTeXu (3)}
+  \begin{block}{ }
+    Přidání mřížky je nesnadné, leč proveditelné a vlastně docela dobře vymyšlené - přidáváme jednotlivé čáry po sloupcích a řádcích:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{|l|r|r|}
+  \hline
+  Data 1 & a & 1.0 \\
+  \hline
+  Data 2 & b & 2.0 \\
+  \hline
+  Data 3 & c & 3.0 \\
+  \hline
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úkol na teď: výroba tabulek}
+  \begin{itemize}
+    \item vyrobit z CSV souboru (tři sloupce) dvě LaTeX tabulky (po dvou sloupcích)
+    \item postarat se, aby byly hezké
+    \item chytré je vyrobit tabulku třeba o šesti sloupcích (jakože tři dvousloupce), pak už se to na stránku v klidu vejde
+  \end{itemize}
+\end{frame}
+
+% ukol ted: vytahnout z trisloupcoveho CSV dvousloupcovou latex tabulku
+%
+% (ukazat, s vysledkem)
+%
+% pak: do tri dvousloupcu
+%
+% (vysledek)
+%
+% (ukazat)
+
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (Embedded Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Základní syntaxe ERb (1)}
+  \begin{block}{ }
+    Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+    \scriptsize
+    \begin{verbatim}
+      <% a = b + 5 %>
+      <% list = ary * ", " %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (2)}
+  \begin{block}{ }
+    Pokud chci něco vložit, stačí přidat rovnítko
+    \scriptsize
+    \begin{verbatim}
+      <%= a %>
+      <%= ary[1] %>
+      <%= b + 5 %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (3)}
+  \begin{block}{ }
+    Radost je možnost použít bloky a tedy i iterátory apod. v propojení s vkládaným textem:
+    \scriptsize
+    \begin{verbatim}
+      <% (1..5).each do |i| %>
+      Number <%= i %>
+      <% end %>
+      <% ary.each do |x| %>
+      Array contains <%= x %>
+      <% end %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{ERb -- shrnutí}
+  \begin{itemize}
+    \item dobrý sluha, ale špatný pán
+    \item můžu s tím vyrobit hromadu užitečných věcí na malém prostoru
+    \item daň je velké riziko zamotaného kódu a nízké přehlednosti (struktura naprosto není patrná na první pohled, proto je namístě ji držet maximálně jednoduchou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Důležité upozornění}
+  \begin{itemize}
+    \item oddělení modelu a view
+    \item přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+    \item je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+    \item a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb_compiler'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Takže v latexu třeba}
+\scriptsize
+\begin{verbatim}
+  \subsection{Koncentrace kyseliny borité}
+
+  <% files.each do |f| %>
+
+  \subsubsection{Kampaň <%= f.split('_').last %>}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{<%= f %>_bc.eps}
+  \end{center}
+  <% end %>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{A teď už to jenom dejte dohromady...}
+  \begin{enumerate}
+    \item připravit si základní kostru dokumentu v latexu
+    \item převést na šablonu: mít seznam souborů, správně generovat kapitoly
+    \item vyrobit grafy
+    \item vložit grafy do šablony
+    \item vyrobit tabulky
+    \item vložit tabulky do šablony
+    \item A JE TO!
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+% 1   gnuplot
+% 2   ruby
+% 3   z mcnp
+% 4   rake, latex
+%
+%
+% 5   erb, more latex, vcs intro
+%   - jak funguje erb
+%   - load, require, def
+%   - tyce revisited
+%   - vyrobit z latexu tabulku
+%   - about vcs
+%   - github -- clone imf repo
+%
+
+%
+% 6
+% 7
+% 8
+% 9
+% 10
+%
+%
+% html, zase generovani
+%
+% webove aplikace
+%
+% yaml a xml
+%
+% pustit vypocet na linuxu
+%
+% generovani svg
+%
+% version control
+%
+% ---
+% git@win?
+% konto na lenochodech?

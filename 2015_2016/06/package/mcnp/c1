@@ -1800,10 +1800,10 @@ c -----------------------------------------------------------------------------
 c polohy tyci (z-plochy)
 c -----------------------------------------------------------------------------
 c
-67 pz 47.6000                                                                   $ dolni hranice absoberu r1
-68 pz 40.4980                                                                   $ dolni hranice hlavice r1
-69 pz 44.8000                                                                   $ dolni hranice absoberu r2
-70 pz 37.6980                                                                   $ dolni hranice hlavice r2
+67 pz %r1%                                                                   $ dolni hranice absoberu r1
+68 pz %r1_%                                                                   $ dolni hranice hlavice r1
+69 pz %r2%                                                                   $ dolni hranice absoberu r2
+70 pz %r2_%                                                                   $ dolni hranice hlavice r2
 65 pz 37.7000                                                                   $ dolni hranice absoberu e1
 66 pz 30.5980                                                                   $ dolni hranice hlavice e1
 81 pz -0.4000                                                                   $ dolni hranice absoberu e2
