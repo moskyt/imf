@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<html>
+  <head>
+    <link href='astrid.css' rel='stylesheet' type='text/css' />
+    <link href='jquery.fancybox-1.3.4.css' rel='stylesheet' type='text/css' />
+    <script src='jquery-1.4.4.min.js' type='text/javascript'></script>
+    <script src='protovis-r3.2.js' type='text/javascript'></script>
+    <script src='jquery.fancybox-1.3.4.pack.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <h2>Rozložení vyhoření po kazetách</h2>
+    <table class="switcher"><tr><td>krok</td><td><input type="hidden" id="burnup_map_assemblies_selector_0" value="0"/>
+      <a href="#" id="burnup_map_assemblies_selector_0_0" class="selector_link_ selected" onclick="$('#burnup_map_assemblies_selector_0').val(0);select_burnup_map_assemblies();return false">1[5.000d efd]</a>
+      <a href="#" id="burnup_map_assemblies_selector_0_1" class="selector_link_ " onclick="$('#burnup_map_assemblies_selector_0').val(1);select_burnup_map_assemblies();return false">2[25.000d efd]</a>
+      <a href="#" id="burnup_map_assemblies_selector_0_2" class="selector_link_ " onclick="$('#burnup_map_assemblies_selector_0').val(2);select_burnup_map_assemblies();return false">3[45.000d efd]</a>
+      <a href="#" id="burnup_map_assemblies_selector_0_3" class="selector_link_ " onclick="$('#burnup_map_assemblies_selector_0').val(3);select_burnup_map_assemblies();return false">4[65.000d efd]</a>
+      <a href="#" id="burnup_map_assemblies_selector_0_4" class="selector_link_ " onclick="$('#burnup_map_assemblies_selector_0').val(4);select_burnup_map_assemblies();return false">5[85.000d efd]</a>
+      <a href="#" id="burnup_map_assemblies_selector_0_5" class="selector_link_ " onclick="$('#burnup_map_assemblies_selector_0').val(5);select_burnup_map_assemblies();return false">6[105.000d efd]</a>
+    </td></tr>
+    </table>
+    <script>function select_burnup_map_assemblies() {$('#burnup_map_assemblies_0').hide();
+    $('#burnup_map_assemblies_1').hide();
+    $('#burnup_map_assemblies_2').hide();
+    $('#burnup_map_assemblies_3').hide();
+    $('#burnup_map_assemblies_4').hide();
+    $('#burnup_map_assemblies_5').hide();
+    
+    name = ('#burnup_map_assemblies'+'_'+$('#burnup_map_assemblies_selector_0').val());
+    $(name).show();
+    }</script>
+    <div style="min-height:480px;overflow:none"><div id="burnup_map_assemblies_0" >
+    <h5>Krok 1[5.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_1.svg" width="510" height="431" />
+    
+    </div>
+    <div id="burnup_map_assemblies_1" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_2.svg" width="510" height="431" />
+    
+    </div>
+    <div id="burnup_map_assemblies_2" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_3.svg" width="510" height="431" />
+    
+    </div>
+    <div id="burnup_map_assemblies_3" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_4.svg" width="510" height="431" />
+    
+    </div>
+    <div id="burnup_map_assemblies_4" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_5.svg" width="510" height="431" />
+    
+    </div>
+    <div id="burnup_map_assemblies_5" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd]</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_assemblies_6.svg" width="510" height="431" />
+    
+    </div>
+    </div>
+    <h2>Rozložení vyhoření po nódech ve vrstvě</h2>
+    <table class="switcher"><tr><td>krok</td><td><input type="hidden" id="burnup_map_layer_selector_0" value="0"/>
+      <a href="#" id="burnup_map_layer_selector_0_0" class="selector_link_ selected" onclick="$('#burnup_map_layer_selector_0').val(0);select_burnup_map_layer();return false">1[5.000d efd]</a>
+      <a href="#" id="burnup_map_layer_selector_0_1" class="selector_link_ " onclick="$('#burnup_map_layer_selector_0').val(1);select_burnup_map_layer();return false">2[25.000d efd]</a>
+      <a href="#" id="burnup_map_layer_selector_0_2" class="selector_link_ " onclick="$('#burnup_map_layer_selector_0').val(2);select_burnup_map_layer();return false">3[45.000d efd]</a>
+      <a href="#" id="burnup_map_layer_selector_0_3" class="selector_link_ " onclick="$('#burnup_map_layer_selector_0').val(3);select_burnup_map_layer();return false">4[65.000d efd]</a>
+      <a href="#" id="burnup_map_layer_selector_0_4" class="selector_link_ " onclick="$('#burnup_map_layer_selector_0').val(4);select_burnup_map_layer();return false">5[85.000d efd]</a>
+      <a href="#" id="burnup_map_layer_selector_0_5" class="selector_link_ " onclick="$('#burnup_map_layer_selector_0').val(5);select_burnup_map_layer();return false">6[105.000d efd]</a>
+    </td></tr>
+    <tr><td>vrstva</td><td><select id="burnup_map_layer_selector_1" onChange="select_burnup_map_layer();return false"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></td></tr></table>
+    <script>function select_burnup_map_layer() {$('#burnup_map_layer_0_0').hide();
+    $('#burnup_map_layer_0_1').hide();
+    $('#burnup_map_layer_0_2').hide();
+    $('#burnup_map_layer_0_3').hide();
+    $('#burnup_map_layer_0_4').hide();
+    $('#burnup_map_layer_0_5').hide();
+    $('#burnup_map_layer_0_6').hide();
+    $('#burnup_map_layer_0_7').hide();
+    $('#burnup_map_layer_0_8').hide();
+    $('#burnup_map_layer_0_9').hide();
+    $('#burnup_map_layer_1_0').hide();
+    $('#burnup_map_layer_1_1').hide();
+    $('#burnup_map_layer_1_2').hide();
+    $('#burnup_map_layer_1_3').hide();
+    $('#burnup_map_layer_1_4').hide();
+    $('#burnup_map_layer_1_5').hide();
+    $('#burnup_map_layer_1_6').hide();
+    $('#burnup_map_layer_1_7').hide();
+    $('#burnup_map_layer_1_8').hide();
+    $('#burnup_map_layer_1_9').hide();
+    $('#burnup_map_layer_2_0').hide();
+    $('#burnup_map_layer_2_1').hide();
+    $('#burnup_map_layer_2_2').hide();
+    $('#burnup_map_layer_2_3').hide();
+    $('#burnup_map_layer_2_4').hide();
+    $('#burnup_map_layer_2_5').hide();
+    $('#burnup_map_layer_2_6').hide();
+    $('#burnup_map_layer_2_7').hide();
+    $('#burnup_map_layer_2_8').hide();
+    $('#burnup_map_layer_2_9').hide();
+    $('#burnup_map_layer_3_0').hide();
+    $('#burnup_map_layer_3_1').hide();
+    $('#burnup_map_layer_3_2').hide();
+    $('#burnup_map_layer_3_3').hide();
+    $('#burnup_map_layer_3_4').hide();
+    $('#burnup_map_layer_3_5').hide();
+    $('#burnup_map_layer_3_6').hide();
+    $('#burnup_map_layer_3_7').hide();
+    $('#burnup_map_layer_3_8').hide();
+    $('#burnup_map_layer_3_9').hide();
+    $('#burnup_map_layer_4_0').hide();
+    $('#burnup_map_layer_4_1').hide();
+    $('#burnup_map_layer_4_2').hide();
+    $('#burnup_map_layer_4_3').hide();
+    $('#burnup_map_layer_4_4').hide();
+    $('#burnup_map_layer_4_5').hide();
+    $('#burnup_map_layer_4_6').hide();
+    $('#burnup_map_layer_4_7').hide();
+    $('#burnup_map_layer_4_8').hide();
+    $('#burnup_map_layer_4_9').hide();
+    $('#burnup_map_layer_5_0').hide();
+    $('#burnup_map_layer_5_1').hide();
+    $('#burnup_map_layer_5_2').hide();
+    $('#burnup_map_layer_5_3').hide();
+    $('#burnup_map_layer_5_4').hide();
+    $('#burnup_map_layer_5_5').hide();
+    $('#burnup_map_layer_5_6').hide();
+    $('#burnup_map_layer_5_7').hide();
+    $('#burnup_map_layer_5_8').hide();
+    $('#burnup_map_layer_5_9').hide();
+    
+    name = ('#burnup_map_layer'+'_'+$('#burnup_map_layer_selector_0').val()+'_'+$('#burnup_map_layer_selector_1').val());
+    $(name).show();
+    }</script>
+    <div style="min-height:480px;overflow:none"><div id="burnup_map_layer_0_0" >
+    <h5>Krok 1[5.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_1" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_2" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_3" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_4" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_5" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_6" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_7" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_8" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_0_9" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_0" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_1" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_2" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_3" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_4" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_5" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_6" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_7" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_8" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_1_9" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_2_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_0" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_1" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_2" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_3" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_4" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_5" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_6" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_7" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_8" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_2_9" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_3_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_0" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_1" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_2" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_3" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_4" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_5" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_6" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_7" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_8" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_3_9" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_4_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_0" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_1" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_2" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_3" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_4" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_5" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_6" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_7" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_8" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_4_9" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_5_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_0" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_1" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_2" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_3" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_4" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_5" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_6" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_7" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_8" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="burnup_map_layer_5_9" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_burnup_map_layer_6_9.svg" width="570" height="483" />
+    
+    </div>
+    </div>
+  </body>
+</html>

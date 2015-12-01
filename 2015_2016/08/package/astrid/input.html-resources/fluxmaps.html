@@ -1,0 +1,1344 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<html>
+  <head>
+    <link href='astrid.css' rel='stylesheet' type='text/css' />
+    <link href='jquery.fancybox-1.3.4.css' rel='stylesheet' type='text/css' />
+    <script src='jquery-1.4.4.min.js' type='text/javascript'></script>
+    <script src='protovis-r3.2.js' type='text/javascript'></script>
+    <script src='jquery.fancybox-1.3.4.pack.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <h2>Rozložení hustoty toku neutronů po nódech ve vrstvě (n/cm2.s)</h2>
+    <table class="switcher"><tr><td>krok</td><td><input type="hidden" id="flux_map_layer_selector_0" value="0"/>
+      <a href="#" id="flux_map_layer_selector_0_0" class="selector_link_ selected" onclick="$('#flux_map_layer_selector_0').val(0);select_flux_map_layer();return false">1[5.000d efd]</a>
+      <a href="#" id="flux_map_layer_selector_0_1" class="selector_link_ " onclick="$('#flux_map_layer_selector_0').val(1);select_flux_map_layer();return false">2[25.000d efd]</a>
+      <a href="#" id="flux_map_layer_selector_0_2" class="selector_link_ " onclick="$('#flux_map_layer_selector_0').val(2);select_flux_map_layer();return false">3[45.000d efd]</a>
+      <a href="#" id="flux_map_layer_selector_0_3" class="selector_link_ " onclick="$('#flux_map_layer_selector_0').val(3);select_flux_map_layer();return false">4[65.000d efd]</a>
+      <a href="#" id="flux_map_layer_selector_0_4" class="selector_link_ " onclick="$('#flux_map_layer_selector_0').val(4);select_flux_map_layer();return false">5[85.000d efd]</a>
+      <a href="#" id="flux_map_layer_selector_0_5" class="selector_link_ " onclick="$('#flux_map_layer_selector_0').val(5);select_flux_map_layer();return false">6[105.000d efd]</a>
+    </td></tr>
+    <tr><td>grupa</td><td><select id="flux_map_layer_selector_1" onChange="select_flux_map_layer();return false"><option value="0">0</option><option value="1">1</option></select></td></tr><tr><td>vrstva</td><td><select id="flux_map_layer_selector_2" onChange="select_flux_map_layer();return false"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></td></tr></table>
+    <script>function select_flux_map_layer() {$('#flux_map_layer_0_0_0').hide();
+    $('#flux_map_layer_0_0_1').hide();
+    $('#flux_map_layer_0_0_2').hide();
+    $('#flux_map_layer_0_0_3').hide();
+    $('#flux_map_layer_0_0_4').hide();
+    $('#flux_map_layer_0_0_5').hide();
+    $('#flux_map_layer_0_0_6').hide();
+    $('#flux_map_layer_0_0_7').hide();
+    $('#flux_map_layer_0_0_8').hide();
+    $('#flux_map_layer_0_0_9').hide();
+    $('#flux_map_layer_0_1_0').hide();
+    $('#flux_map_layer_0_1_1').hide();
+    $('#flux_map_layer_0_1_2').hide();
+    $('#flux_map_layer_0_1_3').hide();
+    $('#flux_map_layer_0_1_4').hide();
+    $('#flux_map_layer_0_1_5').hide();
+    $('#flux_map_layer_0_1_6').hide();
+    $('#flux_map_layer_0_1_7').hide();
+    $('#flux_map_layer_0_1_8').hide();
+    $('#flux_map_layer_0_1_9').hide();
+    $('#flux_map_layer_1_0_0').hide();
+    $('#flux_map_layer_1_0_1').hide();
+    $('#flux_map_layer_1_0_2').hide();
+    $('#flux_map_layer_1_0_3').hide();
+    $('#flux_map_layer_1_0_4').hide();
+    $('#flux_map_layer_1_0_5').hide();
+    $('#flux_map_layer_1_0_6').hide();
+    $('#flux_map_layer_1_0_7').hide();
+    $('#flux_map_layer_1_0_8').hide();
+    $('#flux_map_layer_1_0_9').hide();
+    $('#flux_map_layer_1_1_0').hide();
+    $('#flux_map_layer_1_1_1').hide();
+    $('#flux_map_layer_1_1_2').hide();
+    $('#flux_map_layer_1_1_3').hide();
+    $('#flux_map_layer_1_1_4').hide();
+    $('#flux_map_layer_1_1_5').hide();
+    $('#flux_map_layer_1_1_6').hide();
+    $('#flux_map_layer_1_1_7').hide();
+    $('#flux_map_layer_1_1_8').hide();
+    $('#flux_map_layer_1_1_9').hide();
+    $('#flux_map_layer_2_0_0').hide();
+    $('#flux_map_layer_2_0_1').hide();
+    $('#flux_map_layer_2_0_2').hide();
+    $('#flux_map_layer_2_0_3').hide();
+    $('#flux_map_layer_2_0_4').hide();
+    $('#flux_map_layer_2_0_5').hide();
+    $('#flux_map_layer_2_0_6').hide();
+    $('#flux_map_layer_2_0_7').hide();
+    $('#flux_map_layer_2_0_8').hide();
+    $('#flux_map_layer_2_0_9').hide();
+    $('#flux_map_layer_2_1_0').hide();
+    $('#flux_map_layer_2_1_1').hide();
+    $('#flux_map_layer_2_1_2').hide();
+    $('#flux_map_layer_2_1_3').hide();
+    $('#flux_map_layer_2_1_4').hide();
+    $('#flux_map_layer_2_1_5').hide();
+    $('#flux_map_layer_2_1_6').hide();
+    $('#flux_map_layer_2_1_7').hide();
+    $('#flux_map_layer_2_1_8').hide();
+    $('#flux_map_layer_2_1_9').hide();
+    $('#flux_map_layer_3_0_0').hide();
+    $('#flux_map_layer_3_0_1').hide();
+    $('#flux_map_layer_3_0_2').hide();
+    $('#flux_map_layer_3_0_3').hide();
+    $('#flux_map_layer_3_0_4').hide();
+    $('#flux_map_layer_3_0_5').hide();
+    $('#flux_map_layer_3_0_6').hide();
+    $('#flux_map_layer_3_0_7').hide();
+    $('#flux_map_layer_3_0_8').hide();
+    $('#flux_map_layer_3_0_9').hide();
+    $('#flux_map_layer_3_1_0').hide();
+    $('#flux_map_layer_3_1_1').hide();
+    $('#flux_map_layer_3_1_2').hide();
+    $('#flux_map_layer_3_1_3').hide();
+    $('#flux_map_layer_3_1_4').hide();
+    $('#flux_map_layer_3_1_5').hide();
+    $('#flux_map_layer_3_1_6').hide();
+    $('#flux_map_layer_3_1_7').hide();
+    $('#flux_map_layer_3_1_8').hide();
+    $('#flux_map_layer_3_1_9').hide();
+    $('#flux_map_layer_4_0_0').hide();
+    $('#flux_map_layer_4_0_1').hide();
+    $('#flux_map_layer_4_0_2').hide();
+    $('#flux_map_layer_4_0_3').hide();
+    $('#flux_map_layer_4_0_4').hide();
+    $('#flux_map_layer_4_0_5').hide();
+    $('#flux_map_layer_4_0_6').hide();
+    $('#flux_map_layer_4_0_7').hide();
+    $('#flux_map_layer_4_0_8').hide();
+    $('#flux_map_layer_4_0_9').hide();
+    $('#flux_map_layer_4_1_0').hide();
+    $('#flux_map_layer_4_1_1').hide();
+    $('#flux_map_layer_4_1_2').hide();
+    $('#flux_map_layer_4_1_3').hide();
+    $('#flux_map_layer_4_1_4').hide();
+    $('#flux_map_layer_4_1_5').hide();
+    $('#flux_map_layer_4_1_6').hide();
+    $('#flux_map_layer_4_1_7').hide();
+    $('#flux_map_layer_4_1_8').hide();
+    $('#flux_map_layer_4_1_9').hide();
+    $('#flux_map_layer_5_0_0').hide();
+    $('#flux_map_layer_5_0_1').hide();
+    $('#flux_map_layer_5_0_2').hide();
+    $('#flux_map_layer_5_0_3').hide();
+    $('#flux_map_layer_5_0_4').hide();
+    $('#flux_map_layer_5_0_5').hide();
+    $('#flux_map_layer_5_0_6').hide();
+    $('#flux_map_layer_5_0_7').hide();
+    $('#flux_map_layer_5_0_8').hide();
+    $('#flux_map_layer_5_0_9').hide();
+    $('#flux_map_layer_5_1_0').hide();
+    $('#flux_map_layer_5_1_1').hide();
+    $('#flux_map_layer_5_1_2').hide();
+    $('#flux_map_layer_5_1_3').hide();
+    $('#flux_map_layer_5_1_4').hide();
+    $('#flux_map_layer_5_1_5').hide();
+    $('#flux_map_layer_5_1_6').hide();
+    $('#flux_map_layer_5_1_7').hide();
+    $('#flux_map_layer_5_1_8').hide();
+    $('#flux_map_layer_5_1_9').hide();
+    
+    name = ('#flux_map_layer'+'_'+$('#flux_map_layer_selector_0').val()+'_'+$('#flux_map_layer_selector_1').val()+'_'+$('#flux_map_layer_selector_2').val());
+    $(name).show();
+    }</script>
+    <div style="min-height:480px;overflow:none"><div id="flux_map_layer_0_0_0" >
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_1" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_2" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_3" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_4" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_5" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_6" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_7" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_8" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_0_9" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_0" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_1" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_2" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_3" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_4" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_5" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_6" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_7" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_8" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_0_1_9" style="display:none;overflow:none">
+    <h5>Krok 1[5.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_1_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_0" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_1" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_2" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_3" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_4" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_5" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_6" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_7" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_8" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_0_9" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_0" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_1" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_2" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_3" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_4" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_5" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_6" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_7" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_8" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_1_1_9" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_2_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_0" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_1" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_2" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_3" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_4" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_5" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_6" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_7" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_8" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_0_9" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_0" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_1" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_2" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_3" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_4" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_5" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_6" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_7" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_8" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_2_1_9" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_3_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_0" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_1" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_2" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_3" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_4" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_5" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_6" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_7" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_8" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_0_9" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_0" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_1" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_2" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_3" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_4" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_5" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_6" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_7" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_8" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_3_1_9" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_4_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_0" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_1" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_2" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_3" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_4" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_5" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_6" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_7" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_8" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_0_9" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_0" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_1" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_2" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_3" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_4" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_5" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_6" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_7" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_8" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_4_1_9" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_5_1_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_0" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_1" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_2" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_3" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_4" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_5" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_6" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_7" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_8" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_0_9" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 0, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_0_9.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_0" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 0</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_0.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_1" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 1</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_1.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_2" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 2</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_2.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_3" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 3</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_3.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_4" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 4</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_4.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_5" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 5</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_5.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_6" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 6</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_6.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_7" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 7</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_7.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_8" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 8</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_8.svg" width="570" height="483" />
+    
+    </div>
+    <div id="flux_map_layer_5_1_9" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd], grupa 1, vrstva 9</h5>
+    <embed type="image/svg+xml" src="./map_flux_map_layer_6_1_9.svg" width="570" height="483" />
+    
+    </div>
+    </div>
+    <h2>Axiální rozložení hustoty toku neutronů po výšce aktivní zóny</h2>
+    <table class="switcher"><tr><td>krok</td><td><input type="hidden" id="core_axial_fluxs_selector_0" value="0"/>
+      <a href="#" id="core_axial_fluxs_selector_0_0" class="selector_link_ selected" onclick="$('#core_axial_fluxs_selector_0').val(0);select_core_axial_fluxs();return false">1[5.000d efd]</a>
+      <a href="#" id="core_axial_fluxs_selector_0_1" class="selector_link_ " onclick="$('#core_axial_fluxs_selector_0').val(1);select_core_axial_fluxs();return false">2[25.000d efd]</a>
+      <a href="#" id="core_axial_fluxs_selector_0_2" class="selector_link_ " onclick="$('#core_axial_fluxs_selector_0').val(2);select_core_axial_fluxs();return false">3[45.000d efd]</a>
+      <a href="#" id="core_axial_fluxs_selector_0_3" class="selector_link_ " onclick="$('#core_axial_fluxs_selector_0').val(3);select_core_axial_fluxs();return false">4[65.000d efd]</a>
+      <a href="#" id="core_axial_fluxs_selector_0_4" class="selector_link_ " onclick="$('#core_axial_fluxs_selector_0').val(4);select_core_axial_fluxs();return false">5[85.000d efd]</a>
+      <a href="#" id="core_axial_fluxs_selector_0_5" class="selector_link_ " onclick="$('#core_axial_fluxs_selector_0').val(5);select_core_axial_fluxs();return false">6[105.000d efd]</a>
+    </td></tr>
+    </table>
+    <script>function select_core_axial_fluxs() {$('#core_axial_fluxs_0').hide();
+    $('#core_axial_fluxs_1').hide();
+    $('#core_axial_fluxs_2').hide();
+    $('#core_axial_fluxs_3').hide();
+    $('#core_axial_fluxs_4').hide();
+    $('#core_axial_fluxs_5').hide();
+    
+    name = ('#core_axial_fluxs'+'_'+$('#core_axial_fluxs_selector_0').val());
+    $(name).show();
+    }</script>
+    <div style="min-height:480px;overflow:none"><div id="core_axial_fluxs_0" >
+    <h5>Krok 1[5.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 6072000000000.0},
+    {x: 1,y: 37690000000000.0},
+    {x: 2,y: 1.777e+14},
+    {x: 3,y: 3.246e+14},
+    {x: 4,y: 3.723e+14},
+    {x: 5,y: 3.557e+14},
+    {x: 6,y: 2.854e+14},
+    {x: 7,y: 1.49e+14},
+    {x: 8,y: 32430000000000.0},
+    {x: 9,y: 5760000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1091000000000.0},
+    {x: 1,y: 13600000000000.0},
+    {x: 2,y: 39690000000000.0},
+    {x: 3,y: 71010000000000.0},
+    {x: 4,y: 80450000000000.0},
+    {x: 5,y: 76060000000000.0},
+    {x: 6,y: 60590000000000.0},
+    {x: 7,y: 31790000000000.0},
+    {x: 8,y: 10910000000000.0},
+    {x: 9,y: 941600000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    <div id="core_axial_fluxs_1" style="display:none;overflow:none">
+    <h5>Krok 2[25.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 6007000000000.0},
+    {x: 1,y: 37260000000000.0},
+    {x: 2,y: 1.763e+14},
+    {x: 3,y: 3.264e+14},
+    {x: 4,y: 3.776e+14},
+    {x: 5,y: 3.617e+14},
+    {x: 6,y: 2.884e+14},
+    {x: 7,y: 1.483e+14},
+    {x: 8,y: 32060000000000.0},
+    {x: 9,y: 5698000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1079000000000.0},
+    {x: 1,y: 13390000000000.0},
+    {x: 2,y: 38750000000000.0},
+    {x: 3,y: 69080000000000.0},
+    {x: 4,y: 78480000000000.0},
+    {x: 5,y: 74420000000000.0},
+    {x: 6,y: 59300000000000.0},
+    {x: 7,y: 31170000000000.0},
+    {x: 8,y: 10740000000000.0},
+    {x: 9,y: 930800000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    <div id="core_axial_fluxs_2" style="display:none;overflow:none">
+    <h5>Krok 3[45.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 6394000000000.0},
+    {x: 1,y: 39550000000000.0},
+    {x: 2,y: 1.822e+14},
+    {x: 3,y: 3.269e+14},
+    {x: 4,y: 3.699e+14},
+    {x: 5,y: 3.577e+14},
+    {x: 6,y: 2.952e+14},
+    {x: 7,y: 1.569e+14},
+    {x: 8,y: 34690000000000.0},
+    {x: 9,y: 6174000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1147000000000.0},
+    {x: 1,y: 14120000000000.0},
+    {x: 2,y: 39360000000000.0},
+    {x: 3,y: 67220000000000.0},
+    {x: 4,y: 74440000000000.0},
+    {x: 5,y: 71270000000000.0},
+    {x: 6,y: 59010000000000.0},
+    {x: 7,y: 32430000000000.0},
+    {x: 8,y: 11570000000000.0},
+    {x: 9,y: 1008000000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    <div id="core_axial_fluxs_3" style="display:none;overflow:none">
+    <h5>Krok 4[65.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 7010000000000.0},
+    {x: 1,y: 43170000000000.0},
+    {x: 2,y: 1.908e+14},
+    {x: 3,y: 3.27e+14},
+    {x: 4,y: 3.582e+14},
+    {x: 5,y: 3.497e+14},
+    {x: 6,y: 3.015e+14},
+    {x: 7,y: 1.679e+14},
+    {x: 8,y: 38440000000000.0},
+    {x: 9,y: 6864000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1256000000000.0},
+    {x: 1,y: 15320000000000.0},
+    {x: 2,y: 40650000000000.0},
+    {x: 3,y: 65860000000000.0},
+    {x: 4,y: 70520000000000.0},
+    {x: 5,y: 68150000000000.0},
+    {x: 6,y: 59010000000000.0},
+    {x: 7,y: 34220000000000.0},
+    {x: 8,y: 12760000000000.0},
+    {x: 9,y: 1119000000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    <div id="core_axial_fluxs_4" style="display:none;overflow:none">
+    <h5>Krok 5[85.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 7707000000000.0},
+    {x: 1,y: 47210000000000.0},
+    {x: 2,y: 1.999e+14},
+    {x: 3,y: 3.271e+14},
+    {x: 4,y: 3.468e+14},
+    {x: 5,y: 3.409e+14},
+    {x: 6,y: 3.062e+14},
+    {x: 7,y: 1.79e+14},
+    {x: 8,y: 42620000000000.0},
+    {x: 9,y: 7640000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1378000000000.0},
+    {x: 1,y: 16660000000000.0},
+    {x: 2,y: 42080000000000.0},
+    {x: 3,y: 64880000000000.0},
+    {x: 4,y: 67240000000000.0},
+    {x: 5,y: 65390000000000.0},
+    {x: 6,y: 58970000000000.0},
+    {x: 7,y: 36020000000000.0},
+    {x: 8,y: 14070000000000.0},
+    {x: 9,y: 1244000000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    <div id="core_axial_fluxs_5" style="display:none;overflow:none">
+    <h5>Krok 6[105.000d efd]</h5>
+    
+            <div style="width:600px;height:400.px">
+            <script type="text/javascript+protovis">
+            var data = [];
+          
+                var data_0 = [
+                  {x: 0,y: 8401000000000.0},
+    {x: 1,y: 51180000000000.0},
+    {x: 2,y: 2.084e+14},
+    {x: 3,y: 3.28e+14},
+    {x: 4,y: 3.383e+14},
+    {x: 5,y: 3.331e+14},
+    {x: 6,y: 3.084e+14},
+    {x: 7,y: 1.875e+14},
+    {x: 8,y: 46310000000000.0},
+    {x: 9,y: 8336000000000.0}
+                ];
+                data = data.concat(data_0);
+              
+                var data_1 = [
+                  {x: 0,y: 1500000000000.0},
+    {x: 1,y: 17960000000000.0},
+    {x: 2,y: 43430000000000.0},
+    {x: 3,y: 64330000000000.0},
+    {x: 4,y: 64890000000000.0},
+    {x: 5,y: 63210000000000.0},
+    {x: 6,y: 58650000000000.0},
+    {x: 7,y: 37340000000000.0},
+    {x: 8,y: 15200000000000.0},
+    {x: 9,y: 1355000000000.0}
+                ];
+                data = data.concat(data_1);
+              
+            /* Sizing and scales. */
+            var w = 600,
+                h = 400,
+                x = pv.Scale.linear(data, function(d) d.x).range(0, w),
+                y = pv.Scale.linear(data, function(d) d.y).range(0, h*0.8);
+          y.tickFormat = function(x) { return x.toExponential(2); };
+    
+            /* The root panel. */
+            var vis = new pv.Panel()
+                .width(w)
+                .height(h)
+                .bottom(20)
+                .left(60)
+                .right(10)
+                .top(5);
+    
+            vis.add(pv.Label)
+                .left(300)
+                .top(40)
+                .textAlign("center")
+                .font("16px sans-serif")
+                .text("Axial layer-averaged flux");
+    
+            /* Y-axis ticks. */
+            vis.add(pv.Rule)
+                .data(y.ticks(5))
+                .bottom(y)
+                .strokeStyle(function(d) d ? "#eee" : "#000")
+              .anchor("left").add(pv.Label)
+                .text(y.tickFormat);
+          
+                  vis.add(pv.Line)
+                      .data(data_0).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_0)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(30, 120, 180)")
+                      .strokeStyle("rgb(30, 120, 180)")
+                      .size(9);
+                
+                  vis.add(pv.Line)
+                      .data(data_1).interpolate("tension")
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .lineWidth(3);
+                  vis.add(pv.Dot)
+                      .data(data_1)
+                      .left(function(d) x(d.x)).bottom(function(d) y(d.y))
+                      .fillStyle("rgb(180, 120, 30)")
+                      .strokeStyle("rgb(180, 120, 30)")
+                      .size(9);
+                
+            vis.render();
+    
+                </script>
+            </div>
+    
+    </div>
+    </div>
+  </body>
+</html>

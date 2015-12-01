@@ -1,0 +1,25 @@
+\documentclass[a4paper,twoside,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+\begin{document}
+
+<% cycles.each do |f| %>
+
+\section{Cycle <%= f %>}
+
+\begin{tabular}{lrlrlr}
+\input{bc_<%= f %>}
+\end{tabular}
+
+\begin{tabular}{lrlrlr}
+\input{ao_<%= f %>}
+\end{tabular}
+
+<% end %>
+
+\end{document}
