@@ -1,0 +1,52 @@
+require 'fileutils'
+require 'erb'
+require 'pp'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+def load_data
+  dmap = {}
+  Dir["data/*.csv"].each do |fn|
+    File.open(fn) do |f|
+      line = f.gets
+      date, c = *line[1..-1].strip.split
+      d, m, y = *date.split(".").map(&:to_i)
+      i, j = c.split(',').map(&:to_i)
+      dmap[date] ||= {}
+      dmap[date][[i,j]] = File.basename(fn, '.csv')
+    end
+  end
+  dmap
+end
+
+task :load do
+  pp load_data
+end
+
+task :html do
+  erb("html/document.html.erb", "html/document.html", {})
+end
+
+task :svg_test do
+  pitch = 40
+  File.open("test.svg", 'w') do |f|
+    f.puts %{<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">}
+    (0..7).each do |x|
+      (0..7).each do |y|
+        color = (x == y) ? "red" : "blue"
+        f.puts %{<rect x="#{(x+0.05)*pitch}" y="#{(y+0.05)*pitch}" width="#{pitch*0.9}" height="#{pitch*0.9}" fill="#{color}" />}
+      end
+    end
+    f.puts %{</svg>}
+  end
+end
+
