@@ -4,6 +4,15 @@
   <title>(6) Provozní záznamy JE Třeskoprsky</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+  <style type="text/css">
+  a, a:visited {
+    color: blue;
+  }
+  a:hover {
+    color: red;
+    font-weight:bold;
+  }
+  </style>
 </head>
 <body>
 
@@ -33,7 +42,7 @@
     <h3>Koncentrace kyseliny borité</h3>
 
     <p>
-      <a href="#" onclick="$('#campaign_c01_bc_table').toggle(); $('#campaign_c01_bc_figure').toggle(); return false;">tabulka / graf</a>
+      <a href="#" onclick="$('campaign_c01_bc_table').toggle(); $('#campaign_c01_bc_figure').toggle(); return false;">tabulka / graf</a>
     </p>
 
     <div id="campaign_c01_bc_table" style="display:none">
@@ -130,14 +139,12 @@
 
     </div>
 
-    <div id="campaign_c01_bc_figure">
-      <img src="data/bc_c01.png" />
-    </div>
+    <img id="campaign_c01_bc_figure" src="data/bc_c01.png" />
 
     <h3>Axiální ofset</h3>
 
     <p>
-      <a href="#" onclick="$('#campaign_c01_ao_table').toggle(); $('#campaign_c01_ao_figure').toggle(); return false;">tabulka / graf</a>
+      <a href="#" onclick="$('#campaign_c01_ao_table').toggle(); $('#campaign_c01_ao_figure').toggle(); return false;">krokodyl</a>
     </p>
 
     <div id="campaign_c01_ao_table" style="display:none">

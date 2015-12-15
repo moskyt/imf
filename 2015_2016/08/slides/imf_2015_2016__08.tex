@@ -335,6 +335,7 @@
     \item v jQuery se potom na příslušný tag odkážu takto: \texttt{\$('\#image1')}
     \item \texttt{\$('\#image1').hide();}
     \item \texttt{<a href=''\#'' onclick=''\$('\#image1').hide();''>}
+    \item navíc: je potřeba přidat \texttt{return false} na konec handleru
     \item obdobně \texttt{show} a \texttt{toggle}
     \item kousek CSS: \\ \texttt{<img src=''...'' style=''display:none'' >}
   \end{itemize}
@@ -343,7 +344,7 @@
 \begin{frame}{JavaScript - jak jQuery nahrát}
   \begin{itemize}
     \item je možné se v dokumentu odkázat na jiné JS soubory
-    \item obvykle je to lepší než (přehlednost, caching)
+    \item obvykle je to lepší než tam text dokumentu kopírovat... (přehlednost, caching)
     \item odkaz se vkládá do hlavičky dokumentu (\texttt{<head>})
     \item \texttt{<script src=''jquery-1.4.4.min.js'' type=''text/javascript'' ></script>}
   \end{itemize}

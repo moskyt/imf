@@ -1,0 +1,31 @@
+/* comment */
+html {
+  font-family: Verdana;
+  font-size: 11px;
+}
+h3 {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+#date_selector, #core_map, #chart {
+  float:left;
+  padding:20px;
+}
+#date_selector {
+  background-color: #eee;
+}
+#date_selector ul {
+  margin:0px;
+  padding:0px;
+}
+#date_selector a {
+  text-decoration: none;
+  font-weight: bold;
+  color: blue;
+}
+#core_map {
+  background-color: #fee;
+}
+#chart {
+  background-color: #eef;
+}
