@@ -1,0 +1,100 @@
+Zadání zápočtových úloh z IMF (ZS 2014/2015)
+
+Dobrý den, posílám zadání zápočtové úlohy k přednastudování, ve středu to stejně všechno budeme procházet (stejně tak i obecné podmínky zápočtu).
+
+fh~+
+
+
+---
+
+Zadání zápočtových úloh z IMF (ZS 2014/2015)
+
+Dobrý den, posílám zadání zápočtové úlohy. Pokud to nebude jasné, ptejte se (chtěl jsem nejdřív odladit nesrovnalosti na aktuálních prezenčních studentech, leč již se ozvali první nedočkavci, tak to posílám neodpilotované).
+
+Preferované ukončení je na poslední hodině (17. 12. ve 12:30), jinak individuálně v lednu. Pokud pošlete funkční výsledek mailem, budete to mít tu příští středu bez čekání, zkontroluju to předem.
+
+fh~+
+
+---
+
+Obecně:
+- ke každému zadání jsou k dispozici vzorová data
+- já to budu testovat i na datech jiných
+- očekávám, že všechno proběhne na jedno spuštění skriptu / rake tasku
+- každý má k dispozici jeden pokus řádný a jeden opravný
+
+Klasifikace: 
+F - nejde to spustit, ani pro zadaná data to v podstatných bodech nesplňuje zadání
+E - pro zadaná data to funguje, ale pro jiná čísla to nechodí
+D - obecně to funguje, ale stejně chybí drobnosti ze zadání
+C - všechno funguje jak má
+B - funguje a navíc jsou výstupy hezké a přehledné, soubory nejsou generovány “na velkou hromadu”, ale roztříděné do složek apod.
+A - kromě výše uvedeného jsou splněny i požadavky formy (správné odsazování, rozumná jména funkcí a proměnných) a efektivity (je to rozumně naprogramované - vhodné použití funkcí, datových struktur atd.)
+
+Známka se snižuje o stupeň, pokud:
+- jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
+- bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
+
+
+----
+
+Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů --
+OK, A
+
+
+----
+
+Databáze vzorků v laboratoři
+
+Záznamy o vstupu a výstupu vzorků ze skladu - pracovník na vrátnici zapisuje datum průchodu, ID vzorku a naměřený dávkový příkon (miliSv/den); pro každý vzorek jsou v souboru právě dva záznamy. Pokles dávkového příkonu předpokládejte exponenciální (A * e ^ (-Bx)).
+
+Datum ani hodnota nejsou vždy konzistentně zapisovány, je potřeba být obezřetný.
+
+Úkol:
+- najít vzorek s celkovou nejvyšší a nejnižší dávkou
+- vykreslit histogram rozložení celkových dávek
+- vykreslete histogram délky pobytu vzorku v laboratoři
+- vykreslete oblak (scatter plot) zobrazující vztah mezi délkou pobytu (osa x) a celkovou aktivitou (osa y)
+
+-------
+
+
+-------
+
+Komiks!
+
+Komiks XKCD http://xkcd.com
+- vygenerovat hezké PDF s obsahem (obsahujícím názvy jednotlivých dílů); každý díl včetně popisku (img/alt atribut)
+- navíc HTML dokument umožňující prohlížení na jedné stránce (bez scrollování) - tedy rozumně vymyšlený seznam v levém sloupci (rozklikávací po částech, aby se nemuselo scrollovat), tlačítko dopředu+zpět
+
+-------
+
+Univerzální vykreslovač
+
+V adresáři "data" se nachází blíže neurčený počet CSV souborů se záznamem časového průběhu signálů z detektorů. V prvním řádku je záhlaví popisující jednotlivé sloupce, tedy například takto:
+
+#y4 y1 y2 y3 time
+1.1059 0.2212 0.1896 0.6777 0.01
+0.2399 0.4539 0.428 1.1479 0.02
+
+Sloupec "time" je přítomen právě jeden (nicméně pokaždé na jiné pozici). 
+
+Každý CSV soubor vykreslete do grafu, na ose X je čas, na ose Y jednotlivé signály -- co soubor to graf, všechny signály z jednoho souboru vykreslené najednou. V legendě názvy sloupců.
+
+-------
+
+Kartogramy pro VVER-1000
+
+Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 (levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s barvičkami podle typu palivového souboru. Co dodat.
+
+Příklad:
+
+  *     *   A30E9  A20   A13    A20   A30E9   A13    A30E9
+     *  A40E6    A20        A13   A30E9   A13    A20
+         *   P40E9   A30E9     A13    A20   A13
+              *   P36E9   A20      A13   A30E9
+                   *   P36E9   A30E9   A13
+                         *  P40E9   A20
+                              *  A40E6
+                                  *
+V příloze výsledný kartogram.
