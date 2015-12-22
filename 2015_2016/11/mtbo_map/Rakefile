@@ -1,0 +1,51 @@
+require 'fileutils'
+require 'erb'
+require 'pp'
+require 'open-uri'
+require 'json'
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+task :html do
+  url = "http://oris.orientacnisporty.cz/API/?format=json&method=getEventList&sport=3&datefrom=2015-01-01&dateto=2015-12-31"
+  json = open(url).read
+  data = JSON[json]
+  if data["Status"] == "OK"
+    events = []
+    if data["Status"] == "OK"
+      data["Data"].each do |entry_id, entry|
+        lat, lng = entry["GPSLat"].to_f, entry["GPSLon"].to_f
+        events << {
+          :id => entry["ID"], 
+          :title => "#{entry["Date"]} / #{entry["Name"]}",
+          :lat => lat, 
+          :lng => lng
+        }
+      end
+    end
+    erb("document.html.erb", "document.html", {events: events})
+  else
+    puts "Could not fetch ORIS data."
+  end
+end
+
+task :read do
+  url = "http://oris.orientacnisporty.cz/API/?format=json&method=getEventList&sport=3&datefrom=2015-01-01&dateto=2015-12-31"
+  json = open(url).read
+  data = JSON[json]
+  if data["Status"] == "OK"
+    data["Data"].each do |entry_id, entry|
+      lat, lng = entry["GPSLat"].to_f, entry["GPSLon"].to_f
+      puts "%-10s %-10s %12.4f %12.4f %-50s" % [ entry["ID"], entry["Date"], lat, lng, entry["Name"]]
+    end
+  end  
+end
