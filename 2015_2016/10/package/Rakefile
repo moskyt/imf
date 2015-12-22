@@ -28,14 +28,17 @@ def load_data
   dmap
 end
 
+desc "Load data and print it"
 task :load do
   pp load_data
 end
 
+desc "Build HTML document"
 task :html do
   erb("html/document.html.erb", "html/document.html", {})
 end
 
+desc "Create a SVG image"
 task :svg_test do
   pitch = 40
   File.open("test.svg", 'w') do |f|
