@@ -40,6 +40,7 @@ Známka se snižuje o stupeň, pokud:
 
 Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů --
 OK, A
+Václav Šísl - databáze vzorků v laboratoři
 
 
 ----
@@ -53,19 +54,8 @@ Datum ani hodnota nejsou vždy konzistentně zapisovány, je potřeba být obez�
 Úkol:
 - najít vzorek s celkovou nejvyšší a nejnižší dávkou
 - vykreslit histogram rozložení celkových dávek
-- vykreslete histogram délky pobytu vzorku v laboratoři
-- vykreslete oblak (scatter plot) zobrazující vztah mezi délkou pobytu (osa x) a celkovou aktivitou (osa y)
-
--------
-
-
--------
-
-Komiks!
-
-Komiks XKCD http://xkcd.com
-- vygenerovat hezké PDF s obsahem (obsahujícím názvy jednotlivých dílů); každý díl včetně popisku (img/alt atribut)
-- navíc HTML dokument umožňující prohlížení na jedné stránce (bez scrollování) - tedy rozumně vymyšlený seznam v levém sloupci (rozklikávací po částech, aby se nemuselo scrollovat), tlačítko dopředu+zpět
+- vykreslit histogram délky pobytu vzorku v laboratoři
+- vykreslit oblak (scatter plot) zobrazující vztah mezi délkou pobytu (osa x) a celkovou aktivitou (osa y)
 
 -------
 
@@ -79,13 +69,24 @@ V adresáři "data" se nachází blíže neurčený počet CSV souborů se zázn
 
 Sloupec "time" je přítomen právě jeden (nicméně pokaždé na jiné pozici). 
 
+Kromě toho soubor může (a nemusí) obsahovat na prvních řádcích nadpis grafu (label) a popisky os (x, y) v následujícím tvaru:
+
+# label : three signals
+#x: seconds elapsed
+#y:signal strength
+#y4 y1 y2 time
+1.1059 0.2212 0.1896 0.01
+0.2399 0.4539 0.428 0.02
+
+Popisky (x, y, label) mohou být uvedeny v libovolném pořadí, některé mohou být vynechány.
+
 Každý CSV soubor vykreslete do grafu, na ose X je čas, na ose Y jednotlivé signály -- co soubor to graf, všechny signály z jednoho souboru vykreslené najednou. V legendě názvy sloupců.
 
 -------
 
 Kartogramy pro VVER-1000
 
-Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 (levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s barvičkami podle typu palivového souboru. Co dodat.
+Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 (levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s barvičkami podle typu palivového souboru. 
 
 Příklad:
 
@@ -98,3 +99,21 @@ Příklad:
                               *  A40E6
                                   *
 V příloze výsledný kartogram.
+
+
+-------
+
+Gamma scanning palivových souborů
+
+V souborech assembly*.csv jsou uloženy profily z gamma scanů.
+
+Na prvním řádku je identifikátor kazety, jednotlivé hodnoty jsou odděleny libovolným počtem mezer nebo novým řádkem -- jedná se o integrální hodnoty signálu z jednotlivých nódů (tedy intenzita * výška nódu).
+
+Axiální nodalizace je následující: 10 nódů po 1 cm, 8 nódů po 5 cm, 16 nódů po 2 cm, 8 nódů po 5 cm, 10 nódů po 1 cm.
+
+Úkoly:
+
+- vykreslit axiální profily intenzity signálů pro všechny PS (podle vzoru)
+- do jednoho grafu vykreslit profily pěti PS s největší celkovou aktivitou
+
+
