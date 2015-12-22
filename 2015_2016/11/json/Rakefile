@@ -1,0 +1,48 @@
+require 'json'
+
+task :read do
+  data = {}
+  IO.foreach("times.csv").each do |line|
+    name, time = *line.strip.split(",")
+    data[name] = {time: time}
+  end
+  IO.foreach("ages.csv").each do |line|
+    name, age = *line.strip.split(",")
+    data[name][:age] = age
+  end
+  
+  File.write("data.json", data.to_json)
+end
+
+task :print do
+  json = File.read("data.json")
+  data = JSON[json]
+  data.each do |name, details|
+    puts "%-30s %5s %20s" % [name, details["age"], details["time"]]
+  end
+end
+
+
+
+
+
+task :generate do
+  first = %w{Adam Bernard David Emil Ferdinand Honza Jakub Kamil Ladislav Petr Rehor Vaclav}
+  last = %w{Bily Dlouhy Hruby Jasny Kulaty Liny Novak Tycka Zatloukal}
+  map = {}
+  200.times do
+    n = "#{first[rand(first.size)]} #{last[rand(last.size)]}"
+    t = "%02d:%02d" % [20+rand(20), rand(60)]
+    map[n] = t
+  end
+  File.open("times.csv", 'w') do |f|
+    map.each do |n, t|
+      f.puts "#{n},#{t}"
+    end
+  end
+  File.open("ages.csv", 'w') do |f|
+    map.each do |n, t|
+      f.puts "#{n},#{16+rand(10)}"
+    end
+  end
+end
