@@ -1,20 +1,3 @@
-Zadání zápočtových úloh z IMF (ZS 2014/2015)
-
-Dobrý den, posílám zadání zápočtové úlohy k přednastudování, ve středu to stejně všechno budeme procházet (stejně tak i obecné podmínky zápočtu).
-
-fh~+
-
-
----
-
-Zadání zápočtových úloh z IMF (ZS 2014/2015)
-
-Dobrý den, posílám zadání zápočtové úlohy. Pokud to nebude jasné, ptejte se (chtěl jsem nejdřív odladit nesrovnalosti na aktuálních prezenčních studentech, leč již se ozvali první nedočkavci, tak to posílám neodpilotované).
-
-Preferované ukončení je na poslední hodině (17. 12. ve 12:30), jinak individuálně v lednu. Pokud pošlete funkční výsledek mailem, budete to mít tu příští středu bez čekání, zkontroluju to předem.
-
-fh~+
-
 ---
 
 Obecně:
@@ -35,88 +18,11 @@ Známka se snižuje o stupeň, pokud:
 - jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
 - bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
 
-
 ----
 
-Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů -- OK, A
-Václav Šísl - databáze vzorků v laboratoři --
-Dominik Thomas -- Gamma scanning --
-pan třeťák -- Kartogram -- 
-Ludmila Šámalová -- Vykreslovač -- 
-
-
-----
-
-Databáze vzorků v laboratoři
-
-Záznamy o vstupu a výstupu vzorků ze skladu - pracovník na vrátnici zapisuje datum průchodu, ID vzorku a naměřený dávkový příkon (miliSv/den); pro každý vzorek jsou v souboru právě dva záznamy. Pokles dávkového příkonu předpokládejte exponenciální (A * e ^ (-Bx)).
-
-Datum ani hodnota nejsou vždy konzistentně zapisovány, je potřeba být obezřetný.
-
-Úkol:
-- najít vzorek s celkovou nejvyšší a nejnižší dávkou
-- vykreslit histogram rozložení celkových dávek
-- vykreslit histogram délky pobytu vzorku v laboratoři
-- vykreslit oblak (scatter plot) zobrazující vztah mezi délkou pobytu (osa x) a celkovou aktivitou (osa y)
-
--------
-
-Univerzální vykreslovač
-
-V adresáři "data" se nachází blíže neurčený počet CSV souborů se záznamem časového průběhu signálů z detektorů. V prvním řádku je záhlaví popisující jednotlivé sloupce, tedy například takto:
-
-#y4 y1 y2 y3 time
-1.1059 0.2212 0.1896 0.6777 0.01
-0.2399 0.4539 0.428 1.1479 0.02
-
-Sloupec "time" je přítomen právě jeden (nicméně pokaždé na jiné pozici). 
-
-Kromě toho soubor může (a nemusí) obsahovat na prvních řádcích nadpis grafu (label) a popisky os (x, y) v následujícím tvaru:
-
-# label : three signals
-#x: seconds elapsed
-#y:signal strength
-#y4 y1 y2 time
-1.1059 0.2212 0.1896 0.01
-0.2399 0.4539 0.428 0.02
-
-Popisky (x, y, label) mohou být uvedeny v libovolném pořadí, některé mohou být vynechány.
-
-Každý CSV soubor vykreslete do grafu, na ose X je čas, na ose Y jednotlivé signály -- co soubor to graf, všechny signály z jednoho souboru vykreslené najednou. V legendě názvy sloupců.
-
--------
-
-Kartogramy pro VVER-1000
-
-Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 (levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s barvičkami podle typu palivového souboru. 
-
-Příklad:
-
-  *     *   A30E9  A20   A13    A20   A30E9   A13    A30E9
-     *  A40E6    A20        A13   A30E9   A13    A20
-         *   P40E9   A30E9     A13    A20   A13
-              *   P36E9   A20      A13   A30E9
-                   *   P36E9   A30E9   A13
-                         *  P40E9   A20
-                              *  A40E6
-                                  *
-V příloze výsledný kartogram.
-
-
--------
-
-Gamma scanning palivových souborů
-
-V souborech assembly*.csv jsou uloženy profily z gamma scanů.
-
-Na prvním řádku je identifikátor kazety, jednotlivé hodnoty jsou odděleny libovolným počtem mezer nebo novým řádkem -- jedná se o integrální hodnoty signálu z jednotlivých nódů (tedy intenzita * výška nódu).
-
-Axiální nodalizace je následující: 10 nódů po 1 cm, 8 nódů po 5 cm, 16 nódů po 2 cm, 8 nódů po 5 cm, 10 nódů po 1 cm.
-
-Úkoly:
-
-- vykreslit axiální profily intenzity signálů pro všechny PS (podle vzoru)
-- do jednoho grafu vykreslit profily pěti PS s největší celkovou aktivitou
-- všechny grafy vložit do automaticky generovaného PDF dokumentu
-
-
+Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů -- OK, A (listopad?)
+Václav Šísl vaclav.sisl@gmail.com - databáze vzorků v laboratoři
+Lída Šámalová -- -- vykreslovač
+Dominik Thomas -- gamma scanning -- OK, A (27. 12.)
+Otakar Zich -- -- kartogramy
+Milan Lecián -- -- databáze vzorků v laboratoři

@@ -1,0 +1,64 @@
+require 'fileutils'
+require 'grafikon'
+
+Z = 200
+N = 10
+
+task :data do
+  FileUtils.mkdir_p("data")
+  FileUtils.mkdir_p("plots")
+  
+  (1..100).each do |i|
+    fn = "data/assembly_%03d.csv" % i
+    fng = "plots/assembly_%03d.png" % i
+    aid = "A%06d" % rand(100000)
+    puts aid
+    
+    z = Z
+    nodes = []
+    while z > 0
+      d = rand(z / [1, N-nodes.size].max)
+      d = [1, d].max
+      d = [z, d].min
+      nodes << d
+      z -= d
+    end
+    puts nodes.inspect
+
+    z0 = 0.0
+    dg = []
+    File.open(fn, 'w') do |f|
+      f.puts "# #{aid}"
+      f.puts "# " + nodes.map(&:to_s) * ", "
+      nodes.each_with_index do |dz, zi|
+        z = z0 + dz / 2.0
+        rz = z / Z
+        y0 = Math::sin(rz * 3.1415) ** 0.5
+        
+        y = y0 * (0.9 + 0.2*rand)
+        
+        f.print " %.3f" % (y*dz)
+        if rand < 0.7
+          f.print " "*(rand(5) + 1)
+        else
+          f.puts
+        end
+        
+        dg << [z - dz/2.0*0.999, y]
+        dg << [z + dz/2.0*0.999, y]
+      
+        z0 += dz
+      end
+    end
+    puts dg.inspect
+    Grafikon::Chart::Line.new do 
+      title "Assembly ID #{aid}"
+      axes "axial coordinate [cm]", "signal intensity [n/cm]"
+      add dg
+    end.gnuplot(output: fng, format: :png_medium)
+    
+  end
+  
+  `rm data.zip`
+  `zip data.zip data/*.csv`  
+end

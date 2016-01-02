@@ -8,13 +8,16 @@ task :data do
   (1..n).each do |i|
     id = "%06x" % (1000 + rand(10000000))
     d1 = d0 + rand(500)
-    d2 = d1 + rand(100)
-    x = 1e4 * (1 + rand)
-    list << [d1, id, x]
-    list << [d2, id, x * 0.1 * rand]
+    d2 = d1 + rand(100) + 22
+    x1 = 1e4 * (1 + rand)
+    x2 = x1 * 0.1 * rand
+    (x1 > x2) or raise "wrong activity order" 
+    (d1 < d2) or raise "wrong date order #{d1} #{d2}"
+    list << [d1, id, x1]
+    list << [d2, id, x2]
   end
   File.open("data.csv", 'w') do |f|
-    list.sort_by{|x| x[0]}.each do |t, id, x|
+    list.sort_by{|x| x[0]}.each do |t, id, act|
       s = ""
       x = rand
       if x < 0.5
@@ -42,9 +45,9 @@ task :data do
       end
       
       if rand < 0.8
-        s << ("%.4e" % x)
+        s << ("%.4e" % act)
       else
-        s << x.to_s
+        s << act.to_s
       end
       f.puts s
     end
