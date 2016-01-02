@@ -17,19 +17,21 @@ end
 
 task :html do
   url = "http://oris.orientacnisporty.cz/API/?format=json&method=getEventList&sport=3&datefrom=2015-01-01&dateto=2015-12-31"
-  json = open(url).read
+  json = open(url).read.encode("utf-8")
   data = JSON[json]
   if data["Status"] == "OK"
     events = []
     if data["Status"] == "OK"
       data["Data"].each do |entry_id, entry|
         lat, lng = entry["GPSLat"].to_f, entry["GPSLon"].to_f
-        events << {
-          :id => entry["ID"], 
-          :title => "#{entry["Date"]} / #{entry["Name"]}",
-          :lat => lat, 
-          :lng => lng
-        }
+        if lat > 0 and lng > 0
+          events << {
+            :id => entry["ID"], 
+            :title => "#{entry["Date"]} / #{entry["Name"]}",
+            :lat => lat, 
+            :lng => lng
+          }
+        end
       end
     end
     erb("document.html.erb", "document.html", {events: events})
