@@ -38,9 +38,11 @@ Známka se snižuje o stupeň, pokud:
 
 ----
 
-Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů --
-OK, A
-Václav Šísl - databáze vzorků v laboratoři
+Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů -- OK, A
+Václav Šísl - databáze vzorků v laboratoři --
+Dominik Thomas -- Gamma scanning --
+pan třeťák -- Kartogram -- 
+Ludmila Šámalová -- Vykreslovač -- 
 
 
 ----
@@ -115,5 +117,6 @@ Axiální nodalizace je následující: 10 nódů po 1 cm, 8 nódů po 5 cm, 16 
 
 - vykreslit axiální profily intenzity signálů pro všechny PS (podle vzoru)
 - do jednoho grafu vykreslit profily pěti PS s největší celkovou aktivitou
+- všechny grafy vložit do automaticky generovaného PDF dokumentu
 
 

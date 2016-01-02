@@ -33,7 +33,7 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (11)]{Informatika pro moderní fyziky (11)\\ formát json, použití cizích API; zadání zápočtových úloh}
+\title[IMF (11)]{Informatika pro moderní fyziky (11)\\ formát JSON, použití cizích API; zadání zápočtových úloh}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
@@ -92,9 +92,13 @@
 
 \section{Persistence dat a formát JSON}
 
-\begin{frame}{Ukládání }
+\begin{frame}{Ukládání strukturovaných dat}
   \begin{itemize}
-    \item 
+    \item často mám data ve formě struktury (kombinace hash+pole, různý stupeň vnoření)
+    \item z různých důvodů můžu chtít data uložit na disk a pak je znovu načítat
+    \item (zejména efektivita zpracování, případně data z externích/webových zdrojů)
+    \item bylo by dobré mít možnost uložit a načíst rovnou celý hash
+    \item odpověď jsou strukturované metaformáty - YAML, XML, JSON
   \end{itemize}
 \end{frame}
 
@@ -141,8 +145,10 @@
   \begin{itemize}
     \item stačí správně vymyslet 
     \item pozor na usage limits (v produkci je nutné lokální cache...) 
-    \item QR platba: \texttt{http://qr-platba.cz/pro-vyvojare/restful-api/\#generator-image}
-    \item Google Maps static API: \texttt{https://developers.google.com/maps/documentation/staticmaps/}
+    \item QR platba: \\
+    {\tiny \texttt{http://qr-platba.cz/pro-vyvojare/restful-api/\#generator-image}}
+    \item Google Maps static API: \\
+    {\tiny \texttt{https://developers.google.com/maps/documentation/staticmaps/}}
   \end{itemize}
 \end{frame}
 
@@ -151,8 +157,9 @@
   \begin{itemize}
     \item ORIS API -- http://oris.orientacnisporty.cz/API
     \item úkol: vypišme kalendář MTBO závodů v roce 2016
-    \item \texttt{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2015-01-01\&dateto=2015-12-31} ...
-    \item \texttt{https://developers.google.com/maps/documentation/javascript/examples/map-simple}
+    \item {\tiny \texttt{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList \\
+    \&sport=3\&datefrom=2015-01-01\&dateto=2015-12-31} ...}
+    \item {\tiny \texttt{https://developers.google.com/maps/documentation/javascript/examples/map-simple}}
     \item API klíč -- v praxi si musíte pořídit vlastní (ale nic to nestojí)
     \item AIzaSyADJv1v8oj7ePv6q8H8he1zwbZtXgrfcek
   \end{itemize}
