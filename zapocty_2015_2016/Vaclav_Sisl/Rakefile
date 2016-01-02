@@ -1,0 +1,246 @@
+﻿require 'fileutils'						# nástroje pro práci se soubory
+require 'pp'							# umožňuje vypisovat hashe v hezčím tvaru
+require 'date'							# knihovna pro práci s datumy a časy
+require 'json'							# knihovna pro práci s datovým formátem JSON
+
+
+gnuplot = "gnuplot"
+#-----------------------------------------------------------------------------------------------------------
+#----------------------------------------------- ODDÍL FUNKCÍ ----------------------------------------------
+#-----------------------------------------------------------------------------------------------------------
+
+def load
+	data = {}
+	IO.foreach("data.csv") do |line|
+		line.delete! ":"						# odstraní dvojtečky z dat
+		line.delete! "\""						# odstraní uvozovky z dat
+		date = line.strip.split[-5].to_s + line.strip.split[-4].to_s + line.strip.split[-3].to_s	# tohle řeší problém s datumem zapsaným ve tvaru dd. mm. yyyy
+			# if date.include?(".")				#nemá smysl datum zpracovávat už tady, po uložení do json se formát datumu ruby změní na yyyy-mm-dd
+				# year = date.split(".")[2].to_i
+				# month = date.split(".")[1].to_i
+				# day = date.split(".")[0].to_i
+				# date = Date.new(year, month, day)
+			# else
+				# if date.include?("/")
+					# year = date.split("/")[2].to_i
+					# month = date.split("/")[0].to_i
+					# day = date.split("/")[1].to_i
+					# date = Date.new(year, month, day)
+				# else
+					# if date.include?("-")
+						# year = date.split("-")[0].to_i
+						# month = date.split("-")[1].to_i
+						# day = date.split("-")[2].to_i
+						# date = Date.new(year, month, day)
+					# end
+				# end
+			# end		
+		id = line.strip.split[-2].to_s
+		dose_rate = line.strip.split[-1].to_f
+		
+		unless data[id]							# vytvoří prázdný hash pro data[id], ale jen pokud data[id] ještě neexistuje
+			data[id] = {}
+		end	
+		
+		if data[id].empty?						# pokud v hashi data[id] ještě nic není, zapíší se do něj date1 a dose_rate1
+			data[id] [:date1] = date			# zápis do hashe
+			data[id] [:dose_rate1] = dose_rate
+		else									# pokud už v hashi data[id] něco je, zapíší se do něj date2 a dose_rate2
+			data[id] [:date2] = date			
+			data[id] [:dose_rate2] = dose_rate
+		end
+	end	
+
+	File.open("data_processed.txt", "w") do |output|
+		output.puts data.to_json
+	end
+	#pp data
+	return data
+end
+
+def date_process (data)							# funkce zpracuje načtený tvar datumu a převede ho na ruby formát
+	data.each do |id, record|					# funkci je nutno volat vždy po načtení dat z json
+		(1..2).each do |i|
+			date = data[id] ["date#{i}"]
+			if date.include?(".")
+				year = date.split(".")[2].to_i
+				month = date.split(".")[1].to_i
+				day = date.split(".")[0].to_i
+				date = Date.new(year, month, day)
+			else
+				if date.include?("/")
+					year = date.split("/")[2].to_i
+					month = date.split("/")[0].to_i
+					day = date.split("/")[1].to_i
+					date = Date.new(year, month, day)
+				else
+					if date.include?("-")
+						year = date.split("-")[0].to_i
+						month = date.split("-")[1].to_i
+						day = date.split("-")[2].to_i
+						date = Date.new(year, month, day)
+					end
+				end
+			end
+			data[id] ["date#{i}"] = date
+		end
+	end
+end
+
+def data_complete (data)						# funkce doplní data o další parametry, na vstupu musí být data, která prošla funkcí date_process
+	data.each do |id, record|
+		time_interval = ((data[id] ["date2"]) - (data[id] ["date1"])).to_f		# json přepíše symboly na stringy, takže teď už je potřeba na prvky odkazovat pomocí stringů
+		time_interval = time_interval + 1										# k době pobytu ve skladu přičítám 1 den - řeší to případy, kdy byl vzorek naskladněn a vyskladněn ve stejný den
+		data[id] ["time_interval"] = time_interval
+		data[id] ["A"] = data[id] ["dose_rate1"]		
+		data[id] ["B"] = (1/time_interval)*Math.log((data[id] ["dose_rate1"])/(data[id] ["dose_rate2"]))
+		data[id] ["dose"] = ((data[id] ["A"])/(data[id] ["B"]))*(1 - (Math.exp(-(data[id] ["B"])*(data[id] ["time_interval"]))))	
+	end
+	return data
+end
+
+def plot_data (gnuplot, folder, filename, data)					# funkce vykreslí graf vývoje dávkového příkonu pro každý vzorek					
+	File.open("#{folder}/#{filename}.gp", "w") do |output| 
+		output.puts "set title \"#{filename}\""
+		output.puts "set xlabel \"time [s]\""
+		output.puts "set ylabel \"dose rate [mSv/den]\""
+		output.print "set xrange [-1:"
+		output.print (data["#{filename}"] ["time_interval"]) + 1
+		output.puts "]"
+		output.print "A = " 
+		output.puts data["#{filename}"] ["A"]
+		output.print "B = " 
+		output.puts data["#{filename}"] ["B"]
+		output.puts "f(x) = A*exp(-B*x)"
+		output.puts "set terminal png"
+		output.puts "set output \"#{folder}/#{filename}.png\""
+		output.puts "plot \"#{folder}/#{filename}.txt\" pointtype 163, f(x)"
+	end
+	system("#{gnuplot} #{folder}/#{filename}.gp")
+end
+
+def plot_scatter (gnuplot, folder, data)
+	File.open("#{folder}/plot_scatter.txt", "w") do |output|
+		data.each do |id, record|
+			output.print "#{(data[id] ["time_interval"])}   "
+			output.puts data[id] ["dose"]
+		end
+	end
+
+	File.open("#{folder}/plot_scatter.gp", "w") do |output|
+		output.puts "set title \"Scatter plot\""
+		output.puts "set xlabel \"time spent in store [days]\""
+		output.puts "set ylabel \"dose [mSv]\""
+		output.puts "set terminal png"
+		output.puts "set output \"#{folder}/plot_scatter.png\""
+		output.puts "plot \"#{folder}/plot_scatter.txt\" notitle"
+	end
+	system("#{gnuplot} #{folder}/plot_scatter.gp")
+end
+
+def plot_histogram_doses (gnuplot, folder, data)
+	File.open("#{folder}/plot_histogram_doses.txt", "w") do |output|
+		data.each do |id, record|
+			output.puts data[id] ["dose"]
+		end
+	end
+	
+	File.open("#{folder}/plot_histogram_doses.gp", "w") do |output|
+		output.puts "set title \"Histogram\""
+		output.puts "set xlabel \"dose [mSv]\""
+		output.puts "set ylabel \"number of samples\""
+		output.puts "set terminal png"
+		output.puts "set output \"#{folder}/plot_histogram_doses.png\""
+		output.puts "binwidth=50000"
+		output.puts "bin(x,width)=width*floor(x/width)"
+		output.puts "plot \"#{folder}/plot_histogram_doses.txt\" using (bin($1,binwidth)):(1.0) smooth freq with boxes notitle"
+	end
+	system("#{gnuplot} #{folder}/plot_histogram_doses.gp")
+end
+
+def plot_histogram_time (gnuplot, folder, data)
+	File.open("#{folder}/plot_histogram_time.txt", "w") do |output|
+		data.each do |id, record|
+			output.puts data[id] ["time_interval"]
+		end
+	end
+	
+	File.open("#{folder}/plot_histogram_time.gp", "w") do |output|
+		output.puts "set title \"Histogram\""
+		output.puts "set xlabel \"time spent in store [days]\""
+		output.puts "set ylabel \"number of samples\""
+		output.puts "set terminal png"
+		output.puts "set output \"#{folder}/plot_histogram_time.png\""
+		output.puts "binwidth=5"
+		output.puts "bin(x,width)=width*floor(x/width)"
+		output.puts "plot \"#{folder}/plot_histogram_time.txt\" using (bin($1,binwidth)):(1.0) smooth freq with boxes notitle"
+	end
+	system("#{gnuplot} #{folder}/plot_histogram_time.gp")
+end
+
+#-----------------------------------------------------------------------------------------------------------
+#----------------------------------------------- ODDÍL TASKŮ -----------------------------------------------
+#-----------------------------------------------------------------------------------------------------------
+
+desc "loads data"
+task :load do
+	data = load
+end
+
+# desc "date processing test"
+# task :date_test do
+	# data = JSON[File.read("data_processed.txt")]
+	# data = date_process(data)				
+	# pp data
+# end
+
+# desc "math"
+# task :data_complete do
+	# data = JSON[File.read("data_processed.txt")]
+	# data = date_process(data)
+	# data = data_complete(data)
+	# pp data
+# end
+
+# desc "creates dose rate plot for each sample"
+# task :test_data do
+	# folder = "data_test"
+	# FileUtils.mkdir(folder) unless File.exists?(folder)
+	# data = JSON[File.read("data_processed.txt")]
+	# data = date_process(data)
+	# data = data_complete(data)
+	
+	# data.each do |id, record|
+		# File.open("#{folder}/#{id}.txt", "w") do |output|
+			# output.print "0   "
+			# output.puts data[id] ["dose_rate1"]
+			# output.print "#{(data[id] ["time_interval"])}   "
+			# output.puts data[id] ["dose_rate2"]
+		# end
+	# end
+	
+	# Dir["#{folder}/*.txt"].each do |fn|
+		# fn = File.basename(fn, ".txt")
+		# plot_data(gnuplot, folder, fn, data)
+	# end	
+# end
+
+desc "gives results"
+task :results do
+	folder = "results"
+	FileUtils.mkdir(folder) unless File.exists?(folder)
+	data = JSON[File.read("data_processed.txt")]
+	data = date_process(data)
+	data = data_complete(data)
+	plot_scatter(gnuplot, folder, data)
+	plot_histogram_doses(gnuplot, folder, data)
+	plot_histogram_time(gnuplot, folder, data)
+	
+	puts  "--------------------------------"
+	puts "vzorek s nejvyšší dávkou: " 
+	pp (data.sort_by { |k, v| v["dose"] }).last
+	puts  "--------------------------------"
+	puts "vzorek s nejnižší dávkou: " 
+	pp (data.sort_by { |k, v| v["dose"] }).first
+	puts  "--------------------------------"
+end
