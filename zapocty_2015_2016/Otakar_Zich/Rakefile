@@ -1,0 +1,123 @@
+require 'erb'
+def recreate_folder(foldername)
+  require 'fileutils'
+	if File.exists?(foldername)
+    FileUtils.rm_rf(foldername)
+	end
+	if File.exists?(foldername)
+	  sleep 0.05
+	end
+  Dir.mkdir(foldername)
+end
+
+def load_data(filename)
+	j,k = 0,6
+	data = {}
+	IO.foreach(filename) do |line|
+		line = line.gsub('*',' ').strip.split
+		if line != []
+			(0...line.size).each do |i|
+					if data[line[i]]
+						data[line[i]] << [k-j-i,j]  
+					else
+						data[line[i]] = [[k-j-i,j]]
+					end	
+			end
+		end
+		k = 7 if k == 6
+		j += 1
+	end
+	data
+end
+
+def hex2cart(hex_i,hex_j,p) # hexagonal position to cartesian coordinates
+  x = -2*p*(hex_i + 0.5*hex_j)
+	y = (Math.sqrt(3)*p)*hex_j               
+	return x,y 
+end
+
+def cart_rot_trans(x0,y0,rot_index,trans) # cartesian rotation & translation
+  angle = Math::PI/3*rot_index
+	x = Math.cos(angle)*x0 - Math.sin(angle)*y0 + trans # rotation x + center pos
+	y = Math.sin(angle)*x0 + Math.cos(angle)*y0 + trans # rotation y + center pos
+	return x,y
+end
+
+def plot_hex(x,y,p,color)
+  a = (2.0/Math.sqrt(3)*p) # hexagon side
+  line = %{<polygon class="hex" points="#{-p+x},#{a/2+y} #{x},#{a+y} 
+									 #{p+x},#{a/2+y} #{p+x},#{-a/2+y} #{x},#{-a+y} #{-p+x},#{-a/2+y}" 
+									 style="fill:#{color};stroke:black;stroke-width:1" />}
+	return line
+end
+
+def hex_label(x,y,p,label)
+			line = %{<text text-anchor="middle" x="#{x}" y="#{y+0.25*p}" font-size="#{0.5*p}px" fill="black">
+	        <a onclick="$('.FA_count').hide(); $('#FA_#{label}').show(); return false;" href="#" class="click"
+					>#{label}</a></text>}
+	return line
+end
+
+def plot_hex_map(data,filename,colorvec,bg_color)
+	p = 20.3 # half-pitch
+	wihe = p*29	# image size
+	File.open(filename,'w') do |f|
+		f.puts %{<svg width="#{wihe+20}" height="#{wihe}" xmlns="http://www.w3.org/2000/svg" version="1.1">}
+		f.puts %{<rect x="0" y="0" width="#{wihe}" height="#{wihe}" fill="#{bg_color}" />} # background
+		color = 0
+		data.each do |label,pos|
+  	(0...pos.length).each do |i|
+			  x0,y0 = hex2cart(pos[i][0],pos[i][1],p) # initial x,y position
+				(0..5).each do |rot_index|
+          x,y = cart_rot_trans(x0,y0,rot_index,wihe/2.0)
+					f.puts plot_hex(x,y,p,colorvec[color])
+					f.puts hex_label(x,y,p,label)
+					break if (x0 == 0) && (y0 == 0) # no center rotation
+				end
+			end
+			color += 1
+		end
+		f.puts %{</svg>}
+	end
+end
+
+def count_assemblies(data)
+  count = {}
+	data.each do |label,pos|
+	  count[label] = 0
+	  (0...pos.size).each do |i|
+			count[label] += ((pos[i][0] != 0) || (pos[i][1] != 0)) ?  6 : 1
+	  end
+	end
+	return count
+end
+
+def erb(template, filename, locals)
+  erb = ERB.new(File.read(template))
+  File.open(filename, 'w') {|f| f.write erb.result(ErbBinding.new(locals).get_binding)}
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
+end
+
+desc"Create a html document with reactor core cartogram"
+task :kartogram do
+  recreate_folder("svg")
+	fn_input  = "input_files/VVER-1000.txt"
+	fn_svg= "svg/kart.svg"
+	# color definition					
+	colorvec = ["#5BF004","#06A9FC","#6EFFFF","#E51400","#F0A30A","#FFFF00","#7E2E1F","#B2A296","#A4C400","#AA00FF",
+							"#D80073","#F68370","#FA6800","#E3C800","#5A2729","#855723","#91554D","#60A917","#0050EF","#0D1A81",
+							"#BD7AF6","#A20025","#FDFA94","#00C590","#008A00","#01736A","#FF087F","#F4DCB5"]
+	bg_color =	"#E3E3E3"
+  
+	data = load_data(fn_input)
+	plot_hex_map(data,fn_svg,colorvec,bg_color)
+  count = count_assemblies(data)
+  erb("Kartogram.html.erb", "Kartogram.html", {:filename_in => fn_input,
+																							 :filename_svg => fn_svg,
+																							 :number  => count})
+end

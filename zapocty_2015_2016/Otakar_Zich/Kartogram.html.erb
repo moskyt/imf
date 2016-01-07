@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kartogram VVER-1000</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+	<!--<link rel="stylesheet" href="style.css" type="text/css"> -->
+  <style type="text/css">
+    html{ 		font-family: Verdana;		
+		}
+		a.click{  text-decoration: none;
+							font-weight: bold;
+		}
+		p.source{	padding-top: 490px;  
+		}
+		div.FA_count,div.FA_sum{ 
+							font-weight: bold;
+    }
+    div.image{float: left;
+		}
+  </style>
+</head>
+<body>
+  <h2>Kartogram AZ reaktoru VVER-1000</h2>
+  <div class ="image">
+    <%= IO.read(filename_svg) %>
+	</div>
+
+  <% sum = 0 %>
+	<% number.each do |key,value| %>
+    <% sum += value %>
+  <% end %>
+	
+  <div class="FA_sum">
+	  <p> Celkový počet palivových článků: <%= sum %> </p>
+	</div>
+
+	<% number.each do |key,value| %>
+	  <div class="FA_count" id="FA_<%= key %>"  style="display:none">
+      <% label = ("%6s" %[key]).gsub(" ","&nbsp; ") %>
+      <% val = ("%3d" %[value]).gsub(" ","&nbsp; ") %>
+		  <p> Počet palivových článků <%= label %>: <%= val %> </p>
+		</div>
+	<% end %>	
+
+	<div class="FA_count">
+	  <p>&nbsp;</p>
+	</div>
+
+  <p class="source" >Zdrojový soubor: "<%= File.basename(filename_in) %>"</p>
+</body>
+</html>
