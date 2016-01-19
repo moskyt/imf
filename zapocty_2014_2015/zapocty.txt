@@ -39,11 +39,11 @@ Známka se snižuje o stupeň, pokud:
 ----
 
 x Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů
-x Jiří Kurka kurkaji@gmail.com -- Databáze vzorků v laboratoři
 x Ondřej Novák ondra.novak@email.cz -- Komiks
 x Petr Tomčík Petr.Tomci@seznam.cz -- Kartogramy
-x Jiří Matoušek -- matousek.jir@gmail.com -- Univerzální vykreslovač
 x Michal Růčka michal.rucka@centrum.cz -- Databáze vzorků v laboratoři (2)
+x Jiří Matoušek -- matousek.jir@gmail.com -- Univerzální vykreslovač
+x Jiří Kurka kurkaji@gmail.com -- Databáze vzorků v laboratoři
 
 
 x Milan Žák zakmilan@fjfi.cvut.cz  -- Kartogramy
