@@ -22,8 +22,10 @@ Známka se snižuje o stupeň, pokud:
 
 Radek Landa landa.radek@gmail.com  -- Gamma scanning palivových souborů -- OK, A (listopad?)
 Václav Šísl vaclav.sisl@gmail.com - databáze vzorků v laboratoři -- OK, A (26. 12.)
-Lída Šámalová -- -- vykreslovač
-Dominik Thomas -- gamma scanning -- OK, A (27. 12.)
-Otakar Zich -- -- kartogramy -- OK, A (9. 1.)
+Lída Šámalová -- samallud@fjfi.cvut.cz -- vykreslovač -- OK, A (20. 1.)
+Dominik Thomas -- dominik.v.thomas@gmail.com -- gamma scanning -- OK, A (27. 12.)
+Otakar Zich -- zichotak@fjfi.cvut.cz -- kartogramy -- OK, A (9. 1.)
 Milan Lecián -- -- databáze vzorků v laboratoři
-Jiří Matoušek -- vykreslovač, OK, A (z loňska)
+Jiří Matoušek -- matousek.jir@gmail.com -- vykreslovač, OK, A (z loňska)
+
+landa.radek@gmail.com, vaclav.sisl@gmail.com, samallud@fjfi.cvut.cz, dominik.v.thomas@gmail.com, zichotak@fjfi.cvut.cz, matousek.jir@gmail.com
