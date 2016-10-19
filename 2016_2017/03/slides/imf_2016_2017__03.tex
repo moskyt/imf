@@ -67,14 +67,14 @@
   \begin{itemize}
     \item základy jazyka Ruby na všechny způsoby
     \item vstup a výstup na terminál i do souboru
-    \item první kroky ve zpracování dat (čtení ze souboru, zpracování CSV tabulky - ještě musíme dodělat)
+    \item první kroky ve zpracování dat (čtení ze souboru, zpracování CSV tabulky)
   \end{itemize}
 \end{frame}
 \section{Rozšíření Ruby: RubyGems a Bundler}
 
 \begin{frame}{Knihovny (gemy) jsou základ}
   \begin{itemize}
-    \item existují mnohá rozšíření, tzv. knihovny -- v ruby se jim říká rubygems
+    \item existují mnohá rozšíření, tzv. knihovny -- v ruby se jim říká \textbf{rubygems}
     \item aktuálně nás zajímá něco na práci s excelovskými soubory
     \item gemy jdou sice instalovat na systémové úrovni, ale z toho je pak zase jenom neštěstí
     \item použijeme radši \textbf{bundler}, správce gemů pro každého: vyřeší za nás závislosti a postará se o snadnou instalaci
@@ -85,17 +85,17 @@
   \begin{itemize}
     \item otestujeme rubygems: \texttt{gem -v}
     \item pokud není, zapláčeme, protože jsme asi špatně nainstalovali Ruby
-    \item otestume bundler: \texttt{bundle -v}
+    \item otestujeme bundler: \texttt{bundle -v}
     \item pokud bundler není, doinstalujeme \texttt{gem install bundler}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Jak na to}
   \begin{itemize}
-    \item najdu si, která knihovna mě zajímá (třeba na rubygems.org nebo kdekoli jinde): my bychom rádi rubyXL \texttt{https://github.com/weshatheleopard/rubyXL}
+    \item najdu si, která knihovna mě zajímá (třeba na rubygems.org nebo kdekoli jinde): my bychom rádi \textbf{rubyXL} \texttt{https://github.com/weshatheleopard/rubyXL}
     \item vytvořím si prázdný \texttt{Gemfile} -- tam se specifikuje, které gemy chci používat: \texttt{bundle init}
-    \item do gemfilu -- je to normální Ruby skript! -- dopíšu \texttt{gem "rubyXL"}
-    \item nainstaluju: \texttt{bundle install --path vendor/bundle} (ten parametr stačí poprvé, bundler si to pak pamatuje v konfiguráku \texttt{bundle/.config})
+    \item do gemfilu -- je to normální Ruby skript! -- dopíšu\\ \texttt{gem "rubyXL"}
+    \item nainstaluju: \texttt{bundle install -{}-path vendor/bundle} (ten parametr stačí poprvé, bundler si to pak pamatuje v konfiguráku \texttt{bundle/.config})
   \end{itemize}
 \end{frame}
 
@@ -116,7 +116,7 @@
     \item kromě toho má i slušnou dokumentaci (GIYF / "rubyxl docs") -- http://www.rubydoc.info/gems/rubyXL/3.3.15
     \item napoprvé navedu do začátku:
   \end{itemize}
-  {\tiny
+  {\scriptsize
   \begin{verbatim}
     workbook = RubyXL::Workbook.new
     worksheet = workbook[0]
@@ -335,8 +335,6 @@
     \item vyrobit BAT soubor na spuštění výpočtů
     \pause
     \item načíst výsledky ze všech výstupních souborů do jedné tabulky
-    \pause
-    \item buď zpracovat ručně (Excel), nebo být Myšpulín a vyrobit skript (úkol s~hvězdičkou)
   \end{enumerate}
 \end{frame}
 
@@ -454,69 +452,6 @@
   \end{verbatim}
 \end{frame}
 
-
-\section{Automatizace tvorby vstupů}
-
-\begin{frame}[fragile]{Určení poloh tyčí}
-  Ve vstupním souboru si najdeme relevantní část:
-  \scriptsize
-  \begin{verbatim}
-    c ---------------------------------
-    c polohy tyci (z-plochy)
-    c ---------------------------------
-    c
-    67 pz 47.6000    $ dolni hranice absoberu r1
-    68 pz 40.4980    $ dolni hranice hlavice r1
-    69 pz 44.8000    $ dolni hranice absoberu r2
-    70 pz 37.6980    $ dolni hranice hlavice r2
-  \end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Výroba šablon}
-  Jak dostat polohy tyčí do vstupního souboru? Vyrobíme šablonu, tzn nahradíme
-  \begin{verbatim}
-    67 pz 47.6000    $ dolni hranice absoberu r1
-  \end{verbatim}
-  \pause
-  nějakou značkou (\emph{placeholder}):
-  \begin{verbatim}
-    67 pz %r1%    $ dolni hranice absoberu r1
-  \end{verbatim}
-\end{frame}
-
-\begin{frame}{Chytáky a zádrhele}
-  \begin{itemize}
-    \item kromě samotné plochy konce absorbéru je nutno správně umístit i z-plochu konce hlavice o 7,102 cm níže
-    \item obecně je na místě ohlídat si, že placeholder nebude kolidovat s ničím jiným
-  \end{itemize}
-  Doporučené nástroje jsou:
-  \begin{itemize}
-    \item již známá funkce \texttt{sub} pro nahrazení jednoho řetězce jiným
-    \item pro pragmatické lenochy funkce \texttt{File.read} načítající celý soubor do řetězce (na což nelze v Pascalu ani pomyslet)
-    \item možno ovšem použít i \texttt{File.readlines} (v čem je to lepší?)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Realizace}
-  \scriptsize
-  \begin{verbatim}
-    DELTA = 44.8000 - 37.6980
-
-    template = File.read("template")
-    (0..10).each do |i1|
-      (0..10).each do |i2|
-        r1 = i1 * 50
-        r2 = i2 * 50
-        s = template.sub("%r1%", r1.to_s)
-        s = s.sub("%r1_%", (r1 - DELTA).to_s)
-        s = s.sub("%r2%", r2.to_s)
-        s = s.sub("%r2_%", (r2 - DELTA).to_s)
-        File.write("inputs/c_#{i1}_#{i2}", s)
-      end
-    end
-  \end{verbatim}
-\end{frame}
-
 \subsection{Zápis všech výsledků do tabulky}
 
 \begin{frame}{Jak na to}
@@ -596,6 +531,68 @@
 
       s = filename.split("_")
       puts "#{s[1].to_i} #{s[2].to_i} #{keff}"
+    end
+  \end{verbatim}
+\end{frame}
+
+\section{Automatizace tvorby vstupů}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  Ve vstupním souboru si najdeme relevantní část:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Výroba šablon}
+  Jak dostat polohy tyčí do vstupního souboru? Vyrobíme šablonu, tzn nahradíme
+  \begin{verbatim}
+    67 pz 47.6000    $ dolni hranice absoberu r1
+  \end{verbatim}
+  \pause
+  nějakou značkou (\emph{placeholder}):
+  \begin{verbatim}
+    67 pz %r1%    $ dolni hranice absoberu r1
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Chytáky a zádrhele}
+  \begin{itemize}
+    \item kromě samotné plochy konce absorbéru je nutno správně umístit i z-plochu konce hlavice o 7,102 cm níže
+    \item obecně je na místě ohlídat si, že placeholder nebude kolidovat s ničím jiným
+  \end{itemize}
+  Doporučené nástroje jsou:
+  \begin{itemize}
+    \item již známá funkce \texttt{sub} pro nahrazení jednoho řetězce jiným
+    \item pro pragmatické lenochy funkce \texttt{File.read} načítající celý soubor do řetězce (na což nelze v Pascalu ani pomyslet)
+    \item možno ovšem použít i \texttt{File.readlines} (v čem je to lepší?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Realizace}
+  \scriptsize
+  \begin{verbatim}
+    DELTA = 44.8000 - 37.6980
+
+    template = File.read("template")
+    (0..10).each do |i1|
+      (0..10).each do |i2|
+        r1 = i1 * 50
+        r2 = i2 * 50
+        s = template.sub("%r1%", r1.to_s)
+        s = s.sub("%r1_%", (r1 - DELTA).to_s)
+        s = s.sub("%r2%", r2.to_s)
+        s = s.sub("%r2_%", (r2 - DELTA).to_s)
+        File.write("inputs/c_#{i1}_#{i2}", s)
+      end
     end
   \end{verbatim}
 \end{frame}
