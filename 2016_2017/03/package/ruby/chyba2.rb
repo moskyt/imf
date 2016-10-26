@@ -1,8 +1,9 @@
 # vypsat soucet vsech cisel z prvniho sloupce souboru 'data.csv'
 
+x = 0
 File.foreach("data.csv") do |row|
-  ary = row.split.strip
-  y = ary[1].to_f
-  x = x + y
+  ary = row.strip.split
+  y = ary[0].to_f
+  x = x + y # x = x.+(y)
 end
 puts x
