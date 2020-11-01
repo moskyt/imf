@@ -1,0 +1,227 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (13)]{Informatika pro moderní fyziky (13)\\ zadání zápočtových úloh, úvod do objektově orientovaného programování}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2019/2020\\18. prosince 2019}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{K zápočtovým úlohám}
+
+\begin{frame}{Obecně:}
+\begin{itemize}
+  \item ke každému zadání jsou k dispozici vzorová data
+  \item já to budu testovat i na datech jiných
+  \item očekávám, že všechno proběhne na jedno spuštění skriptu / rake tasku
+  \item každý má k dispozici jeden pokus řádný a jeden opravný
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Klasifikace}
+  \begin{itemize}
+    \item F - nejde to spustit, ani pro zadaná data to v podstatných bodech nesplňuje zadání
+    \item E - pro zadaná data to funguje, ale pro jiná čísla to nechodí
+    \item D - obecně to funguje, ale stejně chybí drobnosti ze zadání
+    \item C - všechno funguje jak má
+    \item B - funguje a navíc jsou výstupy hezké a přehledné, soubory nejsou generovány “na velkou hromadu”, ale roztříděné do složek apod.
+    \item A - kromě výše uvedeného jsou splněny i požadavky formy (správné odsazování, rozumná jména funkcí a proměnných) a efektivity (je to rozumně naprogramované - vhodné použití funkcí, datových struktur atd.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Známka se snižuje o stupeň, pokud:}
+  \begin{itemize}
+    \item jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
+    \item bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
+  \end{itemize}
+  (a podobně)
+\end{frame}
+
+\section{Úvod do OOP}
+
+\begin{frame}{Co je OOP (1)}
+  \begin{itemize}
+    \item zatím jsme používali tzv. procedurální programování – máme data a pak procedury/funkce
+    \item Ruby je nicméně čistě objektový jazyk, i když jsme se tomu zatím spíš vyhýbali
+    \item objekt je entita, která má \emph{vlastnosti} (properties) a \emph{metody} (methods) a poskytuje okolnímu světu nějaké \emph{rozhraní} (interface)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co je OOP (2)}
+  \begin{itemize}
+    \item většinou se jako hlavní důvody pro OOP uvádí polymorfismus a dědičnost (inheritance), ale to hlavní je posun uvažování od dat a operací nad nimi k ``inteligentním'' objektům – a spolu s tím zapouzdření (encapsulation)
+    \item je potřeba si uvědomit, že všechna `zázračná' paradigmata v programování jsou pouze odlišné formalismy, může nám to hodně pomoct a stojí za to se tomu věnovat, na druhou stranu je potřeba se z toho nezbláznit a nedělat z toho náboženství
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Třída}
+  \begin{itemize}
+    \item `typ' objektu - definuju, jak se objekty chovají
+    \item neboli definuju metody
+    \item zjednodušeně řečeno jsou to jen metody a ne data
+    \item potkali jsme třeba \texttt{File}, \texttt{CSV}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Instance}
+  \begin{itemize}
+    \item konkrétní objekt – má svoje data
+    \item většinou vytváříme pomocí \texttt{Class.new}, resp \texttt{Class.new(arg1, arg2, ...)}
+    \item k datům přistupuju pomocí \emph{instance variables} -- \verb|@data|
+    \item leckdy se hodí speciální metoda \texttt{initialize}, tzv. \emph{konstruktor} -- volá se při \texttt{new} a nastavují se zde výchozí hodnoty vlastností
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Class method}
+  \begin{itemize}
+    \item můžu mít i metody, které nepatří k žádné instanci – nepracují s žádnými daty
+    \item dávat je do třídy má pak smysl pouze organizační, nemá to pak žádnou reálnou výhodu proti obyčejným funkcím
+    \item např \texttt{File.foreach} nebo \texttt{CSV.read}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Jak to vypadá v Ruby}
+  \begin{Verbatim}[fontsize=\tiny]
+  class Table
+    def initialize
+      @data = {}
+    end
+    def get(key)
+      @data[key]
+    end
+    def set(key, value)
+      @data[key] = value
+    end
+    def print
+      @data.each do |key, value|
+        puts "#{key} #{value}"
+      end
+    end
+  end
+
+  t = Table.new
+  t.set("a", 123)
+  t.print
+  \end{Verbatim}
+\end{frame}
+
+\section{Úloha – chemické vzorce}
+
+\begin{frame}{Zadání}
+  \begin{itemize}
+    \item vytvořte skript, který pro zadané chemické vzorce sloučenin:
+    \item spočítá molární hmotnost (g/mol)
+    \item vypíše slovy, z jakých prvků a z kolika atomů se skládá
+    \item (použijte OOP řešení)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Příklad}
+  \begin{Verbatim}[fontsize=\small]
+NaCl
+2
+1 atom of sodium + 1 atom of chlorine
+M = 58.443
+
+H2O
+3
+2 atoms of hydrogen + 1 atom of oxygen
+M = 18.015
+
+CH3CH2OH
+9
+2 atoms of carbon + 6 atoms of hydrogen + 1 atom of oxygen
+M = 46.069
+  \end{Verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Jak by to mělo fungovat}
+  \begin{Verbatim}[fontsize=\small]
+    c = Compound.new("H3BO3")
+    puts c
+    puts c.size
+    puts c.as_text
+    puts "M = #{c.mass}"
+  \end{Verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]{Různé rady}
+  \begin{itemize}
+    \item začnu třídou \texttt{Compound} a jejím konstruktorem
+    \item (zde využiju metodu \texttt{scan} s regulárním výrazem)
+    \item budu chtít vyrobit hash \verb|{"H"=>3,"B"=>1,"O"=>3}| a uložit si ho jako instance variable
+    \item (to jsou moje vlastnosti na třídě \texttt{Compound})
+    \item pak můžu udělat metody \texttt{size} a \texttt{as\_text}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Různé rady (2)}
+  \begin{itemize}
+    \item při počítání molární hmotnosti je třeba odolat několika svodům:
+    \item nenahrávejte tabulku prvků pro každou instanci Compound
+    \item nezavádějte třídu pro jednotlivé prvky
+    \item dobrá rada: vytvořte třídu pro tabulku prvků, jednu její instanci a tu předávejte do konstruktoru instance Compound
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,226 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (11)]{Informatika pro moderní fyziky (8)\\ web scraping, procvičení ERb+LaTeX, tvorba vektorové grafiky}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2015/2016\\23. listopadu 2016}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Komiks (= web scraping)}
+
+\begin{frame}{Zpracování cizích zdrojů na webu -- web scraping}
+  \begin{itemize}
+    \item dosud jsme zpracovávali pouze lokální, hezky formátovaná data
+    \item i leckteré externí služby poskytují pěkná API ve formátech JSON nebo XML
+    \item ale leckdy taky ne a zajímavé informace
+    \item protože jsme chytré horákyně, naučíme se, jak data automaticky získat
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zadání úkolu}
+  \begin{itemize}
+    \item protože po práci si chceme oddychnout a netrápit se přitom náročnou intelektuální činností, přečteme si rádi dobrý komiks
+    \item a protože jsme přiměřeně cyničtí a také si chceme pocvičit angličtinu, přečteme si redmeat
+    \item www.xkcd.com
+    \item .. ale nechceme klikat a nechceme číst na internetu, takže si zhotovíme PDFko se všemi díly najednou
+    \item zvládneme to snadno v LaTeXu, ale potřebujeme postahovat ty obrázky
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HTML, }
+  \begin{itemize}
+    \item http://xkcd.com/1000
+    \item zobrazíme zdrojový kód
+    \item HTML: tagy, atributy, \texttt{class}, \texttt{id}
+    \item naštěstí to první zajímavé umíme vykoukat bez znalostí... stačí regex
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Stahování webové stránky}
+  Součást standardní knihovny -- \texttt{open-uri}
+  \scriptsize
+\begin{verbatim}
+  require 'open-uri'
+  f = open(remote_url)
+  s = f.read
+  m = s.match(...)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item najdu si url obrázku
+    \item někam si ho uložím
+    \item budu chytrý ohledně jména souboru
+    \item dám bacha na příponu!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Stahování dat}
+  \scriptsize
+\begin{verbatim}
+  require 'open-uri'
+  File.open(local_filename, 'wb') do |f2|
+    open(remote_url, 'rb') do |f1|
+      f2.write f1.read
+    end
+  end
+\end{verbatim}
+(kdo chce mít lepší život, tak si samozřejmě nadefinuje funkci!)
+\end{frame}
+
+\begin{frame}{Vygenerovat PDF}
+  \begin{itemize}
+    \item zase triviální, už to umíme, rychlá akce na deset minut!
+    \item ERb šablona, použít \texttt{erb\_compiler} (mám z minula)
+    \item seznam souborů vzít z \texttt{Dir["comics\_*"]}
+    \item všechno známe z minula
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Další krok: popisky, nadpis a transkript}
+  \begin{itemize}
+    \item u každého komiksu je popisek -- atribut \texttt{title} u \texttt{img} tagu
+    \item správný selektor je \texttt{\#comics img}
+    \item nainstalujeme gem \texttt{nokogiri}
+  \end{itemize}
+  {\scriptsize
+  \begin{verbatim}
+f = open("http://xkcd.com/1000")
+s = f.read
+doc = Nokogiri::HTML(s)
+img = doc.css("#comics img").first
+puts img.attributes["title"]
+  \end{verbatim}
+  }
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item je tam navíc název a transkript
+    \item je chytré to uložit chytře! takže ne 3 pole \texttt{titles}, \texttt{comments}, \texttt{transcripts} ale hezky jedno pole hashů
+    \item zde přijdou ke slovu symboly: je to lepší klíč než řetězec
+    \item \texttt{\{:title => ``...'', :comment => ``...''\}}
+    \item  alternativní zápis
+    \item \texttt{\{title: ``...'', comment: ``...''\}}
+    \item a opět poskládám v PDF
+  \end{itemize}
+\end{frame}
+
+\section{Tvorba obrázků}
+
+\begin{frame}{Zadání dnešní úlohy}
+  \begin{itemize}
+    \item pro zadanou textovou mapu AZ VR1 potřebuju udělat hezký obrázek
+    \item co druh, to barvička, rozumně zacházet s odstíny (palivo různě modré, R/B/E tyče různě červené, zelené, fialové)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak na obrázky}
+  \begin{itemize}
+    \item pěkný formát na tvorbu vektorových obrázku je SVG (Scalable Vector Graphics)
+    \item je to dobrá věc především na internet -- všechny prohlížeče ho umí
+    \item stejně jako HTML je postaven na XML
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jednoduchý příklad}
+  \tiny
+  \begin{verbatim}
+    <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect x="0.0" y="0.0" width="40.0" height="40.0" fill="blue" />
+      <rect x="40.0" y="0.0" width="40.0" height="40.0" fill="red" />
+      <rect x="0.0" y="40.0" width="40.0" height="40.0" fill="green" />
+      <rect x="40.0" y="40.0" width="40.0" height="40.0" fill="yellow" />
+    </svg>
+  \end{verbatim}
+  \includegraphics[width=0.15\textwidth]{example}
+\end{frame}
+
+\begin{frame}{SVG -- co a jak}
+  \begin{itemize}
+    \item souřadný systém z levého horního rohu
+    \item je potřeba udat celkovou šířku a výšku
+    \item zatím nám stačí obdélník -- tag \texttt{rect}
+    \item pozor, je to striktní XML, tedy je nutné \texttt{rect} tag uzavřít (!)
+    \item vyzkoušejte -- nejdřív jen tak, potom vygenerovat 8x8 mapu (zatím klidně prázdnou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Další SVG chytrosti}
+  \begin{itemize}
+    \item kromě \texttt{rect} se bude hodit také \texttt{text}
+    \item jako text se zobrazí obsah příslušného elementu
+    \item opět použiju atributy \texttt{x}, \texttt{y} (levý dolní roh) a můžu přihodit \texttt{text-anchor=``middle''}, aby to byl dolní prostředek
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Postup}
+  \begin{itemize}
+    \item načtu ze souboru třeba do 2D pole
+    \item budu mít hash s barvičkama
+    \item vykreslím do SVG
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

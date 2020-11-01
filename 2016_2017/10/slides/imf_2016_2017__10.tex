@@ -1,0 +1,355 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (10)]{Informatika pro moderní fyziky (10)\\ HTML a JS - interaktivní dokumenty, použití cizích API}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2016/2017\\7. prosince 2016}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Použití cizích API}
+
+\begin{frame}{K čemu to?}
+  \begin{itemize}
+    \item spousta informací na webu je poskytována ve strojově čitelné formě
+    \item API -- rozhraní mezi aplikacemi
+    \item s využitím webových služeb naše možnosti exponenciálně rostou (počasí, doprava, mapy, atd atd.)
+    \item spousta věcí se dá udělat jako \emph{mashup} -- sice nic neumím, ale umím to dát dohromady
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Typy / formáty}
+  \begin{itemize}
+    \item URL -- rovnou dostanu např. obrázek po zadání správného URL
+    \item XML -- velmi obecný, ale komplikovaný formát (``vypadá jako HTML'')
+    \item JSON -- velmi jednoduchý a kompaktní formát, vyvinutý pro JS (v podstatě jen číslo, řetězec, pole, hash)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{URL API -- google maps}
+  \begin{itemize}
+    \item stačí správně vymyslet
+    \item pozor na usage limits (v produkci je nutné lokální cache...)
+    \item QR platba: \\
+    {\tiny \url{http://qr-platba.cz/pro-vyvojare/restful-api/\#generator-czech-image}}
+    \item Google Maps static API: \\
+    {\tiny \url{https://developers.google.com/maps/documentation/staticmaps/}}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Jednoduchý mashup: mapa o-závodů}
+  \begin{itemize}
+    \item ORIS API -- http://oris.orientacnisporty.cz/API
+    \item úkol: vypišme kalendář MTBO závodů v roce 2016
+    \item {\tiny \url{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2016-01-01\&dateto=2016-12-31}}
+    \item {\tiny \url{https://developers.google.com/maps/documentation/javascript/examples/map-simple}}
+    \item API klíč -- v praxi si musíte pořídit vlastní (ale nic to nestojí)
+    \item AIzaSyC6\_NpMTN-8olOHWzaiwjeZ8eu\_J3XI1lM
+  \end{itemize}
+\end{frame}
+
+
+\section{HTML jako prezentační nástroj}
+
+\begin{frame}{Výhody HTML+JS}
+  \begin{itemize}
+    \item PDF zpráva je fajn, ale umožňuje jen ``plochou'' strukturu
+    \item často je potřeba prezentovat tak velké množství informací, že to nejde jenom nalepit za sebe
+    \item hodilo by se něco klikacího
+    \item příklad -- ASTRID (výstup z programu ANDREA)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Výhody HTML+JS}
+  \begin{itemize}
+    \item absolutní přenositelnost
+    \item použitelné ve webových aplikacích i offline
+    \item celkem snadno se zařídí, aby to vypadalo dobře
+    \item JS zajišťuje slušný stupeň interaktivity
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HTML}
+  \begin{itemize}
+    \item stromová struktura tagů - sice trochu zdlouhavá, ale zato srozumitelná a přehledná
+    \item jazyk pro internetové stránky
+    \item logicky strukturované dokumenty, klíčovým prvkem jsou odkazy
+    \item při správném používání stejně jako LaTeX definuje strukturu a obsah, nikoli vzhled
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{CSS a JS}
+  \begin{itemize}
+    \item radosti pro web:
+    \item Cascading StyleSheets - snadná a pohodlná cesta ke stylování
+    \item javaScript - jazyk pro client-side interaktivitu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{javaScript}
+  \begin{itemize}
+    \item trochu divný jazyk, historicky vzniknul jako ideový koncept a omylem se z toho stala definitivní verze
+    \item potvora s nejasnou a dost netradiční syntaxí
+    \item naštěstí na většinu základního využití není potřeba mu moc rozumět (já jsem důkazem)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{HTML/CSS/JS a automatizace}
+  \begin{itemize}
+    \item opět se jedná o plaintext dokumenty, takže je můžeme vesele generovat z libovolného skriptu
+    \item jednak lze použít jako prezentační vrstvu (vzpomeňte model/view z minula) různých webových aplikací
+    \item jednak lze použít jako samostatné interaktivní client-side dokumenty, které mohou být hezké, přenositelné
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Standardy na webu}
+  \begin{itemize}
+    \item pro HTML, CSS, JS existuje závazná specifikace, kterou dodržují všechny standardní prohlížeče
+    \item nečestnou výjimku tvoří Internet Explorer -- funguje prostě jinak, dřív se normálně musely psát alespoň dvě verze stránek a používat všemožné hacky
+    \item s každou verzí IE se ale podpora zlepšuje (od v.7 výš to není naprostá katastrofa)
+    \item i mezi standardními prohlížeči mohou být drobné rozdíly, zejména v nových částech specifikace
+    \item problematiku rozdílů (zejm. v CSS) a těžkopádnost jazyka (zejm. v JS) řeší různé CSS/JS frameworky, které poskytují moderní cross-browser rozhraní a pohodlnou práci
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zatím samotné HTML}
+  \begin{itemize}
+    \item příklady viz adresář html
+    \item základem jsou tagy -- stromová struktura
+    \item \texttt{<tag> ... </tag>}
+    \item \texttt{<tag atribut=''hodnota''> ... </tag>}
+    \item v některých případech (tagy bez obsahu) jen \texttt{<tag>}
+    \item základní strukturu (hlavička) obšlehněte ze vzoru
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Úkol trochu nadlouho - ale jednoduchý}
+  \begin{itemize}
+    \item to samé co je v LaTeXu udělat v HTML
+    \item následně doplníme interaktivitu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Základní struktura a nejjednodušší tagy}
+  \tiny
+  \begin{verbatim}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Provozní záznamy JE Třeskoprsky</title>
+  <meta http-equiv=''Content-Type'' content=''text/html; charset=UTF-8'' />
+</head>
+<body>
+
+    <h1>Provozní záznamy JE Třeskoprsky</h1>
+
+    <p>Tento dokument obsahuje provozní záznamy z jaderné elektrárny Třeskoprsky.</p>
+
+    <h2>Kampaň c01</h2>
+
+    <h3>Koncentrace kyseliny borité</h3>
+
+    <p>Doplníme tabulku a graf.</p>
+
+</body>
+</html>
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Základní tagy}
+  \begin{itemize}
+    \item \texttt{<p>...</p>} -- odstavec (text)
+    \item \texttt{h1, h2, h3, h4, h5} -- nadpisy
+    \item \texttt{<img src=''data/bc\_c01.png''>}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Úkoly}
+  \begin{itemize}
+    \item HTML dokument s nadpisy a grafy (zatím bez tabulek)
+    \item proměnný počet kampaní!!!
+  \end{itemize}
+\end{frame}
+
+\section{Další triky s HTML}
+
+\begin{frame}[fragile]{Tabulky v HTML}
+  Nejjednodušší varianta:
+  \scriptsize
+  \begin{verbatim}
+<table>
+  <tr>
+    <td>25. 12. 1991</td><td>-3.798</td>
+    <td>09. 03. 1992</td><td>-1.909</td>
+    <td>23. 05. 1992</td><td>-1.037</td>
+  </tr>
+  <tr>
+    <td>28. 12. 1991</td><td>-3.420</td>
+    <td>12. 03. 1992</td><td>-1.825</td>
+    <td>26. 05. 1992</td><td>-0.995</td>
+  </tr>
+</table>
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+  \begin{itemize}
+    \item unordered list -- \texttt{ul}
+    \item jednotlivé položky/odrážky -- \texttt{li}
+    \item lze vnořovat (dáme \texttt{ul} dovnitř \texttt{li})
+  \end{itemize}
+  \begin{verbatim}
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Odkazy na stránky i uvnitř stránek}
+  \begin{itemize}
+    \item pomocí tagu \texttt{<a>} se vytváří jak odkaz, tak jeho cíl
+    \item odkaz atributem href: \texttt{<a href=``http://google.com''>Google</a>}
+    \item cíl atributem name: \texttt{<a name=``campaign\_c01'' />}
+    \item pak odkaz uvnitř stránky: \\ \texttt{<a href=``\#campaign\_c01''>Kampaň 1</a>}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Vkládání souborů}
+  \begin{itemize}
+    \item HTML takovou věc neumí (a z principu dost dobře nemůže)
+    \item naštěstí máme ERb, přímo v HTML to pro naše účely nepotřebujeme
+    \item připomínám \texttt{IO.read(filename)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Úkoly}
+  \begin{itemize}
+    \item vložit kromě grafů i tabulky
+    \item doplnit klikací obsah
+  \end{itemize}
+\end{frame}
+
+
+\section{JavaScript}
+
+\begin{frame}{JavaScript}
+  \begin{itemize}
+    \item trochu obskurní jazyk bez ladu a skladu
+    \item dá se vkládat do HTML a používá se pro client-side aplikace
+    \item dříve to bylo trochu zlo, dneska se z toho stala běžná nutnost
+    \item rozšířenost dalece převyšuje kvalitu
+    \item s novou verzí ES6 se blýská na lepší časy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{JS frameworky}
+  \begin{itemize}
+    \item vrstva ``překrývající'' JS a usnadňující základní věci, často zejména manipulaci se stránkou a
+    \item bez nich je JS stěží využitelný
+    \item aktuální standard je jQuery
+    \item množství dalších knihoven a rozšíření
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{JavaScript v HTML}
+  \begin{itemize}
+    \item event-driven jazyk
+    \item kód se nespouští ``jen tak'', ale pouze na základě události
+    \item kliknutí, načtení stránky, uplynutí času, klávesnice ...
+    \item pro nás nejužitečnější \texttt{onclick}; např. <a href=''\#'' onclick=''...'' >...</a>
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Schovávání a zobrazování}
+  \begin{itemize}
+    \item každému tagu můžu přiřadit id <img src=''..'' id=''image1'' >
+    \item v jQuery se potom na příslušný tag odkážu takto: \texttt{\$('\#image1')}
+    \item \texttt{\$('\#image1').hide();}
+    \item \texttt{<a href=''\#'' onclick=''\$('\#image1').hide();''>}
+    \item navíc: je potřeba přidat \texttt{return false} na konec handleru
+    \item obdobně \texttt{show} a \texttt{toggle}
+    \item kousek CSS: \\ \texttt{<img src=''...'' style=''display:none'' >}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{JavaScript - jak jQuery nahrát}
+  \begin{itemize}
+    \item je možné se v dokumentu odkázat na jiné JS soubory
+    \item obvykle je to lepší než tam text dokumentu kopírovat... (přehlednost, caching)
+    \item odkaz se vkládá do hlavičky dokumentu (\texttt{<head>})
+    \item \texttt{<script src=''jquery-1.4.4.min.js'' type=''text/javascript'' ></script>}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Úkoly}
+  \begin{itemize}
+    \item doplnit přepínání mezi grafem a tabulkou
+    \item vylepšit z programátorského hlediska (DRY princip a AO/boritá)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

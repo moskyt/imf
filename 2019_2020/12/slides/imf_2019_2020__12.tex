@@ -1,0 +1,227 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (12)]{Informatika pro moderní fyziky (12)\\ procvičení práce s datovými strukturami a opakování}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2019/2020\\11. prosince 2019}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Pole}
+
+\begin{frame}{Co je pole}
+  \begin{itemize}
+    \item pole je seznam
+    \item prvky jsou očíslované od 0 do N-1
+    \item prvky nemusí být stejného typu
+    \item prvek může být cokoliv (klidně pole nebo hash)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Vytvoření nového pole}
+  \begin{block}{}
+    \begin{verbatim}
+      a = []
+      b = [1, 2, "xyz"]
+      c = [[1,2], [3,4]]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Čtení z pole}
+  \begin{block}{Jeden prvek}
+    \begin{verbatim}
+      a[1]
+      a[-2]
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Výřez}
+    \begin{verbatim}
+      a[0...3]
+      a[5..-1]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%
+\begin{frame}[fragile]{Zápis do pole}
+  \begin{block}{Nastavení konkrétního prvku}
+    \begin{verbatim}
+      a[1] = "XYZ"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Přidání nakonec}
+    \begin{verbatim}
+      a << 5
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Sčítání funguje i u polí}
+    \begin{verbatim}
+      a += [1, 2, 3]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Iterace přes pole}
+  \begin{block}{Obyčejná}
+    \begin{verbatim}
+      a.each do |x|
+        ...
+      end
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Pole dvojic (trojic, ...)}
+    \begin{verbatim}
+      a = [ [1,2], [3,4] ]
+      a.each do |x, y|
+        ...
+      end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\section{Hash}
+
+\begin{frame}{Co je hash}
+  \begin{itemize}
+    \item neboli asociativní pole
+    \item neboli slovník (dictionary)
+    \item je to také seznam, ale není číslovaný – mám klíč a k němu hodnotu
+    \item klíč může být naprosto cokoliv
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Vytvoření nového hashe}
+  \begin{block}{}
+    \begin{verbatim}
+      a = {}
+      b = {"a" => 5, "b" => 111}
+      c = {color: "blue", line_width: 3}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Čtení z hashe}
+  \begin{block}{Pomocí klíče}
+    \begin{verbatim}
+      a[1]
+      a["xyz"]
+    \end{verbatim}
+  \end{block}
+  \begin{block}{Všechny klíče/hodnoty}
+    \begin{verbatim}
+      a.keys
+      a.values
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%
+\begin{frame}[fragile]{Zápis do hashe}
+  \begin{block}{Obdobně jako u pole}
+    \begin{verbatim}
+      a[1] = "XYZ"
+      b["a"] = 33
+      c[:color] = "red"
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Iterace přes hash}
+  \begin{block}{Podle očekávání -- vlastně je to pole dvojic!}
+    \begin{verbatim}
+      hash.each do |key, value|
+        ...
+      end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\section{Úkol: docházkový systém}
+
+\begin{frame}{Data}
+  \begin{itemize}
+    \item seznam zaměstnanců, pracovišť, ID karet
+    \item záznamy o průchodech přes vrátnici
+    \item jména jsou unikátní
+    \item ID karet jsou unikátní v rámci pracoviště (ne globálně)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zjistěte}
+  \begin{itemize}
+    \item kde pracuje nejvíce lidí?
+    \item kdo odpracoval nejvíc hodin?
+    \item kdo pracoval nejvíc dní?
+    \item která čísla ID karet jsou používána více lidmi?
+    \item na kterém pracovišti je nejvíce absencí?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Do grafu vykreslete}
+  \begin{itemize}
+    \item počty absencí v každém dni pro každé pracoviště (osa x: dny, řady: pracoviště)
+    \item odpracované hodiny v každém dni pro každé pracoviště (osa x: dny, jeden graf na pracoviště)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

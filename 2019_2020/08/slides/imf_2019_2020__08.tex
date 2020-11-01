@@ -1,0 +1,167 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (8)]{Informatika pro moderní fyziky (8)\\Regulární výrazy. Tvorba textových dokumentů.}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2019/2020\\13. listopadu 2019}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item tabulky v latexu
+    \item základy erb
+  \end{itemize}
+\end{frame}
+
+\section{Najdi to, nevím co: regex}
+
+\begin{frame}{Úkoly}
+  \begin{itemize}
+    \item najít všechna celá čísla: jaké je nejmenší a největší číslo a kolik jich je
+    \item najít všechny emailové adresy: vypište je do souboru seskupené podle domény
+    \item vlnka: nedělitelné mezery v textu před k, s, v, z (výsledek vypište do souboru)
+    \item nahradit desetinné tečky čárkami (výsledek vypište do souboru)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak na to: regulární výrazy (regexy)}
+  \begin{itemize}
+    \item můžu definovat chytrou `masku'
+    \item nejjednodušší: /text/ - text
+    \item skupiny písmen: /1[abc]/ - 1a, 1b ...
+    \item speciální skupiny: /\\da/ - 1a, 2a, 3a ...
+    \item opakování: +, *
+    \item vytažení části výrazu do tzv. capture group -- stačí uzávorkovat
+    \item hračka a vysvětlení: rubular.com
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Regexy v Ruby}
+  \begin{itemize}
+    \item \texttt{String\#match} vrací MatchData objekt, m[0] je ten samotný řetězec, m[i] jsou skupiny
+    \item \texttt{String\#gsub} nahrazuje; můžu použít s blokem, nicméně tam nemám capture groups (ale můžu použít \texttt{Regexp.last\_match})
+    \item pokud použiju formu bez bloku, mám capture groups v \textbackslash \textbackslash 1 a \textbackslash \textbackslash 2
+    \item \texttt{String\#scan} vrací pole všech výskytů
+  \end{itemize}
+\end{frame}
+
+
+\section{Výroba dokumentu v~praxi - ERb}
+
+\begin{frame}{Úkoly na dnešek}
+  \begin{itemize}
+    \item násobilku 10x10 z minula přepracovat tak, aby se vygenerovala 7x7, 9x9, 11x11 - použití parametrů v ERb
+    \item přepracovat náš krásný report z JE Třeskoprsky s použitím ERb 
+    \item tabulky nicméně zajisté předělávat nebudeme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (1)}
+  \begin{block}{ }
+    Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+    \scriptsize
+    \begin{verbatim}
+      <% a = b + 5 %>
+      <% list = ary * ", " %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (2)}
+  \begin{block}{ }
+    Pokud chci něco vložit, stačí přidat rovnítko
+    \scriptsize
+    \begin{verbatim}
+      <%= a %>
+      <%= ary[1] %>
+      <%= b + 5 %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (3)}
+  \begin{block}{ }
+    Radost je možnost použít bloky a tedy i iterátory apod. v~propojení s~vkládaným textem:
+    \scriptsize
+    \begin{verbatim}
+      <% (1..5).each do |i| %>
+      Number <%= i %>
+      <% end %>
+      <% ary.each do |x| %>
+      Array contains <%= x %>
+      <% end %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Co je podstatné}
+  \begin{itemize}
+    \item nezapomenout, kdy jsem v Ruby, kdy v ERb, kdy v latexu a vždy dodržet zadanou syntaxi
+    \item mít na paměti, jak dostat data ze skriptu do šablony
+    \item potřebuju mít načtený seznam všech kampaní do nějakého pole a to poslat do šablony
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

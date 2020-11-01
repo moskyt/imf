@@ -1,0 +1,323 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (8)]{Informatika pro moderní fyziky (8)\\Regulární výrazy. Tvorba textových dokumentů.}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2017/2018\\29. listopadu 2016}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item generování většího množství grafů 
+    \item vygenerování PDF pomocí LaTeXu
+  \end{itemize}
+\end{frame}
+
+\section{Najdi to, nevím co: regex}
+
+\begin{frame}{Úkoly}
+  \begin{itemize}
+    \item najít všechna celá čísla
+    \item najít všechny emailové adresy
+    \item vlnka: nedělitelné mezery v textu před k, s, v, z
+    \item nahradit desetinné tečky čárkami
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Jak na to: regulární výrazy (regexy)}
+  \begin{itemize}
+    \item můžu definovat chytrou `masku'
+    \item nejjednodušší: /text/ - text
+    \item skupiny písmen: /1[abc]/ - 1a, 1b ...
+    \item speciální skupiny: /\\da/ - 1a, 2a, 3a ...
+    \item opakování:
+    \item hračka a vysvětlení: rubular.com
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Regexy v Ruby}
+  \begin{itemize}
+    \item \texttt{String\#match} vrací MatchData objekt, m[0] je ten samotný řetězec, m[i] jsou skupiny
+    \item \texttt{String\#gsub} nahrazuje
+    \item \texttt{String\#scan} vrací pole všech výskytů
+  \end{itemize}
+\end{frame}
+
+
+\section{Výroba dokumentu v~praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item pro jeden blok JE mám provozní data - v~určitých dnech hodnotu koncentrace kyseliny borité a axiálního ofsetu - pro několik kampaní (blíže neurčený počet)
+    \item chci vyrobit přehledové PDF, které bude hezky prezentovat grafy obou veličin pro každou kampaň a k~tomu i tabulky
+    \item data pro jednotlivé kampaně mám v~CSV souborech, každý má tři sloupce (datum, cB, AO)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rozbor}
+  \begin{itemize}
+    \item načíst tabulky a vykreslit grafy umíme (a taky už jsme to udělali minule)
+    \item převést tabulky v~CSV na tabulky v~LaTeXu se záhy naučíme
+    \item vložit obrázek do latexu taky umíme
+    \item předem neznámý počet souborů nás netrápí (\texttt{Dir["*.csv"]})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky}
+  \begin{itemize}
+    \item tabulky budou dost rozsáhlé a montovat je přímo nějak do latexových vstupů je asi spíš nepraktické, naštěstí to jde i jinak
+    \item naštěstí má LaTex příkaz \texttt{\textbackslash{}input}, kterým můžeme prostě vložit do dokumentu nějaký externí soubor
+    \item takže si nejdřív přichystáme soubory s~tabulkami a pak se na ně budeme už jenom odkazovat
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v~LaTeXu (1)}
+  \begin{block}{ }
+    Základem tabulky je prostředí \texttt{tabular} s~definicí počtu a zarovnání sloupců:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{lrr}
+  ...
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v~LaTeXu (2)}
+  \begin{block}{ }
+    Uvnitř tabulky se sloupce oddělují ampersandem a řádky dvojitým backslashem:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{lrr}
+  Data 1 & a & 1.0 \\
+  Data 2 & b & 2.0 \\
+  Data 3 & c & 3.0 \\
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky v~LaTeXu (3)}
+  \begin{block}{ }
+    Přidání mřížky je nesnadné, leč proveditelné a vlastně docela dobře vymyšlené - přidáváme jednotlivé čáry po sloupcích a řádcích:
+    \scriptsize
+    \begin{verbatim}
+\begin{tabular}{|l|r|r|}
+  \hline
+  Data 1 & a & 1.0 \\
+  \hline
+  Data 2 & b & 2.0 \\
+  \hline
+  Data 3 & c & 3.0 \\
+  \hline
+\end{tabular}
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Úkol na teď: výroba tabulek}
+  \begin{itemize}
+    \item vyrobit z~CSV souboru (tři sloupce) dvě LaTeX tabulky (po dvou sloupcích)
+    \item postarat se, aby byly hezké
+    \item chytré je vyrobit tabulku třeba o šesti sloupcích (jakože tři dvousloupce), pak už se to na stránku v~klidu vejde
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Úskalí šablon}
+  \begin{itemize}
+    \item snadno umíme nahradit jeden řetězec druhým
+    \item trochu méně pohodlné pro větší bloky textu
+    \item navíc by se hodila nějaká logika (cyklus) přímo v~šabloně
+    \item naštěstí jsou na to postupy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (Embedded Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntax, zvládne skoro všechno (viz předmět MAA3)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Základní syntaxe ERb (1)}
+  \begin{block}{ }
+    Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+    \scriptsize
+    \begin{verbatim}
+      <% a = b + 5 %>
+      <% list = ary * ", " %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (2)}
+  \begin{block}{ }
+    Pokud chci něco vložit, stačí přidat rovnítko
+    \scriptsize
+    \begin{verbatim}
+      <%= a %>
+      <%= ary[1] %>
+      <%= b + 5 %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (3)}
+  \begin{block}{ }
+    Radost je možnost použít bloky a tedy i iterátory apod. v~propojení s~vkládaným textem:
+    \scriptsize
+    \begin{verbatim}
+      <% (1..5).each do |i| %>
+      Number <%= i %>
+      <% end %>
+      <% ary.each do |x| %>
+      Array contains <%= x %>
+      <% end %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{ERb -- shrnutí}
+  \begin{itemize}
+    \item dobrý sluha, ale špatný pán
+    \item můžu s~tím vyrobit hromadu užitečných věcí na malém prostoru
+    \item daň je velké riziko zamotaného kódu a nízké přehlednosti (struktura naprosto není patrná na první pohled, proto je namístě ji držet maximálně jednoduchou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Důležité upozornění}
+  \begin{itemize}
+    \item oddělení modelu a view
+    \item přestože lze provádět zpracování dat a výpočty přímo v~ERb, je to nejvíc nejhorší nápad
+    \item je chytré si všechno připravit v~modelu (tj. v~Ruby skriptu, kterým data chystáme)
+    \item a kód ve view (tj. v~ERb šabloně) omezit na naprosté minimum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require 'erb_compiler'
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z~minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Takže v~latexu třeba}
+\scriptsize
+\begin{verbatim}
+  \subsection{Koncentrace kyseliny borité}
+
+  <% files.each do |f| %>
+
+  \subsubsection{Kampaň <%= f.split('_').last %>}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{<%= f %>_bc.eps}
+  \end{center}
+  <% end %>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{A teď už to jenom dejte dohromady...}
+  \begin{enumerate}
+    \item připravit si základní kostru dokumentu v~latexu
+    \item převést na šablonu: mít seznam souborů, správně generovat kapitoly
+    \item vyrobit grafy
+    \item vložit grafy do šablony
+    \item vyrobit tabulky
+    \item vložit tabulky do šablony
+    \item A JE TO!
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

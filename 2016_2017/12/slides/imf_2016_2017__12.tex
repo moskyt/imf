@@ -1,0 +1,128 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (11)]{Informatika pro moderní fyziky (12)\\ dokončení klikací mapy AZ; HTML + JS mapa; zadání zápočtových úloh}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2016/2017\\21. prosince 2016}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{K zápočtovým úlohám}
+
+\begin{frame}{Obecně:}
+\begin{itemize}
+  \item ke každému zadání jsou k dispozici vzorová data
+  \item já to budu testovat i na datech jiných
+  \item očekávám, že všechno proběhne na jedno spuštění skriptu / rake tasku
+  \item každý má k dispozici jeden pokus řádný a jeden opravný
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Klasifikace}
+  \begin{itemize}
+    \item F - nejde to spustit, ani pro zadaná data to v podstatných bodech nesplňuje zadání
+    \item E - pro zadaná data to funguje, ale pro jiná čísla to nechodí
+    \item D - obecně to funguje, ale stejně chybí drobnosti ze zadání
+    \item C - všechno funguje jak má
+    \item B - funguje a navíc jsou výstupy hezké a přehledné, soubory nejsou generovány “na velkou hromadu”, ale roztříděné do složek apod.
+    \item A - kromě výše uvedeného jsou splněny i požadavky formy (správné odsazování, rozumná jména funkcí a proměnných) a efektivity (je to rozumně naprogramované - vhodné použití funkcí, datových struktur atd.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Známka se snižuje o stupeň, pokud:}
+  \begin{itemize}
+    \item jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
+    \item bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
+  \end{itemize}
+  (a podobně)
+\end{frame}
+
+\section{Dokončení z minula}
+
+\begin{frame}{Zadání dnešní úlohy}
+  \begin{itemize}
+    \item každý den data z 1-9 detektorů (\texttt{data/*.csv})
+    \item detektor má svoji polohu v AZ (VR-1 Vrabec, 8x8 čtvercových pozic) -- včetně data je uvedena na prvním řádku CSV souboru
+    \item je potřeba hezky zobrazit na každý den mapu AZ a grafy signálů z detektorů
+    \item viz \texttt{html/document.html}
+  \end{itemize}
+\end{frame}
+
+\section{Interaktivní mapa}
+
+\begin{frame}{Jednoduchý mashup: mapa o-závodů}
+  \begin{itemize}
+    \item ORIS API -- http://oris.orientacnisporty.cz/API
+    \item úkol: vypišme kalendář MTBO závodů v roce 2016
+    \item {\tiny \url{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2016-01-01\&dateto=2016-12-31}}
+    \item {\tiny \url{http://api.mapy.cz}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klasický postup: upravovat vzor}
+  \begin{itemize}
+    \item {\tiny \url{http://api.mapy.cz/view?page=instruction}}
+    \item {\tiny \url{http://api.mapy.cz/view?page=markerlayer}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

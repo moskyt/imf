@@ -1,0 +1,245 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (7)]{Informatika pro moderní fyziky (7)\\tvorba textových dokumentů}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2019/2020\\6. listopadu 2019}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Výroba dokumentu v praxi}
+
+\begin{frame}{Úkol na dnešek}
+  \begin{itemize}
+    \item vyrobit hezčí tabulky (rámeček, formátování data)
+    \item přepracovat tabulky do tří sloupců --  chytré je vyrobit tabulku třeba o šesti sloupcích (jakože tři dvousloupce), pak už se to na stránku v klidu vejde
+
+    \item vymyslet něco lepšího, než postupné zapisování do souboru
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak na tabulky}
+  \begin{itemize}
+    \item tabulky budou dost rozsáhlé a montovat je přímo nějak do latexových vstupů je asi spíš nepraktické, naštěstí to jde i jinak
+    \item naštěstí má LaTex příkaz \texttt{\textbackslash{}input}, kterým můžeme prostě vložit do dokumentu nějaký externí soubor
+    \item takže si nejdřív přichystáme soubory s tabulkami a pak se na ně budeme už jenom odkazovat
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Vícesloupcová tabulka - postup}
+  \begin{itemize}
+    \item načtu data do paměti -- 2D pole \texttt{[ ["1.2.2019", 4.3, -4.8], ["3.2.2019", 4.19, -4.5], ...]}
+    \item spočítám počet řádků \texttt{k} (pozor, 22/3 = 7)
+    \item vygeneruju tabulku pro BC -- na prvním řádku budu chtít prvky \texttt{0}, \texttt{0+k}, \texttt{0+2*k} a tedy například boritou v prostředním sloupci dostanu jako \texttt{data[0+k][1]} a datum v posledním sloupci jako \texttt{data[0+2*k][0]}
+    \item dám pozor v posledním řádku, aby poslední prvky existovaly
+    \item vygeneruju tabulku pro AO a ohlídám si, aby to nebylo copy-paste toho samého kódu
+    \item pamatuju si, že generuju tabulky do samostatného souboru a do hlavního latexového dokumentu je vkládám pomocí příkazu input
+  \end{itemize}
+\end{frame}
+
+\section{Na šablony chytře}
+
+\begin{frame}{Co se nám nelíbí na generování vstupu}
+  \begin{itemize}
+    \item je to hrozně roztahané uvnitř zdrojáku
+    \item je to dost nepřehledné
+    \item nevidíme strukturu texového dokumentu
+    \item představte si složitější dokument...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ERb (Embedded Ruby)}
+  \begin{itemize}
+    \item lepší šablona - ``aktivní text''
+    \item používá se například ve webových aplikacích
+    \item hodí se ale i na generování latexových dokumentů, resp. všude, kde nám nesejde na whitespace
+    \item poměrně jednoduchá syntaxe, zvládne skoro všechno
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (1)}
+  \begin{block}{ }
+    Jakýkoli Ruby příkaz, přiřazení, výpočet ...
+    \scriptsize
+    \begin{verbatim}
+      <% a = b + 5 %>
+      <% list = ary * ", " %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (2)}
+  \begin{block}{ }
+    Pokud chci něco vložit, stačí přidat rovnítko
+    \scriptsize
+    \begin{verbatim}
+      <%= a %>
+      <%= ary[1] %>
+      <%= b + 5 %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Základní syntaxe ERb (3)}
+  \begin{block}{ }
+    Radost je možnost použít bloky a tedy i iterátory apod. v propojení s vkládaným textem:
+    \scriptsize
+    \begin{verbatim}
+      <% (1..5).each do |i| %>
+      Number <%= i %>
+      <% end %>
+      <% ary.each do |x| %>
+      Array contains <%= x %>
+      <% end %>
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}{ERb -- shrnutí}
+  \begin{itemize}
+    \item dobrý sluha, ale špatný pán
+    \item můžu s tím vyrobit hromadu užitečných věcí na malém prostoru
+    \item daň je velké riziko zamotaného kódu a nízké přehlednosti (struktura naprosto není patrná na první pohled, proto je namístě ji držet maximálně jednoduchou)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Důležité upozornění}
+  \begin{itemize}
+    \item oddělení modelu a view
+    \item přestože lze provádět zpracování dat a výpočty přímo v ERb, je to nejvíc nejhorší nápad
+    \item je chytré si všechno připravit v modelu (tj. v Ruby skriptu, kterým data chystáme)
+    \item a kód ve view (tj. v ERb šabloně) omezit na naprosté minimum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak ze šablony udělat výsledek}
+  \scriptsize
+  \begin{block}{Příklad překladu ERb}
+    \scriptsize
+    \begin{verbatim}
+require "erb_compiler"
+
+erb(template, filename, {:x => 1, :y => 2})
+    \end{verbatim}
+  \end{block}
+  třetí parametr je hash, který nám vlastně definuje proměnné dostupné uvnitř šablony při překladu
+\end{frame}
+
+\begin{frame}[fragile]{Příklad -- kreslení grafů z minula}
+  \begin{block}{template.gp}
+    \scriptsize
+    \begin{verbatim}
+set terminal png
+set output "plot_<%=n%>.png"
+plot "data_<%=n%>.csv"
+    \end{verbatim}
+  \end{block}
+  \begin{block}{}
+    \scriptsize
+    \begin{verbatim}
+(1..10).each do |i|
+  erb("template.gp", "plot_#{i}.gp", {:n => i})
+end
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Takže v latexu třeba}
+\scriptsize
+\begin{verbatim}
+  \subsection{Koncentrace kyseliny borité}
+
+  <% cycles.each do |i| %>
+
+  \subsubsection{Kampaň <%= i %>}
+
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{bc_<%= "%02d" % i %>_bc.eps}
+  \end{center}
+
+  <% end %>
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Dva úkoly na začátek}
+  \begin{enumerate}
+    \item pomocí ERb vyrobte v LaTeXu malou násobilku do tabulky
+    \item s jedinou šablonou vyrobte 3 dokumenty s násobilkou 7x7, 9x9, 11x11 (musíte parametrizovat)
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{A teď už to jenom dejte dohromady...}
+  \begin{enumerate}
+    \item připravit si základní kostru dokumentu v latexu
+    \item převést na šablonu: mít seznam souborů, správně generovat kapitoly
+    \item vyrobit grafy
+    \item vložit grafy do šablony
+    \item vyrobit tabulky
+    \item vložit tabulky do šablony
+    \item A JE TO!
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
