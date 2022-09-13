@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "kolin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.2005678058",
+        "y": "50.0281361827",
+        "id": "3412",
+        "source": "muni",
+        "type": "muni",
+        "title": "Kolín, okres Kolín, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

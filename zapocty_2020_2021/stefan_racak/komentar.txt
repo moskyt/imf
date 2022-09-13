@@ -1,0 +1,10 @@
+Vážený pane Račáku,
+
+všechno je v pořádku, máte to tedy za A. Jiný programovací jazyk pochopitelně nevadí.
+Několik komentářů:
+- řešení se seznamem křestních jmen je zajímavé, ale asi by to nebylo nutné -- jestli je to jméno-příjmení nebo příjmení-jméno přece poznáte podle čárky
+- bude to fungovat pouze pokud tam je ke každému kontaktu 1 nebo 2 čísla, ale se 3 už by to nechodilo
+- při závěrečném výpisu by šlo přeci použít format a k němu 2-3 parametry namísto jednou format a pak přidané číslo přes spojování řetězců -- to by bylo přehlednější
+
+S pozdravem
+František Havlůj

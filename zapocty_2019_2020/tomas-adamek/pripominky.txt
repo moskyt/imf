@@ -1,0 +1,32 @@
+Vážený pane Adámku,
+
+nemám, co bych vytknul, dobře to funguje a je to dobře vymyšlené – máte tedy úspěšně splněno za A.
+
+Několik drobností pro příště:
+- i názvy funkcí v Ruby by měly začínat malým písmenem (velkým začínají konstanty a názvy tříd)
+- nebojte se použít ternární operátor, tato konstrukce je dost složitá:
+
+def specialDivision(a,b)
+	q = 0
+	if b==0 then
+		q = 0
+	else
+		q=a/b
+	end
+	return q
+end
+
+lze mnohem snadněji
+
+def specialDivision(a,b)
+  b == 0 ? 0 : a/b
+end
+
+- klíčové slovo "then" není u "if" potřeba
+- "j = j + 1" lépe zapsat jako "j += 1"
+- "(0..dataxf.length-1)" lépe zapsat jako "(0...dataxf.length)"
+
+Ale to jsou opravdu jen drobnosti.
+
+S pozdravem
+František Havlůj

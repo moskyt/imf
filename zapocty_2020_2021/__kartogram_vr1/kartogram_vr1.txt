@@ -1,0 +1,14 @@
+Kartogramy pro VR-1 a podobné reaktory
+
+Na základě textových map v adresáři "data" vykreslete kartogramy aktivní zóny reaktoru se čtvercovou mříží. Vykreslete kartogram pro každou konfiguraci s těmito pravidly:
+- palivové elementy F4, F6, F8 - různé odstíny modré
+- regulační tyče R1, R2 - různé odstíny zelené
+- bezpečnostní tyče B1, B2, B3 - různé odstíny žluté
+- další elementy - různé odstíny fialové
+- prázdná pozice označená hvězdičkou se nevykreslí
+Pokud daný soubor obsahuje neplatnou konfiguraci, tj. na každém řádku není stejný počet elementů, program vypíše chybovou informaci, obrázek nevygeneruje, ale nespadne a pokračuje dál.
+
+V každém čtverečku uveďte typ elementu (např "F6") a pod ním dvoumístné pořadové číslo v dané konfiguraci, tedy pokud je například F6 v té konfiguraci třikrát, budou mít čísla 01, 02, 03.
+
+V rámci obrázku vpravo od kartogramu nechť je vypsáno, kolikrát je který element v dané konfiguraci použit.
+

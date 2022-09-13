@@ -1,0 +1,18 @@
+Kartogramy pro VVER-1000
+
+Na základě textového kartogramu jedné šestiny aktivní zóny VVER-1000 (levá dolní šestina + centrální PS) vykreslete kartogram celé zóny s barvičkami podle typu palivového souboru. 
+
+Příklad:
+
+  *     *   A30E9  A20   A13    A20   A30E9   A13    A30E9
+     *  A40E6    A20        A13   A30E9   A13    A20
+         *   P40E9   A30E9     A13    A20   A13
+              *   P36E9   A20      A13   A30E9
+                   *   P36E9   A30E9   A13
+                         *  P40E9   A20
+                              *  A40E6
+                                  *
+                                  
+V příloze náhled výsledného kartogramu (klidně může vypadat trochu jinak).
+
+Aby toho nebylo málo, vygenerovaný kartogram zabudujte do HTML souboru. Kliknutím na libovolný palivový soubor v kartogramu nechť se zobrazí počet palivových souborů daného typu v celé zóně.

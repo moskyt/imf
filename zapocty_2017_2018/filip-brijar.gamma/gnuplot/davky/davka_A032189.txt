@@ -1,0 +1,11 @@
+
+				set terminal png size 1280,960 font "Arial Bold,10"
+				set output "gnuplot/grafy/graf_A032189.png"
+				set title "Assembly ID A032189"
+				set xlabel "axial coordinate [cm]"
+				set ylabel "signal intensity [n/cm]"
+				set xtics 20
+				set key off
+				plot "gnuplot/data/A032189.txt" with linespoints pointtype 2 lt rgb "red"
+				unset output
+				

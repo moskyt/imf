@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "prachatice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.9975212947",
+        "y": "49.0129233807",
+        "id": "925",
+        "source": "muni",
+        "type": "muni",
+        "title": "Prachatice, okres Prachatice, Jihočeský kraj, Česko"
+      }
+    }
+  }
+}

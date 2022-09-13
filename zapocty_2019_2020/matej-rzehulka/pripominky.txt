@@ -1,0 +1,29 @@
+Vážený pane Rzehulko,
+
+Vaše řešení je funkční, nicméně mám k němu několik připomínek.
+
+Při spuštění programu mám dvě málo závažné:
+- program při spuštění vůbec nic nevypisuje – není zřejmé, jestli funguje nebo jestli je někde problém. Nebylo by od věci, aby vypsal například kolik grafů generuje a zprávu o úspěšném dokončení.
+- bylo by snadné pomocí File.exist? otestovat, zda již výstupní adresář existuje (anebo použít mkdir_p)
+
+Po otevření zdrojového kódu je to horší.
+
+méně závažné:
+- používáte system("mkdir ...") namísto podstatně hezčí a přenositelnější FileUtils.mkdir
+- je velmi komplikované používat regulární výraz takto:
+  value = value[/(\S+)(.*)(\S+)/]
+  když stačí value = value.strip
+- používáte include tam, kde by bylo lepší porovnání
+  (variable.include? "x") namísto (variable.strip == "x")
+- taktéž regulární výraz
+  row_desc=text[/(\w+ )+\w+/]
+  je dost kryptický a nadbytečný a zejména nebude fungovat pro řetězce s více mezerami ("hello  world")
+- nakonec používat "row" pro označení sloupců (column) je velmi matoucí
+
+ale zejména fatální:
+- opravdu nelze takto popřít oddělování logiky a prezentace, jak jsme se o tom několikrát bavili na semináři. ERb neslouží k tomu, abyste dovnitř napěchoval celý program a vlastní zdroják obsahoval pouze volání erb překladače. Celá první část kódu (Dir, čtení hlavičky) patří do "vykreslovac.rb", v "template.gp.erb" by měla být nanejvýš ta druhá část. To, jaká data zpracováváte a jak je potom zobrazujete jsou dvě různé věci, takto je násilně spojovat je neúnosné. Kdybyste to všechno měl v jednom souboru, bral bych to jako pochopitelnou lenost (jakkoli to je opravdu špatně), ale takhle jste ani nic neušetřil, stejně máte dva soubory.
+
+Prosím, vylepšete to a pošlete znovu.
+
+S pozdravem
+František Havlůj

@@ -1,0 +1,55 @@
+require 'date'
+require 'fileutils'
+
+task :data do
+  n = 2000 + rand(1000)
+  d0 = Date.civil(2010, 1, 1)
+  list = []
+  (1..n).each do |i|
+    id = "%06x" % (1000 + rand(10000000))
+    d1 = d0 + rand(500)
+    d2 = d1 + rand(100) + 22
+    x1 = 1e4 * (1 + rand)
+    x2 = x1 * 0.1 * rand
+    (x1 > x2) or raise "wrong activity order" 
+    (d1 < d2) or raise "wrong date order #{d1} #{d2}"
+    list << [d1, id, x1]
+    list << [d2, id, x2]
+  end
+  File.open("data.csv", 'w') do |f|
+    list.sort_by{|x| x[0]}.each do |t, id, act|
+      s = ""
+      x = rand
+      if x < 0.5
+        s << t.strftime("%Y-%m-%d")
+      elsif x < 0.7
+        s << t.strftime("%m/%d/%Y")
+      elsif x < 0.86
+        s << t.strftime("%d.%m.%Y")
+      else
+        s << t.strftime("%d. %m. %Y")
+      end
+      
+      (1+rand(4)).times do 
+        s << "\t    "[rand(5)]
+      end
+      s << ":" if (rand < 0.07)
+      (1+rand(4)).times do 
+        s << "\t    "[rand(5)]
+      end
+      
+      s << id
+
+      (1+rand(4)).times do 
+        s << "\t    "[rand(5)]
+      end
+      
+      if rand < 0.8
+        s << ("%.4e" % act)
+      else
+        s << act.to_s
+      end
+      f.puts s
+    end
+  end
+end

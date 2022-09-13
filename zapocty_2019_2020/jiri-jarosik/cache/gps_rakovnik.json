@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "rakovnik",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.7333994847",
+        "y": "50.1037005146",
+        "id": "4409",
+        "source": "muni",
+        "type": "muni",
+        "title": "Rakovník, okres Rakovník, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

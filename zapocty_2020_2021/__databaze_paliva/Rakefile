@@ -1,0 +1,36 @@
+require 'json'
+require 'fileutils'
+require "active_support"
+require "date"
+require "active_support/core_ext"
+
+task :data do
+  FileUtils.mkdir_p("data")
+  ids = []
+  100.times do
+    ids << "#{%w{A B C D E F G H}.sample}%04d" % rand(10000)
+  end
+  ids.uniq!
+  t = Date.civil(1990, 1, 1)
+  (1..10).each do |c|
+
+    t = t + (10+rand(50)).days
+    t1 = t
+    t = t + (200+rand(200)).days
+    t2 = t
+    xdata = {}
+    ids.sample(48).each do |id|
+      xdata[id] = (9000 + rand * 5000).round(1)
+    end
+    data = {
+      boc: t1.to_s,
+      eoc: t2.to_s,
+      dburnup: xdata
+    }
+    File.write("data/c%02d.json" % c, JSON::pretty_generate(data))
+  end
+end
+
+
+
+# Pro každý palivový

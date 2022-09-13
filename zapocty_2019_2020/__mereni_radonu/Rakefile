@@ -1,0 +1,13 @@
+places = %w{Benešov Beroun Blansko Brno Bruntál Břeclav Děčín Domažlice Hodonín Cheb Chomutov Chrudim Jeseník Jičín Karviná Kladno Klatovy Kolín Kroměříž Liberec Litoměřice Louny Mělník Most Náchod Nymburk Olomouc Opava Ostrava Pardubice Pelhřimov Písek Plzeň Praha Prachatice Prostějov Přerov Příbram Rakovník Rokycany Semily Sokolov Strakonice Svitavy Šumperk Tábor Tachov Teplice Trutnov Třebíč Vsetín Vyškov Zlín Znojmo}
+
+task :data do
+  data = []
+  places.each do |p|
+    n = rand(4)+1
+    n.times do
+      data << [p, (100+10*rand+76*rand+9113*rand).round(3), "%04d-%02d-%02d" % [2000+rand(16), rand(12)+1, rand(25)+1]]
+    end
+  end
+  File.write "data.csv", data.shuffle.map{|x| x.map(&:to_s)*";"}*"\n"
+end
+

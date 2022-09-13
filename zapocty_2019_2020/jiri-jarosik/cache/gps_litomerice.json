@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "litomerice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.1318021241",
+        "y": "50.5334781993",
+        "id": "1864",
+        "source": "muni",
+        "type": "muni",
+        "title": "Litoměřice, okres Litoměřice, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

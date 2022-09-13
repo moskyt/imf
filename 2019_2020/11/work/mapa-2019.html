@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 7);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    
+    
+    
+    var center1 = SMap.Coords.fromWGS84(15.1931, 49.824);
+    var marker1 = new SMap.Marker(center1, "myMarker1", {});
+    var card1 = new SMap.Card();
+    card1.getHeader().innerHTML = "<strong>Zbraslavice</strong>";
+    card1.getBody().innerHTML = "" +
+    
+    "2019-04-07 – Seminář pořadatelů a mapařů<br />" +
+    
+    "";
+    marker1.decorate(SMap.Marker.Feature.Card, card1);    
+    layer.addMarker(marker1);
+    
+    
+    var center2 = SMap.Coords.fromWGS84(15.8918, 50.2046);
+    var marker2 = new SMap.Marker(center2, "myMarker2", {});
+    var card2 = new SMap.Card();
+    card2.getHeader().innerHTML = "<strong>Hradec Králové, ATC Stříbrný rybník</strong>";
+    card2.getBody().innerHTML = "" +
+    
+    "2019-05-04 – Český pohár MTBO – 1. kolo<br />" +
+    
+    "2019-05-04 – Český pohár MTBO – 2. kolo<br />" +
+    
+    "2019-05-05 – Český pohár MTBO – 3. kolo<br />" +
+    
+    "";
+    marker2.decorate(SMap.Marker.Feature.Card, card2);    
+    layer.addMarker(marker2);
+    
+    
+    var center3 = SMap.Coords.fromWGS84(15.7774, 50.5011);
+    var marker3 = new SMap.Marker(center3, "myMarker3", {});
+    var card3 = new SMap.Card();
+    card3.getHeader().innerHTML = "<strong>Ves Svaté Kateřiny</strong>";
+    card3.getBody().innerHTML = "" +
+    
+    "2019-06-01 – Mistrovství ČR v MTBO na krátké trati, Český pohár MTBO – 4. kolo<br />" +
+    
+    "2019-06-02 – Český pohár MTBO – 5. kolo<br />" +
+    
+    "";
+    marker3.decorate(SMap.Marker.Feature.Card, card3);    
+    layer.addMarker(marker3);
+    
+    
+    var center4 = SMap.Coords.fromWGS84(15.2487, 48.5647);
+    var marker4 = new SMap.Marker(center4, "myMarker4", {});
+    var card4 = new SMap.Card();
+    card4.getHeader().innerHTML = "<strong>Oberwaltenreith</strong>";
+    card4.getBody().innerHTML = "" +
+    
+    "2019-06-22 – Český pohár MTBO – 6. kolo<br />" +
+    
+    "2019-06-23 – Český pohár MTBO – 7. kolo<br />" +
+    
+    "";
+    marker4.decorate(SMap.Marker.Feature.Card, card4);    
+    layer.addMarker(marker4);
+    
+    
+    var center5 = SMap.Coords.fromWGS84(13.3906, 49.7772);
+    var marker5 = new SMap.Marker(center5, "myMarker5", {});
+    var card5 = new SMap.Card();
+    card5.getHeader().innerHTML = "<strong>Plzen</strong>";
+    card5.getBody().innerHTML = "" +
+    
+    "2019-07-03 – MTBO5Days Plzeň 2019<br />" +
+    
+    "";
+    marker5.decorate(SMap.Marker.Feature.Card, card5);    
+    layer.addMarker(marker5);
+    
+    
+    var center6 = SMap.Coords.fromWGS84(13.4455, 49.7441);
+    var marker6 = new SMap.Marker(center6, "myMarker6", {});
+    var card6 = new SMap.Card();
+    card6.getHeader().innerHTML = "<strong>Letkov</strong>";
+    card6.getBody().innerHTML = "" +
+    
+    "2019-07-04 – MTBO5Days E1: longer middle<br />" +
+    
+    "";
+    marker6.decorate(SMap.Marker.Feature.Card, card6);    
+    layer.addMarker(marker6);
+    
+    
+    var center7 = SMap.Coords.fromWGS84(13.417, 49.8011);
+    var marker7 = new SMap.Marker(center7, "myMarker7", {});
+    var card7 = new SMap.Card();
+    card7.getHeader().innerHTML = "<strong>Zruč-Senec</strong>";
+    card7.getBody().innerHTML = "" +
+    
+    "2019-07-05 – Český pohár MTBO – 8. kolo<br />" +
+    
+    "";
+    marker7.decorate(SMap.Marker.Feature.Card, card7);    
+    layer.addMarker(marker7);
+    
+    
+    var center8 = SMap.Coords.fromWGS84(13.2453, 49.776);
+    var marker8 = new SMap.Marker(center8, "myMarker8", {});
+    var card8 = new SMap.Card();
+    card8.getHeader().innerHTML = "<strong>Město Touškov</strong>";
+    card8.getBody().innerHTML = "" +
+    
+    "2019-07-06 – Český pohár MTBO – 9. kolo<br />" +
+    
+    "2019-07-07 – Český pohár MTBO – 10. kolo<br />" +
+    
+    "";
+    marker8.decorate(SMap.Marker.Feature.Card, card8);    
+    layer.addMarker(marker8);
+    
+    
+    var center9 = SMap.Coords.fromWGS84(18.5938, 47.2406);
+    var marker9 = new SMap.Marker(center9, "myMarker9", {});
+    var card9 = new SMap.Card();
+    card9.getHeader().innerHTML = "<strong>Sukoró (Hungary)</strong>";
+    card9.getBody().innerHTML = "" +
+    
+    "2019-08-24 – Český pohár MTBO – 11. kolo<br />" +
+    
+    "2019-08-25 – Český pohár MTBO – 12. kolo<br />" +
+    
+    "";
+    marker9.decorate(SMap.Marker.Feature.Card, card9);    
+    layer.addMarker(marker9);
+    
+    
+    var center10 = SMap.Coords.fromWGS84(13.977, 50.1728);
+    var marker10 = new SMap.Marker(center10, "myMarker10", {});
+    var card10 = new SMap.Card();
+    card10.getHeader().innerHTML = "<strong>Bývalá základna protiletecké obrany Armády ČR, Kačice</strong>";
+    card10.getBody().innerHTML = "" +
+    
+    "2019-09-07 – Mistrovství ČR v MTBO ve sprintu, Český pohár MTBO – 13. kolo<br />" +
+    
+    "2019-09-07 – Mistrovství ČR v MTBO štafet<br />" +
+    
+    "2019-09-08 – Český pohár MTBO – 14. kolo<br />" +
+    
+    "";
+    marker10.decorate(SMap.Marker.Feature.Card, card10);    
+    layer.addMarker(marker10);
+    
+    
+    var center11 = SMap.Coords.fromWGS84(15.4764, 50.4418);
+    var marker11 = new SMap.Marker(center11, "myMarker11", {});
+    var card11 = new SMap.Card();
+    card11.getHeader().innerHTML = "<strong>Lužany</strong>";
+    card11.getBody().innerHTML = "" +
+    
+    "2019-09-14 – Český pohár MTBO – 15. kolo<br />" +
+    
+    "2019-09-14 – Český pohár MTBO – 16. kolo<br />" +
+    
+    "2019-09-15 – Mistrovství ČR v MTBO na klasické trati, Český pohár MTBO – 17. kolo<br />" +
+    
+    "";
+    marker11.decorate(SMap.Marker.Feature.Card, card11);    
+    layer.addMarker(marker11);
+    
+    
+    var center12 = SMap.Coords.fromWGS84(14.0887, 49.1232);
+    var marker12 = new SMap.Marker(center12, "myMarker12", {});
+    var card12 = new SMap.Card();
+    card12.getHeader().innerHTML = "<strong>Bavorov</strong>";
+    card12.getBody().innerHTML = "" +
+    
+    "2019-09-28 – Český pohár MTBO – 18. kolo<br />" +
+    
+    "2019-09-29 – Český pohár MTBO – 19. kolo<br />" +
+    
+    "";
+    marker12.decorate(SMap.Marker.Feature.Card, card12);    
+    layer.addMarker(marker12);
+    
+    
+    var center13 = SMap.Coords.fromWGS84(15.2328, 49.0951);
+    var marker13 = new SMap.Marker(center13, "myMarker13", {});
+    var card13 = new SMap.Card();
+    card13.getHeader().innerHTML = "<strong>Zvúle</strong>";
+    card13.getBody().innerHTML = "" +
+    
+    "2019-10-12 – Český pohár MTBO – 20. kolo<br />" +
+    
+    "";
+    marker13.decorate(SMap.Marker.Feature.Card, card13);    
+    layer.addMarker(marker13);
+    
+    
+    var center14 = SMap.Coords.fromWGS84(15.2328, 49.0954);
+    var marker14 = new SMap.Marker(center14, "myMarker14", {});
+    var card14 = new SMap.Card();
+    card14.getHeader().innerHTML = "<strong>Zvůle</strong>";
+    card14.getBody().innerHTML = "" +
+    
+    "2019-10-12 – Český pohár MTBO – 21. kolo<br />" +
+    
+    "2019-10-13 – Mistrovství ČR v MTBO družstev<br />" +
+    
+    "";
+    marker14.decorate(SMap.Marker.Feature.Card, card14);    
+    layer.addMarker(marker14);
+    
+	</script>
+</body>
+</html>

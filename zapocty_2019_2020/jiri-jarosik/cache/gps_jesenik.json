@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "jesenik",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.2046430732",
+        "y": "50.2293701545",
+        "id": "290",
+        "source": "muni",
+        "type": "muni",
+        "title": "Jeseník, okres Jeseník, Olomoucký kraj, Česko"
+      }
+    }
+  }
+}

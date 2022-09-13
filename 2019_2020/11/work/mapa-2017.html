@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 7);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    
+    
+    
+    var center1 = SMap.Coords.fromWGS84(13.4774, 50.0893);
+    var marker1 = new SMap.Marker(center1, "myMarker1", {});
+    var card1 = new SMap.Card();
+    card1.getHeader().innerHTML = "<strong>AUTOCAMPING Jesenice</strong>";
+    card1.getBody().innerHTML = "" +
+    
+    "2017-05-06 – Český pohár MTBO – 1. kolo<br />" +
+    
+    "2017-05-07 – Český pohár MTBO – 2. kolo<br />" +
+    
+    "";
+    marker1.decorate(SMap.Marker.Feature.Card, card1);    
+    layer.addMarker(marker1);
+    
+    
+    var center2 = SMap.Coords.fromWGS84(16.9112, 49.9514);
+    var marker2 = new SMap.Marker(center2, "myMarker2", {});
+    var card2 = new SMap.Card();
+    card2.getHeader().innerHTML = "<strong>Šumperk</strong>";
+    card2.getBody().innerHTML = "" +
+    
+    "2017-05-27 – Český pohár MTBO – 3. kolo<br />" +
+    
+    "2017-05-28 – Český pohár MTBO – 4. kolo<br />" +
+    
+    "";
+    marker2.decorate(SMap.Marker.Feature.Card, card2);    
+    layer.addMarker(marker2);
+    
+    
+    var center3 = SMap.Coords.fromWGS84(14.7909, 49.9423);
+    var marker3 = new SMap.Marker(center3, "myMarker3", {});
+    var card3 = new SMap.Card();
+    card3.getHeader().innerHTML = "<strong>Zvánovice, Hotel Legner</strong>";
+    card3.getBody().innerHTML = "" +
+    
+    "2017-06-10 – Mistrovství ČR v MTBO na krátké trati, Český pohár MTBO – 5. kolo<br />" +
+    
+    "2017-06-11 – Mistrovství ČR v MTBO na klasické trati, Český pohár MTBO – 6. kolo<br />" +
+    
+    "";
+    marker3.decorate(SMap.Marker.Feature.Card, card3);    
+    layer.addMarker(marker3);
+    
+    
+    var center4 = SMap.Coords.fromWGS84(14.3528, 51.013);
+    var marker4 = new SMap.Marker(center4, "myMarker4", {});
+    var card4 = new SMap.Card();
+    card4.getHeader().innerHTML = "<strong>Lipová u Šluknova</strong>";
+    card4.getBody().innerHTML = "" +
+    
+    "2017-06-17 – Český pohár MTBO – 7. kolo<br />" +
+    
+    "2017-06-18 – Český pohár MTBO – 8. kolo<br />" +
+    
+    "";
+    marker4.decorate(SMap.Marker.Feature.Card, card4);    
+    layer.addMarker(marker4);
+    
+    
+    var center5 = SMap.Coords.fromWGS84(15.8927, 50.5841);
+    var marker5 = new SMap.Marker(center5, "myMarker5", {});
+    var card5 = new SMap.Card();
+    card5.getHeader().innerHTML = "<strong>Trutnov, Horní Staré Město, ZŠ Mládežnická</strong>";
+    card5.getBody().innerHTML = "" +
+    
+    "2017-06-24 – Český pohár MTBO – 9. kolo<br />" +
+    
+    "2017-06-25 – Český pohár MTBO – 10. kolo<br />" +
+    
+    "";
+    marker5.decorate(SMap.Marker.Feature.Card, card5);    
+    layer.addMarker(marker5);
+    
+    
+    var center6 = SMap.Coords.fromWGS84(13.374, 49.9404);
+    var marker6 = new SMap.Marker(center6, "myMarker6", {});
+    var card6 = new SMap.Card();
+    card6.getHeader().innerHTML = "<strong>Plasy, RS Máj</strong>";
+    card6.getBody().innerHTML = "" +
+    
+    "2017-07-05 – MTBO5Days Plzeň 2017<br />" +
+    
+    "2017-07-07 – Mistrovství ČR v MTBO štafet, 5 days MTBO<br />" +
+    
+    "";
+    marker6.decorate(SMap.Marker.Feature.Card, card6);    
+    layer.addMarker(marker6);
+    
+    
+    var center7 = SMap.Coords.fromWGS84(16.4533, 49.206);
+    var marker7 = new SMap.Marker(center7, "myMarker7", {});
+    var card7 = new SMap.Card();
+    card7.getHeader().innerHTML = "<strong>Automotodrom Brno, Masarykův okruh</strong>";
+    card7.getBody().innerHTML = "" +
+    
+    "2017-09-23 – Český pohár MTBO – 16. kolo<br />" +
+    
+    "2017-09-24 – Český pohár MTBO – 17. kolo<br />" +
+    
+    "";
+    marker7.decorate(SMap.Marker.Feature.Card, card7);    
+    layer.addMarker(marker7);
+    
+    
+    var center8 = SMap.Coords.fromWGS84(15.1934, 49.824);
+    var marker8 = new SMap.Marker(center8, "myMarker8", {});
+    var card8 = new SMap.Card();
+    card8.getHeader().innerHTML = "<strong>U Starého rybníka – rekreační a sportovní středisko, Zbraslavice</strong>";
+    card8.getBody().innerHTML = "" +
+    
+    "2017-10-14 – Český pohár MTBO – 18. kolo<br />" +
+    
+    "2017-10-14 – Český pohár MTBO – 19. kolo<br />" +
+    
+    "2017-10-15 – Mistrovství ČR v MTBO družstev<br />" +
+    
+    "";
+    marker8.decorate(SMap.Marker.Feature.Card, card8);    
+    layer.addMarker(marker8);
+    
+	</script>
+</body>
+</html>

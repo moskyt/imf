@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "sokolov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "12.6409291667",
+        "y": "50.1805533333",
+        "id": "1513",
+        "source": "muni",
+        "type": "muni",
+        "title": "Sokolov, okres Sokolov, Karlovarský kraj, Česko"
+      }
+    }
+  }
+}

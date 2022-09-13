@@ -1,0 +1,245 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (10)]{Informatika pro moderní fyziky (10)\\ Generování vektorových obrázků. Konfigurační soubory YML, formát JSON, použití cizích API}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2020/2021\\7. prosince 2020}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item použití ERb šablon (dokončení)
+    \item základy tvorby obrázků v SVG
+  \end{itemize}
+\end{frame}
+
+
+\section{Tvorba obrázků}
+
+\begin{frame}{Zadání dnešní úlohy}
+  \begin{itemize}
+    \item pro zadanou textovou mapu AZ VR1 potřebuju udělat hezký obrázek
+    \item co druh, to barvička, rozumně zacházet s odstíny (palivo různě modré, R/B/E tyče různě červené, zelené, fialové)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jednoduchý příklad SVG}
+  \tiny
+  \begin{verbatim}
+    <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect x="0.0" y="0.0" width="40.0" height="40.0" fill="blue" />
+      <rect x="40.0" y="0.0" width="40.0" height="40.0" fill="red" />
+      <rect x="0.0" y="40.0" width="40.0" height="40.0" fill="green" />
+      <rect x="40.0" y="40.0" width="40.0" height="40.0" fill="yellow" />
+    </svg>
+  \end{verbatim}
+  \includegraphics[width=0.15\textwidth]{example}
+\end{frame}
+
+\begin{frame}{Co už máme}
+  \begin{itemize}
+    \item vykreslení šachovnice v SVG
+    \item včetně souřadnic
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Co musíme udělat}
+  \begin{itemize}
+    \item načtu konfiguraci AZ ze souboru třeba do 2D pole
+    \item budu mít hash s barvičkama (\#rrggbb formát je skoro nejjednodušší, \#000000 černá, \#0000ff modrá )
+    \item vykreslím do SVG - barva podle typu elementu, text typ elementu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Barvy elementů}
+Nejjednoduší je pro začátek mít to v nějakém hashi ve zdrojáku:
+\begin{verbatim}
+  colors = {
+    "R1" => "#ff0000",
+    "R2" => "#ff4400",
+    ...
+  }
+\end{verbatim}
+Hash je pro tyto účely ideálním řešením -- snadno získám barvu pro daný element \texttt{colors[element]}
+\end{frame}
+
+\begin{frame}[fragile]{Co s variantou nedefinovaných elementů}
+  \begin{itemize}
+    \item v posledním souboru jsou navíc neznámé typy XX a YY -- vhodně vyřešte:
+    \item a) náhodná barva \texttt{rand}, \texttt{rand(123)}, \texttt{``\%02x'' \% 254}
+    \item b) seznam barev pro neznámé typy
+    \item vylepšení: načítejme barvy ze souboru! mohlo by to vypadat takto: (ale použijeme YAML - viz dále)
+  \end{itemize}
+\begin{verbatim}
+F4  ff0000
+R1  00ffff
+R2  00eeee
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{YAML - kamarád pro konfigurační soubory}
+  \begin{itemize}
+    \item je trochu nuda pořád ručně načítat soubory a parsovat je, normálně se to tak nedělá – použiju standardizovaný formát souboru
+    \item na konfigurační soubory je skvělý formát YAML (YML) – jednoduchý hash formátovaný odsazením (pozor - mezery, ne taby)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{YAML - použití}
+  \begin{itemize}
+    \item načtu standardní knihovnu \texttt{require ``yaml''}
+    \item parsování řetězce \texttt{YAML.load(File.read(``config.yml''))}
+    \item uložení dat \texttt{File.write(``config.yml'', data.to\_yaml)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{YAML - kamarád pro konfigurační soubory}
+  \begin{itemize}
+    \item přesuňte hash s barvami do konfiguračního souboru
+    \item s hvězdičkou: RRGGBB, \#RRGGBB i R,G,B
+  \end{itemize}
+\begin{verbatim}
+colors:
+  F4: ff0000
+  R1: 00ffff
+  R2: 00eeee
+\end{verbatim}
+\end{frame}
+
+\section{Persistence dat a formát JSON}
+
+\begin{frame}{Ukládání strukturovaných dat}
+  \begin{itemize}
+    \item často mám data ve formě struktury (kombinace hash+pole, různý stupeň vnoření)
+    \item z různých důvodů můžu chtít data uložit na disk a pak je znovu načítat
+    \item (zejména efektivita zpracování, případně data z externích/webových zdrojů)
+    \item bylo by dobré mít možnost uložit a načíst rovnou celý hash
+    \item odpověď jsou strukturované metaformáty - YAML, XML, JSON
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Práce s JSON}
+  \begin{itemize}
+    \item v Ruby je k mání knihovna -- \texttt{require ``json''}
+    \item generování JSON: \texttt{hash.to\_json}
+    \item čtení JSON: \texttt{JSON[data]}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Příklad -- výsledky běhu kolem rybníka}
+  \begin{itemize}
+    \item dva soubory -- \texttt{ages.csv}, \texttt{times.csv}
+    \item chci v jednom skriptu (tasku) načíst, spárovat a uložit
+    \item a v jiném už rovnou načíst zpracovaná data
+    \item a vypsat tabulku výsledků včetně ročníků narození
+    \item pozor! JSON nezná symboly, uloží se jako řetězce
+  \end{itemize}
+\end{frame}
+
+\section{Použití cizích API}
+
+\begin{frame}{K čemu to?}
+  \begin{itemize}
+    \item spousta informací na webu je poskytována ve strojově čitelné formě
+    \item API -- rozhraní mezi aplikacemi
+    \item s využitím webových služeb naše možnosti exponenciálně rostou (počasí, doprava, mapy, atd atd.)
+    \item spousta věcí se dá udělat jako \emph{mashup} -- sice nic neumím, ale umím to dát dohromady
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Typy / formáty}
+  \begin{itemize}
+    \item URL -- rovnou dostanu např. obrázek po zadání správného URL
+    \item XML -- velmi obecný, ale komplikovaný formát (``vypadá jako HTML'')
+    \item JSON -- velmi jednoduchý a kompaktní formát, vyvinutý pro JS (v podstatě jen číslo, řetězec, pole, hash)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{URL API -- google maps}
+  \begin{itemize}
+    \item stačí správně vymyslet
+    \item pozor na usage limits (v produkci je nutné lokální cache...)
+    \item QR platba: \\
+    {\tiny \url{http://qr-platba.cz/pro-vyvojare/restful-api/\#generator-czech-image}}
+    \item Google Maps static API: \\
+    {\tiny \url{https://developers.google.com/maps/documentation/staticmaps/}}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Jednoduchý mashup: mapa o-závodů}
+  \begin{itemize}
+    \item ORIS API -- http://oris.orientacnisporty.cz/API
+    \item úkol: vypišme kalendář MTBO závodů v roce 2017
+    \item {\tiny \url{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2017-01-01\&dateto=2017-12-31}}
+    \item {\tiny \url{https://developers.google.com/maps/documentation/static-maps/intro}}
+    \item API klíč -- v praxi si musíte pořídit vlastní (ale nic to nestojí)
+    \item AIzaSyCCADVlgtMz1a-GrFAHi\_Jnvi2ofRIMuJk
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "pribram",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.0104252279",
+        "y": "49.6898773919",
+        "id": "4306",
+        "source": "muni",
+        "type": "muni",
+        "title": "Příbram, okres Příbram, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

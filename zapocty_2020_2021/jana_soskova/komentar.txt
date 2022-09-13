@@ -1,0 +1,22 @@
+Vážená slečno Šošková,
+
+nemám, co bych vytknul, takže to máte za A.
+Připojím několik komentářů:
+- oceňuji použití mkdir_p (ostatní studenti si nevzpomněli)
+- líbí se mi korektně užitá návratová hodnota z metody checkAZ
+- myslím, že užití Hash#store je trochu neintuitivní, místo
+elementNumber.store(ps,0)
+  bych napsal
+elementNumber[ps] = 0
+- líbí se mi použití jednořádkových podmínek
+- velmi se mi líbí použití each_with_index
+- líbí se mi souhrnná tabulka zarovnaná dolů, i když to dá víc práce
+- důkladně pátrám, co bych Vám vytknul, nic moc mě nenapadá. Snad přece jen ještě dva nápady:
+- krok / velikost buňky by mohla být v nějaké konstantě, takhle se tam mnohokrát opakuje 80 / 40
+- stejně tak by "xval * 80.0" a "yval * 80.0" coby souřadnice buňky mohly být v nějakých lokálních proměnných
+Obecně to máte po všech stránkách pěkné a na úrovni.
+
+Nelze zastírat, že vyučování totoho předmětu je kromě služby lidu skrytý headhunting. Tak Vám chci jen coby aktivní a zdatné absolventce říct, že kdyby Vás zajímala praktická reaktorová fyzika, aplikovaná práce orientovaná na provoz jaderných elektráren a vývoj nových a zajímavých metod na špičkové úrovni, tak u nás na oddělení jsou dveře otevřené, práce je mnoho a lidí spíš málo. Ať už byste třeba měla zájem o diplomku nebo o práci mimo ni / po ní. Ale nevím, jakým směrem jste se odborně vydala a třeba je to pro Vás zcela nerelevantní.
+
+Zdraví a vše dobré v novém roce přeje
+František Havlůj

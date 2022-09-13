@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "chomutov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.4177855818",
+        "y": "50.4604754244",
+        "id": "1729",
+        "source": "muni",
+        "type": "muni",
+        "title": "Chomutov, okres Chomutov, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

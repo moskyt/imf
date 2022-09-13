@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "opava",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.9025699627",
+        "y": "49.938663495",
+        "id": "4660",
+        "source": "muni",
+        "type": "muni",
+        "title": "Opava, okres Opava, Moravskoslezský kraj, Česko"
+      }
+    }
+  }
+}

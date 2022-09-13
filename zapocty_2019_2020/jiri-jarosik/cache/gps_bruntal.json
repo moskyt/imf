@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "bruntal",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.4647019377",
+        "y": "49.9884448529",
+        "id": "4508",
+        "source": "muni",
+        "type": "muni",
+        "title": "Bruntál, okres Bruntál, Moravskoslezský kraj, Česko"
+      }
+    }
+  }
+}

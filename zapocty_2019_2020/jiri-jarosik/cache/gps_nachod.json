@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "nachod",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.1628882587",
+        "y": "50.4167045793",
+        "id": "2463",
+        "source": "muni",
+        "type": "muni",
+        "title": "Náchod, okres Náchod, Královéhradecký kraj, Česko"
+      }
+    }
+  }
+}

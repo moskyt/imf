@@ -1,0 +1,23 @@
+Univerzální vykreslovač
+=======================
+
+V adresáři "data" se nachází blíže neurčený počet CSV souborů se záznamem časového průběhu signálů z detektorů. V prvním řádku je záhlaví popisující jednotlivé sloupce, tedy například takto:
+
+#y4 y1 y2 y3 time
+1.1059 0.2212 0.1896 0.6777 0.01
+0.2399 0.4539 0.428 1.1479 0.02
+
+Sloupec "time" je přítomen právě jeden (nicméně pokaždé na jiné pozici).
+
+Kromě toho soubor může (a nemusí) obsahovat na prvních řádcích nadpis grafu (label) a popisky os (x, y) v následujícím tvaru:
+
+# label : three signals
+#x: seconds elapsed
+#y:signal strength
+#y4 y1 y2 time
+1.1059 0.2212 0.1896 0.01
+0.2399 0.4539 0.428 0.02
+
+Popisky (x, y, label) mohou být uvedeny v libovolném pořadí, některé mohou být vynechány. Pokud není popisek "label" uveden, použijte název souboru (bez přípony csv).
+
+Každý CSV soubor vykreslete do grafu, na ose X je čas, na ose Y jednotlivé signály -- co soubor to graf, všechny signály z jednoho souboru vykreslené najednou. V legendě názvy sloupců.

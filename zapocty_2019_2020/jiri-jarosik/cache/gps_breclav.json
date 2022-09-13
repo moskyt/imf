@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "breclav",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.8820300101",
+        "y": "48.7589685882",
+        "id": "5870",
+        "source": "muni",
+        "type": "muni",
+        "title": "Břeclav, okres Břeclav, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "most",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.6361740706",
+        "y": "50.503006907",
+        "id": "2048",
+        "source": "muni",
+        "type": "muni",
+        "title": "Most, okres Most, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

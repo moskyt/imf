@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "nymburk",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.0416719042",
+        "y": "50.1860544877",
+        "id": "4068",
+        "source": "muni",
+        "type": "muni",
+        "title": "Nymburk, okres Nymburk, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "louny",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.7966747007",
+        "y": "50.3569886056",
+        "id": "1950",
+        "source": "muni",
+        "type": "muni",
+        "title": "Louny, okres Louny, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

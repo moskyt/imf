@@ -1,0 +1,53 @@
+set terminal png size 800,600;
+set key top right
+set title noenhanced
+
+<% Dir['data/*'].each do |file|
+   (dir,name,type) = file.split(/[\/.]/)
+   heading = [] 
+   data = File.open(file,'r') 
+   line = data.readline
+   while(line[0] == "#") do
+     heading << line 
+     line = data.readline 
+   end
+   data.close() 
+   (label,xdesc,ydesc)=[name,"",""]
+   row_desc=""
+   heading.each do |text|
+     if (text.include? ":")
+       (variable, value) = text.split(':')
+       value = value[/(\S+)(.*)(\S+)/]
+       if (variable.include? "x")
+         xdesc = value
+       elsif (variable.include? "y")
+         ydesc = value
+       else
+         label = value
+       end 
+     else
+       row_desc=text[/(\w+ )+\w+/]
+     end 
+   end
+   rows = row_desc.split(" ")
+   time = rows.index('time')+1
+
+%>
+
+set output "out/<%=name%>.png"
+set title <%="'#{label}'"%>
+set xlabel "<%=xdesc%>"
+set ylabel "<%=ydesc%>"
+<%command = "plot"
+second=0
+(1..rows.count).each do |row|
+  if row != time
+    if second ==1
+      command += ","
+    end
+    command += " '#{file}' using #{time}:#{row} title '#{rows[row-1]}'"
+    second =1
+  end
+end%>
+<%=command%>
+<%end%>

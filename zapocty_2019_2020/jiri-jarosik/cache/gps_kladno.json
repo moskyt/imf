@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "kladno",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.1028508881",
+        "y": "50.147335565",
+        "id": "3661",
+        "source": "muni",
+        "type": "muni",
+        "title": "Kladno, okres Kladno, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

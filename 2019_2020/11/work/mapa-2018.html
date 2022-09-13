@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 7);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    
+    
+    
+    var center1 = SMap.Coords.fromWGS84(15.1937, 49.8239);
+    var marker1 = new SMap.Marker(center1, "myMarker1", {});
+    var card1 = new SMap.Card();
+    card1.getHeader().innerHTML = "<strong>Zbraslavice</strong>";
+    card1.getBody().innerHTML = "" +
+    
+    "2018-04-07 – Seminář pro pořadatele MTBO závodů a MTBO kartografy<br />" +
+    
+    "";
+    marker1.decorate(SMap.Marker.Feature.Card, card1);    
+    layer.addMarker(marker1);
+    
+    
+    var center2 = SMap.Coords.fromWGS84(17.2264, 48.2897);
+    var marker2 = new SMap.Marker(center2, "myMarker2", {});
+    var card2 = new SMap.Card();
+    card2.getHeader().innerHTML = "<strong>Limbach, Slovensko</strong>";
+    card2.getBody().innerHTML = "" +
+    
+    "2018-05-12 – Český pohár MTBO – 1. kolo<br />" +
+    
+    "2018-05-13 – Český pohár MTBO – 2. kolo<br />" +
+    
+    "";
+    marker2.decorate(SMap.Marker.Feature.Card, card2);    
+    layer.addMarker(marker2);
+    
+    
+    var center3 = SMap.Coords.fromWGS84(17.7815, 49.138);
+    var marker3 = new SMap.Marker(center3, "myMarker3", {});
+    var card3 = new SMap.Card();
+    card3.getHeader().innerHTML = "<strong>Pozlovice</strong>";
+    card3.getBody().innerHTML = "" +
+    
+    "2018-05-19 – Český pohár MTBO – 3. kolo<br />" +
+    
+    "2018-05-20 – Český pohár MTBO – 4. kolo<br />" +
+    
+    "";
+    marker3.decorate(SMap.Marker.Feature.Card, card3);    
+    layer.addMarker(marker3);
+    
+    
+    var center4 = SMap.Coords.fromWGS84(12.8721, 50.2259);
+    var marker4 = new SMap.Marker(center4, "myMarker4", {});
+    var card4 = new SMap.Card();
+    card4.getHeader().innerHTML = "<strong>Karlovy Vary - Sokolský Vrch</strong>";
+    card4.getBody().innerHTML = "" +
+    
+    "2018-06-02 – Mistrovství ČR v MTBO ve sprintu, WRE, Český pohár MTBO – 5. kolo<br />" +
+    
+    "2018-06-02 – Mistrovství ČR v MTBO štafet<br />" +
+    
+    "";
+    marker4.decorate(SMap.Marker.Feature.Card, card4);    
+    layer.addMarker(marker4);
+    
+    
+    var center5 = SMap.Coords.fromWGS84(12.8963, 50.2055);
+    var marker5 = new SMap.Marker(center5, "myMarker5", {});
+    var card5 = new SMap.Card();
+    card5.getHeader().innerHTML = "<strong>Karlovy Vary - Vítkova Hora</strong>";
+    card5.getBody().innerHTML = "" +
+    
+    "2018-06-03 – Český pohár MTBO – 6. kolo, WRE<br />" +
+    
+    "";
+    marker5.decorate(SMap.Marker.Feature.Card, card5);    
+    layer.addMarker(marker5);
+    
+    
+    var center6 = SMap.Coords.fromWGS84(16.7527, 49.4851);
+    var marker6 = new SMap.Marker(center6, "myMarker6", {});
+    var card6 = new SMap.Card();
+    card6.getHeader().innerHTML = "<strong>Suchý u Boskovic</strong>";
+    card6.getBody().innerHTML = "" +
+    
+    "2018-06-16 – Haven Mistrovství ČR v MTBO na klasické trati, Český pohár MTBO – 7. kolo | 7. Czech Cup | Haven Czech Championship | WMS<br />" +
+    
+    "2018-06-17 – Haven Mistrovství ČR v MTBO na krátké trati, Český pohár MTBO – 8. kolo | 8. Czech Cup | Haven Czech Championship | WMS<br />" +
+    
+    "";
+    marker6.decorate(SMap.Marker.Feature.Card, card6);    
+    layer.addMarker(marker6);
+    
+    
+    var center7 = SMap.Coords.fromWGS84(14.8447, 50.704);
+    var marker7 = new SMap.Marker(center7, "myMarker7", {});
+    var card7 = new SMap.Card();
+    card7.getHeader().innerHTML = "<strong>Hamr na Jezeře, autokemp, Loc. 50.7043981N, 14.8456508E</strong>";
+    card7.getBody().innerHTML = "" +
+    
+    "2018-06-23 – Český pohár MTBO – 9. kolo<br />" +
+    
+    "2018-06-24 – Český pohár MTBO – 10. kolo<br />" +
+    
+    "";
+    marker7.decorate(SMap.Marker.Feature.Card, card7);    
+    layer.addMarker(marker7);
+    
+    
+    var center8 = SMap.Coords.fromWGS84(17.6272, 47.2045);
+    var marker8 = new SMap.Marker(center8, "myMarker8", {});
+    var card8 = new SMap.Card();
+    card8.getHeader().innerHTML = "<strong>Farkasgyepű, Németbánya</strong>";
+    card8.getBody().innerHTML = "" +
+    
+    "2018-07-21 – Pannon MTBO Days 2018<br />" +
+    
+    "";
+    marker8.decorate(SMap.Marker.Feature.Card, card8);    
+    layer.addMarker(marker8);
+    
+    
+    var center9 = SMap.Coords.fromWGS84(15.6475, 49.9375);
+    var marker9 = new SMap.Marker(center9, "myMarker9", {});
+    var card9 = new SMap.Card();
+    card9.getHeader().innerHTML = "<strong>Heřmanův Městec - Konopáč</strong>";
+    card9.getBody().innerHTML = "" +
+    
+    "2018-09-08 – Český pohár MTBO – 14. kolo<br />" +
+    
+    "2018-09-08 – Český pohár MTBO – 15. kolo<br />" +
+    
+    "2018-09-09 – Český pohár MTBO – 16. kolo<br />" +
+    
+    "";
+    marker9.decorate(SMap.Marker.Feature.Card, card9);    
+    layer.addMarker(marker9);
+    
+    
+    var center10 = SMap.Coords.fromWGS84(14.5942, 50.746);
+    var marker10 = new SMap.Marker(center10, "myMarker10", {});
+    var card10 = new SMap.Card();
+    card10.getHeader().innerHTML = "<strong>Sloup v Čechách</strong>";
+    card10.getBody().innerHTML = "" +
+    
+    "2018-09-15 – Český pohár MTBO – 17. kolo<br />" +
+    
+    "2018-09-16 – Český pohár MTBO – 18. kolo<br />" +
+    
+    "";
+    marker10.decorate(SMap.Marker.Feature.Card, card10);    
+    layer.addMarker(marker10);
+    
+	</script>
+</body>
+</html>

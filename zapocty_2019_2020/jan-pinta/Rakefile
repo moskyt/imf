@@ -1,0 +1,158 @@
+##################################
+# Zápočtová úloha z předmětu IMF #
+# leden 2020                     #
+#--------------------------------#
+# Záznamy z JE                   #
+##################################
+
+require "csv"
+require "fileutils"
+
+
+def dates_minmax(date)                                                          # Funkce pro hledání nejstaršího a nejnovějšího data záznamu, pro všechny formáty
+  if date.to_s.include?(".")                                                    # (potřebné pro úpravu časové osy ve grafech)
+    extremes = date.minmax_by{|d|
+      [d.split(".")[2].to_i,
+      d.split(".")[1].to_i,
+      d.split(".")[0].to_i]}
+  elsif date.to_s.include?("-")
+    extremes = date.minmax_by{|d|
+      [d.split("-")[0],
+      d.split("-")[1],
+      d.split("-")[2]]}
+  else
+    extremes = date.minmax_by{|d|
+      [d.split("/")[2],
+      d.split("/")[0],
+      d.split("/")[1]]}
+  end
+  extremes
+end
+
+
+desc "1) Vytvoření grafů"                                                       # V 1. části jsou připraveny soubory *.gp pro vytvoření grafů ze zadaných dat,
+task :graphs do                                                                 # ze kterých jsou následně vytvořeny grafy pro jednotlivá data (ao, bc a fha)
+  dirs = ["gnuplot", "graphs"]
+  dirs.each do |dir_name|
+    FileUtils.mkdir_p(dir_name)                                                 # Do vytvořených adresářů budou přehledně uložena potřebná data
+  end                                                                           # pro vytvoření grafů, a poté i pro výsledný dokument
+
+  npp = {}                                                                      # Hash pro potřebné parametry dané jednotlivé JE
+  Dir["data/*.csv"].each do |filename|                                          # Zpracování zadaných dat z adresáře data
+    CSV.read(filename, col_sep: ";").each do |head, p1, p2, p3|                 # Načtení daného *.csv souboru a získání potřebných informací:
+      if head.include?("NPP")
+        npp[:name] = head.split(",")[0].split[0][1..-1]                         # získání jména JE z prvního řádku daného *.csv souboru
+        npp[:unit] = "%02d" % head.split(",")[1].split[1]                       # získání čísla bloku JE z prvního řádku daného *.csv souboru
+        npp[:dates] = []
+      elsif head.start_with?("#date")
+        npp[:parameters] = {                                                    # přiřazení čísla sloupce k jednotlivým parametrům ao, bc, fha z druhého řádku daného *.csv souboru
+          "#{p1}": 2,
+          "#{p2}": 3,
+          "#{p3}": 4
+        }
+      else npp[:dates] << head                                                  # načtení časových hodnot měření pro získání minima a maxima pro úpravu časové osy v grafech
+      end
+    end
+    npp[:parameters].each do |par, col|                                         # Vytvoření *.gp souboru pro každý parametr daného bloku JE
+      File.open("gnuplot/#{npp[:name]}_#{npp[:unit]}_#{par}.gp", "w") do |f|    # Systematické pojmenování: jméno JE _ číslo bloku _ parametr
+        f.puts "set terminal png"
+        f.puts "set datafile separator \";\""
+        f.puts "set xdata time"
+        if npp[:dates][0].include?(".")                                         # Vyřešení problému s formáty zápisu datumů
+          dform = "%d.%m.%Y"
+        elsif npp[:dates][0].include?("-")
+          dform = "%Y-%m-%d"
+        elsif npp[:dates][0].include?("/")
+          dform = "%m/%d/%Y"
+        else
+          puts "V zadaných datech se vyskytuje neznámý formát zápisu datumu."
+        end
+        f.puts "set timefmt \"#{dform}\""
+        xmin, xmax = dates_minmax(npp[:dates])[0], dates_minmax(npp[:dates])[1] # Nejstarší a nejnovější časová hodnota (pro rozsah osy x v grafech)
+        f.puts "set xrange [\"#{xmin}\":\"#{xmax}\"]"
+        n_xsteps = 5                                                            # Počet časových úseků na ose x
+        xstep = npp[:dates].size.to_i/n_xsteps*24*3600                          # Délka časového úseku na ose x (musí být v sekundách)
+        f.puts "set xtics \"#{xmin}\", #{xstep}, \"#{xmax}\""                   # Specifikace rozložení osy x
+        f.puts "set format x \"%m/%d/%Y\""                                      # Výsledný formát zápisu datumů na ose x
+        f.puts "set xlabel \"Datum\""
+        opt = case par.to_s                                                     # Vlastnosti závislé na konkrétním parametru (popisek osy y a barva dat)
+        when "ao"
+          ["Axiální ofset", "red"]
+        when "bc"
+          ["Koncentrace H_3BO_3", "green"]
+        when "fha"
+          ["Pokazetový koeficient nevyrovnání výkonu", "blue"]
+        end
+        f.puts "set ylabel \"#{opt[0]}\""
+        f.puts "set output \"graphs/#{npp[:name]}_#{npp[:unit]}_#{par}.png\""
+        f.puts "plot \"#{filename}\" using 1:#{col} with points pointtype 1 lt rgb \"#{opt[1]}\" notitle"
+      end
+      system("gnuplot gnuplot/#{npp[:name]}_#{npp[:unit]}_#{par}.gp")           # Vytvoření grafu *.png ze souboru *.gp pro daný parametr daného bloku dané JE
+    end
+  end
+end
+
+
+desc "2) Vygenerování záznamu"                                                  # Ve 2. části jsou zmapovány vytvořené *.png soubory v adresáři graphs,
+task :report do                                                                 # podle kterých je dále vytvořen soubor report.tex,
+  npp = {}                                                                      # nakonec je vygenerován výsledný dokument report.pdf
+  Dir["graphs/*.png"].each do |graph_filename|
+    graph = graph_filename[7..-5].split("_")                                    # Rozdělení názvu *.png souboru na dále potřebné části
+    name, unit, par = graph[0], graph[1], graph[2]
+    npp[:"#{name}_#{unit}"] ||= {                                               # Hash s údaji o všech JE, které budou použity v souboru report.tex
+      name: name,
+      unit: unit,
+      par: []
+    }
+    npp[:"#{name}_#{unit}"][:par] << par
+  end
+  File.open("report.tex", "w") do |f|                                           # Vytvoření souboru report.tex pro vygenerování výsledného pdf dokumentu v latexu
+    f.puts %{
+      \\documentclass[a4paper,twoside,11pt]{article}
+      \\usepackage[utf8]{inputenc}
+      \\usepackage[OT1]{fontenc}
+      \\usepackage[czech]{babel}
+      \\usepackage[hidelinks, unicode=true]{hyperref}
+      \\usepackage{graphicx}
+      \\usepackage{float}
+      \\usepackage[margin=2cm]{geometry}
+      \\usepackage[version=4]{mhchem}
+      \\begin{document}
+      \\title{Záznamy z JE}
+      \\date{}
+      \\maketitle
+      \\tableofcontents
+      \\newpage
+    }
+    npp.each do |npp_name, val|                                                 # Iterace přes načtené údaje o elektrárnách pro vykreslení grafů
+      f.puts "\\section*{#{val[:name]} #{val[:unit].to_i}}"
+      f.puts "\\addcontentsline{toc}{section}{#{val[:name]} #{val[:unit].to_i}}"
+      val[:par].each do |p|
+        p_opt = case p.to_s                                                     # Možnosti názvů podkapitol v dokumentu
+        when "ao"
+          "Axiální ofset"
+        when "bc"
+          "Koncentrace kyseliny borité"
+        when "fha"
+          "Pokazetový koeficient nevyrovnání výkonu"
+        end
+        f.puts "\\subsection*{#{p_opt}}"
+        f.puts "\\addcontentsline{toc}{subsection}{#{p_opt}}"
+        f.puts "\\begin{center}"
+        f.puts "\\includegraphics[width=.8\\textwidth]{graphs/#{npp_name}_#{p}.png}"
+        f.puts "\\end{center}"
+        f.puts
+      end
+      f.puts "\\newpage"
+    end
+    f.puts "\\end{document}"
+  end
+  2.times do
+    system("pdflatex report.tex")                                               # Dvojité vygenerování výsledného dokumentu report.pdf (z důvodu tvorby obsahu v dokumentu)
+  end
+
+  aux_types = ["aux", "log", "out", "toc"]                                      # Vymazání nepotřebných doplňkových souborů
+  aux_types.each do |type|
+    FileUtils.remove("report.#{type}")
+  end
+end

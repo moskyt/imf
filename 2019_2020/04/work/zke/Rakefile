@@ -1,0 +1,127 @@
+STEP = 64
+DATA_PATH = "../../../03/package/mcnp/many_outputs"
+
+def read_all_keffs
+  keffs = []
+  (0..10).each do |i1|
+    keffs << [0.0] * 11
+  end
+    
+  Dir["#{DATA_PATH}/*o"].each do |fn|
+    k = read_keff(fn)
+    i1, i2 = parse_filename(fn)
+    keffs[i1][i2] = k
+  end
+  
+  keffs
+end
+
+def read_keff(fn)
+  keff = nil
+
+  File.foreach(fn) do |line|
+    if line.include?("final estimated combined")
+      a = line.split("=")
+      b = a[1].split
+      keff = b[0].to_f
+    end
+  end
+
+  keff
+end
+
+def parse_filename(fn)
+  # fn: ../../../many_outputs/c_3_7o
+  # c_3_7o
+  # ["c", "3", "7o"]
+  ary = File.basename(fn).split("_")
+  i1 = ary[1].to_i
+  i2 = ary[2].to_i
+  [i1, i2]
+end
+
+desc "print all keffs"
+task :print_keff do
+  Dir["#{DATA_PATH}/*o"].each do |fn|
+    k = read_keff(fn)
+    i1, i2 = parse_filename(fn)
+    puts "%3d %3d %12.5f" % [i1, i2, k]
+  end
+end
+
+task :find_k1 do
+  puts "Reading keffs..."
+  keffs = read_all_keffs
+  puts "Reading done."
+  
+  data = []
+  
+  (0..10).each do |i1|
+    r1 = i1 * STEP
+    puts "R1 = #{r1}"
+    kx = keffs[i1]
+    puts kx.inspect
+    (0...10).each do |i2|
+      r2 = i2 * STEP
+      k1, k2 = kx[i2], kx[i2+1]
+      if k2 >= 1.0
+        puts "#{k1} .. #{k2}"
+        r2_ = r2 + STEP*(1-k1)/(k2-k1)
+        puts "=> #{r2_}"
+        data << [r1, r2_.round(1)]
+        break
+      end
+    end
+  end
+  
+  puts data.inspect
+end
+
+desc "print eleven plots (for each R1)"
+task :print_r1_keffs do
+  puts "Reading keffs..."
+  keffs = read_all_keffs
+  puts "Reading done."
+  
+  (0..10).each do |i1|
+    puts "Building plot for i1 = #{i1}"
+    # generate CSV
+    File.open("plot_#{i1}.csv", "w") do |f|
+      (0..10).each do |i2|
+        f.puts "#{i2*STEP} #{keffs[i1][i2]}"
+        # f.puts "%d %f" % [i2*STEP, keffs[i1][i2]]
+      end
+    end
+    # generate GP file
+    File.write("plot_#{i1}.gp", %{
+      set terminal png
+      set output "plot_#{i1}.png"
+      plot "plot_#{i1}.csv"
+    })
+    # call gnuplot
+    puts "Running gnuplot ..."
+    system("gnuplot plot_#{i1}.gp")
+    puts "... done"
+  end
+end
+
+desc "print nice table"
+task :print_table do
+  keffs = read_all_keffs
+
+  print "%7s" % "keff"
+  (0..10).each do |i2|
+    r2 = STEP * i2
+    print "%12d" % r2
+  end
+  puts
+  (0..10).each do |i1|
+    r1 = STEP * i1
+    print "%7d" % r1
+    (0..10).each do |i2|
+      print "%12.5f" % keffs[i1][i2]
+    end
+    puts
+  end
+  
+end

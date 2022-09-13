@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 8);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    var center0 = SMap.Coords.fromWGS84(13.4774, 50.0893);
+    var card0 = new SMap.Card();
+    card0.getHeader().innerHTML = "datum";
+    card0.getBody().innerHTML = "misto";
+    var marker0 = new SMap.Marker(center0, "myMarker0", {});
+    marker0.decorate(SMap.Marker.Feature.Card, card0);    
+    layer.addMarker(marker0);
+    
+    
+    
+	</script>
+</body>
+</html>

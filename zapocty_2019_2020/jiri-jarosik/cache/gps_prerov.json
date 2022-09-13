@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "prerov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.4489980556",
+        "y": "49.4548380556",
+        "id": "83",
+        "source": "muni",
+        "type": "muni",
+        "title": "Přerov, okres Přerov, Olomoucký kraj, Česko"
+      }
+    }
+  }
+}

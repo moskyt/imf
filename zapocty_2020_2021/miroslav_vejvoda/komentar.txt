@@ -1,0 +1,12 @@
+Dobrý den,
+
+opravdu nemám, co bych vytknul, takže to máte za A. Několik komentářů:
+- velmi se mi líbí, jak jste si poradil s nesprávnými daty vzorku 6592c4 a jak se o tom uživatel přehledně dozví. Ještě lepší je to rozdělení vzorku na více záznamů.
+- velmi kladně hodnotím výstup - vzhled grafů, popisky, informace na terminálu - i možnost konfigurace v yamlu. Opravdu pěkné.
+- líbí se mi použití erb pro gnuplot, že si lze snadno vzhled grafů doladit
+- hezké je i použití třídy SampleDatabase. Když už, tak by pak pravděpodobně stálo za to mít i třídu Sample a některé věci přesunout tam (třeba výpočet doby v laboratoři, výpočet celkové dávky apod.) - to by dávalo ještě větší smysl.
+
+Je to opravdu moc pěkně udělané, za těch osm let si nepamatuju lépe zpracovanou zápočtovou úlohu.
+
+S pozdravem
+František Havlůj

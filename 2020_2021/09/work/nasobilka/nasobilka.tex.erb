@@ -1,0 +1,33 @@
+\documentclass[a4paper,landscape,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+\title{Násobilka <%=n%> x <%=n%>}
+\author{IMF}
+\date{2020/2021}
+
+\raggedbottom
+
+\begin{document}
+\maketitle
+
+\begin{tabular}{|<%= "c|" * n %>}
+  \hline
+  <% (1..n).each do |i| %>
+    <% (1..n).each do |j| %>
+      <%= i %> x <%= j %> = <%= i * j %>
+      <% if j < n %>
+        &
+      <% else %>
+        \\ \hline
+      <% end %>
+    <% end %>
+  <% end %>
+\end{tabular}
+
+\end{document}
+

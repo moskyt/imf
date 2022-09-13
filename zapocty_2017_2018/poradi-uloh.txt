@@ -1,0 +1,5 @@
+databaze_vzorku
+gamma_scanning
+kartogram
+mereni_radonu
+univerzalni_vykreslovac

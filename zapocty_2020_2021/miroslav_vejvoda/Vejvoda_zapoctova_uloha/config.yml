@@ -1,0 +1,33 @@
+# path to gnuplot -- is necessary set in MS Windows
+path_gnuplot: gnuplot
+# unit setting -- mSv or Sv
+# if none is set -- Sv
+dose_unit: Sv
+# graphs setting
+# output format can be set to png or eps
+# default is set png format
+output_format: png
+# can be set own title, xlabel and ylabel for all graphs
+# ranges can be set; if are not set -- all data is shown
+scatter_plot:
+            title: Scatter Plot of Samples
+            xlabel: Stay duration in lab (days)
+            ylabel: Total dose (Sv)
+            xrange:
+            yrange:
+# can be set number of bins in histogram
+# default is set 30 bins
+histogram_stay:
+              title: Histogram of Stay Duration in Lab
+              xlabel: Stay duration (days)
+              ylabel: Frequency (-)
+              bins: 20
+              xrange: 15:130
+              yrange: 0:150
+histogram_dose:
+              title: Histogram of Total Dose Distribution
+              xlabel: Total dose (Sv)
+              ylabel: Frequency (-)
+              bins: 35
+              xrange: 0:950
+              yrange: 0:200

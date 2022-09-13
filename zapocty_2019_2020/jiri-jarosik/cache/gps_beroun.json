@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "beroun",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.0719964887",
+        "y": "49.9638234118",
+        "id": "3579",
+        "source": "muni",
+        "type": "muni",
+        "title": "Beroun, okres Beroun, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

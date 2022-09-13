@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "vyskov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.9989744519",
+        "y": "49.2774693128",
+        "id": "5924",
+        "source": "muni",
+        "type": "muni",
+        "title": "Vyškov, okres Vyškov, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+Vážená slečno Oppelová,
+
+už je to v pořádku a všechno jste splnila, máte to tedy za A. Několik komentářů:
+- nejprve rozdělit záhlaví podle ; a z prvního prvku pak odstraňovat # je nemoudré -- co kdyby záhlaví vypadalo takto?
+# date;fha;bc;ao
+nebo co hůř,
+# record#;date;fha;bc;ao
+-- je tedy asi lepší se nejdřív zbavit mřížky např. gsub(/^\s*#\s*/, "") a je to.
+- opravdu nehezké a neefektivní je pořád dokola opakovat line.split(";") namísto toho, abyste si to uložila do pomocné proměnné
+- pořadí sloupců máte sice pěkně obecně, ale když už, tak by to mohlo bez větší námahy fungovat i v případě, že datum není v prvním sloupci. A když už to tak nemáte, tak byste to mohla aspoň zkontrolovat, že první je opravdu datum
+- pokud použijete FileUtils.mkdir_p místo Dir.mkdir, tak nemusíte kontrolovat, zda už to existuje a navíc můžete vytvořit jen "grafy/data", potřebnou složku "grafy" to vytvoří samo
+- chválím pěkně strukturovaný program i použití jednořádkových podmínek
+- místo File.open(path, "r").read.split("\n") se dá přece napsat File.readlines(path)
+
+S pozdravem
+František Havlůj

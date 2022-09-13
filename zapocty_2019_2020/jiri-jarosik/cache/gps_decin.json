@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "decin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.21478126",
+        "y": "50.7821525182",
+        "id": "1665",
+        "source": "muni",
+        "type": "muni",
+        "title": "Děčín, okres Děčín, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "ostrava",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "18.2820440792",
+        "y": "49.8346452",
+        "id": "4730",
+        "source": "muni",
+        "type": "muni",
+        "title": "Ostrava, okres Ostrava-město, Moravskoslezský kraj, Česko"
+      }
+    }
+  }
+}

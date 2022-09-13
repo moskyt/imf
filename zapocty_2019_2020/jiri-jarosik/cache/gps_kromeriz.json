@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "kromeriz",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.3931162563",
+        "y": "49.297851442",
+        "id": "3117",
+        "source": "muni",
+        "type": "muni",
+        "title": "Kroměříž, okres Kroměříž, Zlínský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+
+task :build do
+  %w{a1 a2 b1 b2 b3 c1 c2 c3}.each do |fn|
+    File.open(fn, "w") do |f|
+      r, b, e = 0, 0, 0
+      (1..8).each do |i|
+        (1..8).each do |j|
+          m = if rand < 0.2 and r < 2 and i > 1 and j > 1 and i < 8 and j < 8
+            r += 1
+            "R#{r}"
+          elsif  rand < 0.2 and b < 3 and i > 1 and j > 1 and i < 8 and j < 8
+            b += 1
+            "B#{b}"
+          elsif  rand < 0.2 and e < 2 and i > 1 and j > 1 and i < 8 and j < 8
+            e += 1
+            "E#{e}"
+          else
+            if rand < 0.1
+              "F8"
+            elsif rand < 0.2
+              "F6"
+            else
+              "F4"
+            end
+          end
+          f.print "%-4s" % m
+        end
+        f.puts
+      end
+    end
+  end
+end

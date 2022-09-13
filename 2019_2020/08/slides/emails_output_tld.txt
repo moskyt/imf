@@ -1,0 +1,216 @@
+com
+  fjfi.com
+    adam@fjfi.com
+    eshop@fjfi.com
+    filip@fjfi.com
+    info@fjfi.com
+    service@fjfi.com
+
+  google.com
+    adam@google.com
+    eshop@google.com
+    filip@google.com
+    info@google.com
+    service@google.com
+
+  linux.com
+    adam@linux.com
+    eshop@linux.com
+    filip@linux.com
+    info@linux.com
+    service@linux.com
+
+  pivo.com
+    adam@pivo.com
+    eshop@pivo.com
+    filip@pivo.com
+    info@pivo.com
+    service@pivo.com
+
+  troja.com
+    adam@troja.com
+    eshop@troja.com
+    filip@troja.com
+    info@troja.com
+    service@troja.com
+
+cz
+  fjfi.cz
+    adam@fjfi.cz
+    eshop@fjfi.cz
+    filip@fjfi.cz
+    info@fjfi.cz
+    service@fjfi.cz
+
+  google.cz
+    adam@google.cz
+    eshop@google.cz
+    filip@google.cz
+    info@google.cz
+    service@google.cz
+
+  linux.cz
+    adam@linux.cz
+    eshop@linux.cz
+    filip@linux.cz
+    info@linux.cz
+    service@linux.cz
+
+  pivo.cz
+    adam@pivo.cz
+    eshop@pivo.cz
+    filip@pivo.cz
+    info@pivo.cz
+    service@pivo.cz
+
+  troja.cz
+    adam@troja.cz
+    eshop@troja.cz
+    filip@troja.cz
+    info@troja.cz
+    service@troja.cz
+
+de
+  fjfi.de
+    adam@fjfi.de
+    eshop@fjfi.de
+    filip@fjfi.de
+    info@fjfi.de
+    service@fjfi.de
+
+  google.de
+    adam@google.de
+    eshop@google.de
+    filip@google.de
+    info@google.de
+    service@google.de
+
+  linux.de
+    adam@linux.de
+    eshop@linux.de
+    filip@linux.de
+    info@linux.de
+    service@linux.de
+
+  pivo.de
+    adam@pivo.de
+    eshop@pivo.de
+    filip@pivo.de
+    info@pivo.de
+    service@pivo.de
+
+  troja.de
+    adam@troja.de
+    eshop@troja.de
+    filip@troja.de
+    info@troja.de
+    service@troja.de
+
+ee
+  fjfi.ee
+    adam@fjfi.ee
+    eshop@fjfi.ee
+    filip@fjfi.ee
+    info@fjfi.ee
+    service@fjfi.ee
+
+  google.ee
+    adam@google.ee
+    eshop@google.ee
+    filip@google.ee
+    info@google.ee
+    service@google.ee
+
+  linux.ee
+    adam@linux.ee
+    eshop@linux.ee
+    filip@linux.ee
+    info@linux.ee
+    service@linux.ee
+
+  pivo.ee
+    adam@pivo.ee
+    eshop@pivo.ee
+    filip@pivo.ee
+    info@pivo.ee
+    service@pivo.ee
+
+  troja.ee
+    adam@troja.ee
+    eshop@troja.ee
+    filip@troja.ee
+    info@troja.ee
+    service@troja.ee
+
+org
+  fjfi.org
+    adam@fjfi.org
+    eshop@fjfi.org
+    filip@fjfi.org
+    info@fjfi.org
+    service@fjfi.org
+
+  google.org
+    adam@google.org
+    eshop@google.org
+    filip@google.org
+    info@google.org
+    service@google.org
+
+  linux.org
+    adam@linux.org
+    eshop@linux.org
+    filip@linux.org
+    info@linux.org
+    service@linux.org
+
+  pivo.org
+    adam@pivo.org
+    eshop@pivo.org
+    filip@pivo.org
+    info@pivo.org
+    service@pivo.org
+
+  troja.org
+    adam@troja.org
+    eshop@troja.org
+    filip@troja.org
+    info@troja.org
+    service@troja.org
+
+uk
+  fjfi.co.uk
+    adam@fjfi.co.uk
+    eshop@fjfi.co.uk
+    filip@fjfi.co.uk
+    info@fjfi.co.uk
+    service@fjfi.co.uk
+
+  google.co.uk
+    adam@google.co.uk
+    eshop@google.co.uk
+    filip@google.co.uk
+    info@google.co.uk
+    service@google.co.uk
+
+  linux.co.uk
+    adam@linux.co.uk
+    eshop@linux.co.uk
+    filip@linux.co.uk
+    info@linux.co.uk
+    service@linux.co.uk
+
+  pivo.co.uk
+    adam@pivo.co.uk
+    eshop@pivo.co.uk
+    filip@pivo.co.uk
+    info@pivo.co.uk
+    service@pivo.co.uk
+
+  troja.co.uk
+    adam@troja.co.uk
+    eshop@troja.co.uk
+    filip@troja.co.uk
+    info@troja.co.uk
+    service@troja.co.uk
+

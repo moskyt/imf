@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "liberec",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.0584491011",
+        "y": "50.7699973054",
+        "id": "1818",
+        "source": "muni",
+        "type": "muni",
+        "title": "Liberec, okres Liberec, Liberecký kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "zlin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.6663338474",
+        "y": "49.226654214",
+        "id": "3045",
+        "source": "muni",
+        "type": "muni",
+        "title": "Zlín, okres Zlín, Zlínský kraj, Česko"
+      }
+    }
+  }
+}

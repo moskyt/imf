@@ -1,0 +1,54 @@
+
+\documentclass[a4paper,twoside,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+\title{Provozní data JE Třeskoprsky}
+\author{IMF}
+\date{2020/2021}
+
+\raggedbottom
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Grafy}
+
+\subsection{Koncentrace kyseliny borité}
+
+<% cycles.each do |c| %>
+\subsubsection{Kampaň c<%= "%02d" % c %>}
+
+\includegraphics[width=0.7\textwidth]{../../package/latex/plots/bc_c<%= "%02d" % c %>}
+<% end %>
+
+\subsection{Axiální ofset}
+<% cycles.each do |c| %>
+\subsubsection{Kampaň c<%= "%02d" % c %>}
+
+\includegraphics[width=0.7\textwidth]{../../package/latex/plots/ao_c<%= "%02d" % c %>}
+<% end %>
+
+\section{Tabulky}
+\subsection{Koncentrace kyseliny borité}
+<% cycles.each do |c| %>
+\subsubsection{Kampaň c<%= "%02d" % c %>}
+
+\input{../../package/latex/tables/bc_c<%= "%02d" % c %>}
+<% end %>
+
+\subsection{Axiální ofset}
+
+<% cycles.each do |c| %>
+\subsubsection{Kampaň c<%= "%02d" % c %>}
+
+\input{../../package/latex/tables/ao_c<%= "%02d" % c %>}
+<% end %>
+
+\end{document}
+

@@ -1,0 +1,9 @@
+Měření radonu
+
+Z datového souboru načtěte naměřené aktivity a vykreslete je do mapy.
+Barva vykreslených bodů by měla odpovídat aktivitě (nejvyšší červená, nejnižší modrá).
+Po kliknutí na bod nechť se zobrazí jméno města, hodnota aktivity a datum měření.
+Pokud je některé místo uvedeno vícekrát, spočítejte průměrnou hodnotu.
+
+Nápověda:
+k získání souřadnic použijte geocoding api, například http://api.mapy.cz/geocode?query=hronov

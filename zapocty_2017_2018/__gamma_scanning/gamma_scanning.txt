@@ -1,0 +1,12 @@
+Gamma scanning palivových souborů
+
+V souborech assembly*.csv jsou uloženy profily z gamma scanů.
+
+Na prvním řádku je identifikátor kazety.
+Na druhém řádku jsou uvedeny délky jednotlivých nódů. Počet nódů i jejich velikost se liší, celková délka je ve všech případech stejná.
+Na dalších řádcích jsou uvedena data z měření. Jednotlivé hodnoty jsou odděleny libovolným počtem mezer nebo novým řádkem -- jedná se o integrální hodnoty signálu z jednotlivých nódů (tedy intenzita * výška nódu).
+
+Úkoly:
+
+- vykreslete axiální profily intenzity (nikoli integrální odezvy!) signálů pro všechny PS (podle vzoru)
+- do jednoho grafu vykreslete profily pěti PS s největší celkovou aktivitou

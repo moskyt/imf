@@ -1,0 +1,15 @@
+Vážená paní Kubínová,
+
+všechno funguje, jak má, je to dobře napsané, takže máte za A.
+
+Několik komentářů:
+- a.reverse.drop(1).reverse.unshift(0) je značně kryptické, existují metody pro ubírání a přidávání prvků na začátek i konec a pravděpodobně není nutné dělat dvakrát reverse (vizte např. shift a pop)
+- pozor na gsub("#", ...) - zahodí vám to # nejen ze začátku řádku. Lze řešit například vhodným regulárním výrazem: gsub(/^#\s*/, "")
+- system("mkdir") není moc pěkné, bude to možná fungovat na některém OS a na jiném ne. Lépe Dir.mkdir a ještě lépe FileUtils.mkdir_p
+- velké plus za rozumné používání symbolů!
+- uvnitř řetězce s dvojitými uvozovkami není nutno escapovat jednoduché, tedy místo "set xlabel \'Axial coordinate [cm]\'" klidně jen "set xlabel 'Axial coordinate [cm]'"
+- u souborGnuplot bych zvážil použití víceřádkového řetězce %{...} nebo ERb šablony, ale je to v pořádku i takto. bloková forma (File.open() do |file| ... end) by byla také asi elegantnější.
+- cesta ke gnuplotu není konfigurovatelná, takže na windows by to nemuselo chodit (záleží na konkrétním nastavení)
+
+S pozdravem a přáním dalších studijních úspěchů
+František Havlůj

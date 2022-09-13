@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "teplice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.8245073076",
+        "y": "50.6403975102",
+        "id": "2074",
+        "source": "muni",
+        "type": "muni",
+        "title": "Teplice, okres Teplice, Ústecký kraj, Česko"
+      }
+    }
+  }
+}

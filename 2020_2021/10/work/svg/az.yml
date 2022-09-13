@@ -1,0 +1,17 @@
+pitch: 30
+colors:
+  F4: "#1313f2"
+  F6: "#5a5aed"
+  F8: "#8888f2"
+  R1: "#ff0000"
+  R2: "#fa5555"
+  E1: "#00ff51"
+  E2: "#72fc9e"
+  B1: "#f502e1"
+  B2: "#d63cca"
+  B3: "#c25fba"
+extra_colors:
+- "#ffff00"
+- "#00ffff"
+- "#ff8800"
+- "#00ff88"

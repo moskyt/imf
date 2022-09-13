@@ -1,0 +1,15 @@
+set encoding utf8
+# terminal is set according to config file; if none is set -- pngcairo
+<%= "set terminal pngcairo" if config["output_format"] == "png" || config["output_format"] == nil %>
+<%= "set terminal postscript eps enhanced color" if config["output_format"] == "eps"%>
+set output "plots/scatter_plot.<%= config["output_format"] || "png" %>"
+set grid
+
+set title "<%= config["scatter_plot"]["title"] %>"
+set xlabel "<%= config["scatter_plot"]["xlabel"] %>"
+set ylabel "<%= config["scatter_plot"]["ylabel"] %>"
+set xrange [<%= config["scatter_plot"]["xrange"] || ":" %>]
+set yrange [<%= config["scatter_plot"]["yrange"] || ":" %>]
+<%= "set format y '%.0e'" if (config["dose_unit"] == "mSv") %>
+
+plot "data/results.csv" using 2:3 notitle

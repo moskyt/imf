@@ -1,0 +1,7 @@
+Záznamy z JE
+
+Předem neurčený počet záznamů z JE, které nejsou moc v pořádku. Každý CSV soubor v hlavičce obsahuje název JE a blok, na dalším řádku pořadí sloupců. Sloupce jsou datum, kyselina boritá (bc), axiální ofset (ao), pokazetový koeficient nevyrovnání výkonu (fha).
+
+Co hůř, formát data není pokaždé stejný.
+
+Zpracujte data do grafů a vygenerujte přehledný PDF dokument, kde bude vše seřazeno podle elektráren a podle bloků.

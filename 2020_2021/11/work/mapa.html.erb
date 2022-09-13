@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 7);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();
+
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    <% i = 0 %>
+    <% markers.each do |marker| %>
+    <% i += 1 %>
+    var card<%=i%> = new SMap.Card();
+    card<%=i%>.getHeader().innerHTML = "<%= marker[:name]%>";
+    card<%=i%>.getBody().innerHTML = "<%= marker[:date]%>, <%= marker[:place]%>";
+    var center<%=i%> = SMap.Coords.fromWGS84(<%=marker[:lon]%>, <%=marker[:lat]%>);
+    var marker<%=i%> = new SMap.Marker(center<%=i%>, "myMarker<%=i%>", {});
+    marker<%=i%>.decorate(SMap.Marker.Feature.Card, card<%=i%>);
+    layer.addMarker(marker<%=i%>);
+    <% end %>
+	</script>
+</body>
+</html>

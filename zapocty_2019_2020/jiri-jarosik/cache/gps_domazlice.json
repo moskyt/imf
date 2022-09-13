@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "domazlice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "12.9297610107",
+        "y": "49.4404919421",
+        "id": "1144",
+        "source": "muni",
+        "type": "muni",
+        "title": "Domažlice, okres Domažlice, Plzeňský kraj, Česko"
+      }
+    }
+  }
+}

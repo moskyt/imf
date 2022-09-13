@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "tabor",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.6578033919",
+        "y": "49.4144124595",
+        "id": "1031",
+        "source": "muni",
+        "type": "muni",
+        "title": "Tábor, okres Tábor, Jihočeský kraj, Česko"
+      }
+    }
+  }
+}

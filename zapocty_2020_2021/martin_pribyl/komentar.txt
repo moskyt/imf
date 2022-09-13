@@ -1,0 +1,27 @@
+Vážený pane Přibyle,
+
+nemám, co bych vytknul a tak to máte za A.
+
+Moc se mi líbí, jak používáte vlastní funkce, hashe, výstup při průběhu programu, všechno je to moc fajn.
+
+Přidám několik komentářů:
+- klíče "Konec kampane 4" jsou možná trochu nešťastné. Jinde používáte symboly, což je mnohem lepší -- šel bych spíš cestou
+{
+  "A4040" => {
+    burnup: 12435.0,
+    history: [
+      {cycle: 1, boc: "1993-01-01", eoc: "1993-11-25", delta_burnup: 6000.0},
+      {cycle: 2, boc: "1994-01-01", eoc: "1994-11-25", delta_burnup: 6345.0}
+    ]
+    ...
+  }
+}
+ale pochopitelně tak, jak to máte, to taky funguje. Jen při vytažení jednoho PS nemáte jak snadno zjistit celou historii a musíte procházet všechny kampaně a hledat, která je zde použita.
+- přípona ".txt.rb" je nešťastná, není to ruby skript. Navíc je po přeložení výsledkem .tex soubor, takže rozumná přípona by byla ".tex.erb"
+- nevím, kde jste na to všichni přišli, ale #store myslím není k ničemu dobré, můžete přece použít normálně hash[key] = value, ať už klíč v hashi je nebo ne. Já jsem store v životě nepoužil.
+- názvy funkcí (stejně jako proměnných) by neměly začínat velkým písmenem -- to jsou pak konstanty (resp. třídy -- Class a normální konstanty -- CONSTANT)
+
+Ale jak říkám, máte to obecně moc pěkné, jsou to jen poznámky k možným zlepšením.
+
+S pozdravem
+František Havlůj

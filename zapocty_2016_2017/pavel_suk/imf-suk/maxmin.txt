@@ -1,0 +1,2 @@
+Maximální dávka: 904032.134           Vzorek: 1d97ce
+Minimální dávka: 40714.458            Vzorek: 2c7509

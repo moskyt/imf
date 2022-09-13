@@ -1,0 +1,21 @@
+set encoding utf8
+# terminal is set according to config file; if none is set -- pngcairo
+<%= "set terminal pngcairo" if config["output_format"] == "png" || config["output_format"] == nil %>
+<%= "set terminal postscript eps enhanced color" if config["output_format"] == "eps"%>
+set output "plots/<%= htype %>.<%= config["output_format"] || "png" %>"
+set grid
+
+set title "<%= config[htype]["title"] %>"
+set xlabel "<%= config[htype]["xlabel"] %>"
+set ylabel "<%= config[htype]["ylabel"] %>"
+set xrange [<%= config[htype]["xrange"] || ":" %>]
+set yrange [<%= config[htype]["yrange"] || ":" %>]
+<%= "set format x '%.0e'" if (config["dose_unit"] == "mSv" and htype == "histogram_dose") %>
+
+Min = <%= min %>
+Max = <%= max %>
+bins = <%= config[htype]["bins"] || 30 %>
+width = (Max - Min) / bins
+bin(x) = width * (floor((x - Min) / width) + 0.5) + Min
+
+plot "data/results.csv" using (bin($<%= column %>)):(1.0) smooth freq with boxes notitle

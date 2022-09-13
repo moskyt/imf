@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "pardubice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.7772938889",
+        "y": "50.0378047222",
+        "id": "1258",
+        "source": "muni",
+        "type": "muni",
+        "title": "Pardubice, okres Pardubice, Pardubický kraj, Česko"
+      }
+    }
+  }
+}

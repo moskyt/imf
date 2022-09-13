@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "benesov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.6869674462",
+        "y": "49.7816247095",
+        "id": "3469",
+        "source": "muni",
+        "type": "muni",
+        "title": "Benešov, okres Benešov, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

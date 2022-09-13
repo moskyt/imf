@@ -1,0 +1,3255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+    <style>
+      #map {
+        height: 500px;
+		width: 800px;
+       }
+	  #legend { display: flex; display: -webkit-box; padding-top: 7px; padding-left: 100px; width: 600px }
+        .color-key {
+          background: linear-gradient(to right,
+            hsl(240, 100%, 55%) 0%,
+            hsl(260, 100%, 55%) 17%,
+            hsl(280, 100%, 50%) 33%,
+            hsl(300, 100%, 50%) 50%,
+            hsl(320, 100%, 50%) 67%,
+            hsl(340, 100%, 50%) 84%,
+            hsl(360, 100%, 50%) 100%);
+          flex: 1;
+          -webkit-box-flex: 1;
+          margin: 0px 5px;
+          text-align: left;
+          font-size: 1.0em;
+          line-height: 1.0em;
+		}
+    </style>
+  </head>
+  <body>
+    <h1>Měření radonu</h1>
+	<div id="legend">
+	
+		<!-- urceni maximalni a minimalni prumerne aktivity -->
+		
+		
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+				
+		
+		
+		
+		
+		
+		<!-- okenko s barvou od modre po cervenou a s uvedenou maximalni a minimalni aktivitou -->
+        <div id="census-min">601.72 Bq/m<sup>3</sup></div>
+        <div class="color-key"><span id="data-caret"></span></div>
+        <div id="census-max">8551.64 Bq/m<sup>3</sup></div>
+		
+    </div>
+    <div id="map"></div>
+    <script>
+		
+	  
+      function initMap() {
+        var stred = {lat: 49.88, lng: 15.37};
+		var color = 'gray';
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 7,
+          center: stred
+        });
+		
+		
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString1 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Semily</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 339.76<br></l>'+
+					
+							
+							'<l>2.měření: 5586.5<br></l>'+
+					
+							
+							'<l>3.měření: 2763.51<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 2896.59 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow1 = new google.maps.InfoWindow({
+				  content: contentString1,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker1 = new google.maps.Marker({
+				  position: {lat: 50.6019058228, lng: 15.3355207443},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(274.63989289451297, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker1.addListener('click', function() {
+				  infowindow1.open(map, marker1);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString2 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Chomutov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6583.11<br></l>'+
+					
+							
+							'<l>2.měření: 8163.94<br></l>'+
+					
+							
+							'<l>3.měření: 9154.86<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 7967.3 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow2 = new google.maps.InfoWindow({
+				  content: contentString2,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker2 = new google.maps.Marker({
+				  position: {lat: 50.4604759216, lng: 13.4177856445},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(351.17972200850585, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker2.addListener('click', function() {
+				  infowindow2.open(map, marker2);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString3 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Svitavy</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3978.05<br></l>'+
+					
+							
+							'<l>2.měření: 9062.53<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 6520.29 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow3 = new google.maps.InfoWindow({
+				  content: contentString3,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker3 = new google.maps.Marker({
+				  position: {lat: 49.7559356689, lng: 16.4682922363},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(329.3378404649254, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker3.addListener('click', function() {
+				  infowindow3.open(map, marker3);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString4 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Jeseník</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5081.99<br></l>'+
+					
+							
+							'<l>2.měření: 6232.86<br></l>'+
+					
+							
+							'<l>3.měření: 2378.49<br></l>'+
+					
+							
+							'<l>4.měření: 7118.77<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5203.03 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow4 = new google.maps.InfoWindow({
+				  content: contentString4,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker4 = new google.maps.Marker({
+				  position: {lat: 50.2293701172, lng: 17.2046432495},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(309.45437497826236, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker4.addListener('click', function() {
+				  infowindow4.open(map, marker4);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString5 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Mělník</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6682.05<br></l>'+
+					
+							
+							'<l>2.měření: 4204.38<br></l>'+
+					
+							
+							'<l>3.měření: 300.74<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3729.06 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow5 = new google.maps.InfoWindow({
+				  content: contentString5,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker5 = new google.maps.Marker({
+				  position: {lat: 50.3504981995, lng: 14.4741077423},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(287.2055748489026, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker5.addListener('click', function() {
+				  infowindow5.open(map, marker5);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString6 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Sokolov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 4981.27<br></l>'+
+					
+							
+							'<l>2.měření: 5587.09<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5284.18 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow6 = new google.maps.InfoWindow({
+				  content: contentString6,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker6 = new google.maps.Marker({
+				  position: {lat: 50.1805534363, lng: 12.6409292221},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(310.6793345517524, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker6.addListener('click', function() {
+				  infowindow6.open(map, marker6);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString7 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Nymburk</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8404.87<br></l>'+
+					
+							
+							'<l>2.měření: 604.25<br></l>'+
+					
+							
+							'<l>3.měření: 387.08<br></l>'+
+					
+							
+							'<l>4.měření: 8491.66<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4471.97 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow7 = new google.maps.InfoWindow({
+				  content: contentString7,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker7 = new google.maps.Marker({
+				  position: {lat: 50.1860542297, lng: 15.0416717529},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(298.4193839950203, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker7.addListener('click', function() {
+				  infowindow7.open(map, marker7);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString8 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Kolín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3879.81<br></l>'+
+					
+							
+							'<l>2.měření: 3255.56<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3567.69 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow8 = new google.maps.InfoWindow({
+				  content: contentString8,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker8 = new google.maps.Marker({
+				  position: {lat: 50.028137207, lng: 15.2005681992},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(284.76976653662973, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker8.addListener('click', function() {
+				  infowindow8.open(map, marker8);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString9 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Bruntál</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 9080.88<br></l>'+
+					
+							
+							'<l>2.měření: 6595.04<br></l>'+
+					
+							
+							'<l>3.měření: 4405.87<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 6693.93 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow9 = new google.maps.InfoWindow({
+				  content: contentString9,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker9 = new google.maps.Marker({
+				  position: {lat: 49.988445282, lng: 17.4647026062},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(331.9588028532867, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker9.addListener('click', function() {
+				  infowindow9.open(map, marker9);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString10 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Ostrava</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6481.46<br></l>'+
+					
+							
+							'<l>2.měření: 7317.63<br></l>'+
+					
+							
+							'<l>3.měření: 2963.53<br></l>'+
+					
+							
+							'<l>4.měření: 2022.96<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4696.39 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow10 = new google.maps.InfoWindow({
+				  content: contentString10,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker10 = new google.maps.Marker({
+				  position: {lat: 49.8346443176, lng: 18.282043457},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(301.8070107502346, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker10.addListener('click', function() {
+				  infowindow10.open(map, marker10);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString11 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Plzeň</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6467.19<br></l>'+
+					
+							
+							'<l>2.měření: 6421.59<br></l>'+
+					
+							
+							'<l>3.měření: 1115.88<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4668.22 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow11 = new google.maps.InfoWindow({
+				  content: contentString11,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker11 = new google.maps.Marker({
+				  position: {lat: 49.7477836609, lng: 13.3783493042},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(301.3817435509882, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker11.addListener('click', function() {
+				  infowindow11.open(map, marker11);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString12 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Brno</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 9157.08<br></l>'+
+					
+							
+							'<l>2.měření: 4874.14<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 7015.61 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow12 = new google.maps.InfoWindow({
+				  content: contentString12,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker12 = new google.maps.Marker({
+				  position: {lat: 49.2002220154, lng: 16.6078414917},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(336.8144142843207, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker12.addListener('click', function() {
+				  infowindow12.open(map, marker12);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString13 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Kladno</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6444.17<br></l>'+
+					
+							
+							'<l>2.měření: 7033.52<br></l>'+
+					
+							
+							'<l>3.měření: 1065.23<br></l>'+
+					
+							
+							'<l>4.měření: 1241.93<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3946.21 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow13 = new google.maps.InfoWindow({
+				  content: contentString13,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker13 = new google.maps.Marker({
+				  position: {lat: 50.1473350525, lng: 14.102850914},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(290.48342439190736, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker13.addListener('click', function() {
+				  infowindow13.open(map, marker13);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString14 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Tábor</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 2067.67<br></l>'+
+					
+							
+							'<l>2.měření: 9014.81<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5541.24 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow14 = new google.maps.InfoWindow({
+				  content: contentString14,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker14 = new google.maps.Marker({
+				  position: {lat: 49.4144134521, lng: 14.6578035355},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(314.5595247851252, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker14.addListener('click', function() {
+				  infowindow14.open(map, marker14);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString15 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Písek</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 1651.88<br></l>'+
+					
+							
+							'<l>2.měření: 4631.76<br></l>'+
+					
+							
+							'<l>3.měření: 4545.46<br></l>'+
+					
+							
+							'<l>4.měření: 7093.25<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4480.59 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow15 = new google.maps.InfoWindow({
+				  content: contentString15,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker15 = new google.maps.Marker({
+				  position: {lat: 49.308795929, lng: 14.1475028992},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(298.549521161818, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker15.addListener('click', function() {
+				  infowindow15.open(map, marker15);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString16 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Teplice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 9090.83<br></l>'+
+					
+							
+							'<l>2.měření: 4515.72<br></l>'+
+					
+							
+							'<l>3.měření: 5666.63<br></l>'+
+					
+							
+							'<l>4.měření: 3260.12<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5633.33 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow16 = new google.maps.InfoWindow({
+				  content: contentString16,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker16 = new google.maps.Marker({
+				  position: {lat: 50.6403961182, lng: 13.8245077133},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(315.949523765618, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker16.addListener('click', function() {
+				  infowindow16.open(map, marker16);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString17 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Prachatice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 1227.16<br></l>'+
+					
+							
+							'<l>2.měření: 1169.85<br></l>'+
+					
+							
+							'<l>3.měření: 778.2<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 1058.4 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow17 = new google.maps.InfoWindow({
+				  content: contentString17,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker17 = new google.maps.Marker({
+				  position: {lat: 49.0129241943, lng: 13.9975214005},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(246.89340313445942, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker17.addListener('click', function() {
+				  infowindow17.open(map, marker17);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString18 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Vsetín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8023.3<br></l>'+
+					
+							
+							'<l>2.měření: 1330.33<br></l>'+
+					
+							
+							'<l>3.měření: 3030.25<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4127.96 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow18 = new google.maps.InfoWindow({
+				  content: contentString18,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker18 = new google.maps.Marker({
+				  position: {lat: 49.3387069702, lng: 17.9961910248},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(293.22676789368745, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker18.addListener('click', function() {
+				  infowindow18.open(map, marker18);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString19 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Vyškov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3603.02<br></l>'+
+					
+							
+							'<l>2.měření: 3236.89<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3419.95 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow19 = new google.maps.InfoWindow({
+				  content: contentString19,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker19 = new google.maps.Marker({
+				  position: {lat: 49.277469635, lng: 16.9989738464},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(282.5397665976366, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker19.addListener('click', function() {
+				  infowindow19.open(map, marker19);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString20 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Domažlice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 4584.26<br></l>'+
+					
+							
+							'<l>2.měření: 5180.12<br></l>'+
+					
+							
+							'<l>3.měření: 1774.73<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3846.37 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow20 = new google.maps.InfoWindow({
+				  content: contentString20,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker20 = new google.maps.Marker({
+				  position: {lat: 49.4404907227, lng: 12.9297609329},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(288.9763449806001, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker20.addListener('click', function() {
+				  infowindow20.open(map, marker20);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString21 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Příbram</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5482.82<br></l>'+
+					
+							
+							'<l>2.měření: 374.42<br></l>'+
+					
+							
+							'<l>3.měření: 7892.61<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4583.28 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow21 = new google.maps.InfoWindow({
+				  content: contentString21,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker21 = new google.maps.Marker({
+				  position: {lat: 49.6898765564, lng: 14.0104255676},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(300.09967270737775, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker21.addListener('click', function() {
+				  infowindow21.open(map, marker21);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString22 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Přerov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 1054.98<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 1054.98 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow22 = new google.maps.InfoWindow({
+				  content: contentString22,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker22 = new google.maps.Marker({
+				  position: {lat: 49.4548377991, lng: 17.4489974976},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(246.84172965524996, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker22.addListener('click', function() {
+				  infowindow22.open(map, marker22);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString23 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Litoměřice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 7027.12<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 7027.12 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow23 = new google.maps.InfoWindow({
+				  content: contentString23,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker23 = new google.maps.Marker({
+				  position: {lat: 50.5334777832, lng: 14.1318025589},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(336.9881518926072, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker23.addListener('click', function() {
+				  infowindow23.open(map, marker23);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString24 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Blansko</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 4756.56<br></l>'+
+					
+							
+							'<l>2.měření: 8836.74<br></l>'+
+					
+							
+							'<l>3.měření: 2250.94<br></l>'+
+					
+							
+							'<l>4.měření: 3477.28<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4830.38 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow24 = new google.maps.InfoWindow({
+				  content: contentString24,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker24 = new google.maps.Marker({
+				  position: {lat: 49.3631362915, lng: 16.6431503296},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(303.82948028593245, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker24.addListener('click', function() {
+				  infowindow24.open(map, marker24);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString25 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Břeclav</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 2145.63<br></l>'+
+					
+							
+							'<l>2.měření: 2532.67<br></l>'+
+					
+							
+							'<l>3.měření: 8666.4<br></l>'+
+					
+							
+							'<l>4.měření: 184.97<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3382.42 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow25 = new google.maps.InfoWindow({
+				  content: contentString25,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker25 = new google.maps.Marker({
+				  position: {lat: 48.7589683533, lng: 16.8820304871},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(281.9732363327704, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker25.addListener('click', function() {
+				  infowindow25.open(map, marker25);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString26 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Znojmo</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5992.73<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5992.73 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow26 = new google.maps.InfoWindow({
+				  content: contentString26,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker26 = new google.maps.Marker({
+				  position: {lat: 48.8554992676, lng: 16.0487976074},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(321.37454473595614, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker26.addListener('click', function() {
+				  infowindow26.open(map, marker26);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString27 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Rakovník</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8549.8<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 8549.8 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow27 = new google.maps.InfoWindow({
+				  content: contentString27,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker27 = new google.maps.Marker({
+				  position: {lat: 50.1036987305, lng: 13.7333993912},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(359.9722034921234, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker27.addListener('click', function() {
+				  infowindow27.open(map, marker27);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString28 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Opava</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 7567.84<br></l>'+
+					
+							
+							'<l>2.měření: 6979.52<br></l>'+
+					
+							
+							'<l>3.měření: 2650.57<br></l>'+
+					
+							
+							'<l>4.měření: 5811.86<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5752.45 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow28 = new google.maps.InfoWindow({
+				  content: contentString28,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker28 = new google.maps.Marker({
+				  position: {lat: 49.9386634827, lng: 17.9025707245},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(317.74758348182013, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker28.addListener('click', function() {
+				  infowindow28.open(map, marker28);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString29 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Děčín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3514.78<br></l>'+
+					
+							
+							'<l>2.měření: 1842.18<br></l>'+
+					
+							
+							'<l>3.měření: 7456.75<br></l>'+
+					
+							
+							'<l>4.měření: 4633.89<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4361.9 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow29 = new google.maps.InfoWindow({
+				  content: contentString29,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker29 = new google.maps.Marker({
+				  position: {lat: 50.7821540833, lng: 14.2147808075},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(296.7579860399844, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker29.addListener('click', function() {
+				  infowindow29.open(map, marker29);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString30 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Zlín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8969.28<br></l>'+
+					
+							
+							'<l>2.měření: 7107.13<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 8038.2 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow30 = new google.maps.InfoWindow({
+				  content: contentString30,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker30 = new google.maps.Marker({
+				  position: {lat: 49.2266540527, lng: 17.6663341522},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(352.2499215243626, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker30.addListener('click', function() {
+				  infowindow30.open(map, marker30);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString31 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Prostějov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6228.48<br></l>'+
+					
+							
+							'<l>2.měření: 6434.55<br></l>'+
+					
+							
+							'<l>3.měření: 1313.55<br></l>'+
+					
+							
+							'<l>4.měření: 9089.99<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5766.64 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow31 = new google.maps.InfoWindow({
+				  content: contentString31,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker31 = new google.maps.Marker({
+				  position: {lat: 49.4718780518, lng: 17.1118392944},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(317.9618498023785, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker31.addListener('click', function() {
+				  infowindow31.open(map, marker31);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString32 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Louny</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5405.75<br></l>'+
+					
+							
+							'<l>2.měření: 4872.86<br></l>'+
+					
+							
+							'<l>3.měření: 2171.34<br></l>'+
+					
+							
+							'<l>4.měření: 7755.12<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5051.26 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow32 = new google.maps.InfoWindow({
+				  content: contentString32,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker32 = new google.maps.Marker({
+				  position: {lat: 50.3569869995, lng: 13.7966747284},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(307.1636197070926, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker32.addListener('click', function() {
+				  infowindow32.open(map, marker32);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString33 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Most</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 601.72<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 601.72 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow33 = new google.maps.InfoWindow({
+				  content: contentString33,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker33 = new google.maps.Marker({
+				  position: {lat: 50.503006907, lng: 13.6361740706},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(240.0, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker33.addListener('click', function() {
+				  infowindow33.open(map, marker33);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString34 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Olomouc</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 7579.67<br></l>'+
+					
+							
+							'<l>2.měření: 8403.05<br></l>'+
+					
+							
+							'<l>3.měření: 7257.3<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 7746.67 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow34 = new google.maps.InfoWindow({
+				  content: contentString34,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker34 = new google.maps.Marker({
+				  position: {lat: 49.5938682556, lng: 17.250869751},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(347.84945935616076, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker34.addListener('click', function() {
+				  infowindow34.open(map, marker34);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString35 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Liberec</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 427.56<br></l>'+
+					
+							
+							'<l>2.měření: 6269.77<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3348.67 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow35 = new google.maps.InfoWindow({
+				  content: contentString35,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker35 = new google.maps.Marker({
+				  position: {lat: 50.7699966431, lng: 15.0584487915},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(281.4637934384115, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker35.addListener('click', function() {
+				  infowindow35.open(map, marker35);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString36 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Šumperk</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3231.34<br></l>'+
+					
+							
+							'<l>2.měření: 6170.35<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4700.85 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow36 = new google.maps.InfoWindow({
+				  content: contentString36,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker36 = new google.maps.Marker({
+				  position: {lat: 49.9652824402, lng: 16.9706077576},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(301.8742265251868, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker36.addListener('click', function() {
+				  infowindow36.open(map, marker36);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString37 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Praha</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3770.44<br></l>'+
+					
+							
+							'<l>2.měření: 1107.55<br></l>'+
+					
+							
+							'<l>3.měření: 4512.2<br></l>'+
+					
+							
+							'<l>4.měření: 3245.79<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3158.99 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow37 = new google.maps.InfoWindow({
+				  content: contentString37,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker37 = new google.maps.Marker({
+				  position: {lat: 50.0835494995, lng: 14.4341411591},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(278.6007644479922, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker37.addListener('click', function() {
+				  infowindow37.open(map, marker37);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString38 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Třebíč</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5230.55<br></l>'+
+					
+							
+							'<l>2.měření: 3044.64<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4137.59 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow38 = new google.maps.InfoWindow({
+				  content: contentString38,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker38 = new google.maps.Marker({
+				  position: {lat: 49.2149238586, lng: 15.8816576004},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(293.37217062386605, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker38.addListener('click', function() {
+				  infowindow38.open(map, marker38);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString39 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Náchod</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 420.37<br></l>'+
+					
+							
+							'<l>2.měření: 960.84<br></l>'+
+					
+							
+							'<l>3.měření: 7979.71<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3120.3 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow39 = new google.maps.InfoWindow({
+				  content: contentString39,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker39 = new google.maps.Marker({
+				  position: {lat: 50.4167060852, lng: 16.1628875732},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(278.0167522451013, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker39.addListener('click', function() {
+				  infowindow39.open(map, marker39);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString40 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Pardubice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5946.77<br></l>'+
+					
+							
+							'<l>2.měření: 227.98<br></l>'+
+					
+							
+							'<l>3.měření: 7167.38<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4447.38 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow40 = new google.maps.InfoWindow({
+				  content: contentString40,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker40 = new google.maps.Marker({
+				  position: {lat: 50.0385398865, lng: 15.7802057266},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(298.0482305512653, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker40.addListener('click', function() {
+				  infowindow40.open(map, marker40);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString41 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Hodonín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 9163.85<br></l>'+
+					
+							
+							'<l>2.měření: 5745.1<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 7454.47 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow41 = new google.maps.InfoWindow({
+				  content: contentString41,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker41 = new google.maps.Marker({
+				  position: {lat: 48.8576164246, lng: 17.1240234375},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(343.4388360787804, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker41.addListener('click', function() {
+				  infowindow41.open(map, marker41);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString42 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Kroměříž</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5564.0<br></l>'+
+					
+							
+							'<l>2.měření: 2082.06<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3823.03 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow42 = new google.maps.InfoWindow({
+				  content: contentString42,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker42 = new google.maps.Marker({
+				  position: {lat: 49.296459198, lng: 17.381893158},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(288.6240621681767, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker42.addListener('click', function() {
+				  infowindow42.open(map, marker42);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString43 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Jičín</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 171.16<br></l>'+
+					
+							
+							'<l>2.měření: 5477.03<br></l>'+
+					
+							
+							'<l>3.měření: 3630.15<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3092.78 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow43 = new google.maps.InfoWindow({
+				  content: contentString43,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker43 = new google.maps.Marker({
+				  position: {lat: 50.4372253418, lng: 15.3516244888},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(277.601246150983, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker43.addListener('click', function() {
+				  infowindow43.open(map, marker43);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString44 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Chrudim</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 5075.39<br></l>'+
+					
+							
+							'<l>2.měření: 4986.51<br></l>'+
+					
+							
+							'<l>3.měření: 3061.52<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4374.47 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow44 = new google.maps.InfoWindow({
+				  content: contentString44,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker44 = new google.maps.Marker({
+				  position: {lat: 49.9510917664, lng: 15.7955760956},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(296.9478017984962, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker44.addListener('click', function() {
+				  infowindow44.open(map, marker44);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString45 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Beroun</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 2150.11<br></l>'+
+					
+							
+							'<l>2.měření: 5159.75<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3654.93 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow45 = new google.maps.InfoWindow({
+				  content: contentString45,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker45 = new google.maps.Marker({
+				  position: {lat: 49.9638252258, lng: 14.0719966888},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(286.0866855318472, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker45.addListener('click', function() {
+				  infowindow45.open(map, marker45);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString46 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Strakonice</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 1798.08<br></l>'+
+					
+							
+							'<l>2.měření: 7693.79<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4745.94 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow46 = new google.maps.InfoWindow({
+				  content: contentString46,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker46 = new google.maps.Marker({
+				  position: {lat: 49.2614059448, lng: 13.9023714066},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(302.5548296432435, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker46.addListener('click', function() {
+				  infowindow46.open(map, marker46);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString47 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Karviná</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 3905.34<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3905.34 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow47 = new google.maps.InfoWindow({
+				  content: contentString47,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker47 = new google.maps.Marker({
+				  position: {lat: 49.8540039062, lng: 18.5416889191},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(289.8664068233647, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker47.addListener('click', function() {
+				  infowindow47.open(map, marker47);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString48 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Benešov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8280.33<br></l>'+
+					
+							
+							'<l>2.měření: 8822.95<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 8551.64 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow48 = new google.maps.InfoWindow({
+				  content: contentString48,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker48 = new google.maps.Marker({
+				  position: {lat: 49.7816238403, lng: 14.6869678497},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(360.0, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker48.addListener('click', function() {
+				  infowindow48.open(map, marker48);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString49 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Rokycany</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8783.39<br></l>'+
+					
+							
+							'<l>2.měření: 8325.71<br></l>'+
+					
+							
+							'<l>3.měření: 3834.88<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 6981.33 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow49 = new google.maps.InfoWindow({
+				  content: contentString49,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker49 = new google.maps.Marker({
+				  position: {lat: 49.7426986694, lng: 13.5945854187},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(336.29692979910044, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker49.addListener('click', function() {
+				  infowindow49.open(map, marker49);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString50 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Cheb</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 8504.06<br></l>'+
+					
+							
+							'<l>2.měření: 965.58<br></l>'+
+					
+							
+							'<l>3.měření: 8371.99<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 5947.21 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow50 = new google.maps.InfoWindow({
+				  content: contentString50,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker50 = new google.maps.Marker({
+				  position: {lat: 50.0796356201, lng: 12.3739213943},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(320.6874585333851, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker50.addListener('click', function() {
+				  infowindow50.open(map, marker50);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString51 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Trutnov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 2155.87<br></l>'+
+					
+							
+							'<l>2.měření: 2598.87<br></l>'+
+					
+							
+							'<l>3.měření: 4702.44<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 3152.39 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow51 = new google.maps.InfoWindow({
+				  content: contentString51,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker51 = new google.maps.Marker({
+				  position: {lat: 50.5610084534, lng: 15.9127035141},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(278.5011194138507, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker51.addListener('click', function() {
+				  infowindow51.open(map, marker51);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString52 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Pelhřimov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 4113.14<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 4113.14 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow52 = new google.maps.InfoWindow({
+				  content: contentString52,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker52 = new google.maps.Marker({
+				  position: {lat: 49.4313354492, lng: 15.2233572006},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(293.0030725468352, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker52.addListener('click', function() {
+				  infowindow52.open(map, marker52);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString53 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Klatovy</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 1160.49<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 1160.49 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow53 = new google.maps.InfoWindow({
+				  content: contentString53,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker53 = new google.maps.Marker({
+				  position: {lat: 49.3955192566, lng: 13.2950544357},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(248.43442502782574, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker53.addListener('click', function() {
+				  infowindow53.open(map, marker53);
+				});
+		
+		
+				
+		
+				<!-- vraceni jmena zpet do tvaru s diakritikou -->
+				
+								
+				
+		
+		
+		
+				<!-- obsah info okenka -->
+				var contentString54 = '<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Tachov</h1>'+
+					'<div id="bodyContent">'+
+					
+					
+					
+							
+							'<l>1.měření: 6853.06<br></l>'+
+					
+					'<l>-----------------------------<br></l>'+
+					'<l><b>Průměr: 6853.06 Bq/m<sup>3</sup></b></l>'+
+					'</div>'+
+					'</div>';
+			
+			
+				<!-- info okenko -->
+				var infowindow54 = new google.maps.InfoWindow({
+				  content: contentString54,
+				  maxWidth: 200
+				});
+		
+				<!-- znacky podle souradnic, barva v zavislosti na prumerne aktivite v danem miste -->
+				var marker54 = new google.maps.Marker({
+				  position: {lat: 49.7952804565, lng: 12.6336517334},
+				  icon: {
+					path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+					fillColor: "hsl(334.3608649119026, 100%, 50%)",
+					fillOpacity: 1,
+					strokeColor: 'black',
+					strokeWeight: 2,
+					scale: 1
+					},
+				  map: map
+				});
+		
+				marker54.addListener('click', function() {
+				  infowindow54.open(map, marker54);
+				});
+		
+		
+		
+      }
+	
+	
+    </script>
+	
+	<!-- vytvoreni mapy - pouziti vlastniho google klice -->
+    <script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGXWKrPsQxa2hJM2KRrDLYK8D4_AMjadg&callback=initMap">
+    </script>
+  </body>
+</html>

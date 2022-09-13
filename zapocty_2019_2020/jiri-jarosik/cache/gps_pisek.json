@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "pisek",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.1475028622",
+        "y": "49.3087953307",
+        "id": "860",
+        "source": "muni",
+        "type": "muni",
+        "title": "Písek, okres Písek, Jihočeský kraj, Česko"
+      }
+    }
+  }
+}

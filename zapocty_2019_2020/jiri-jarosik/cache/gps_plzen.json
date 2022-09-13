@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "plzen",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.3783488889",
+        "y": "49.7477830556",
+        "id": "1243",
+        "source": "muni",
+        "type": "muni",
+        "title": "Plzeň, okres Plzeň-město, Plzeňský kraj, Česko"
+      }
+    }
+  }
+}

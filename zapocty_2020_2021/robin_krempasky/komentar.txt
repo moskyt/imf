@@ -1,0 +1,24 @@
+Vážený pane Krempaský,
+
+máte to moc pěkné a tedy za A. Značky v mapě jsou cool.
+
+Několik komentářů:
+- velmi se mi líbí objektové řešení
+- řešení barevných značek: já bych to asi taky udělal nějak tak, ale potom by se mi to asi trochu nezdálo a ještě bych to možná upravil. Myslím, že by klidně postačilo vygenerovat N značek (třeba 100), tím si připravit dostatečnou barevnou škálu a pak z ní vybírat. Nebo zcela jednoduše -- avg_norm zaokrouhlit na celé číslo a mít značky od 0 do 255, bude to přehledné, při změně dat nebudete muset všechny obrázky mazat, prostě bylo by to čistší. Takhle je to trochu "silové" řešení. Ale jak říkám, na první pokus bych to udělal asi stejně.
+- líbí se mi průběžný výpis na terminál, použití formátovacích řetězců
+- správné použití symbolů a hashů taky super
+- tohle vypadá trochu podezřele složitě:
+    FileUtils.rm_f Dir.glob("img/*")
+-- asi by šlo nahradit
+    FileUtils.rm_f("img/*")
+- tohle se dá taky pěkně zlepšit:
+  if @data[key][:average] > max
+    max = @data[key][:average]
+  end
+-- třeba na
+  max = [max, @data[key][:average]].max
+
+Ale jsou to jen drobnosti, máte to perfektní. Nedivím se, že vás Michal Kvasnička tak chválí.
+
+Zdraví
+František HAvlůj

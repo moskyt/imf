@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "cheb",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "12.3739218083",
+        "y": "50.0796346105",
+        "id": "1225",
+        "source": "muni",
+        "type": "muni",
+        "title": "Cheb, okres Cheb, Karlovarský kraj, Česko"
+      }
+    }
+  }
+}

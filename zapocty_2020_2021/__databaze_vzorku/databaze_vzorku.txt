@@ -1,0 +1,12 @@
+Databáze vzorků v laboratoři
+============================
+
+Záznamy o vstupu a výstupu vzorků ze skladu - pracovník na vrátnici zapisuje datum průchodu, ID vzorku a naměřený dávkový příkon (miliSv/den); pro každý vzorek jsou v souboru právě dva záznamy. Pokles dávkového příkonu předpokládejte exponenciální (A * e ^ (-Bx)).
+
+Datum ani hodnota nejsou vždy konzistentně zapisovány, je potřeba být obezřetný. Vzorová data nicméně obsahují všechna potenciální překvapení, nemusíte počítat s žádnými dalšími.
+
+Úkol:
+- najít vzorek s celkovou nejvyšší a nejnižší dávkou
+- vykreslit histogram rozložení celkových dávek
+- vykreslit histogram délky pobytu vzorku v laboratoři
+- vykreslit oblak (scatter plot) zobrazující vztah mezi délkou pobytu (osa x) a celkovou dávkou (osa y)

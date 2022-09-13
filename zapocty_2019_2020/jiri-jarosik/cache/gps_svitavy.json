@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "svitavy",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.4682914318",
+        "y": "49.7559371364",
+        "id": "2760",
+        "source": "muni",
+        "type": "muni",
+        "title": "Svitavy, okres Svitavy, Pardubický kraj, Česko"
+      }
+    }
+  }
+}

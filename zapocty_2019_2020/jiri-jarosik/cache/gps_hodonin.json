@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "hodonin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.1240233333",
+        "y": "48.8576152778",
+        "id": "5614",
+        "source": "muni",
+        "type": "muni",
+        "title": "Hodonín, okres Hodonín, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

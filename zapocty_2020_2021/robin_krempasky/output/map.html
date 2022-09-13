@@ -1,0 +1,512 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh "></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 8);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    
+    
+    
+    var card1 = new SMap.Card();
+    card1.getHeader().innerHTML = "<b>Semily</b>";
+    card1.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp2896.589 <br>Measured:<br> &nbsp&nbsp339.759<br>&nbsp&nbsp5586.496<br>&nbsp&nbsp2763.514<br>";
+    var center1 = SMap.Coords.fromWGS84(15.335521073357006, 50.601905410085635);
+    var marker1 = new SMap.Marker(center1, "myMarker1", {title: "Average activity: 2896.589", url:"../img/2896.svg"});
+    marker1.decorate(SMap.Marker.Feature.Card, card1);
+    layer.addMarker(marker1);
+    
+    
+    var card2 = new SMap.Card();
+    card2.getHeader().innerHTML = "<b>Chomutov</b>";
+    card2.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp7967.302 <br>Measured:<br> &nbsp&nbsp6583.105<br>&nbsp&nbsp8163.941<br>&nbsp&nbsp9154.86<br>";
+    var center2 = SMap.Coords.fromWGS84(13.41778558184211, 50.46047542440488);
+    var marker2 = new SMap.Marker(center2, "myMarker2", {title: "Average activity: 7967.302", url:"../img/7967.svg"});
+    marker2.decorate(SMap.Marker.Feature.Card, card2);
+    layer.addMarker(marker2);
+    
+    
+    var card3 = new SMap.Card();
+    card3.getHeader().innerHTML = "<b>Svitavy</b>";
+    card3.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp6520.291 <br>Measured:<br> &nbsp&nbsp3978.05<br>&nbsp&nbsp9062.534<br>";
+    var center3 = SMap.Coords.fromWGS84(16.468291431807955, 49.75593713637633);
+    var marker3 = new SMap.Marker(center3, "myMarker3", {title: "Average activity: 6520.291", url:"../img/6520.svg"});
+    marker3.decorate(SMap.Marker.Feature.Card, card3);
+    layer.addMarker(marker3);
+    
+    
+    var card4 = new SMap.Card();
+    card4.getHeader().innerHTML = "<b>Jeseník</b>";
+    card4.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5203.025 <br>Measured:<br> &nbsp&nbsp5081.987<br>&nbsp&nbsp6232.857<br>&nbsp&nbsp2378.487<br>&nbsp&nbsp7118.772<br>";
+    var center4 = SMap.Coords.fromWGS84(17.20464307316272, 50.22937015454902);
+    var marker4 = new SMap.Marker(center4, "myMarker4", {title: "Average activity: 5203.025", url:"../img/5203.svg"});
+    marker4.decorate(SMap.Marker.Feature.Card, card4);
+    layer.addMarker(marker4);
+    
+    
+    var card5 = new SMap.Card();
+    card5.getHeader().innerHTML = "<b>Mělník</b>";
+    card5.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3729.057 <br>Measured:<br> &nbsp&nbsp6682.048<br>&nbsp&nbsp4204.383<br>&nbsp&nbsp300.742<br>";
+    var center5 = SMap.Coords.fromWGS84(14.474107425975632, 50.350496839963554);
+    var marker5 = new SMap.Marker(center5, "myMarker5", {title: "Average activity: 3729.057", url:"../img/3729.svg"});
+    marker5.decorate(SMap.Marker.Feature.Card, card5);
+    layer.addMarker(marker5);
+    
+    
+    var card6 = new SMap.Card();
+    card6.getHeader().innerHTML = "<b>Sokolov</b>";
+    card6.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5284.178 <br>Measured:<br> &nbsp&nbsp4981.27<br>&nbsp&nbsp5587.087<br>";
+    var center6 = SMap.Coords.fromWGS84(12.6409291667, 50.1805533333);
+    var marker6 = new SMap.Marker(center6, "myMarker6", {title: "Average activity: 5284.178", url:"../img/5284.svg"});
+    marker6.decorate(SMap.Marker.Feature.Card, card6);
+    layer.addMarker(marker6);
+    
+    
+    var card7 = new SMap.Card();
+    card7.getHeader().innerHTML = "<b>Nymburk</b>";
+    card7.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4471.965 <br>Measured:<br> &nbsp&nbsp8404.868<br>&nbsp&nbsp604.252<br>&nbsp&nbsp387.077<br>&nbsp&nbsp8491.663<br>";
+    var center7 = SMap.Coords.fromWGS84(15.041671904161111, 50.18605448769515);
+    var marker7 = new SMap.Marker(center7, "myMarker7", {title: "Average activity: 4471.965", url:"../img/4471.svg"});
+    marker7.decorate(SMap.Marker.Feature.Card, card7);
+    layer.addMarker(marker7);
+    
+    
+    var card8 = new SMap.Card();
+    card8.getHeader().innerHTML = "<b>Kolín</b>";
+    card8.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3567.687 <br>Measured:<br> &nbsp&nbsp3879.813<br>&nbsp&nbsp3255.561<br>";
+    var center8 = SMap.Coords.fromWGS84(15.200567805826017, 50.02813618266994);
+    var marker8 = new SMap.Marker(center8, "myMarker8", {title: "Average activity: 3567.687", url:"../img/3567.svg"});
+    marker8.decorate(SMap.Marker.Feature.Card, card8);
+    layer.addMarker(marker8);
+    
+    
+    var card9 = new SMap.Card();
+    card9.getHeader().innerHTML = "<b>Bruntál</b>";
+    card9.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp6693.929 <br>Measured:<br> &nbsp&nbsp9080.881<br>&nbsp&nbsp6595.036<br>&nbsp&nbsp4405.87<br>";
+    var center9 = SMap.Coords.fromWGS84(17.464701937681014, 49.98844485285648);
+    var marker9 = new SMap.Marker(center9, "myMarker9", {title: "Average activity: 6693.929", url:"../img/6693.svg"});
+    marker9.decorate(SMap.Marker.Feature.Card, card9);
+    layer.addMarker(marker9);
+    
+    
+    var card10 = new SMap.Card();
+    card10.getHeader().innerHTML = "<b>Ostrava</b>";
+    card10.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4696.393 <br>Measured:<br> &nbsp&nbsp6481.458<br>&nbsp&nbsp7317.628<br>&nbsp&nbsp2963.526<br>&nbsp&nbsp2022.96<br>";
+    var center10 = SMap.Coords.fromWGS84(18.282044079158755, 49.834645200004026);
+    var marker10 = new SMap.Marker(center10, "myMarker10", {title: "Average activity: 4696.393", url:"../img/4696.svg"});
+    marker10.decorate(SMap.Marker.Feature.Card, card10);
+    layer.addMarker(marker10);
+    
+    
+    var card11 = new SMap.Card();
+    card11.getHeader().innerHTML = "<b>Plzeň</b>";
+    card11.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4668.219 <br>Measured:<br> &nbsp&nbsp6467.194<br>&nbsp&nbsp6421.586<br>&nbsp&nbsp1115.878<br>";
+    var center11 = SMap.Coords.fromWGS84(13.3783488889, 49.7477830556);
+    var marker11 = new SMap.Marker(center11, "myMarker11", {title: "Average activity: 4668.219", url:"../img/4668.svg"});
+    marker11.decorate(SMap.Marker.Feature.Card, card11);
+    layer.addMarker(marker11);
+    
+    
+    var card12 = new SMap.Card();
+    card12.getHeader().innerHTML = "<b>Brno</b>";
+    card12.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp7015.61 <br>Measured:<br> &nbsp&nbsp9157.076<br>&nbsp&nbsp4874.144<br>";
+    var center12 = SMap.Coords.fromWGS84(16.607841, 49.200221);
+    var marker12 = new SMap.Marker(center12, "myMarker12", {title: "Average activity: 7015.61", url:"../img/7015.svg"});
+    marker12.decorate(SMap.Marker.Feature.Card, card12);
+    layer.addMarker(marker12);
+    
+    
+    var card13 = new SMap.Card();
+    card13.getHeader().innerHTML = "<b>Kladno</b>";
+    card13.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3946.213 <br>Measured:<br> &nbsp&nbsp6444.166<br>&nbsp&nbsp7033.524<br>&nbsp&nbsp1065.234<br>&nbsp&nbsp1241.928<br>";
+    var center13 = SMap.Coords.fromWGS84(14.10285088807273, 50.14733556497221);
+    var marker13 = new SMap.Marker(center13, "myMarker13", {title: "Average activity: 3946.213", url:"../img/3946.svg"});
+    marker13.decorate(SMap.Marker.Feature.Card, card13);
+    layer.addMarker(marker13);
+    
+    
+    var card14 = new SMap.Card();
+    card14.getHeader().innerHTML = "<b>Tábor</b>";
+    card14.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5541.238 <br>Measured:<br> &nbsp&nbsp2067.665<br>&nbsp&nbsp9014.812<br>";
+    var center14 = SMap.Coords.fromWGS84(14.65780339186729, 49.41441245951201);
+    var marker14 = new SMap.Marker(center14, "myMarker14", {title: "Average activity: 5541.238", url:"../img/5541.svg"});
+    marker14.decorate(SMap.Marker.Feature.Card, card14);
+    layer.addMarker(marker14);
+    
+    
+    var card15 = new SMap.Card();
+    card15.getHeader().innerHTML = "<b>Písek</b>";
+    card15.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4480.586 <br>Measured:<br> &nbsp&nbsp1651.883<br>&nbsp&nbsp4631.759<br>&nbsp&nbsp4545.455<br>&nbsp&nbsp7093.249<br>";
+    var center15 = SMap.Coords.fromWGS84(14.14750286224144, 49.308795330689236);
+    var marker15 = new SMap.Marker(center15, "myMarker15", {title: "Average activity: 4480.586", url:"../img/4480.svg"});
+    marker15.decorate(SMap.Marker.Feature.Card, card15);
+    layer.addMarker(marker15);
+    
+    
+    var card16 = new SMap.Card();
+    card16.getHeader().innerHTML = "<b>Teplice</b>";
+    card16.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5633.325 <br>Measured:<br> &nbsp&nbsp9090.83<br>&nbsp&nbsp4515.72<br>&nbsp&nbsp5666.632<br>&nbsp&nbsp3260.118<br>";
+    var center16 = SMap.Coords.fromWGS84(13.824507307558436, 50.64039751018945);
+    var marker16 = new SMap.Marker(center16, "myMarker16", {title: "Average activity: 5633.325", url:"../img/5633.svg"});
+    marker16.decorate(SMap.Marker.Feature.Card, card16);
+    layer.addMarker(marker16);
+    
+    
+    var card17 = new SMap.Card();
+    card17.getHeader().innerHTML = "<b>Prachatice</b>";
+    card17.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp1058.403 <br>Measured:<br> &nbsp&nbsp1227.159<br>&nbsp&nbsp1169.849<br>&nbsp&nbsp778.202<br>";
+    var center17 = SMap.Coords.fromWGS84(13.997521294665434, 49.0129233807275);
+    var marker17 = new SMap.Marker(center17, "myMarker17", {title: "Average activity: 1058.403", url:"../img/1058.svg"});
+    marker17.decorate(SMap.Marker.Feature.Card, card17);
+    layer.addMarker(marker17);
+    
+    
+    var card18 = new SMap.Card();
+    card18.getHeader().innerHTML = "<b>Vsetín</b>";
+    card18.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4127.957 <br>Measured:<br> &nbsp&nbsp8023.298<br>&nbsp&nbsp1330.329<br>&nbsp&nbsp3030.246<br>";
+    var center18 = SMap.Coords.fromWGS84(17.996190274357087, 49.338708857688374);
+    var marker18 = new SMap.Marker(center18, "myMarker18", {title: "Average activity: 4127.957", url:"../img/4127.svg"});
+    marker18.decorate(SMap.Marker.Feature.Card, card18);
+    layer.addMarker(marker18);
+    
+    
+    var card19 = new SMap.Card();
+    card19.getHeader().innerHTML = "<b>Vyškov</b>";
+    card19.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3419.951 <br>Measured:<br> &nbsp&nbsp3603.015<br>&nbsp&nbsp3236.887<br>";
+    var center19 = SMap.Coords.fromWGS84(16.998974451908303, 49.277469312808265);
+    var marker19 = new SMap.Marker(center19, "myMarker19", {title: "Average activity: 3419.951", url:"../img/3419.svg"});
+    marker19.decorate(SMap.Marker.Feature.Card, card19);
+    layer.addMarker(marker19);
+    
+    
+    var card20 = new SMap.Card();
+    card20.getHeader().innerHTML = "<b>Domažlice</b>";
+    card20.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3846.37 <br>Measured:<br> &nbsp&nbsp4584.255<br>&nbsp&nbsp5180.124<br>&nbsp&nbsp1774.731<br>";
+    var center20 = SMap.Coords.fromWGS84(12.929761010743249, 49.44049194205162);
+    var marker20 = new SMap.Marker(center20, "myMarker20", {title: "Average activity: 3846.37", url:"../img/3846.svg"});
+    marker20.decorate(SMap.Marker.Feature.Card, card20);
+    layer.addMarker(marker20);
+    
+    
+    var card21 = new SMap.Card();
+    card21.getHeader().innerHTML = "<b>Příbram</b>";
+    card21.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4583.283 <br>Measured:<br> &nbsp&nbsp5482.818<br>&nbsp&nbsp374.418<br>&nbsp&nbsp7892.613<br>";
+    var center21 = SMap.Coords.fromWGS84(14.010425227860477, 49.689877391946325);
+    var marker21 = new SMap.Marker(center21, "myMarker21", {title: "Average activity: 4583.283", url:"../img/4583.svg"});
+    marker21.decorate(SMap.Marker.Feature.Card, card21);
+    layer.addMarker(marker21);
+    
+    
+    var card22 = new SMap.Card();
+    card22.getHeader().innerHTML = "<b>Přerov</b>";
+    card22.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp1054.98 <br>Measured:<br> &nbsp&nbsp1054.98<br>";
+    var center22 = SMap.Coords.fromWGS84(17.4489980556, 49.4548380556);
+    var marker22 = new SMap.Marker(center22, "myMarker22", {title: "Average activity: 1054.98", url:"../img/1054.svg"});
+    marker22.decorate(SMap.Marker.Feature.Card, card22);
+    layer.addMarker(marker22);
+    
+    
+    var card23 = new SMap.Card();
+    card23.getHeader().innerHTML = "<b>Litoměřice</b>";
+    card23.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp7027.12 <br>Measured:<br> &nbsp&nbsp7027.12<br>";
+    var center23 = SMap.Coords.fromWGS84(14.13180212413998, 50.533478199251306);
+    var marker23 = new SMap.Marker(center23, "myMarker23", {title: "Average activity: 7027.12", url:"../img/7027.svg"});
+    marker23.decorate(SMap.Marker.Feature.Card, card23);
+    layer.addMarker(marker23);
+    
+    
+    var card24 = new SMap.Card();
+    card24.getHeader().innerHTML = "<b>Blansko</b>";
+    card24.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4830.38 <br>Measured:<br> &nbsp&nbsp4756.559<br>&nbsp&nbsp8836.742<br>&nbsp&nbsp2250.941<br>&nbsp&nbsp3477.279<br>";
+    var center24 = SMap.Coords.fromWGS84(16.64315014892398, 49.3631345405179);
+    var marker24 = new SMap.Marker(center24, "myMarker24", {title: "Average activity: 4830.38", url:"../img/4830.svg"});
+    marker24.decorate(SMap.Marker.Feature.Card, card24);
+    layer.addMarker(marker24);
+    
+    
+    var card25 = new SMap.Card();
+    card25.getHeader().innerHTML = "<b>Břeclav</b>";
+    card25.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3382.418 <br>Measured:<br> &nbsp&nbsp2145.626<br>&nbsp&nbsp2532.674<br>&nbsp&nbsp8666.404<br>&nbsp&nbsp184.971<br>";
+    var center25 = SMap.Coords.fromWGS84(16.882030010054084, 48.75896858819173);
+    var marker25 = new SMap.Marker(center25, "myMarker25", {title: "Average activity: 3382.418", url:"../img/3382.svg"});
+    marker25.decorate(SMap.Marker.Feature.Card, card25);
+    layer.addMarker(marker25);
+    
+    
+    var card26 = new SMap.Card();
+    card26.getHeader().innerHTML = "<b>Znojmo</b>";
+    card26.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5992.729 <br>Measured:<br> &nbsp&nbsp5992.729<br>";
+    var center26 = SMap.Coords.fromWGS84(16.04879761776127, 48.855498739981265);
+    var marker26 = new SMap.Marker(center26, "myMarker26", {title: "Average activity: 5992.729", url:"../img/5992.svg"});
+    marker26.decorate(SMap.Marker.Feature.Card, card26);
+    layer.addMarker(marker26);
+    
+    
+    var card27 = new SMap.Card();
+    card27.getHeader().innerHTML = "<b>Rakovník</b>";
+    card27.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp8549.798 <br>Measured:<br> &nbsp&nbsp8549.798<br>";
+    var center27 = SMap.Coords.fromWGS84(13.733399484712622, 50.10370051463881);
+    var marker27 = new SMap.Marker(center27, "myMarker27", {title: "Average activity: 8549.798", url:"../img/8549.svg"});
+    marker27.decorate(SMap.Marker.Feature.Card, card27);
+    layer.addMarker(marker27);
+    
+    
+    var card28 = new SMap.Card();
+    card28.getHeader().innerHTML = "<b>Opava</b>";
+    card28.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5752.445 <br>Measured:<br> &nbsp&nbsp7567.839<br>&nbsp&nbsp6979.518<br>&nbsp&nbsp2650.566<br>&nbsp&nbsp5811.858<br>";
+    var center28 = SMap.Coords.fromWGS84(17.902569962743527, 49.93866349504469);
+    var marker28 = new SMap.Marker(center28, "myMarker28", {title: "Average activity: 5752.445", url:"../img/5752.svg"});
+    marker28.decorate(SMap.Marker.Feature.Card, card28);
+    layer.addMarker(marker28);
+    
+    
+    var card29 = new SMap.Card();
+    card29.getHeader().innerHTML = "<b>Děčín</b>";
+    card29.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4361.898 <br>Measured:<br> &nbsp&nbsp3514.776<br>&nbsp&nbsp1842.179<br>&nbsp&nbsp7456.749<br>&nbsp&nbsp4633.89<br>";
+    var center29 = SMap.Coords.fromWGS84(14.214781260021327, 50.7821525181973);
+    var marker29 = new SMap.Marker(center29, "myMarker29", {title: "Average activity: 4361.898", url:"../img/4361.svg"});
+    marker29.decorate(SMap.Marker.Feature.Card, card29);
+    layer.addMarker(marker29);
+    
+    
+    var card30 = new SMap.Card();
+    card30.getHeader().innerHTML = "<b>Zlín</b>";
+    card30.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp8038.202 <br>Measured:<br> &nbsp&nbsp8969.277<br>&nbsp&nbsp7107.127<br>";
+    var center30 = SMap.Coords.fromWGS84(17.666333847403124, 49.226654214018666);
+    var marker30 = new SMap.Marker(center30, "myMarker30", {title: "Average activity: 8038.202", url:"../img/8038.svg"});
+    marker30.decorate(SMap.Marker.Feature.Card, card30);
+    layer.addMarker(marker30);
+    
+    
+    var card31 = new SMap.Card();
+    card31.getHeader().innerHTML = "<b>Prostějov</b>";
+    card31.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5766.64 <br>Measured:<br> &nbsp&nbsp6228.477<br>&nbsp&nbsp6434.55<br>&nbsp&nbsp1313.546<br>&nbsp&nbsp9089.988<br>";
+    var center31 = SMap.Coords.fromWGS84(17.111839696126417, 49.471878364799664);
+    var marker31 = new SMap.Marker(center31, "myMarker31", {title: "Average activity: 5766.64", url:"../img/5766.svg"});
+    marker31.decorate(SMap.Marker.Feature.Card, card31);
+    layer.addMarker(marker31);
+    
+    
+    var card32 = new SMap.Card();
+    card32.getHeader().innerHTML = "<b>Louny</b>";
+    card32.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5051.264 <br>Measured:<br> &nbsp&nbsp5405.745<br>&nbsp&nbsp4872.857<br>&nbsp&nbsp2171.337<br>&nbsp&nbsp7755.12<br>";
+    var center32 = SMap.Coords.fromWGS84(13.796674700711002, 50.35698860556371);
+    var marker32 = new SMap.Marker(center32, "myMarker32", {title: "Average activity: 5051.264", url:"../img/5051.svg"});
+    marker32.decorate(SMap.Marker.Feature.Card, card32);
+    layer.addMarker(marker32);
+    
+    
+    var card33 = new SMap.Card();
+    card33.getHeader().innerHTML = "<b>Most</b>";
+    card33.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp601.72 <br>Measured:<br> &nbsp&nbsp601.72<br>";
+    var center33 = SMap.Coords.fromWGS84(13.636174070582523, 50.50300690703839);
+    var marker33 = new SMap.Marker(center33, "myMarker33", {title: "Average activity: 601.72", url:"../img/601.svg"});
+    marker33.decorate(SMap.Marker.Feature.Card, card33);
+    layer.addMarker(marker33);
+    
+    
+    var card34 = new SMap.Card();
+    card34.getHeader().innerHTML = "<b>Olomouc</b>";
+    card34.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp7746.674 <br>Measured:<br> &nbsp&nbsp7579.673<br>&nbsp&nbsp8403.05<br>&nbsp&nbsp7257.3<br>";
+    var center34 = SMap.Coords.fromWGS84(17.250870573261892, 49.5938686935988);
+    var marker34 = new SMap.Marker(center34, "myMarker34", {title: "Average activity: 7746.674", url:"../img/7746.svg"});
+    marker34.decorate(SMap.Marker.Feature.Card, card34);
+    layer.addMarker(marker34);
+    
+    
+    var card35 = new SMap.Card();
+    card35.getHeader().innerHTML = "<b>Liberec</b>";
+    card35.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3348.668 <br>Measured:<br> &nbsp&nbsp427.563<br>&nbsp&nbsp6269.774<br>";
+    var center35 = SMap.Coords.fromWGS84(15.058449101059328, 50.76999730542038);
+    var marker35 = new SMap.Marker(center35, "myMarker35", {title: "Average activity: 3348.668", url:"../img/3348.svg"});
+    marker35.decorate(SMap.Marker.Feature.Card, card35);
+    layer.addMarker(marker35);
+    
+    
+    var card36 = new SMap.Card();
+    card36.getHeader().innerHTML = "<b>Šumperk</b>";
+    card36.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4700.846 <br>Measured:<br> &nbsp&nbsp3231.342<br>&nbsp&nbsp6170.35<br>";
+    var center36 = SMap.Coords.fromWGS84(16.97060803148561, 49.96528375806653);
+    var marker36 = new SMap.Marker(center36, "myMarker36", {title: "Average activity: 4700.846", url:"../img/4700.svg"});
+    marker36.decorate(SMap.Marker.Feature.Card, card36);
+    layer.addMarker(marker36);
+    
+    
+    var card37 = new SMap.Card();
+    card37.getHeader().innerHTML = "<b>Praha</b>";
+    card37.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3158.994 <br>Measured:<br> &nbsp&nbsp3770.442<br>&nbsp&nbsp1107.552<br>&nbsp&nbsp4512.197<br>&nbsp&nbsp3245.788<br>";
+    var center37 = SMap.Coords.fromWGS84(14.4341412988, 50.0835493857);
+    var marker37 = new SMap.Marker(center37, "myMarker37", {title: "Average activity: 3158.994", url:"../img/3158.svg"});
+    marker37.decorate(SMap.Marker.Feature.Card, card37);
+    layer.addMarker(marker37);
+    
+    
+    var card38 = new SMap.Card();
+    card38.getHeader().innerHTML = "<b>Třebíč</b>";
+    card38.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4137.59 <br>Measured:<br> &nbsp&nbsp5230.546<br>&nbsp&nbsp3044.635<br>";
+    var center38 = SMap.Coords.fromWGS84(15.881657349425964, 49.214922799083475);
+    var marker38 = new SMap.Marker(center38, "myMarker38", {title: "Average activity: 4137.59", url:"../img/4137.svg"});
+    marker38.decorate(SMap.Marker.Feature.Card, card38);
+    layer.addMarker(marker38);
+    
+    
+    var card39 = new SMap.Card();
+    card39.getHeader().innerHTML = "<b>Náchod</b>";
+    card39.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3120.304 <br>Measured:<br> &nbsp&nbsp420.367<br>&nbsp&nbsp960.841<br>&nbsp&nbsp7979.705<br>";
+    var center39 = SMap.Coords.fromWGS84(16.162888258680308, 50.41670457933539);
+    var marker39 = new SMap.Marker(center39, "myMarker39", {title: "Average activity: 3120.304", url:"../img/3120.svg"});
+    marker39.decorate(SMap.Marker.Feature.Card, card39);
+    layer.addMarker(marker39);
+    
+    
+    var card40 = new SMap.Card();
+    card40.getHeader().innerHTML = "<b>Pardubice</b>";
+    card40.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4447.376 <br>Measured:<br> &nbsp&nbsp5946.772<br>&nbsp&nbsp227.976<br>&nbsp&nbsp7167.381<br>";
+    var center40 = SMap.Coords.fromWGS84(15.7774238889, 50.0375791667);
+    var marker40 = new SMap.Marker(center40, "myMarker40", {title: "Average activity: 4447.376", url:"../img/4447.svg"});
+    marker40.decorate(SMap.Marker.Feature.Card, card40);
+    layer.addMarker(marker40);
+    
+    
+    var card41 = new SMap.Card();
+    card41.getHeader().innerHTML = "<b>Hodonín</b>";
+    card41.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp7454.473 <br>Measured:<br> &nbsp&nbsp9163.85<br>&nbsp&nbsp5745.097<br>";
+    var center41 = SMap.Coords.fromWGS84(17.1240233333, 48.8576152778);
+    var marker41 = new SMap.Marker(center41, "myMarker41", {title: "Average activity: 7454.473", url:"../img/7454.svg"});
+    marker41.decorate(SMap.Marker.Feature.Card, card41);
+    layer.addMarker(marker41);
+    
+    
+    var card42 = new SMap.Card();
+    card42.getHeader().innerHTML = "<b>Kroměříž</b>";
+    card42.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3823.031 <br>Measured:<br> &nbsp&nbsp5563.999<br>&nbsp&nbsp2082.064<br>";
+    var center42 = SMap.Coords.fromWGS84(17.393116256261933, 49.29785144202672);
+    var marker42 = new SMap.Marker(center42, "myMarker42", {title: "Average activity: 3823.031", url:"../img/3823.svg"});
+    marker42.decorate(SMap.Marker.Feature.Card, card42);
+    layer.addMarker(marker42);
+    
+    
+    var card43 = new SMap.Card();
+    card43.getHeader().innerHTML = "<b>Jičín</b>";
+    card43.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3092.777 <br>Measured:<br> &nbsp&nbsp171.157<br>&nbsp&nbsp5477.028<br>&nbsp&nbsp3630.147<br>";
+    var center43 = SMap.Coords.fromWGS84(15.351624895313371, 50.43722624106905);
+    var marker43 = new SMap.Marker(center43, "myMarker43", {title: "Average activity: 3092.777", url:"../img/3092.svg"});
+    marker43.decorate(SMap.Marker.Feature.Card, card43);
+    layer.addMarker(marker43);
+    
+    
+    var card44 = new SMap.Card();
+    card44.getHeader().innerHTML = "<b>Chrudim</b>";
+    card44.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4374.473 <br>Measured:<br> &nbsp&nbsp5075.389<br>&nbsp&nbsp4986.512<br>&nbsp&nbsp3061.52<br>";
+    var center44 = SMap.Coords.fromWGS84(15.79557574219703, 49.95109227740745);
+    var marker44 = new SMap.Marker(center44, "myMarker44", {title: "Average activity: 4374.473", url:"../img/4374.svg"});
+    marker44.decorate(SMap.Marker.Feature.Card, card44);
+    layer.addMarker(marker44);
+    
+    
+    var card45 = new SMap.Card();
+    card45.getHeader().innerHTML = "<b>Beroun</b>";
+    card45.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3654.932 <br>Measured:<br> &nbsp&nbsp2150.11<br>&nbsp&nbsp5159.754<br>";
+    var center45 = SMap.Coords.fromWGS84(14.071996488732404, 49.96382341175777);
+    var marker45 = new SMap.Marker(center45, "myMarker45", {title: "Average activity: 3654.932", url:"../img/3654.svg"});
+    marker45.decorate(SMap.Marker.Feature.Card, card45);
+    layer.addMarker(marker45);
+    
+    
+    var card46 = new SMap.Card();
+    card46.getHeader().innerHTML = "<b>Strakonice</b>";
+    card46.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4745.935 <br>Measured:<br> &nbsp&nbsp1798.08<br>&nbsp&nbsp7693.791<br>";
+    var center46 = SMap.Coords.fromWGS84(13.90237130970866, 49.26140655781074);
+    var marker46 = new SMap.Marker(center46, "myMarker46", {title: "Average activity: 4745.935", url:"../img/4745.svg"});
+    marker46.decorate(SMap.Marker.Feature.Card, card46);
+    layer.addMarker(marker46);
+    
+    
+    var card47 = new SMap.Card();
+    card47.getHeader().innerHTML = "<b>Karviná</b>";
+    card47.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3905.336 <br>Measured:<br> &nbsp&nbsp3905.336<br>";
+    var center47 = SMap.Coords.fromWGS84(18.541689823757494, 49.85400309282758);
+    var marker47 = new SMap.Marker(center47, "myMarker47", {title: "Average activity: 3905.336", url:"../img/3905.svg"});
+    marker47.decorate(SMap.Marker.Feature.Card, card47);
+    layer.addMarker(marker47);
+    
+    
+    var card48 = new SMap.Card();
+    card48.getHeader().innerHTML = "<b>Benešov</b>";
+    card48.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp8551.639 <br>Measured:<br> &nbsp&nbsp8280.325<br>&nbsp&nbsp8822.954<br>";
+    var center48 = SMap.Coords.fromWGS84(14.686967446217402, 49.78162470954015);
+    var marker48 = new SMap.Marker(center48, "myMarker48", {title: "Average activity: 8551.639", url:"../img/8551.svg"});
+    marker48.decorate(SMap.Marker.Feature.Card, card48);
+    layer.addMarker(marker48);
+    
+    
+    var card49 = new SMap.Card();
+    card49.getHeader().innerHTML = "<b>Rokycany</b>";
+    card49.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp6981.327 <br>Measured:<br> &nbsp&nbsp8783.389<br>&nbsp&nbsp8325.712<br>&nbsp&nbsp3834.88<br>";
+    var center49 = SMap.Coords.fromWGS84(13.594585757268733, 49.742696782932725);
+    var marker49 = new SMap.Marker(center49, "myMarker49", {title: "Average activity: 6981.327", url:"../img/6981.svg"});
+    marker49.decorate(SMap.Marker.Feature.Card, card49);
+    layer.addMarker(marker49);
+    
+    
+    var card50 = new SMap.Card();
+    card50.getHeader().innerHTML = "<b>Cheb</b>";
+    card50.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp5947.209 <br>Measured:<br> &nbsp&nbsp8504.06<br>&nbsp&nbsp965.577<br>&nbsp&nbsp8371.993<br>";
+    var center50 = SMap.Coords.fromWGS84(12.373921808285795, 50.079634610526995);
+    var marker50 = new SMap.Marker(center50, "myMarker50", {title: "Average activity: 5947.209", url:"../img/5947.svg"});
+    marker50.decorate(SMap.Marker.Feature.Card, card50);
+    layer.addMarker(marker50);
+    
+    
+    var card51 = new SMap.Card();
+    card51.getHeader().innerHTML = "<b>Trutnov</b>";
+    card51.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp3152.393 <br>Measured:<br> &nbsp&nbsp2155.868<br>&nbsp&nbsp2598.868<br>&nbsp&nbsp4702.444<br>";
+    var center51 = SMap.Coords.fromWGS84(15.912703713891093, 50.561006690712574);
+    var marker51 = new SMap.Marker(center51, "myMarker51", {title: "Average activity: 3152.393", url:"../img/3152.svg"});
+    marker51.decorate(SMap.Marker.Feature.Card, card51);
+    layer.addMarker(marker51);
+    
+    
+    var card52 = new SMap.Card();
+    card52.getHeader().innerHTML = "<b>Pelhřimov</b>";
+    card52.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp4113.138 <br>Measured:<br> &nbsp&nbsp4113.138<br>";
+    var center52 = SMap.Coords.fromWGS84(15.223357114819423, 49.4313373453773);
+    var marker52 = new SMap.Marker(center52, "myMarker52", {title: "Average activity: 4113.138", url:"../img/4113.svg"});
+    marker52.decorate(SMap.Marker.Feature.Card, card52);
+    layer.addMarker(marker52);
+    
+    
+    var card53 = new SMap.Card();
+    card53.getHeader().innerHTML = "<b>Klatovy</b>";
+    card53.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp1160.495 <br>Measured:<br> &nbsp&nbsp1160.495<br>";
+    var center53 = SMap.Coords.fromWGS84(13.295054908568988, 49.395520092845175);
+    var marker53 = new SMap.Marker(center53, "myMarker53", {title: "Average activity: 1160.495", url:"../img/1160.svg"});
+    marker53.decorate(SMap.Marker.Feature.Card, card53);
+    layer.addMarker(marker53);
+    
+    
+    var card54 = new SMap.Card();
+    card54.getHeader().innerHTML = "<b>Tachov</b>";
+    card54.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp6853.064 <br>Measured:<br> &nbsp&nbsp6853.064<br>";
+    var center54 = SMap.Coords.fromWGS84(12.633651894913005, 49.79527861638822);
+    var marker54 = new SMap.Marker(center54, "myMarker54", {title: "Average activity: 6853.064", url:"../img/6853.svg"});
+    marker54.decorate(SMap.Marker.Feature.Card, card54);
+    layer.addMarker(marker54);
+    
+    
+    
+	</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "strakonice",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.9023713097",
+        "y": "49.2614065578",
+        "id": "969",
+        "source": "muni",
+        "type": "muni",
+        "title": "Strakonice, okres Strakonice, Jihočeský kraj, Česko"
+      }
+    }
+  }
+}

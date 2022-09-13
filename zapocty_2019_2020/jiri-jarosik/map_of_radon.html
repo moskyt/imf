@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="https://api.mapy.cz/loader.js"></script>
+        <script>Loader.load();</script>
+    </head>
+    <body id="radon_measurements">
+      <div id="m" style="width:100vw; height:100vh"></div>
+      <script type="text/javascript">
+          var cervena = "https://api.mapy.cz/img/api/marker/drop-red.png";
+		  var zluta = "https://api.mapy.cz/img/api/marker/drop-yellow.png";
+		  var modra = "https://api.mapy.cz/img/api/marker/drop-blue.png";
+          var m = new SMap(JAK.gel("m"));
+          m.addControl(new SMap.Control.Sync());
+          m.addDefaultLayer(SMap.DEF_BASE).enable();
+          var mouse = new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM);
+          m.addControl(mouse);
+
+          var znacky = [];
+          var popisky = [];
+          var souradnice = [];
+          
+			
+					var c = SMap.Coords.fromWGS84(15.3355210734, 50.6019054101);
+
+					var options = {
+					  url: modra,
+					  title: "Semily",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Semily</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 2896.59 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.4177855818, 50.4604754244);
+
+					var options = {
+					  url: cervena,
+					  title: "Chomutov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Chomutov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 7967.302 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.4682914318, 49.7559371364);
+
+					var options = {
+					  url: cervena,
+					  title: "Svitavy",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Svitavy</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 6520.292 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.2046430732, 50.2293701545);
+
+					var options = {
+					  url: zluta,
+					  title: "Jeseník",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Jeseník</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5203.026 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.474107426, 50.35049684);
+
+					var options = {
+					  url: zluta,
+					  title: "Mělník",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Mělník</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3729.058 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(12.6409291667, 50.1805533333);
+
+					var options = {
+					  url: zluta,
+					  title: "Sokolov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Sokolov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5284.179 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.0416719042, 50.1860544877);
+
+					var options = {
+					  url: zluta,
+					  title: "Nymburk",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Nymburk</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4471.965 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.2005678058, 50.0281361827);
+
+					var options = {
+					  url: zluta,
+					  title: "Kolín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Kolín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3567.687 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.4647019377, 49.9884448529);
+
+					var options = {
+					  url: cervena,
+					  title: "Bruntál",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Bruntál</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 6693.929 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(18.2820440792, 49.8346452);
+
+					var options = {
+					  url: zluta,
+					  title: "Ostrava",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Ostrava</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4696.393 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.3783488889, 49.7477830556);
+
+					var options = {
+					  url: zluta,
+					  title: "Plzeň",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Plzeň</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4668.219 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.607841, 49.200221);
+
+					var options = {
+					  url: cervena,
+					  title: "Brno",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Brno</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 7015.61 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.1028508881, 50.147335565);
+
+					var options = {
+					  url: zluta,
+					  title: "Kladno",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Kladno</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3946.213 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.6578033919, 49.4144124595);
+
+					var options = {
+					  url: zluta,
+					  title: "Tábor",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Tábor</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5541.238 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.1475028622, 49.3087953307);
+
+					var options = {
+					  url: zluta,
+					  title: "Písek",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Písek</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4480.586 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.8245073076, 50.6403975102);
+
+					var options = {
+					  url: zluta,
+					  title: "Teplice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Teplice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5633.325 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.9975212947, 49.0129233807);
+
+					var options = {
+					  url: modra,
+					  title: "Prachatice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Prachatice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 1058.403 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.9961902744, 49.3387088577);
+
+					var options = {
+					  url: zluta,
+					  title: "Vsetín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Vsetín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4127.958 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.9989744519, 49.2774693128);
+
+					var options = {
+					  url: zluta,
+					  title: "Vyškov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Vyškov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3419.951 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(12.9297610107, 49.4404919421);
+
+					var options = {
+					  url: zluta,
+					  title: "Domažlice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Domažlice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3846.37 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.0104252279, 49.6898773919);
+
+					var options = {
+					  url: zluta,
+					  title: "Příbram",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Příbram</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4583.283 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.4489980556, 49.4548380556);
+
+					var options = {
+					  url: modra,
+					  title: "Přerov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Přerov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 1054.98 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.1318021241, 50.5334781993);
+
+					var options = {
+					  url: cervena,
+					  title: "Litoměřice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Litoměřice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 7027.12 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.6431501489, 49.3631345405);
+
+					var options = {
+					  url: zluta,
+					  title: "Blansko",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Blansko</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4830.38 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.8820300101, 48.7589685882);
+
+					var options = {
+					  url: zluta,
+					  title: "Břeclav",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Břeclav</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3382.419 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.0487976178, 48.85549874);
+
+					var options = {
+					  url: zluta,
+					  title: "Znojmo",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Znojmo</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5992.729 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.7333994847, 50.1037005146);
+
+					var options = {
+					  url: cervena,
+					  title: "Rakovník",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Rakovník</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 8549.798 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.9025699627, 49.938663495);
+
+					var options = {
+					  url: zluta,
+					  title: "Opava",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Opava</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5752.445 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.21478126, 50.7821525182);
+
+					var options = {
+					  url: zluta,
+					  title: "Děčín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Děčín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4361.899 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.6663338474, 49.226654214);
+
+					var options = {
+					  url: cervena,
+					  title: "Zlín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Zlín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 8038.202 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.1118396961, 49.4718783648);
+
+					var options = {
+					  url: zluta,
+					  title: "Prostějov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Prostějov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5766.64 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.7966747007, 50.3569886056);
+
+					var options = {
+					  url: zluta,
+					  title: "Louny",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Louny</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5051.265 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.6361740706, 50.503006907);
+
+					var options = {
+					  url: modra,
+					  title: "Most",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Most</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 601.72 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.2508705733, 49.5938686936);
+
+					var options = {
+					  url: cervena,
+					  title: "Olomouc",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Olomouc</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 7746.674 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.0584491011, 50.7699973054);
+
+					var options = {
+					  url: zluta,
+					  title: "Liberec",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Liberec</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3348.669 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.9706080315, 49.9652837581);
+
+					var options = {
+					  url: zluta,
+					  title: "Šumperk",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Šumperk</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4700.846 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.4341412988, 50.0835493857);
+
+					var options = {
+					  url: modra,
+					  title: "Praha",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Praha</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3158.995 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.8816573494, 49.2149227991);
+
+					var options = {
+					  url: zluta,
+					  title: "Třebíč",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Třebíč</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4137.591 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(16.1628882587, 50.4167045793);
+
+					var options = {
+					  url: modra,
+					  title: "Náchod",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Náchod</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3120.304 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.7772938889, 50.0378047222);
+
+					var options = {
+					  url: zluta,
+					  title: "Pardubice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Pardubice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4447.376 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.1240233333, 48.8576152778);
+
+					var options = {
+					  url: cervena,
+					  title: "Hodonín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Hodonín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 7454.474 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(17.3931162563, 49.297851442);
+
+					var options = {
+					  url: zluta,
+					  title: "Kroměříž",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Kroměříž</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3823.032 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.3516248953, 50.4372262411);
+
+					var options = {
+					  url: modra,
+					  title: "Jičín",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Jičín</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3092.777 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.7955757422, 49.9510922774);
+
+					var options = {
+					  url: zluta,
+					  title: "Chrudim",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Chrudim</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4374.474 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.0719964887, 49.9638234118);
+
+					var options = {
+					  url: zluta,
+					  title: "Beroun",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Beroun</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3654.932 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.9023713097, 49.2614065578);
+
+					var options = {
+					  url: zluta,
+					  title: "Strakonice",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Strakonice</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4745.936 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(18.5416898238, 49.8540030928);
+
+					var options = {
+					  url: zluta,
+					  title: "Karviná",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Karviná</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3905.336 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(14.6869674462, 49.7816247095);
+
+					var options = {
+					  url: cervena,
+					  title: "Benešov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Benešov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 8551.64 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.5945857573, 49.7426967829);
+
+					var options = {
+					  url: cervena,
+					  title: "Rokycany",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Rokycany</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 6981.327 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(12.3739218083, 50.0796346105);
+
+					var options = {
+					  url: zluta,
+					  title: "Cheb",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Cheb</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 5947.21 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.9127037139, 50.5610066907);
+
+					var options = {
+					  url: modra,
+					  title: "Trutnov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Trutnov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 3152.393 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(15.2233571148, 49.4313373454);
+
+					var options = {
+					  url: zluta,
+					  title: "Pelhřimov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Pelhřimov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 4113.138 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(13.2950549086, 49.3955200928);
+
+					var options = {
+					  url: modra,
+					  title: "Klatovy",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Klatovy</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 1160.495 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+					var c = SMap.Coords.fromWGS84(12.6336518949, 49.7952786164);
+
+					var options = {
+					  url: cervena,
+					  title: "Tachov",
+					  anchor: {
+						left: 10,
+						bottom: 1
+					  }
+					}
+
+					var znacka = new SMap.Marker(c, null, options);
+					
+					var popisek = new SMap.Card();
+					popisek.getHeader().innerHTML = "<strong>Tachov</strong>";
+					popisek.getBody().innerHTML = "Naměřená aktivita: 6853.064 <br> Datum měření: 14.02.2020";
+					
+					znacka.decorate(SMap.Marker.Feature.Card, popisek);
+					souradnice.push(c);
+					popisky.push(popisek);
+					znacky.push(znacka);
+			
+            
+
+          var vrstva = new SMap.Layer.Marker();
+          m.addLayer(vrstva);
+          vrstva.enable();
+          for (var i = 0; i < znacky.length; i++) {
+            vrstva.addMarker(znacky[i]);
+          }
+
+          var cz = m.computeCenterZoom(souradnice);
+          m.setCenterZoom(cz[0], cz[1]);
+      </script>    
+
+    </body>
+</html>

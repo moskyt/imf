@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:100vw; height:100vh "></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(15.45, 49.7);
+		var m = new SMap(JAK.gel("mapa"), stred, 8);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();	
+    
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    
+    <% i=1 %>
+    <% data.each do |key,val| %>
+    var card<%=i%> = new SMap.Card();
+    card<%=i%>.getHeader().innerHTML = "<b><%=key%></b>";
+    card<%=i%>.getBody().innerHTML = "Average activity: <br>&nbsp&nbsp<%=data[key][:average].truncate(3)%> <br>Measured:<br> <% data[key][:activity].each {|ac| %>&nbsp&nbsp<%=ac%><br><%}%>";
+    var center<%=i%> = SMap.Coords.fromWGS84(<%=data[key][:lon]%>, <%=data[key][:lat]%>);
+    var marker<%=i%> = new SMap.Marker(center<%=i%>, "myMarker<%=i%>", {title: "Average activity: <%=data[key][:average].truncate(3)%>", url:"../img/<%=data[key][:average].truncate()%>.svg"});
+    marker<%=i%>.decorate(SMap.Marker.Feature.Card, card<%=i%>);
+    layer.addMarker(marker<%=i%>);
+    <% i = i+1 %>
+    <% end %>
+    
+	</script>
+</body>
+</html>

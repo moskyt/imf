@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "klatovy",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.2950549086",
+        "y": "49.3955200928",
+        "id": "1291",
+        "source": "muni",
+        "type": "muni",
+        "title": "Klatovy, okres Klatovy, Plzeňský kraj, Česko"
+      }
+    }
+  }
+}

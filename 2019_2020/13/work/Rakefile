@@ -1,0 +1,22 @@
+class Assembly
+end
+
+class Cycle
+end
+
+class CycleSet
+end
+
+task :gen do
+  cs = CycleSet.new
+  d0 = Date.civil(2010, 5, 6)
+  (1..5).each do |i|
+    dt = rand(30) + 30
+    bt = rand(100) + 200
+    d1 = d0 + dt
+    d2 = d1 + bt
+    c = Cycle.new(i)
+    c.set_date(d1, d2)
+    c
+  end
+end

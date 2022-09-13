@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "tachov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "12.6336518949",
+        "y": "49.7952786164",
+        "id": "1555",
+        "source": "muni",
+        "type": "muni",
+        "title": "Tachov, okres Tachov, Plzeňský kraj, Česko"
+      }
+    }
+  }
+}

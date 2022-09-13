@@ -1,0 +1,12 @@
+Telefonní seznam
+
+V souboru data.txt je senzam jmen a telefonních čísel ÚJF AVČR. Protože jsou jména zapsána všelijak (Nováková, Hana i Hana Nováková) a telefonní čísla také (603 902 502, 603902502. +420 603 90 25 02 apod.) a proto je potřeba v tom udělat pořádek. Napište skript, který dá seznam do pořádku a vypíše ho v jednotném tvaru.
+Výsledek by měl vypadat takto:
+
+Jana Neumannova     603 902 450
+Lucie Sediva        702 116 240
+...
+
+Pozor, data obsahují i duplikáty, tedy situace, kdy je jednomu jménu přiřazeno více telefonních čísel. Váš výsledný seznam by měl tyto situace obsahovat v tomto tvaru:
+
+Helena Cervena      608 645 721, 771 560 342

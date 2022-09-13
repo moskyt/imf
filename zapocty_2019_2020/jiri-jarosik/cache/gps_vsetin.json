@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "vsetin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.9961902744",
+        "y": "49.3387088577",
+        "id": "475",
+        "source": "muni",
+        "type": "muni",
+        "title": "Vsetín, okres Vsetín, Zlínský kraj, Česko"
+      }
+    }
+  }
+}

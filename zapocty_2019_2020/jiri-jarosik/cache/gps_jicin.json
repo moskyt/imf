@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "jicin",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.3516248953",
+        "y": "50.4372262411",
+        "id": "2351",
+        "source": "muni",
+        "type": "muni",
+        "title": "Jičín, okres Jičín, Královéhradecký kraj, Česko"
+      }
+    }
+  }
+}

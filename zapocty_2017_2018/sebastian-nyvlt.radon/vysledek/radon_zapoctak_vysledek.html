@@ -1,0 +1,383 @@
+
+	<!doctype html>
+	<html>
+	  <head>
+		<style>
+		   #map {
+			height: 650px;
+			width: 100%;
+		   }
+		</style>
+	  </head>
+	  
+	  <body>
+		<h3>Radonová aktivita napříč ČR</h3>
+		<div id="map"></div>
+		<script>
+		  function initMap() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 8,
+			  center: {lat: 49.894324, lng: 15.361177}
+			});
+	
+
+			var marker0 = new google.maps.Marker({
+          position: {lat: 50.605158, lng: 15.328141},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=S|33CC00|000000',
+		  title: "Semily, aktivita: 2896.59"
+        });
+		
+
+			var marker1 = new google.maps.Marker({
+          position: {lat: 50.463498, lng: 13.410737},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=C|CC0000|FFFFFF',
+		  title: "Chomutov, aktivita: 7967.302"
+        });
+		
+
+			var marker2 = new google.maps.Marker({
+          position: {lat: 49.755163, lng: 16.469186},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=S|FF6600|000000',
+		  title: "Svitavy, aktivita: 6520.292"
+        });
+		
+
+			var marker3 = new google.maps.Marker({
+          position: {lat: 50.224625, lng: 17.198047},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=J|E6E600|000000',
+		  title: "Jesenik, aktivita: 5203.026"
+        });
+		
+
+			var marker4 = new google.maps.Marker({
+          position: {lat: 50.353902, lng: 14.481781},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=M|33CC00|000000',
+		  title: "Melnik, aktivita: 3729.058"
+        });
+		
+
+			var marker5 = new google.maps.Marker({
+          position: {lat: 50.174529, lng: 12.659892},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=S|E6E600|000000',
+		  title: "Sokolov, aktivita: 5284.179"
+        });
+		
+
+			var marker6 = new google.maps.Marker({
+          position: {lat: 50.185582, lng: 15.04366},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=N|E6E600|000000',
+		  title: "Nymburk, aktivita: 4471.965"
+        });
+		
+
+			var marker7 = new google.maps.Marker({
+          position: {lat: 50.027329, lng: 15.202728},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=K|33CC00|000000',
+		  title: "Kolin, aktivita: 3567.687"
+        });
+		
+
+			var marker8 = new google.maps.Marker({
+          position: {lat: 49.988177, lng: 17.463694},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=B|FF6600|000000',
+		  title: "Bruntal, aktivita: 6693.929"
+        });
+		
+
+			var marker9 = new google.maps.Marker({
+          position: {lat: 49.820923, lng: 18.262524},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=O|E6E600|000000',
+		  title: "Ostrava, aktivita: 4696.393"
+        });
+		
+
+			var marker10 = new google.maps.Marker({
+          position: {lat: 49.738431, lng: 13.373637},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|E6E600|000000',
+		  title: "Plzen, aktivita: 4668.219"
+        });
+		
+
+			var marker11 = new google.maps.Marker({
+          position: {lat: 49.19506, lng: 16.606837},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=B|CC0000|FFFFFF',
+		  title: "Brno, aktivita: 7015.61"
+        });
+		
+
+			var marker12 = new google.maps.Marker({
+          position: {lat: 50.141699, lng: 14.106747},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=K|E6E600|000000',
+		  title: "Kladno, aktivita: 3946.213"
+        });
+		
+
+			var marker13 = new google.maps.Marker({
+          position: {lat: 49.412989, lng: 14.677466},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=T|FF6600|000000',
+		  title: "Tabor, aktivita: 5541.238"
+        });
+		
+
+			var marker14 = new google.maps.Marker({
+          position: {lat: 49.303454, lng: 14.158029},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|E6E600|000000',
+		  title: "Pisek, aktivita: 4480.586"
+        });
+		
+
+			var marker15 = new google.maps.Marker({
+          position: {lat: 50.644458, lng: 13.835284},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=T|FF6600|000000',
+		  title: "Teplice, aktivita: 5633.325"
+        });
+		
+
+			var marker16 = new google.maps.Marker({
+          position: {lat: 49.01091, lng: 14.000001},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|0000FF|FFFFFF',
+		  title: "Prachatice, aktivita: 1058.403"
+        });
+		
+
+			var marker17 = new google.maps.Marker({
+          position: {lat: 49.338925, lng: 17.993852},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=V|E6E600|000000',
+		  title: "Vsetin, aktivita: 4127.958"
+        });
+		
+
+			var marker18 = new google.maps.Marker({
+          position: {lat: 49.277452, lng: 16.996099},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=V|33CC00|000000',
+		  title: "Vyskov, aktivita: 3419.951"
+        });
+		
+
+			var marker19 = new google.maps.Marker({
+          position: {lat: 49.439703, lng: 12.931144},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=D|E6E600|000000',
+		  title: "Domazlice, aktivita: 3846.37"
+        });
+		
+
+			var marker20 = new google.maps.Marker({
+          position: {lat: 49.685432, lng: 13.998945},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|E6E600|000000',
+		  title: "Pribram, aktivita: 4583.283"
+        });
+		
+
+			var marker21 = new google.maps.Marker({
+          position: {lat: 49.456479, lng: 17.45023},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|0000FF|FFFFFF',
+		  title: "Prerov, aktivita: 1054.98"
+        });
+		
+
+			var marker22 = new google.maps.Marker({
+          position: {lat: 50.53842, lng: 14.130546},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=L|CC0000|FFFFFF',
+		  title: "Litomerice, aktivita: 7027.12"
+        });
+		
+
+			var marker23 = new google.maps.Marker({
+          position: {lat: 49.36485, lng: 16.647755},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=B|E6E600|000000',
+		  title: "Blansko, aktivita: 4830.38"
+        });
+		
+
+			var marker24 = new google.maps.Marker({
+          position: {lat: 48.75314, lng: 16.882517},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=B|33CC00|000000',
+		  title: "Breclav, aktivita: 3382.419"
+        });
+		
+
+			var marker25 = new google.maps.Marker({
+          position: {lat: 48.855911, lng: 16.054268},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=Z|FF6600|000000',
+		  title: "Znojmo, aktivita: 5992.729"
+        });
+		
+
+			var marker26 = new google.maps.Marker({
+          position: {lat: 50.106123, lng: 13.739662},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=R|CC0000|FFFFFF',
+		  title: "Rakovnik, aktivita: 8549.798"
+        });
+		
+
+			var marker27 = new google.maps.Marker({
+          position: {lat: 49.94066, lng: 17.894799},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=O|FF6600|000000',
+		  title: "Opava, aktivita: 5752.445"
+        });
+		
+
+			var marker28 = new google.maps.Marker({
+          position: {lat: 50.772556, lng: 14.212761},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=D|E6E600|000000',
+		  title: "Decin, aktivita: 4361.899"
+        });
+		
+
+			var marker29 = new google.maps.Marker({
+          position: {lat: 49.224437, lng: 17.662764},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=Z|CC0000|FFFFFF',
+		  title: "Zlin, aktivita: 8038.202"
+        });
+		
+
+			var marker30 = new google.maps.Marker({
+          position: {lat: 49.472449, lng: 17.106751},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|FF6600|000000',
+		  title: "Prostejov, aktivita: 5766.64"
+        });
+		
+
+			var marker31 = new google.maps.Marker({
+          position: {lat: 50.353981, lng: 13.803355},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=L|E6E600|000000',
+		  title: "Louny, aktivita: 5051.265"
+        });
+		
+
+			var marker32 = new google.maps.Marker({
+          position: {lat: 50.501555, lng: 13.632912},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=M|0000FF|FFFFFF',
+		  title: "Most, aktivita: 601.72"
+        });
+		
+
+			var marker33 = new google.maps.Marker({
+          position: {lat: 49.593778, lng: 17.250879},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=O|CC0000|FFFFFF',
+		  title: "Olomouc, aktivita: 7746.674"
+        });
+		
+
+			var marker34 = new google.maps.Marker({
+          position: {lat: 50.76628, lng: 15.054339},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=L|33CC00|000000',
+		  title: "Liberec, aktivita: 3348.669"
+        });
+		
+
+			var marker35 = new google.maps.Marker({
+          position: {lat: 49.977841, lng: 16.971775},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=S|E6E600|000000',
+		  title: "Sumperk, aktivita: 4700.846"
+        });
+		
+
+			var marker36 = new google.maps.Marker({
+          position: {lat: 50.075538, lng: 14.437801},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|33CC00|000000',
+		  title: "Praha, aktivita: 3158.995"
+        });
+		
+
+			var marker37 = new google.maps.Marker({
+          position: {lat: 49.214787, lng: 15.879552},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=T|E6E600|000000',
+		  title: "Trebic, aktivita: 4137.591"
+        });
+		
+
+			var marker38 = new google.maps.Marker({
+          position: {lat: 50.414572, lng: 16.165635},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=N|33CC00|000000',
+		  title: "Nachod, aktivita: 3120.304"
+        });
+		
+
+			var marker39 = new google.maps.Marker({
+          position: {lat: 50.034309, lng: 15.781199},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=P|E6E600|000000',
+		  title: "Pardubice, aktivita: 4447.376"
+        });
+		
+
+			var marker40 = new google.maps.Marker({
+          position: {lat: 48.852939, lng: 17.126003},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=H|CC0000|FFFFFF',
+		  title: "Hodonin, aktivita: 7454.474"
+        });
+		
+
+			var marker41 = new google.maps.Marker({
+          position: {lat: 49.291658, lng: 17.39938},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=K|E6E600|000000',
+		  title: "Kromeriz, aktivita: 3823.032"
+        });
+		
+
+			var marker42 = new google.maps.Marker({
+          position: {lat: 50.435333, lng: 15.361044},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=J|33CC00|000000',
+		  title: "Jicin, aktivita: 3092.777"
+        });
+		
+
+			var marker43 = new google.maps.Marker({
+          position: {lat: 49.949724, lng: 15.795058},
+          map: map,
+		  icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=C|E6E600|000000',
+		  title: "Chrudim, aktivita: 4374.474"
+        });
+		
+
+		}
+		</script>
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCUqb6iK4yfFCM43JW4qP8EsalwEi62Io&callback=initMap">
+		</script>
+	  </body>
+	</html>
+	

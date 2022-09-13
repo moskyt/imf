@@ -1,0 +1,15 @@
+Vážený pane Prášile,
+
+nemám připomínek, všechno to vypadá dobře, takže vám píšu za A. Abych vás neodbyl, přidám pár komentářů:
+- počátek by se mohl, stejně jako velikost viewportu, počítat automaticky -- fungovalo by to pak pěkně pro libovolnou velikost AZ
+- opakující se literál 0.866025404 není moc pěkný, radši bych viděl 3**0.5 nebo konstantu
+- řetězec symetrie také není moc pěkný, parametr nabývá jen dvou hodnot. Proč nepoužít typ boolean? if(symetrie) by vypadalo jistě lépe, než if(symetrie=="True") apod.
+- kladně hodnotím rozumné využití definice vlastních funkcí
+- text by mohl být vertikálně lépe vycentrovaný (máte do středu buňky umístěný spodní okraj textu)
+- velmi se mi nelíbí "if (i,j) != (1,1):" -- mnohem lepší, než hvězdičky prostě zahodit a spoléhat se na přesný tvar AZ by bylo lepší vědět, kde je hvězdička i při vykreslování a prostě jen nevykreslit danou buňku. Vaše řešení splňuje zadání, ale mohlo by být v tomto ohledu mnohem flexibilnější.
+Tolik jen pro inspiraci pro život.
+
+Jinak jste historicky první, kdo přišel s jiným programovacím jazykem. Nelze tomu pochopitelně nic vytknout.
+
+S pozdravem
+František Havlůj

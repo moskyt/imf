@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "trebic",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.8816573494",
+        "y": "49.2149227991",
+        "id": "5517",
+        "source": "muni",
+        "type": "muni",
+        "title": "Třebíč, okres Třebíč, Kraj Vysočina, Česko"
+      }
+    }
+  }
+}

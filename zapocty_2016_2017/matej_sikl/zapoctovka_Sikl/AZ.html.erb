@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>AZ reaktoru VVER-1000</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+</head>
+<body>
+	 <h1>AZ reaktoru VVER-1000</h1>
+	<div background_color:"white" >
+    <p><%= File.read("AZ.svg") %> </p>
+	</div>
+	
+	&nbsp
+	
+	<% pocet.each do |typ, cislo| %>
+	<div 
+	id="<%= typ %>" style="display:none ;  font-size:40px" class="pocty"> Clanku typu <%= typ %>  je v zone <%= cislo %>
+	</div>
+	<% end %>
+	
+</html>

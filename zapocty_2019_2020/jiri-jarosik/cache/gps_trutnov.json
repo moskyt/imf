@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "trutnov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.9127037139",
+        "y": "50.5610066907",
+        "id": "2877",
+        "source": "muni",
+        "type": "muni",
+        "title": "Trutnov, okres Trutnov, Královéhradecký kraj, Česko"
+      }
+    }
+  }
+}

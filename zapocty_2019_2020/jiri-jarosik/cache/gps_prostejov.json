@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "prostejov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.1118396961",
+        "y": "49.4718783648",
+        "id": "3185",
+        "source": "muni",
+        "type": "muni",
+        "title": "Prostějov, okres Prostějov, Olomoucký kraj, Česko"
+      }
+    }
+  }
+}

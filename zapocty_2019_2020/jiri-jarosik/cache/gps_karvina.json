@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "karvina",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "18.5416898238",
+        "y": "49.8540030928",
+        "id": "4599",
+        "source": "muni",
+        "type": "muni",
+        "title": "Karviná, okres Karviná, Moravskoslezský kraj, Česko"
+      }
+    }
+  }
+}

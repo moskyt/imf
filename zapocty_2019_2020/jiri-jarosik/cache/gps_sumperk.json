@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "sumperk",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.9706080315",
+        "y": "49.9652837581",
+        "id": "166",
+        "source": "muni",
+        "type": "muni",
+        "title": "Šumperk, okres Šumperk, Olomoucký kraj, Česko"
+      }
+    }
+  }
+}

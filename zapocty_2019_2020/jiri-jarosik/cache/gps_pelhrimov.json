@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "pelhrimov",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.2233571148",
+        "y": "49.4313373454",
+        "id": "4874",
+        "source": "muni",
+        "type": "muni",
+        "title": "Pelhřimov, okres Pelhřimov, Kraj Vysočina, Česko"
+      }
+    }
+  }
+}

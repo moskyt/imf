@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "melnik",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.474107426",
+        "y": "50.35049684",
+        "id": "3859",
+        "source": "muni",
+        "type": "muni",
+        "title": "Mělník, okres Mělník, Středočeský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "chrudim",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.7955757422",
+        "y": "49.9510922774",
+        "id": "2248",
+        "source": "muni",
+        "type": "muni",
+        "title": "Chrudim, okres Chrudim, Pardubický kraj, Česko"
+      }
+    }
+  }
+}

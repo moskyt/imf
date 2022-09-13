@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "znojmo",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.0487976178",
+        "y": "48.85549874",
+        "id": "5998",
+        "source": "muni",
+        "type": "muni",
+        "title": "Znojmo, okres Znojmo, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "olomouc",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "17.2508705733",
+        "y": "49.5938686936",
+        "id": "1",
+        "source": "muni",
+        "type": "muni",
+        "title": "Olomouc, okres Olomouc, Olomoucký kraj, Česko"
+      }
+    }
+  }
+}

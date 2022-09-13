@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "blansko",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.6431501489",
+        "y": "49.3631345405",
+        "id": "6131",
+        "source": "muni",
+        "type": "muni",
+        "title": "Blansko, okres Blansko, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

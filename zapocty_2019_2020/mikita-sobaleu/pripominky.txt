@@ -1,0 +1,14 @@
+Vážený pane Sobaleu,
+
+program je v pořádku, úkol jste splnil.
+
+Mám několik připomínek, které nejsou zásadní:
+- bylo by dobré, kdyby program něco vypisoval (není jasné, jestli se něco stalo)
+- místo insert(0,...) lze použít unshift(...)
+- konfigurační .yml soubor takhle není úplně použitelný -- stejně se vždycky vygeneruje nový. Stačilo by například, kdyby se generoval pouze v případě, že neexistuje (tedy by si  uživatel mohl barvy nastavit a opětovným spuštěním vygenerovat kartogram s požadovanými barvami)
+
+Mám ale jednu připomínku, kterou byste musel vyřešit, abych vám mohl dát A -- kód pro vykreslování je napsaný velmi nešťastně. Všimněte si, že na řádcích 104-164 je čtyřikrát téměř to samé. Teď kdybyste chtěl ve vykreslování cokoliv změnit, musíte to udělat čtyřikrát, což je nedobré. Navíc je to hodně nepřehledné. Řešení by byla různá, ale můžete třeba zadefinovat nějakou funkci pro vykreslení buňky; pamatujte, že parametrů může být libovolný počet a že jako parametry klidně můžete použít třeba i objekt souboru "f" nebo struktury "core" a "amount_hash".
+Tedy to prosím napravte (ledaže byste byl spokojen s B).
+
+S pozdravem
+František Havlůj

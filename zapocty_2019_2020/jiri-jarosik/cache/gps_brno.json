@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "brno",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "16.607841",
+        "y": "49.200221",
+        "id": "5740",
+        "source": "muni",
+        "type": "muni",
+        "title": "Brno, okres Brno-město, Jihomoravský kraj, Česko"
+      }
+    }
+  }
+}

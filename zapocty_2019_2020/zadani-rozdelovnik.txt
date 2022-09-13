@@ -1,0 +1,48 @@
+databaze_vzorku                   Krupicka Tomas <tomas.krupicka@cvrez.cz>
+gamma_scanning                    Kubin Rostislav <rostislav.kubin@ujv.cz>        A 21. 1. 2020
+kartogram                         Mikita Sobaleu <sobalmik@fjfi.cvut.cz>          A 3. 2. 2020
+mereni_radonu                     Jiří Jarošík <jarosji9@fjfi.cvut.cz>            A 18. 1. 2020
+univerzalni_vykreslovac           Matěj Rzehulka <rzehumat@fjfi.cvut.cz>          A 3. 2. 2020
+zaznamy_z_je                      Jan Pinta <pintajan@fjfi.cvut.cz>               A 20. 1. 2020
+databaze_vzorku                   Pavel Jíška <jiskapav@fjfi.cvut.cz>             A 11. 2. 2020
+gamma_scanning                    Tomáš Adámek <adamet10@fjfi.cvut.cz>            A 3. 2. 2020
+kartogram                         Tadeáš Sucharda <suchatad@fjfi.cvut.cz>	        A 4. 3. 2020
+
+
+Kubin Rostislav <rostislav.kubin@ujv.cz>        A 21. 1. 2020
+Mikita Sobaleu <sobalmik@fjfi.cvut.cz>          A 3. 2. 2020
+Jiří Jarošík <jarosji9@fjfi.cvut.cz>            A 18. 1. 2020
+Matěj Rzehulka <rzehumat@fjfi.cvut.cz>          A 3. 2. 2020
+Jan Pinta <pintajan@fjfi.cvut.cz>               A 20. 1. 2020
+Pavel Jíška <jiskapav@fjfi.cvut.cz>             A 11. 2. 2020
+Tomáš Adámek <adamet10@fjfi.cvut.cz>            A 3. 2. 2020
+Tadeáš Sucharda <suchatad@fjfi.cvut.cz>	        A 4. 3. 2020
+
+
+Dobrý den,
+
+v příloze posílám zadání zápočtové úlohy.
+
+- ke každému zadání jsou k dispozici vzorová data
+- já to budu testovat i na datech jiných
+- očekávám, že všechno proběhne na jedno spuštění skriptu / rake tasku
+- každý má k dispozici jeden pokus řádný a jeden opravný
+
+Klasifikace (zatím ale všichni dostali A):
+
+F - nejde to spustit, ani pro zadaná data to v podstatných bodech nesplňuje zadání
+E - pro zadaná data to funguje, ale pro jiná čísla to nechodí
+D - obecně to funguje, ale stejně chybí drobnosti ze zadání
+C - všechno funguje jak má
+B - funguje a navíc jsou výstupy hezké a přehledné, soubory nejsou generovány “na velkou hromadu”, ale roztříděné do složek apod.
+A - kromě výše uvedeného jsou splněny i požadavky formy (správné odsazování, rozumná jména funkcí a proměnných) a efektivity (je to rozumně naprogramované - vhodné použití funkcí, datových struktur atd.)
+
+Nežádoucí je, když:
+- jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
+- bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
+- (a podobně)
+
+Řešení prosím zkuste poslat do konce zkouškového období, ale když to nestihnete, tak se asi nic strašného neděje.
+
+S pozdravem
+František Havlůj

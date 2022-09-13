@@ -1,0 +1,31 @@
+require 'open-uri'
+require 'fileutils'
+require 'bundler/setup'
+require 'nokogiri'
+
+def download(remote, local)
+  File.open(local, 'wb') do |f2|
+    open(remote, 'rb') do |f1|
+      f2.write f1.read
+    end
+  end
+end
+
+task :download do
+  FileUtils.mkdir_p("comics")
+  (1..10).each do |issue|
+    url = "http://xkcd.com/#{issue}"
+    f = open(url)
+    s = f.read
+    m = s.match(/embedding\):\s+(.+)/)
+    puts "#{issue} -> #{m[1]}"
+    download(m[1], "comics/#{issue}.#{File.extname(m[1])}")
+    doc = Nokogiri::HTML(s)
+    t = doc.css("#ctitle")
+    puts t.text
+    img = doc.css("#comic img").first
+    puts img.attributes['title']
+    t = doc.css("#transcript")
+    puts t.text
+  end
+end

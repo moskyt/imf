@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "semily",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "15.3355210734",
+        "y": "50.6019054101",
+        "id": "2700",
+        "source": "muni",
+        "type": "muni",
+        "title": "Semily, okres Semily, Liberecký kraj, Česko"
+      }
+    }
+  }
+}

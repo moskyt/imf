@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "rokycany",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "13.5945857573",
+        "y": "49.7426967829",
+        "id": "1474",
+        "source": "muni",
+        "type": "muni",
+        "title": "Rokycany, okres Rokycany, Plzeňský kraj, Česko"
+      }
+    }
+  }
+}

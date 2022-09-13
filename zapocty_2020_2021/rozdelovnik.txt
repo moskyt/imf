@@ -1,0 +1,14 @@
+databaze_paliva                 _ Martin Přibyl             25. 1. 2021, A
+databaze_vzorku                 _ Miroslav Vejvoda        28. 12. 2020, A
+gamma_scanning                  _ Marie Kubínová          5. 1. 2021, A     *
+kartogram_vr1                   _ Jana Šošková            12. 1. 2021, A
+kartogram_vver1000              _ Jindřich Prášil         2. 1. 2021, A *
+mereni_radonu                   _ Robin Krempaský         3. 1. 2021, A
+mereni_vykonu                   _ Jan Čada
+telefonni_seznam                _ Štefan Račák            8. 1. 2021, A * do indexu datum 2.1.
+univerzalni_vykreslovac         _ Tereza Kinkorová
+zaznamy_z_je                    _ Kamila Oppelová         10. 1. 2021, A
+
+z loňska:
+
+Tadeáš Sucharda   1. 1. 2021, A

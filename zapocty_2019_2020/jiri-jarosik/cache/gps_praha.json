@@ -1,0 +1,17 @@
+{
+  "result": {
+    "point": {
+      "query": "praha",
+      "status": "200",
+      "message": "OK",
+      "item": {
+        "x": "14.4341412988",
+        "y": "50.0835493857",
+        "id": "3468",
+        "source": "muni",
+        "type": "muni",
+        "title": "Praha, okres Hlavní město Praha, kraj Hlavní město Praha, Česko"
+      }
+    }
+  }
+}
