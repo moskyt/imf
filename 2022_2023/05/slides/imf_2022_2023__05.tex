@@ -1,0 +1,311 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\výstupní a vstupní soubory pro výpočetní programy, datové struktury}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2022/2023, 26. října 2022}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item práci s datovými soubory
+    \item zpracování většího množství dat
+    \item rozšíření RubyGems, vytvoření tabulky v Excelu
+    \item základ získání dat z výstupního souboru
+    \item definice vlastní metody
+  \end{itemize}
+\end{frame}
+
+\section{Načítání výstupních dat – dokončení}
+
+\begin{frame}[fragile]{Skončili jsme u takovéto tabulky}
+  něco jak toto:
+  {\scriptsize
+  \begin{verbatim}
+    0   0  0.94800
+    0 640  0.99800
+    0  64  0.94850
+    0 128  0.95000
+    0 192  0.95250
+    0 256  0.95600
+    ...
+  \end{verbatim}
+  }
+  -- kdo nemá, tak je v souboru \texttt{mcnp/keff.csv}
+\end{frame}
+
+\begin{frame}[fragile]{A protože přehlednost je nade vše}
+  rádi bychom měli něco jak toto:
+  {\scriptsize
+  \begin{verbatim}
+    keff           0           64          128    ...
+      0      0.94800      0.94900      0.95000    ...
+     64      0.94850      0.94950      0.95050    ...
+    128      0.95000      0.95100      0.95200    ...
+    192      0.95250      0.95350      0.95450    ...
+    256      0.95600      0.95700      0.95800    ...
+    320      0.96050      0.96150      0.96250    ...
+    384      0.96600      0.96700      0.96800    ...
+    448      0.97250      0.97350      0.97450    ...
+    512      0.98000      0.98100      0.98200    ...
+    576      0.98850      0.98950      0.99050    ...
+    640      0.99800      0.99900      1.00000    ...
+  \end{verbatim}
+  }
+  -- ale jak nejlépe uložit data do 2D struktury?
+\end{frame}
+
+\begin{frame}[fragile]{1D a 2D pole}
+  \textbf{První možnost} je mít normálně 1D pole a spočítat si index:\\
+  \texttt{a[i + j * 11]}
+  \pause
+
+
+  \textbf{Druhá možnost} je `2D pole' -- ve skutečnosti v Ruby nic takového není, ale můžete mít pochopitelne pole polí (tj. každý prvek pole může být klidně pole, proč ne):
+  \texttt{a[i][j]}
+  \pause
+
+  Problém je, že data nemám seřazená, takže moc nemáme dobrý způsob, jak je postupně do matice nastrkat.
+
+  Jedna možnost je nejdřív si to pole vyrobit (prvky budou nil nebo 0 nebo tak něco) a pak do něj teprv zapisovat.
+  Druhá možnost je zapomenout na pole a udělat si to jednodušší.
+\end{frame}
+
+\begin{frame}[fragile]{Hash to the rescue}
+  Možná se bude velmi hodit hash!
+  {\scriptsize
+  \begin{verbatim}
+    data = {}
+    data[3] = 0.99
+  \end{verbatim}
+  }
+  \pause
+  no a dokonce, protože klíč může být cokoliv:
+  {\scriptsize
+  \begin{verbatim}
+    data = {}
+    data[[1,2]] = 0.99
+    data[[7,8]] = 1.05
+    puts data[[1,2]]
+  \end{verbatim}
+  }
+  Takže nic nebrání tomu si naskládat data do hashe (= jakobymatice s volnou strukturou) a vypsat krásnou tabulku.
+\end{frame}
+
+\begin{frame}{Navážeme na úspěchy z minulých týdnů}
+  Zopakujeme, prohloubíme, rozšíříme, nelenivíme, nezapomínáme.
+  \begin{itemize}
+    \item data jsou v `keff.csv'
+    \item vykreslit graf! pro každou z 11 poloh R1 jedna čára (závislost keff na R2)
+    \item (= csv soubor, gnuplot, znáte to)
+    \item najít automaticky kritickou polohu R2 pro každou z 11 poloh R1
+  \end{itemize}
+\end{frame}
+
+
+\section{Načítání složitějšího výstupu}
+
+\begin{frame}[fragile]{HELIOS}
+  Tabulka výstupů:
+  \scriptsize
+  \begin{verbatim}
+List name       : list
+List Title(s)  1) This is a table
+               2) of some data
+               3) in many columns
+               4) and has a long title!
+
+               bup        kinf          ab          ab        u235        u238       pu239
+ 0001     0.00E+00     1.16949  9.7053E-03  7.6469E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0002     0.00E+00     1.13213  9.7478E-03  7.9058E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0003     1.00E+01     1.13149  9.7488E-03  7.9070E-02  1.8797E-04  7.5509E-03  2.3647E-09
+ 0004     5.00E+01     1.13004  9.7521E-03  7.9093E-02  1.8760E-04  7.5506E-03  5.3144E-08
+ 0005     1.00E+02     1.12826  9.7559E-03  7.9218E-02  1.8714E-04  7.5503E-03  1.8746E-07
+ 0006     1.50E+02     1.12664  9.7594E-03  7.9407E-02  1.8668E-04  7.5500E-03  3.7495E-07
+ 0007     2.50E+02     1.12399  9.7657E-03  7.9869E-02  1.8577E-04  7.5493E-03  8.4139E-07
+ 0008     5.00E+02     1.12007  9.7812E-03  8.1065E-02  1.8351E-04  7.5476E-03  2.1882E-06
+ 0009     1.00E+03     1.11561  9.8203E-03  8.3169E-02  1.7914E-04  7.5443E-03  4.8723E-06
+ 0010     2.00E+03     1.10542  9.9329E-03  8.6731E-02  1.7088E-04  7.5376E-03  9.6873E-06
+ 0011     3.00E+03     1.09354  1.0067E-02  8.9717E-02  1.6316E-04  7.5309E-03  1.3879E-05
+ 0012     4.00E+03     1.08126  1.0207E-02  9.2299E-02  1.5591E-04  7.5242E-03  1.7571E-05
+ 0013     6.00E+03     1.05755  1.0474E-02  9.6562E-02  1.4258E-04  7.5105E-03  2.3760E-05
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Co bychom chtěli}
+  \begin{itemize}
+    \item mít načtené jednotlivé tabulky (zatím jen jednu, ale bude jich víc)
+    \item asi po jednotlivých sloupcích, sloupec = pole (hodnot po řádcích)
+    \item sloupce se nějak jmenují, tedy použijeme \texttt{Hash}
+    \item \texttt{table["kinf"]}
+    \item pozor na \texttt{ab}, asi budeme muset vyrobit něco jako \texttt{ab1}, \texttt{ab2} (ale to až za chvíli)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Nástrahy, chytáky a podobně}
+  \begin{itemize}
+    \item tabulka skládající se z více bloků
+    \item více tabulek
+    \item tabulky mají jméno \texttt{list name} a popisek \texttt{list title(s)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak uspořádat data?}
+  \begin{itemize}
+    \item pole s tabulkami + pole s názvy + pole s titulky?
+    \pause
+    \item co hashe tabulky[název] a titulky[název]?
+    \pause
+    \item nejchytřeji: \verb!{"a"=>{:title => "Table title",! \\ \verb!:data => {"kinf"=>...}}}!
+    \pause
+    \item ``nová'' syntaxe: \verb!{"a"=>{title: "Table title",! \\ \verb!data: {"kinf"=>...}}}!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Z příkazové řádky}
+  \begin{itemize}
+    \item a co takhle z toho udělat skript, který lze pustit s~argumentem = univerzální
+    \item \texttt{ruby read\_helios.rb helios1.out}
+    \item vypíše seznam všech tabulek, seznam jejich sloupců, počet řádků
+    \item pole \texttt{ARGV} -- seznam všech argumentů
+    \item vylepšení – provede pro všechny zadané soubory: \texttt{ruby read\_helios.rb helios1.out helios2.out} (tip: využívejte vlastní metody, kde to jen jde)
+  \end{itemize}
+\end{frame}
+
+\section{Automatizace tvorby vstupů}
+
+\begin{frame}[fragile]{Určení poloh tyčí}
+  Ve vstupním souboru si najdeme relevantní část:
+  \scriptsize
+  \begin{verbatim}
+    c ---------------------------------
+    c polohy tyci (z-plochy)
+    c ---------------------------------
+    c
+    67 pz 47.6000    $ dolni hranice absoberu r1
+    68 pz 40.4980    $ dolni hranice hlavice r1
+    69 pz 44.8000    $ dolni hranice absoberu r2
+    70 pz 37.6980    $ dolni hranice hlavice r2
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Výroba šablon}
+  Jak dostat polohy tyčí do vstupního souboru? Vyrobíme šablonu, tzn nahradíme
+  \begin{verbatim}
+    67 pz 47.6000    $ dolni hranice absoberu r1
+  \end{verbatim}
+  \pause
+  nějakou značkou (\emph{placeholder}):
+  \begin{verbatim}
+    67 pz %r1%    $ dolni hranice absoberu r1
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Chytáky a zádrhele}
+  \begin{itemize}
+    \item kromě samotné plochy konce absorbéru je nutno správně umístit i z-plochu konce hlavice o 7,102 cm níže
+    \item obecně je na místě ohlídat si, že placeholder nebude kolidovat s ničím jiným
+  \end{itemize}
+  Doporučené nástroje jsou:
+  \begin{itemize}
+    \item již známá funkce \texttt{sub} pro nahrazení jednoho řetězce jiným
+    \item pro pragmatické lenochy funkce \texttt{File.read} načítající celý soubor do řetězce
+    \item možno ovšem použít i \texttt{File.readlines} (v čem je to lepší?)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Realizace}
+  \scriptsize
+  \begin{verbatim}
+    delta = 44.8000 - 37.6980
+
+    template = File.read("template")
+    (0..10).each do |i1|
+      (0..10).each do |i2|
+        r1 = i1 * 50
+        r2 = i2 * 50
+        s = template.sub("%r1%", r1.to_s)
+        s = s.sub("%r1_%", (r1 - delta).to_s)
+        s = s.sub("%r2%", r2.to_s)
+        s = s.sub("%r2_%", (r2 - delta).to_s)
+        File.write("inputs/c_#{i1}_#{i2}", s)
+      end
+    end
+  \end{verbatim}
+\end{frame}
+
+\section{Automatizace tvorby vstupů -- zobecnění}
+
+\begin{frame}{A co takhle trocha zobecnění?}
+  \begin{itemize}
+    \item když budu chtít přidat další tyče nebo jiné parametry, bude to děsně bobtnat
+    \item funkce \texttt{process(``template'', ``inputs/c\_\#\{i1\}\_\#\{i2\}'', \{``r1'' => r1, ``r2'' => r2, .....\})}
+    \item všechno víme, známe, umíme...
+    \item rozšiřte tak, že třeba tyč B1 bude mezi R1 a R2, B2 mezi R1 a B1, B3 mezi R2 a dolní hranicí palivového článku (Z = 1 cm)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
