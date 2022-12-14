@@ -1,0 +1,188 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+\usepackage{graphicx, ifthen, listings, fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (11)]{Informatika pro moderní fyziky (11)\\ Použití cizích API, interaktivní mapa}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2022/2023\\14. prosince 2022}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item základy tvorby obrázků v SVG
+    \item využití JSON a YAML souborů
+    \item základy interaktivní mapy
+  \end{itemize}
+\end{frame}
+
+
+\section{Použití cizích API}
+
+\begin{frame}{K čemu to?}
+  \begin{itemize}
+    \item spousta informací na webu je poskytována ve strojově čitelné formě
+    \item API -- rozhraní mezi aplikacemi
+    \item s využitím webových služeb naše možnosti exponenciálně rostou (počasí, doprava, mapy, atd atd.)
+    \item spousta věcí se dá udělat jako \emph{mashup} -- sice nic neumím, ale umím to dát dohromady
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Typy / formáty}
+  \begin{itemize}
+    \item URL -- rovnou dostanu např. obrázek po zadání správného URL
+    \item XML -- velmi obecný, ale komplikovaný formát (``vypadá jako HTML'')
+    \item JSON -- velmi jednoduchý a kompaktní formát, vyvinutý pro JS (v podstatě jen číslo, řetězec, pole, hash)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{URL API}
+  \begin{itemize}
+    \item stačí správně vymyslet URL a je to tím vyřešené
+    \item pozor na usage limits (v produkci je nutné lokální cache...)
+    \item QR platba: \\
+    {\tiny \url{http://qr-platba.cz/pro-vyvojare/restful-api/\#generator-czech-image}}
+    \item cestu a dotaz odděluje otazník, dotaz je tvaru \texttt{a=b\&c=d}
+    \item zkuste vygenerovat URL pro platbu na svůj účet s poznámkou
+    \item \texttt{URI.encode\_www\_form}
+    \item nebo Google Maps static API
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Jednoduchý mashup: mapa o-závodů}
+  \begin{itemize}
+    \item ORIS API -- http://oris.orientacnisporty.cz/API
+    \item úkol: vypišme kalendář MTBO závodů v roce 2022
+    \item {\tiny \url{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2022-01-01\&dateto=2022-12-31}}
+  \end{itemize}
+
+  \begin{verbatim}
+    require "open-uri"
+    require "json"
+
+    url = "http://oris.orientacnisporty.cz/API/?format=json&method=getEventList&sport=3&datefrom=2022-01-01&dateto=2022-12-31"
+    s = URI.open(url).read
+    data = JSON[s]
+  \end{verbatim}
+\end{frame}
+
+\section{Interaktivní mapa}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item vykresleme klikací mapu MTBO závodů
+    \item použijeme mapy.cz
+    \item chceme to ovšem trochu dotáhnout k dokonalosti – např. slučování závodů na stejném místě do jednoho bodu
+    \item vygenerujeme mapy pro různé roky (třeba 2018 až 2022)
+    \item když to budeme mít, jako bonus budeme vypisovat i vítězku ženské elitní kategorie (W21E)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zdroj dat}
+  \begin{itemize}
+    \item JSON API systému ORIS je na \url{http://oris.orientacnisporty.cz/API/?format=json\&method=getEventList\&sport=3\&datefrom=2017-01-01\&dateto=2017-12-31}
+    \item API pro výsledky: \url{https://oris.orientacnisporty.cz/API/?format=json&method=getEventResults&eventid=2077}
+    \item hodí se použít nějaký add-on do prohlížeče na JSON, je s tím pak míň práce
+    \item alternativně si vyrobíme svůj hezkovypisovač s použitím \texttt{JSON.pretty\_generate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lokální cache}
+  \begin{itemize}
+    \item je pomalé a nešikovné stahovat pokaždé data, takže chceme lokální cache pro stažená data
+    \item uvědomíme si, že vlastně nemusíme řešit JSON a stačí jen uložit data
+    \item případně můžeme vytahat z dat to, co potřebujeme a uložit si to do JSONu už zpracované
+  \end{itemize}
+\end{frame}
+
+\section{Jak na to}
+
+\begin{frame}{Mapa - HTML - JS - Erb}
+  \begin{itemize}
+    \item použijeme příklad \texttt{mapa.html}
+    \item ideální postup: nejdřív si potřebnou funkcionalitu (značka, vizitka ...) vytvořím ručně
+    \item až pak to začnu řešit ve skriptu
+    \item -- protože když neumím JavaScript, tak je potřeba s tím zacházet trochu opatrně
+    \item rozhodně použijme erb
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Příklady JS pro to, co potřebujeme}
+  \begin{itemize}
+    \item značky: \url{https://api.mapy.cz/view?page=markerlayer}
+    \item s vizitkou: \url{https://api.mapy.cz/view?page=markercard}
+    \item komplexnější vizitky: \url{https://api.mapy.cz/view?page=card}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Na co nezapomenout při zpracování dat}
+  \begin{itemize}
+    \item budeme chtít sdružovat závody podle místa
+    \item vzpomeneme si: pokud seskupuju cokoliv podle jednoznačného klíče, použiju hash
+    \item získání výsledků: pomocí ID závodu \url{https://oris.orientacnisporty.cz/API/?format=json&method=getEventResults&eventid=2077}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
