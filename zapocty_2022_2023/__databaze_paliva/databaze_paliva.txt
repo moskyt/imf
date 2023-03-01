@@ -1,0 +1,12 @@
+Databáze paliva
+===============
+
+Adresář "data" obsahuje ve formátu JSON pro jednotlivé kampaně provozu JE vždy datum začátku (BOC) a konce (EOC) provozu a také seznam použitých palivových souborů v dané vsázce včetně změny vyhoření.
+
+Vytvořte skript, který pro každý palivový soubor (je jich dohromady asi 100) vygeneruje hezké PDF, které bude pro každý PS obsahovat:
+- identifikátor PS
+- celkové vyhoření
+- datum prvního zavezení PS
+- datum posledního vyvezení PS
+- nejdelší dobu mimo AZ (například pokud byl soubor zavezen v 3., 4. a 8. kampani, bude to počet dní od konce 4. do začátku 8. kampaně)
+- tabulku s jednotlivými kampaněmi, ve které byl PS zavezen, pro každou z nich: číslo kampaně, vyhoření na začátku a na konci kampaně

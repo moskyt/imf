@@ -1,0 +1,10 @@
+Měření výkonu reaktoru
+======================
+
+V adresáři data jsou ve složkách c1,...,cN záznamy z jednotlivých kampaní provozu JE. V každé z nich jsou v souborech d1.csv,...,dM.csv data z několika detektorů.
+
+Vygenerujte excelovský soubotr (.xlsx), který bude obsahovat list pro každou kampaň a v každém z nich na jednotlivých řádcích denní průměry výkonů (z jednotlivých detektorů a v posledním sloupci ze všech dohromady).
+
+Excelovský soubor opatřete hezkým záhlavím, správně pojmenovanými listy apod.
+
+Kromě toho vygenerujte pro každou kampaň jeden graf s průběhy signálu ze všech detektorů.

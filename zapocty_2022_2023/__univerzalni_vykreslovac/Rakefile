@@ -1,0 +1,64 @@
+require 'date'
+require 'fileutils'
+
+task :data do
+  FileUtils.mkdir_p("data")
+  (1..50).each do |n|
+    labels = {}
+    7.times do
+      z, z2 = rand, rand
+      if z < 0.111
+        labels["x"] ||= if z2 < 0.3
+          "elapsed time"
+        elsif z < 0.6
+          "time signal"
+        else
+          "time"
+        end
+      elsif z < 0.222
+        labels["y"] ||= if z2 < 0.3
+          "signal strength"
+        elsif z < 0.6
+          "intensity"
+        else
+          "current [mA]"
+        end
+      elsif z < 0.333
+        labels["label"] ||= if z2 < 0.3
+          "detector calibration #{(Date.today - rand(400)).strftime("%d. %m. %Y")}"
+        elsif z < 0.8
+          "secret experiment ##{1000+rand(5000)}"
+        else
+          "plot of random data coming from space"
+        end
+      end
+    end
+    fn = "data/file_%02d.csv" % n
+    ncol = 1 + rand(6)
+    periods1 = (1..ncol).map{0.1 * rand}
+    periods2 = (1..ncol).map{0.5 * rand}
+    periods3 = (1..ncol).map{1.5 * rand}
+    data = (1...(1000+rand(1000)).round).map do |i|
+      t = i / 100.0
+      row = {"time" => t}
+      (0...ncol).each do |j|
+        row["y#{j+1}"] = ((0.9 + 0.2*rand) * (Math::sin(t/periods1[j]) + Math::sin(t/periods2[j]) + Math::sin(t/periods3[j]))).round(4)
+      end
+      row
+    end
+    headers = ["time"] + (1..ncol).map{|j| "y#{j}"}
+    headers = headers.shuffle
+    File.open(fn, 'w') do |f|
+      labels.each do |l, t|
+        f.puts "# #{l} : #{t}"
+      end
+      f.puts "#" + headers * " "
+      data.each do |row|
+        f.puts headers.map{|x| row[x]} * " "
+      end
+    end
+  end
+
+  `rm data.zip`
+  `zip data.zip data/*.csv`  
+end

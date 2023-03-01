@@ -1,0 +1,34 @@
+Vážení studenti,
+
+s omluvou a zejména s příšerným zpožděním posílám zadání zápočtových úloh:
+
+Josef Sabol       mereni radonu
+Michal Ešše       univerzalni vykreslovac
+Štěpán Tichý      mereni vykonu
+Ondřej Lachout    telefonni seznam
+Jakub Mátl        kartogram vver1000
+
+Obecně:
+- ke každému zadání jsou k dispozici vzorová data
+- já to budu testovat i na datech jiných
+- očekávám, že všechno proběhne na jedno spuštění skriptu
+- každý má k dispozici jeden pokus řádný a jeden opravný
+
+Klasifikace:
+F - nejde to spustit, ani pro zadaná data to v podstatných bodech nesplňuje zadání
+E - pro zadaná data to funguje, ale pro jiná čísla to nechodí
+D - obecně to funguje, ale stejně chybí drobnosti ze zadání
+C - všechno funguje jak má
+B - funguje a navíc jsou výstupy hezké a přehledné, soubory nejsou generovány “na velkou hromadu”, ale roztříděné do složek apod.
+A - kromě výše uvedeného jsou splněny i požadavky formy (správné odsazování, rozumná jména funkcí a proměnných) a efektivity (je to rozumně naprogramované - vhodné použití funkcí, datových struktur atd.)
++ známka se snižuje o stupeň, pokud:
+  - jsou někde ve skriptech použity absolutní cesty, takže je budu muset upravovat (výjimkou jsou cesty k programům jako např. gnuplot, které ovšem musí být umístěny v proměnné někde na začátku skriptu (abych to nemusel lovit)
+  - bude v kódu něco, co limituje použití na OS Windows (backslash v cestě, kódování win1250 atd.)
+  (a podobně)
+
+Za posledních deset let jsem snad jednou dal někomu B, když se nechtěl posnažit, ale jinak je bez problémů dostat A.
+
+Vypracování pošlete mailem, stejně jako případné dotazy. Pokud byste se domnívali, že po vás chci něco, co nemůžete umět, poskytnu na vyžádání radu. Pokud se domníváte, že je zadání nesmyslné nebo data vadná, ozvěte se.
+
+S pozdravem a ještě jednou s omluvou
+František Havlůj

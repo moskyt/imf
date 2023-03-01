@@ -1,0 +1,66 @@
+def pformat(phone)
+  phone.to_s =~ /^\d{9}$/ or raise
+  phone = phone.to_s
+  case rand(5)
+  when 1
+    "+420#{phone}"
+  when 2
+    "#{phone[0...3]} #{phone[3...6]} #{phone[6...9]}"
+  when 3
+    "#{phone[0...3]}-#{phone[3...6]}-#{phone[6...9]}"
+  when 4
+    "#{phone[0...3]} #{phone[3..4]} #{phone[5..6]} #{phone[7..8]}"
+  when 5
+    "#{phone[0...1]} #{phone[1...5]} #{phone[5...9]}"
+  else
+    "#{phone}"
+  end
+end
+
+def xformat(fn, ln, phone)
+  case rand(7)
+  when 1
+    "#{fn} #{" " * rand(5)}#{ln}: #{pformat phone}"
+  when 2
+    "#{ln}  , #{fn} -#{" " * rand(5)}#{pformat phone}"
+  when 3
+    "#{fn}    #{ln}(#{pformat phone})"
+  when 4
+    "#{fn} #{ln} #{pformat phone}"
+  when 5
+    "#{ln},#{fn} #{" " * rand(5)}#{pformat phone}"
+  when 6
+    "#{fn} #{ln};#{" " * rand(5)}#{pformat phone}"
+  else
+    "#{fn} #{ln}: #{pformat phone}"
+  end
+end
+
+task :data do
+  f = File.open("duplikaty.txt", "w")
+  list = []
+  names = []
+  1000.times do
+    fn = %w{Jana Daniela Marie Jarmila Alzbeta Ema Frantiska Gabriela Hana Ingrid Kamila Lucie Nadezda Olga Pavla Renata Tamara Stella Vorsila Zdena}.sample
+    ln = %w{Sediva Dlouha Bartova Filipova Gardnerova Hola Janska Kratka Lehmannova Milicovska Neumannova Capova Zeithamlova Rittersteinova Andelova Liskova Milackova Mouchova Cerna Prochazkova Pokorna Nemcova}.sample
+    phone = 100_000_000 + rand(900_000_000)
+    xn = [fn,ln]
+    next if names.include?(xn)
+    names << xn
+    list << xformat(fn, ln, phone)
+    if rand < 0.01
+      phone2 = 100_000_000 + rand(900_000_000)
+      list << xformat(fn, ln, phone2)
+      f.puts "#{fn} #{ln}"
+    end
+  end
+  f.close
+  File.open("data.txt", "w") do |f|
+    list.shuffle.each do |s|
+      f.puts s
+    end
+  end
+end
+
+task :solution do
+end

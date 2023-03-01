@@ -1,0 +1,32 @@
+require 'fileutils'
+require 'active_support'
+require 'active_support/core_ext'
+
+
+task :data do
+  (1..5).each do |y|
+    t0 = DateTime.civil(2000+y,y,y,y*3,y*6,y*7)
+    n = 3+rand(3)
+    period = ((5+rand(8)).days).to_f
+    base = 1000 + rand(400)
+    amplitude = 200 + rand(300)
+    puts t0.inspect
+    (1..n).each do |i|
+      offset = (0.9 + 0.2 * rand)
+      FileUtils.mkdir_p("data/c#{y}")
+      File.open("data/c#{y}/d#{i}.csv", 'w') do |f|
+        t = t0
+        5000.times do |j|
+          dt = (10+60*rand).minutes
+          t = t + dt
+          x = (t - t0).to_f*24*3600
+          p0 = base + amplitude * Math::sin(2 * Math::PI * ((x / period) ** 0.5) )
+          p = p0 * (0.98 + 0.04 * rand) * offset
+          f.puts "#{t} #{p}"
+        end
+        puts t.inspect
+      end
+    end
+    puts
+  end
+end
