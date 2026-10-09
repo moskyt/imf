@@ -1,0 +1,37 @@
+Dobrý den, funguje to a v principu se toho tomu nemusí nic vytknout, ale přece jen bych přidal pár rad, jak byste své budoucí kolegy svým programem potěšil lépe (doufám, že jste nezapomněl, že jsou u nás dveře víc než otevřené):
+
+1) program by měl trochu něco vypisovat: takhle to spustím, neděje se děsně dlouho nic a na konci se nedozvím taky nic. Pro uživatele je to trochu nepříjemné.
+
+2) není úplně důvod si index a color počítat až v html, to byste mohl mít rovnou v tom připraveném poli data. Ale jasně, týká se to jen zobrazení, takže je to takový hraniční případ. Ale přišlo by mi přehlednější mít všechnu
+
+3) počáteční zoom mapy by mohl zabírat celou ČR, popřípadě celé okno by mohlo být větší (nebo dokonce na celé okno prohlížeče, ne?)
+
+4) stále se opakující operace typu line.strip.split(";")[0] jsou velmi špatný nápad. Jak z hlediska přehlednosti, tak rychlosti. Proměnné jsou zadarmo:
+
+  row = line.strip.split(";")
+  name = row[0]
+
+a hned je to celé mnohem lepší. Srovnejte přiložené skripty.
+
+5) na první pohled to vypadá jako moc práce, ale je lepší na pravidelné struktury používat hash než pole. Ilustračně:
+
+[
+  ["Brno", "2020-05-11", 0.76],
+  ["Praha", "2020-06-10", 0.51],
+  ..
+]
+
+je lépe nahradit
+
+[
+  {name: "Brno", date: "2020-05-11", activity: 0.76},
+  {name: "Praha", date: "2020-06-10", activity: 0.51},
+  ..
+]
+
+protože data[i][:date] je o dost čitelnější než data[i][1]
+
+Velmi chválím, že jste si s nastalými problémy nějak poradil, protože to je nakonec to nejdůležitější, výše uvedené komentáře berte jako inspiraci ke zlepšení.
+
+Zdraví
+František Havlůj

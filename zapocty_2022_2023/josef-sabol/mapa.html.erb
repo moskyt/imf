@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:600px; height:400px;"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(14.5, 50.0);
+		var m = new SMap(JAK.gel("mapa"), stred, 8);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();
+
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    var card = new SMap.Card();
+    card.getHeader().innerHTML = "<strong>Koncentrace radonu</strong>";
+    card.getBody().innerHTML = "Ahoj, já jsem <em>obsah vizitky</em>!";
+
+    var options = {
+        title: "Značka s vizitkou"
+    };
+		<%# počítadlo měst %>
+    <% i = 1%>
+		<%# iteruji přes všechna města %>
+		<% data.each do |town| %>
+			<%# přiřadím jim úroveň podle velikosti aktivity %>
+			<% if  town[1][1][0].to_f >= minimax[0] && town[1][1][0].to_f < 1.0/3.0*(minimax[1]-minimax[0])+minimax[0] %>
+				<% index = 1 %>
+				<% color = "blue" %>
+			<% elsif  town[1][1][0].to_f >= 1.0/3.0*(minimax[1]-minimax[0])+minimax[0] && town[1][1][0].to_f < 2.0/3.0*(minimax[1]-minimax[0])+minimax[0] %>
+				<% index = 2 %>
+				<% color = "yellow" %>
+			<% else %>
+				<% index = 3 %>
+				<% color = "red" %>
+		<% end %>
+		<%# vytvořím jim marker %>
+		var znacka<%=i%> = JAK.mel("div");
+		var obrazek<%=i%> = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-<%=color%>.png"});
+		znacka<%=i%>.appendChild(obrazek<%=i%>);
+		var popisek<%=i%> = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek<%=i%>.innerHTML = "<%=index%>";
+		znacka<%=i%>.appendChild(popisek<%=i%>);
+		<%# přiřadím jim marker %>
+		var marker<%=i%> = new SMap.Marker(SMap.Coords.fromWGS84(<%=town[1][0][0]%>, <%=town[1][0][1]%>), "<%=town[0]%>", {url:znacka<%=i%>});
+		layer.addMarker(marker<%=i%>);
+		var card<%=i%> = new SMap.Card();
+		card<%=i%>.getHeader().innerHTML = "<strong>Město: <%=town[0]%></strong>";
+		card<%=i%>.getBody().innerHTML = "Aktivita: <%=town[1][1][0]%> Bq <br> Datum měření: <%=town[1][1][1]%>";
+		marker<%=i%>.decorate(SMap.Marker.Feature.Card, card<%=i%>);
+    <% i += 1%>
+		<%end%>
+	</script>
+</body>
+</html>

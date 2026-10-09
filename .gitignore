@@ -2,11 +2,8 @@
 *.aux
 **/slides/*.out
 *.log
-
 *.snm
-
 *.toc
-
 *.vrb
-
 *.nav
+*/??/package

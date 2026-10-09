@@ -1,0 +1,1167 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://api.mapy.cz/loader.js"></script>
+	<script>Loader.load()</script>
+</head>
+
+<body>
+	<div id="mapa" style="width:600px; height:400px;"></div>
+	<script type="text/javascript">
+		var stred = SMap.Coords.fromWGS84(14.5, 50.0);
+		var m = new SMap(JAK.gel("mapa"), stred, 8);
+		m.addDefaultLayer(SMap.DEF_BASE).enable();
+		m.addDefaultControls();
+
+    var layer = new SMap.Layer.Marker();
+    m.addLayer(layer);
+    layer.enable();
+
+    var card = new SMap.Card();
+    card.getHeader().innerHTML = "<strong>Koncentrace radonu</strong>";
+    card.getBody().innerHTML = "Ahoj, já jsem <em>obsah vizitky</em>!";
+
+    var options = {
+        title: "Značka s vizitkou"
+    };
+		
+    
+		
+		
+			
+			
+				
+				
+			
+		
+		var znacka1 = JAK.mel("div");
+		var obrazek1 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka1.appendChild(obrazek1);
+		var popisek1 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek1.innerHTML = "1";
+		znacka1.appendChild(popisek1);
+		
+		var marker1 = new SMap.Marker(SMap.Coords.fromWGS84(15.0583947, 50.7702648), "Liberec", {url:znacka1});
+		layer.addMarker(marker1);
+		var card1 = new SMap.Card();
+		card1.getHeader().innerHTML = "<strong>Město: Liberec</strong>";
+		card1.getBody().innerHTML = "Aktivita: 1429.77 Bq <br> Datum měření: 8. 6. 2015, 14. 8. 2015";
+		marker1.decorate(SMap.Marker.Feature.Card, card1);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka2 = JAK.mel("div");
+		var obrazek2 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka2.appendChild(obrazek2);
+		var popisek2 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek2.innerHTML = "1";
+		znacka2.appendChild(popisek2);
+		
+		var marker2 = new SMap.Marker(SMap.Coords.fromWGS84(12.3703526, 50.0793511), "Cheb", {url:znacka2});
+		layer.addMarker(marker2);
+		var card2 = new SMap.Card();
+		card2.getHeader().innerHTML = "<strong>Město: Cheb</strong>";
+		card2.getBody().innerHTML = "Aktivita: 2812.9 Bq <br> Datum měření: 23. 6. 2011, 25. 1. 2013, 1. 12. 2012";
+		marker2.decorate(SMap.Marker.Feature.Card, card2);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka3 = JAK.mel("div");
+		var obrazek3 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka3.appendChild(obrazek3);
+		var popisek3 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek3.innerHTML = "2";
+		znacka3.appendChild(popisek3);
+		
+		var marker3 = new SMap.Marker(SMap.Coords.fromWGS84(13.636112, 50.5032737), "Most", {url:znacka3});
+		layer.addMarker(marker3);
+		var card3 = new SMap.Card();
+		card3.getHeader().innerHTML = "<strong>Město: Most</strong>";
+		card3.getBody().innerHTML = "Aktivita: 4334.62 Bq <br> Datum měření: 23. 5. 2010, 5. 8. 2009, 24. 6. 2011, 11. 4. 2005";
+		marker3.decorate(SMap.Marker.Feature.Card, card3);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka4 = JAK.mel("div");
+		var obrazek4 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka4.appendChild(obrazek4);
+		var popisek4 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek4.innerHTML = "2";
+		znacka4.appendChild(popisek4);
+		
+		var marker4 = new SMap.Marker(SMap.Coords.fromWGS84(14.147769, 49.3089887), "Písek", {url:znacka4});
+		layer.addMarker(marker4);
+		var card4 = new SMap.Card();
+		card4.getHeader().innerHTML = "<strong>Město: Písek</strong>";
+		card4.getBody().innerHTML = "Aktivita: 4244.85 Bq <br> Datum měření: 2. 5. 2006, 12. 8. 2010, 21. 3. 2006";
+		marker4.decorate(SMap.Marker.Feature.Card, card4);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka5 = JAK.mel("div");
+		var obrazek5 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka5.appendChild(obrazek5);
+		var popisek5 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek5.innerHTML = "2";
+		znacka5.appendChild(popisek5);
+		
+		var marker5 = new SMap.Marker(SMap.Coords.fromWGS84(18.5416556, 49.8542719), "Karviná", {url:znacka5});
+		layer.addMarker(marker5);
+		var card5 = new SMap.Card();
+		card5.getHeader().innerHTML = "<strong>Město: Karviná</strong>";
+		card5.getBody().innerHTML = "Aktivita: 4480.0 Bq <br> Datum měření: 2. 8. 2004, 7. 3. 2006, 18. 7. 2009";
+		marker5.decorate(SMap.Marker.Feature.Card, card5);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka6 = JAK.mel("div");
+		var obrazek6 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka6.appendChild(obrazek6);
+		var popisek6 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek6.innerHTML = "1";
+		znacka6.appendChild(popisek6);
+		
+		var marker6 = new SMap.Marker(SMap.Coords.fromWGS84(14.1317985, 50.5340795), "Litoměřice", {url:znacka6});
+		layer.addMarker(marker6);
+		var card6 = new SMap.Card();
+		card6.getHeader().innerHTML = "<strong>Město: Litoměřice</strong>";
+		card6.getBody().innerHTML = "Aktivita: 2910.84 Bq <br> Datum měření: 11. 9. 2011, 19. 6. 2008, 21. 7. 2014";
+		marker6.decorate(SMap.Marker.Feature.Card, card6);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka7 = JAK.mel("div");
+		var obrazek7 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka7.appendChild(obrazek7);
+		var popisek7 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek7.innerHTML = "1";
+		znacka7.appendChild(popisek7);
+		
+		var marker7 = new SMap.Marker(SMap.Coords.fromWGS84(21.1422187, 48.9610949), "Rokycany", {url:znacka7});
+		layer.addMarker(marker7);
+		var card7 = new SMap.Card();
+		card7.getHeader().innerHTML = "<strong>Město: Rokycany</strong>";
+		card7.getBody().innerHTML = "Aktivita: 3375.57 Bq <br> Datum měření: 12. 1. 2014, 7. 10. 2009, 14. 4. 2003";
+		marker7.decorate(SMap.Marker.Feature.Card, card7);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka8 = JAK.mel("div");
+		var obrazek8 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka8.appendChild(obrazek8);
+		var popisek8 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek8.innerHTML = "3";
+		znacka8.appendChild(popisek8);
+		
+		var marker8 = new SMap.Marker(SMap.Coords.fromWGS84(16.1622871, 50.4167025), "Náchod", {url:znacka8});
+		layer.addMarker(marker8);
+		var card8 = new SMap.Card();
+		card8.getHeader().innerHTML = "<strong>Město: Náchod</strong>";
+		card8.getBody().innerHTML = "Aktivita: 7970.9 Bq <br> Datum měření: 25. 10. 2014, 24. 2. 2008";
+		marker8.decorate(SMap.Marker.Feature.Card, card8);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka9 = JAK.mel("div");
+		var obrazek9 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka9.appendChild(obrazek9);
+		var popisek9 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek9.innerHTML = "2";
+		znacka9.appendChild(popisek9);
+		
+		var marker9 = new SMap.Marker(SMap.Coords.fromWGS84(14.6869121, 49.7818921), "Benešov", {url:znacka9});
+		layer.addMarker(marker9);
+		var card9 = new SMap.Card();
+		card9.getHeader().innerHTML = "<strong>Město: Benešov</strong>";
+		card9.getBody().innerHTML = "Aktivita: 4887.13 Bq <br> Datum měření: 3. 6. 2014, 5. 1. 2004, 11. 11. 2003, 8. 4. 2012";
+		marker9.decorate(SMap.Marker.Feature.Card, card9);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka10 = JAK.mel("div");
+		var obrazek10 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka10.appendChild(obrazek10);
+		var popisek10 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek10.innerHTML = "2";
+		znacka10.appendChild(popisek10);
+		
+		var marker10 = new SMap.Marker(SMap.Coords.fromWGS84(15.33526, 50.602249), "Semily", {url:znacka10});
+		layer.addMarker(marker10);
+		var card10 = new SMap.Card();
+		card10.getHeader().innerHTML = "<strong>Město: Semily</strong>";
+		card10.getBody().innerHTML = "Aktivita: 4606.83 Bq <br> Datum měření: 12. 3. 2000, 6. 12. 2007, 9. 5. 2004";
+		marker10.decorate(SMap.Marker.Feature.Card, card10);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka11 = JAK.mel("div");
+		var obrazek11 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka11.appendChild(obrazek11);
+		var popisek11 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek11.innerHTML = "2";
+		znacka11.appendChild(popisek11);
+		
+		var marker11 = new SMap.Marker(SMap.Coords.fromWGS84(15.2232341, 49.4308737), "Pelhřimov", {url:znacka11});
+		layer.addMarker(marker11);
+		var card11 = new SMap.Card();
+		card11.getHeader().innerHTML = "<strong>Město: Pelhřimov</strong>";
+		card11.getBody().innerHTML = "Aktivita: 4786.75 Bq <br> Datum měření: 5. 6. 2000, 9. 5. 2004, 3. 2. 2001, 21. 2. 2005";
+		marker11.decorate(SMap.Marker.Feature.Card, card11);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka12 = JAK.mel("div");
+		var obrazek12 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka12.appendChild(obrazek12);
+		var popisek12 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek12.innerHTML = "1";
+		znacka12.appendChild(popisek12);
+		
+		var marker12 = new SMap.Marker(SMap.Coords.fromWGS84(16.8813137, 48.7594008), "Břeclav", {url:znacka12});
+		layer.addMarker(marker12);
+		var card12 = new SMap.Card();
+		card12.getHeader().innerHTML = "<strong>Město: Břeclav</strong>";
+		card12.getBody().innerHTML = "Aktivita: 3424.84 Bq <br> Datum měření: 12. 12. 2002, 3. 2. 2005, 12. 4. 2015, 10. 4. 2010";
+		marker12.decorate(SMap.Marker.Feature.Card, card12);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka13 = JAK.mel("div");
+		var obrazek13 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka13.appendChild(obrazek13);
+		var popisek13 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek13.innerHTML = "3";
+		znacka13.appendChild(popisek13);
+		
+		var marker13 = new SMap.Marker(SMap.Coords.fromWGS84(13.4178324, 50.4606456), "Chomutov", {url:znacka13});
+		layer.addMarker(marker13);
+		var card13 = new SMap.Card();
+		card13.getHeader().innerHTML = "<strong>Město: Chomutov</strong>";
+		card13.getBody().innerHTML = "Aktivita: 8437.26 Bq <br> Datum měření: 25. 8. 2010, 8. 12. 2014";
+		marker13.decorate(SMap.Marker.Feature.Card, card13);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka14 = JAK.mel("div");
+		var obrazek14 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka14.appendChild(obrazek14);
+		var popisek14 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek14.innerHTML = "2";
+		znacka14.appendChild(popisek14);
+		
+		var marker14 = new SMap.Marker(SMap.Coords.fromWGS84(16.9994446, 49.2778194), "Vyškov", {url:znacka14});
+		layer.addMarker(marker14);
+		var card14 = new SMap.Card();
+		card14.getHeader().innerHTML = "<strong>Město: Vyškov</strong>";
+		card14.getBody().innerHTML = "Aktivita: 4454.99 Bq <br> Datum měření: 9. 9. 2001, 12. 10. 2011";
+		marker14.decorate(SMap.Marker.Feature.Card, card14);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka15 = JAK.mel("div");
+		var obrazek15 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka15.appendChild(obrazek15);
+		var popisek15 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek15.innerHTML = "1";
+		znacka15.appendChild(popisek15);
+		
+		var marker15 = new SMap.Marker(SMap.Coords.fromWGS84(16.6442394, 49.3636494), "Blansko", {url:znacka15});
+		layer.addMarker(marker15);
+		var card15 = new SMap.Card();
+		card15.getHeader().innerHTML = "<strong>Město: Blansko</strong>";
+		card15.getBody().innerHTML = "Aktivita: 2470.62 Bq <br> Datum měření: 4. 5. 2005";
+		marker15.decorate(SMap.Marker.Feature.Card, card15);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka16 = JAK.mel("div");
+		var obrazek16 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka16.appendChild(obrazek16);
+		var popisek16 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek16.innerHTML = "3";
+		znacka16.appendChild(popisek16);
+		
+		var marker16 = new SMap.Marker(SMap.Coords.fromWGS84(17.1234655, 48.8563914), "Hodonín", {url:znacka16});
+		layer.addMarker(marker16);
+		var card16 = new SMap.Card();
+		card16.getHeader().innerHTML = "<strong>Město: Hodonín</strong>";
+		card16.getBody().innerHTML = "Aktivita: 6448.28 Bq <br> Datum měření: 15. 3. 2004, 8. 1. 2004, 13. 1. 2002";
+		marker16.decorate(SMap.Marker.Feature.Card, card16);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka17 = JAK.mel("div");
+		var obrazek17 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka17.appendChild(obrazek17);
+		var popisek17 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek17.innerHTML = "3";
+		znacka17.appendChild(popisek17);
+		
+		var marker17 = new SMap.Marker(SMap.Coords.fromWGS84(13.7333385, 50.1039674), "Rakovník", {url:znacka17});
+		layer.addMarker(marker17);
+		var card17 = new SMap.Card();
+		card17.getHeader().innerHTML = "<strong>Město: Rakovník</strong>";
+		card17.getBody().innerHTML = "Aktivita: 6870.68 Bq <br> Datum měření: 25. 6. 2013";
+		marker17.decorate(SMap.Marker.Feature.Card, card17);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka18 = JAK.mel("div");
+		var obrazek18 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka18.appendChild(obrazek18);
+		var popisek18 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek18.innerHTML = "2";
+		znacka18.appendChild(popisek18);
+		
+		var marker18 = new SMap.Marker(SMap.Coords.fromWGS84(17.251143, 49.5940567), "Olomouc", {url:znacka18});
+		layer.addMarker(marker18);
+		var card18 = new SMap.Card();
+		card18.getHeader().innerHTML = "<strong>Město: Olomouc</strong>";
+		card18.getBody().innerHTML = "Aktivita: 4095.8 Bq <br> Datum měření: 6. 9. 2002, 6. 1. 2009, 14. 3. 2013";
+		marker18.decorate(SMap.Marker.Feature.Card, card18);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka19 = JAK.mel("div");
+		var obrazek19 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka19.appendChild(obrazek19);
+		var popisek19 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek19.innerHTML = "2";
+		znacka19.appendChild(popisek19);
+		
+		var marker19 = new SMap.Marker(SMap.Coords.fromWGS84(15.3516528, 50.4370452), "Jičín", {url:znacka19});
+		layer.addMarker(marker19);
+		var card19 = new SMap.Card();
+		card19.getHeader().innerHTML = "<strong>Město: Jičín</strong>";
+		card19.getBody().innerHTML = "Aktivita: 4426.0 Bq <br> Datum měření: 3. 5. 2000, 13. 4. 2008, 10. 1. 2002";
+		marker19.decorate(SMap.Marker.Feature.Card, card19);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka20 = JAK.mel("div");
+		var obrazek20 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka20.appendChild(obrazek20);
+		var popisek20 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek20.innerHTML = "2";
+		znacka20.appendChild(popisek20);
+		
+		var marker20 = new SMap.Marker(SMap.Coords.fromWGS84(15.2011571, 50.0288894), "Kolín", {url:znacka20});
+		layer.addMarker(marker20);
+		var card20 = new SMap.Card();
+		card20.getHeader().innerHTML = "<strong>Město: Kolín</strong>";
+		card20.getBody().innerHTML = "Aktivita: 5707.68 Bq <br> Datum měření: 21. 8. 2015, 3. 12. 2009, 22. 1. 2014, 11. 6. 2005";
+		marker20.decorate(SMap.Marker.Feature.Card, card20);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka21 = JAK.mel("div");
+		var obrazek21 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka21.appendChild(obrazek21);
+		var popisek21 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek21.innerHTML = "2";
+		znacka21.appendChild(popisek21);
+		
+		var marker21 = new SMap.Marker(SMap.Coords.fromWGS84(17.4652901, 49.9885113), "Bruntál", {url:znacka21});
+		layer.addMarker(marker21);
+		var card21 = new SMap.Card();
+		card21.getHeader().innerHTML = "<strong>Město: Bruntál</strong>";
+		card21.getBody().innerHTML = "Aktivita: 4492.61 Bq <br> Datum měření: 9. 6. 2008, 7. 5. 2009";
+		marker21.decorate(SMap.Marker.Feature.Card, card21);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka22 = JAK.mel("div");
+		var obrazek22 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka22.appendChild(obrazek22);
+		var popisek22 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek22.innerHTML = "2";
+		znacka22.appendChild(popisek22);
+		
+		var marker22 = new SMap.Marker(SMap.Coords.fromWGS84(13.3775249, 49.7477415), "Plzeň", {url:znacka22});
+		layer.addMarker(marker22);
+		var card22 = new SMap.Card();
+		card22.getHeader().innerHTML = "<strong>Město: Plzeň</strong>";
+		card22.getBody().innerHTML = "Aktivita: 4092.41 Bq <br> Datum měření: 9. 12. 2011, 4. 4. 2005, 22. 7. 2003";
+		marker22.decorate(SMap.Marker.Feature.Card, card22);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka23 = JAK.mel("div");
+		var obrazek23 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka23.appendChild(obrazek23);
+		var popisek23 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek23.innerHTML = "2";
+		znacka23.appendChild(popisek23);
+		
+		var marker23 = new SMap.Marker(SMap.Coords.fromWGS84(15.0417306, 50.186331), "Nymburk", {url:znacka23});
+		layer.addMarker(marker23);
+		var card23 = new SMap.Card();
+		card23.getHeader().innerHTML = "<strong>Město: Nymburk</strong>";
+		card23.getBody().innerHTML = "Aktivita: 3682.92 Bq <br> Datum měření: 4. 2. 2014, 18. 10. 2001, 1. 8. 2010, 4. 2. 2002";
+		marker23.decorate(SMap.Marker.Feature.Card, card23);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka24 = JAK.mel("div");
+		var obrazek24 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka24.appendChild(obrazek24);
+		var popisek24 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek24.innerHTML = "1";
+		znacka24.appendChild(popisek24);
+		
+		var marker24 = new SMap.Marker(SMap.Coords.fromWGS84(15.8816091, 49.2151907), "Třebíč", {url:znacka24});
+		layer.addMarker(marker24);
+		var card24 = new SMap.Card();
+		card24.getHeader().innerHTML = "<strong>Město: Třebíč</strong>";
+		card24.getBody().innerHTML = "Aktivita: 2198.32 Bq <br> Datum měření: 11. 10. 2010, 18. 3. 2008, 21. 2. 2002";
+		marker24.decorate(SMap.Marker.Feature.Card, card24);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka25 = JAK.mel("div");
+		var obrazek25 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka25.appendChild(obrazek25);
+		var popisek25 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek25.innerHTML = "2";
+		znacka25.appendChild(popisek25);
+		
+		var marker25 = new SMap.Marker(SMap.Coords.fromWGS84(14.6587234, 49.4141533), "Tábor", {url:znacka25});
+		layer.addMarker(marker25);
+		var card25 = new SMap.Card();
+		card25.getHeader().innerHTML = "<strong>Město: Tábor</strong>";
+		card25.getBody().innerHTML = "Aktivita: 5367.49 Bq <br> Datum měření: 1. 10. 2011, 16. 7. 2009, 9. 2. 2006, 7. 9. 2015";
+		marker25.decorate(SMap.Marker.Feature.Card, card25);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka26 = JAK.mel("div");
+		var obrazek26 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka26.appendChild(obrazek26);
+		var popisek26 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek26.innerHTML = "1";
+		znacka26.appendChild(popisek26);
+		
+		var marker26 = new SMap.Marker(SMap.Coords.fromWGS84(12.6329861, 49.7955449), "Tachov", {url:znacka26});
+		layer.addMarker(marker26);
+		var card26 = new SMap.Card();
+		card26.getHeader().innerHTML = "<strong>Město: Tachov</strong>";
+		card26.getBody().innerHTML = "Aktivita: 2158.0 Bq <br> Datum měření: 4. 6. 2014";
+		marker26.decorate(SMap.Marker.Feature.Card, card26);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka27 = JAK.mel("div");
+		var obrazek27 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka27.appendChild(obrazek27);
+		var popisek27 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek27.innerHTML = "1";
+		znacka27.appendChild(popisek27);
+		
+		var marker27 = new SMap.Marker(SMap.Coords.fromWGS84(15.9130498, 50.5608851), "Trutnov", {url:znacka27});
+		layer.addMarker(marker27);
+		var card27 = new SMap.Card();
+		card27.getHeader().innerHTML = "<strong>Město: Trutnov</strong>";
+		card27.getBody().innerHTML = "Aktivita: 2973.83 Bq <br> Datum měření: 20. 3. 2009, 4. 12. 2000, 22. 3. 2007, 22. 11. 2014";
+		marker27.decorate(SMap.Marker.Feature.Card, card27);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka28 = JAK.mel("div");
+		var obrazek28 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka28.appendChild(obrazek28);
+		var popisek28 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek28.innerHTML = "2";
+		znacka28.appendChild(popisek28);
+		
+		var marker28 = new SMap.Marker(SMap.Coords.fromWGS84(15.7791356, 50.0385812), "Pardubice", {url:znacka28});
+		layer.addMarker(marker28);
+		var card28 = new SMap.Card();
+		card28.getHeader().innerHTML = "<strong>Město: Pardubice</strong>";
+		card28.getBody().innerHTML = "Aktivita: 3664.36 Bq <br> Datum měření: 21. 7. 2012, 25. 5. 2012, 8. 10. 2004";
+		marker28.decorate(SMap.Marker.Feature.Card, card28);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka29 = JAK.mel("div");
+		var obrazek29 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka29.appendChild(obrazek29);
+		var popisek29 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek29.innerHTML = "2";
+		znacka29.appendChild(popisek29);
+		
+		var marker29 = new SMap.Marker(SMap.Coords.fromWGS84(17.4508621, 49.4553775), "Přerov", {url:znacka29});
+		layer.addMarker(marker29);
+		var card29 = new SMap.Card();
+		card29.getHeader().innerHTML = "<strong>Město: Přerov</strong>";
+		card29.getBody().innerHTML = "Aktivita: 3661.15 Bq <br> Datum měření: 23. 9. 2005, 13. 4. 2002, 6. 7. 2001, 9. 10. 2011";
+		marker29.decorate(SMap.Marker.Feature.Card, card29);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka30 = JAK.mel("div");
+		var obrazek30 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka30.appendChild(obrazek30);
+		var popisek30 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek30.innerHTML = "3";
+		znacka30.appendChild(popisek30);
+		
+		var marker30 = new SMap.Marker(SMap.Coords.fromWGS84(15.7947559, 49.9511458), "Chrudim", {url:znacka30});
+		layer.addMarker(marker30);
+		var card30 = new SMap.Card();
+		card30.getHeader().innerHTML = "<strong>Město: Chrudim</strong>";
+		card30.getBody().innerHTML = "Aktivita: 7042.88 Bq <br> Datum měření: 4. 5. 2004, 20. 9. 2003, 16. 3. 2013";
+		marker30.decorate(SMap.Marker.Feature.Card, card30);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka31 = JAK.mel("div");
+		var obrazek31 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka31.appendChild(obrazek31);
+		var popisek31 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek31.innerHTML = "2";
+		znacka31.appendChild(popisek31);
+		
+		var marker31 = new SMap.Marker(SMap.Coords.fromWGS84(17.6667415, 49.226766), "Zlín", {url:znacka31});
+		layer.addMarker(marker31);
+		var card31 = new SMap.Card();
+		card31.getHeader().innerHTML = "<strong>Město: Zlín</strong>";
+		card31.getBody().innerHTML = "Aktivita: 4939.97 Bq <br> Datum měření: 3. 1. 2010, 14. 4. 2013, 16. 11. 2004, 19. 11. 2000";
+		marker31.decorate(SMap.Marker.Feature.Card, card31);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka32 = JAK.mel("div");
+		var obrazek32 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka32.appendChild(obrazek32);
+		var popisek32 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek32.innerHTML = "3";
+		znacka32.appendChild(popisek32);
+		
+		var marker32 = new SMap.Marker(SMap.Coords.fromWGS84(18.2820084, 49.8349139), "Ostrava", {url:znacka32});
+		layer.addMarker(marker32);
+		var card32 = new SMap.Card();
+		card32.getHeader().innerHTML = "<strong>Město: Ostrava</strong>";
+		card32.getBody().innerHTML = "Aktivita: 6539.21 Bq <br> Datum měření: 15. 9. 2013, 16. 6. 2010";
+		marker32.decorate(SMap.Marker.Feature.Card, card32);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka33 = JAK.mel("div");
+		var obrazek33 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka33.appendChild(obrazek33);
+		var popisek33 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek33.innerHTML = "1";
+		znacka33.appendChild(popisek33);
+		
+		var marker33 = new SMap.Marker(SMap.Coords.fromWGS84(16.9705651, 49.9655521), "Šumperk", {url:znacka33});
+		layer.addMarker(marker33);
+		var card33 = new SMap.Card();
+		card33.getHeader().innerHTML = "<strong>Město: Šumperk</strong>";
+		card33.getBody().innerHTML = "Aktivita: 916.74 Bq <br> Datum měření: 11. 4. 2006";
+		marker33.decorate(SMap.Marker.Feature.Card, card33);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka34 = JAK.mel("div");
+		var obrazek34 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka34.appendChild(obrazek34);
+		var popisek34 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek34.innerHTML = "2";
+		znacka34.appendChild(popisek34);
+		
+		var marker34 = new SMap.Marker(SMap.Coords.fromWGS84(14.0733907, 49.9640292), "Beroun", {url:znacka34});
+		layer.addMarker(marker34);
+		var card34 = new SMap.Card();
+		card34.getHeader().innerHTML = "<strong>Město: Beroun</strong>";
+		card34.getBody().innerHTML = "Aktivita: 3744.66 Bq <br> Datum měření: 22. 2. 2001, 25. 9. 2012";
+		marker34.decorate(SMap.Marker.Feature.Card, card34);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka35 = JAK.mel("div");
+		var obrazek35 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka35.appendChild(obrazek35);
+		var popisek35 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek35.innerHTML = "1";
+		znacka35.appendChild(popisek35);
+		
+		var marker35 = new SMap.Marker(SMap.Coords.fromWGS84(16.6113382, 49.1922443), "Brno", {url:znacka35});
+		layer.addMarker(marker35);
+		var card35 = new SMap.Card();
+		card35.getHeader().innerHTML = "<strong>Město: Brno</strong>";
+		card35.getBody().innerHTML = "Aktivita: 2338.08 Bq <br> Datum měření: 10. 4. 2005, 12. 11. 2012";
+		marker35.decorate(SMap.Marker.Feature.Card, card35);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka36 = JAK.mel("div");
+		var obrazek36 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka36.appendChild(obrazek36);
+		var popisek36 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek36.innerHTML = "1";
+		znacka36.appendChild(popisek36);
+		
+		var marker36 = new SMap.Marker(SMap.Coords.fromWGS84(14.1025379, 50.1478497), "Kladno", {url:znacka36});
+		layer.addMarker(marker36);
+		var card36 = new SMap.Card();
+		card36.getHeader().innerHTML = "<strong>Město: Kladno</strong>";
+		card36.getBody().innerHTML = "Aktivita: 2620.89 Bq <br> Datum měření: 24. 6. 2014, 8. 12. 2002, 8. 12. 2001, 20. 2. 2006";
+		marker36.decorate(SMap.Marker.Feature.Card, card36);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka37 = JAK.mel("div");
+		var obrazek37 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka37.appendChild(obrazek37);
+		var popisek37 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek37.innerHTML = "2";
+		znacka37.appendChild(popisek37);
+		
+		var marker37 = new SMap.Marker(SMap.Coords.fromWGS84(13.8244461, 50.6406644), "Teplice", {url:znacka37});
+		layer.addMarker(marker37);
+		var card37 = new SMap.Card();
+		card37.getHeader().innerHTML = "<strong>Město: Teplice</strong>";
+		card37.getBody().innerHTML = "Aktivita: 6163.35 Bq <br> Datum měření: 16. 1. 2000, 25. 3. 2006";
+		marker37.decorate(SMap.Marker.Feature.Card, card37);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka38 = JAK.mel("div");
+		var obrazek38 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka38.appendChild(obrazek38);
+		var popisek38 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek38.innerHTML = "2";
+		znacka38.appendChild(popisek38);
+		
+		var marker38 = new SMap.Marker(SMap.Coords.fromWGS84(17.9961534, 49.3389775), "Vsetín", {url:znacka38});
+		layer.addMarker(marker38);
+		var card38 = new SMap.Card();
+		card38.getHeader().innerHTML = "<strong>Město: Vsetín</strong>";
+		card38.getBody().innerHTML = "Aktivita: 5465.98 Bq <br> Datum měření: 16. 5. 2009, 13. 3. 2006, 13. 9. 2002, 6. 11. 2003";
+		marker38.decorate(SMap.Marker.Feature.Card, card38);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka39 = JAK.mel("div");
+		var obrazek39 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka39.appendChild(obrazek39);
+		var popisek39 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek39.innerHTML = "2";
+		znacka39.appendChild(popisek39);
+		
+		var marker39 = new SMap.Marker(SMap.Coords.fromWGS84(14.0103663, 49.6901444), "Příbram", {url:znacka39});
+		layer.addMarker(marker39);
+		var card39 = new SMap.Card();
+		card39.getHeader().innerHTML = "<strong>Město: Příbram</strong>";
+		card39.getBody().innerHTML = "Aktivita: 4154.15 Bq <br> Datum měření: 10. 12. 2015, 22. 11. 2013, 7. 9. 2005";
+		marker39.decorate(SMap.Marker.Feature.Card, card39);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka40 = JAK.mel("div");
+		var obrazek40 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka40.appendChild(obrazek40);
+		var popisek40 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek40.innerHTML = "1";
+		znacka40.appendChild(popisek40);
+		
+		var marker40 = new SMap.Marker(SMap.Coords.fromWGS84(16.0489457, 48.8554341), "Znojmo", {url:znacka40});
+		layer.addMarker(marker40);
+		var card40 = new SMap.Card();
+		card40.getHeader().innerHTML = "<strong>Město: Znojmo</strong>";
+		card40.getBody().innerHTML = "Aktivita: 1262.19 Bq <br> Datum měření: 13. 12. 2007";
+		marker40.decorate(SMap.Marker.Feature.Card, card40);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka41 = JAK.mel("div");
+		var obrazek41 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka41.appendChild(obrazek41);
+		var popisek41 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek41.innerHTML = "2";
+		znacka41.appendChild(popisek41);
+		
+		var marker41 = new SMap.Marker(SMap.Coords.fromWGS84(13.9025043, 49.261277), "Strakonice", {url:znacka41});
+		layer.addMarker(marker41);
+		var card41 = new SMap.Card();
+		card41.getHeader().innerHTML = "<strong>Město: Strakonice</strong>";
+		card41.getBody().innerHTML = "Aktivita: 4260.56 Bq <br> Datum měření: 5. 10. 2001, 2. 11. 2001";
+		marker41.decorate(SMap.Marker.Feature.Card, card41);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka42 = JAK.mel("div");
+		var obrazek42 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka42.appendChild(obrazek42);
+		var popisek42 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek42.innerHTML = "1";
+		znacka42.appendChild(popisek42);
+		
+		var marker42 = new SMap.Marker(SMap.Coords.fromWGS84(16.4688995, 49.7562053), "Svitavy", {url:znacka42});
+		layer.addMarker(marker42);
+		var card42 = new SMap.Card();
+		card42.getHeader().innerHTML = "<strong>Město: Svitavy</strong>";
+		card42.getBody().innerHTML = "Aktivita: 2020.87 Bq <br> Datum měření: 21. 8. 2012";
+		marker42.decorate(SMap.Marker.Feature.Card, card42);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka43 = JAK.mel("div");
+		var obrazek43 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka43.appendChild(obrazek43);
+		var popisek43 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek43.innerHTML = "2";
+		znacka43.appendChild(popisek43);
+		
+		var marker43 = new SMap.Marker(SMap.Coords.fromWGS84(13.2935954, 49.3951183), "Klatovy", {url:znacka43});
+		layer.addMarker(marker43);
+		var card43 = new SMap.Card();
+		card43.getHeader().innerHTML = "<strong>Město: Klatovy</strong>";
+		card43.getBody().innerHTML = "Aktivita: 4322.11 Bq <br> Datum měření: 25. 2. 2009";
+		marker43.decorate(SMap.Marker.Feature.Card, card43);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka44 = JAK.mel("div");
+		var obrazek44 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka44.appendChild(obrazek44);
+		var popisek44 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek44.innerHTML = "2";
+		znacka44.appendChild(popisek44);
+		
+		var marker44 = new SMap.Marker(SMap.Coords.fromWGS84(17.9024174, 49.9389004), "Opava", {url:znacka44});
+		layer.addMarker(marker44);
+		var card44 = new SMap.Card();
+		card44.getHeader().innerHTML = "<strong>Město: Opava</strong>";
+		card44.getBody().innerHTML = "Aktivita: 4097.66 Bq <br> Datum měření: 2. 12. 2014";
+		marker44.decorate(SMap.Marker.Feature.Card, card44);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka45 = JAK.mel("div");
+		var obrazek45 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka45.appendChild(obrazek45);
+		var popisek45 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek45.innerHTML = "3";
+		znacka45.appendChild(popisek45);
+		
+		var marker45 = new SMap.Marker(SMap.Coords.fromWGS84(14.446459273258009, 50.0596288), "Praha", {url:znacka45});
+		layer.addMarker(marker45);
+		var card45 = new SMap.Card();
+		card45.getHeader().innerHTML = "<strong>Město: Praha</strong>";
+		card45.getBody().innerHTML = "Aktivita: 6558.04 Bq <br> Datum měření: 22. 2. 2006";
+		marker45.decorate(SMap.Marker.Feature.Card, card45);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka46 = JAK.mel("div");
+		var obrazek46 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka46.appendChild(obrazek46);
+		var popisek46 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek46.innerHTML = "1";
+		znacka46.appendChild(popisek46);
+		
+		var marker46 = new SMap.Marker(SMap.Coords.fromWGS84(12.9298338, 49.4407069), "Domažlice", {url:znacka46});
+		layer.addMarker(marker46);
+		var card46 = new SMap.Card();
+		card46.getHeader().innerHTML = "<strong>Město: Domažlice</strong>";
+		card46.getBody().innerHTML = "Aktivita: 1071.21 Bq <br> Datum měření: 5. 7. 2002, 18. 12. 2008";
+		marker46.decorate(SMap.Marker.Feature.Card, card46);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka47 = JAK.mel("div");
+		var obrazek47 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka47.appendChild(obrazek47);
+		var popisek47 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek47.innerHTML = "1";
+		znacka47.appendChild(popisek47);
+		
+		var marker47 = new SMap.Marker(SMap.Coords.fromWGS84(14.2147221, 50.7824196), "Děčín", {url:znacka47});
+		layer.addMarker(marker47);
+		var card47 = new SMap.Card();
+		card47.getHeader().innerHTML = "<strong>Město: Děčín</strong>";
+		card47.getBody().innerHTML = "Aktivita: 2445.83 Bq <br> Datum měření: 18. 3. 2014";
+		marker47.decorate(SMap.Marker.Feature.Card, card47);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka48 = JAK.mel("div");
+		var obrazek48 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka48.appendChild(obrazek48);
+		var popisek48 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek48.innerHTML = "1";
+		znacka48.appendChild(popisek48);
+		
+		var marker48 = new SMap.Marker(SMap.Coords.fromWGS84(17.1117979, 49.4721467), "Prostějov", {url:znacka48});
+		layer.addMarker(marker48);
+		var card48 = new SMap.Card();
+		card48.getHeader().innerHTML = "<strong>Město: Prostějov</strong>";
+		card48.getBody().innerHTML = "Aktivita: 981.57 Bq <br> Datum měření: 6. 3. 2015";
+		marker48.decorate(SMap.Marker.Feature.Card, card48);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka49 = JAK.mel("div");
+		var obrazek49 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka49.appendChild(obrazek49);
+		var popisek49 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek49.innerHTML = "2";
+		znacka49.appendChild(popisek49);
+		
+		var marker49 = new SMap.Marker(SMap.Coords.fromWGS84(13.997772, 49.0129091), "Prachatice", {url:znacka49});
+		layer.addMarker(marker49);
+		var card49 = new SMap.Card();
+		card49.getHeader().innerHTML = "<strong>Město: Prachatice</strong>";
+		card49.getBody().innerHTML = "Aktivita: 4339.62 Bq <br> Datum měření: 15. 8. 2014";
+		marker49.decorate(SMap.Marker.Feature.Card, card49);
+    
+		
+			
+			
+				
+				
+		
+		
+		var znacka50 = JAK.mel("div");
+		var obrazek50 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
+		znacka50.appendChild(obrazek50);
+		var popisek50 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek50.innerHTML = "3";
+		znacka50.appendChild(popisek50);
+		
+		var marker50 = new SMap.Marker(SMap.Coords.fromWGS84(14.4748281, 50.3520785), "Mělník", {url:znacka50});
+		layer.addMarker(marker50);
+		var card50 = new SMap.Card();
+		card50.getHeader().innerHTML = "<strong>Město: Mělník</strong>";
+		card50.getBody().innerHTML = "Aktivita: 8874.89 Bq <br> Datum měření: 20. 9. 2008";
+		marker50.decorate(SMap.Marker.Feature.Card, card50);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka51 = JAK.mel("div");
+		var obrazek51 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka51.appendChild(obrazek51);
+		var popisek51 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek51.innerHTML = "2";
+		znacka51.appendChild(popisek51);
+		
+		var marker51 = new SMap.Marker(SMap.Coords.fromWGS84(12.640035, 50.1815641), "Sokolov", {url:znacka51});
+		layer.addMarker(marker51);
+		var card51 = new SMap.Card();
+		card51.getHeader().innerHTML = "<strong>Město: Sokolov</strong>";
+		card51.getBody().innerHTML = "Aktivita: 6108.41 Bq <br> Datum měření: 14. 5. 2005";
+		marker51.decorate(SMap.Marker.Feature.Card, card51);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka52 = JAK.mel("div");
+		var obrazek52 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka52.appendChild(obrazek52);
+		var popisek52 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek52.innerHTML = "1";
+		znacka52.appendChild(popisek52);
+		
+		var marker52 = new SMap.Marker(SMap.Coords.fromWGS84(13.7969195, 50.3572914), "Louny", {url:znacka52});
+		layer.addMarker(marker52);
+		var card52 = new SMap.Card();
+		card52.getHeader().innerHTML = "<strong>Město: Louny</strong>";
+		card52.getBody().innerHTML = "Aktivita: 2137.74 Bq <br> Datum měření: 8. 4. 2015";
+		marker52.decorate(SMap.Marker.Feature.Card, card52);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka53 = JAK.mel("div");
+		var obrazek53 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-yellow.png"});
+		znacka53.appendChild(obrazek53);
+		var popisek53 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek53.innerHTML = "2";
+		znacka53.appendChild(popisek53);
+		
+		var marker53 = new SMap.Marker(SMap.Coords.fromWGS84(17.2046012, 50.2296385), "Jeseník", {url:znacka53});
+		layer.addMarker(marker53);
+		var card53 = new SMap.Card();
+		card53.getHeader().innerHTML = "<strong>Město: Jeseník</strong>";
+		card53.getBody().innerHTML = "Aktivita: 3855.59 Bq <br> Datum měření: 12. 11. 2011";
+		marker53.decorate(SMap.Marker.Feature.Card, card53);
+    
+		
+			
+			
+				
+				
+			
+		
+		var znacka54 = JAK.mel("div");
+		var obrazek54 = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+		znacka54.appendChild(obrazek54);
+		var popisek54 = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white", fontWeight:"bold"});
+		popisek54.innerHTML = "1";
+		znacka54.appendChild(popisek54);
+		
+		var marker54 = new SMap.Marker(SMap.Coords.fromWGS84(17.3929804, 49.2984191), "Kroměříž", {url:znacka54});
+		layer.addMarker(marker54);
+		var card54 = new SMap.Card();
+		card54.getHeader().innerHTML = "<strong>Město: Kroměříž</strong>";
+		card54.getBody().innerHTML = "Aktivita: 3058.41 Bq <br> Datum měření: 23. 5. 2013";
+		marker54.decorate(SMap.Marker.Feature.Card, card54);
+    
+		
+	</script>
+</body>
+</html>
