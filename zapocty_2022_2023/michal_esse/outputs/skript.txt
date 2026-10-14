@@ -1,0 +1,18 @@
+
+reset
+
+set terminal png enhanced
+
+set encoding utf8
+
+set key outside right
+set grid
+
+set xlabel " time signal" 
+set ylabel " intensity"
+set title "file_50.csv"
+set output "./outputs/file_50.png"
+
+set decimalsign ','
+
+plot   "./data/file_50.csv" using 1:2 title "y1", "./data/file_50.csv" using 1:5 title "y2", "./data/file_50.csv" using 1:4 title "y3", "./data/file_50.csv" using 1:3 title "y4" 

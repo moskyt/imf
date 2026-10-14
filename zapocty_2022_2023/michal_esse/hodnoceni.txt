@@ -1,0 +1,67 @@
+Vážený pane Ešše,
+
+moc se omlouvám za pozdní odpověď.
+
+Program je v pořádku a není důvod vám nedat áčko.
+
+Několik komentářů:
+
+1) zápis do souboru by mohl mít trochu víc hlavu a patu:
+
+	File.open("./outputs/skript.txt", "w") do |line|
+		line.puts s
+	end
+  
+-- proč se proměnná s řídícím objektem souboru jmenuje "line"? To nemá žádný smysl, přece to není žádná řádka ničeho. Běžně a rozumně zde můžete třeba užít "f" jako file.
+
+Ale hlavně, pokud chci zapsat jeden řetězec:
+
+File.write("./outputs/skript.txt", s)
+
+2) získat všechny klíče nebo hodnoty hashe lze snadno bez iterátorů:
+
+	a = [] #připravím si pořadí názvů pro výstup v podobě pole
+	sorted_hash.each do |key, val|
+		a << key.to_s
+	end
+
+nahradíte 
+
+a = sorted_hash.keys
+
+3) u funkce use se mi moc nelíbí ta logika na konci -- sestavujete nějaké pole a podmínku máte až u případného return. Lépe by bylo něco jako
+
+if mode == "numbers"
+	s = [] #připravím si pořadí čísel pro výstup v podobě pole 
+	sorted_hash.each do |key, val|
+		s << val.to_s 
+	end
+	return s 
+else	
+	a = [] #připravím si pořadí názvů pro výstup v podobě pole
+	sorted_hash.each do |key, val|
+		a << key.to_s
+	end
+	return a
+end
+
+4)
+
+namísto
+
+FileUtils.mkdir "./outputs" if !File.exist?("outputs")
+
+bych užil
+
+FileUtils.mkdir "./outputs" unless File.exist?("outputs")
+
+ale hlavně
+
+FileUtils.mkdir_p("./outputs")
+
+5) Zvážil bych, zda by se "outputs.txt" neměl jmenovat jinak (proč txt?) a buď bych ho nakonec mazal, nebo bych ho naopak pojmenoval pro každý graf jinak (plot1.gp pro plot1.csv atd.), mohlo by to pomoct při ladění programu.
+
+Ale jo, je to v pořádku, vše jste řádně splnil. Kladně hodnotím i dobrou okomentovanost kódu. Nebo použití podmínky na konci řádku místo zbytečného bloku. Nebo informování uživatele o průběhu. Je dobře, že používáte vlastní funkce. 
+
+S pozdravem
+František Havlůj
