@@ -34,11 +34,11 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (4)]{Informatika pro moderní fyziky (4)\\práce s tabulkami, hromadné zpracování dat, rozšíření RubyGems, ladění programů}
+\title[IMF (4)]{Informatika pro moderní fyziky (4)\\práce s tabulkami, rozšíření RubyGems, OOP, čtení výstupů}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
-\date{akademický rok 2022/2023, 15. října 2026}
+\date{akademický rok 2026/2027, 15. října 2026}
 
 \institute[ORF ÚJV Řež]
 {ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
@@ -66,7 +66,8 @@
 \begin{frame}{}
   \begin{itemize}
     \item zpracování většího množství dat
-    \item
+    \item vykreslení více grafů ze skriptu
+    \item volání gnuplotu ze skriptu  
   \end{itemize}
 \end{frame}
 
@@ -87,6 +88,7 @@
     \item pokud není, zapláčeme, protože jsme asi špatně nainstalovali Ruby
     \item otestujeme bundler: \texttt{bundle -v}
     \item pokud bundler není, doinstalujeme \texttt{gem install bundler}
+    \item nastavím instalaci gemů na úrovni projektu \texttt{bundle config set path vendor/bundle}
   \end{itemize}
 \end{frame}
 
@@ -158,20 +160,6 @@ workbook.write("data.xlsx")
     \item vytvořte excelovský soubor se dvěma listy, na obou bude sloupec 1, sloupec 2 a součet
     \item na jednom součet bude jako číslo (sečte to váš skript)
     \item na druhém bude součet jako excelovský vzorec
-  \end{itemize}
-\end{frame}
-
-
-\section{Kde je chyba?}
-
-\begin{frame}{Ladění programů}
-  \begin{itemize}
-    \item v každém programu je aspoň jedna chyba
-    \item není důležité nedělat chyby, ale je nutné je umět najít
-    \item když si program/Ruby na něco stěžuje, tak si to přečtěte, jinak se nic nedozvíte
-    \item pokud nepoznám, v čem je chyba, jsem bezezbytku ztracen
-    \item následují tři úlohy, kde je úkolem najít všechny chyby
-    \item z didaktických důvodů postupujte metodou tupého spouštění a postupného opravování
   \end{itemize}
 \end{frame}
 
@@ -478,6 +466,15 @@ workbook.write("data.xlsx")
       puts "#{s[1].to_i} #{s[2].to_i} #{keff}"
     end
   \end{verbatim}
+\end{frame}
+
+\begin{frame}{Kdyby nám zbyl čas}
+  \begin{itemize}
+    \item vypište výsledky do tabulky v excelu
+    \item ještě lépe: vypište je do excelu do matice 10x10
+    \item rubyXL znáte, všechno umíte
+    \item co takhle třída \texttt{ZKE} ? Možná to není špatný nápad. 
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{A to je vše, přátelé!}
