@@ -34,11 +34,11 @@
    \colorbox{black}{\usebox{\@tempboxa}}
 }\makeatother
 
-\title[IMF (4)]{Informatika pro moderní fyziky (4)\\práce s tabulkami, rozšíření RubyGems, OOP, čtení výstupů}
+\title[IMF (5)]{Informatika pro moderní fyziky (5)\\zpracování výstupních dat, procvičení OOP, složitější výstupy}
 
 \author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
 
-\date{akademický rok 2026/2027, 15. října 2026}
+\date{akademický rok 2026/2027, 22. října 2026}
 
 \institute[ORF ÚJV Řež]
 {ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
@@ -81,40 +81,38 @@
 
 \section{Zpracování výsledků}
 
-
 \begin{frame}[fragile]{Skončili jsme u takovéto tabulky}
   něco jak toto:
   {\scriptsize
   \begin{verbatim}
-    0   0  0.94800
-    0 640  0.99800
-    0  64  0.94850
-    0 128  0.95000
-    0 192  0.95250
-    0 256  0.95600
+    0.0   0.0  0.94800
+    0.0 640.0  0.99800
+    0.0  64.0  0.94850
+    0.0 128.0  0.95000
+    0.0 192.0  0.95250
+    0.0 256.0  0.95600
     ...
   \end{verbatim}
   }
-  -- kdo nemá, tak je v souboru \texttt{mcnp/keff.csv}
-  -- XXX
+  -- vylepšete to tedy ještě o přenásobení rozsahu
 \end{frame}
 
 \begin{frame}[fragile]{A protože přehlednost je nade vše}
   rádi bychom měli něco jak toto:
   {\scriptsize
   \begin{verbatim}
-    keff           0           64          128    ...
-      0      0.94800      0.94900      0.95000    ...
-     64      0.94850      0.94950      0.95050    ...
-    128      0.95000      0.95100      0.95200    ...
-    192      0.95250      0.95350      0.95450    ...
-    256      0.95600      0.95700      0.95800    ...
-    320      0.96050      0.96150      0.96250    ...
-    384      0.96600      0.96700      0.96800    ...
-    448      0.97250      0.97350      0.97450    ...
-    512      0.98000      0.98100      0.98200    ...
-    576      0.98850      0.98950      0.99050    ...
-    640      0.99800      0.99900      1.00000    ...
+    keff         0.0         64.0        128.0    ...
+      0.0    0.94800      0.94900      0.95000    ...
+     64.0    0.94850      0.94950      0.95050    ...
+    128.0    0.95000      0.95100      0.95200    ...
+    192.0    0.95250      0.95350      0.95450    ...
+    256.0    0.95600      0.95700      0.95800    ...
+    320.0    0.96050      0.96150      0.96250    ...
+    384.0    0.96600      0.96700      0.96800    ...
+    448.0    0.97250      0.97350      0.97450    ...
+    512.0    0.98000      0.98100      0.98200    ...
+    576.0    0.98850      0.98950      0.99050    ...
+    640.0    0.99800      0.99900      1.00000    ...
   \end{verbatim}
   }
   -- ale jak nejlépe uložit data do 2D struktury?
@@ -162,12 +160,12 @@
   Chtěli bychom:
   \begin{itemize}
     \item vypsat rozumnou tabulku výsledků na terminál
-    \item vypsat 2D (11x11) tabulku do excelu
+    \item vypsat tutéž tabulku do excelu
     \item vykreslit grafy (x=R2, y=keff) pro každou polohu R1   
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   Jak na to:
   \begin{itemize}
     \item vytvoře novou třídu ZKE
@@ -182,7 +180,19 @@
   \end{verbatim}
 \end{frame}
 
-NAJIT KRIT
+\section{Vyhodnocení}
+
+%NAJIT KRIT
+\begin{frame}
+  Chtěli bychom dále:
+  \begin{itemize}
+    \item pro každou polohu R1 najít kritickou polohu R2
+    \item opět lze s úspěchem dodělat na třídu ZKE
+    \item vypište na terminál
+    \item vykreslete závislost do grafu (x=R1, y=R2-kritická)   
+  \end{itemize}
+\end{frame}
+
 
 \section{Načítání složitějšího výstupu}
 
