@@ -1,0 +1,233 @@
+\documentclass{beamer}
+
+\def\Tiny{\fontsize{6pt}{6pt}\selectfont}
+\def\supertiny{\fontsize{4pt}{4pt}\selectfont}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % \setbeamercovered{transparent}
+  \usecolortheme{crane}
+}
+
+
+\usepackage{graphicx, ifthen, listings,fancyvrb}
+
+\usepackage[czech]{babel}
+% \usefonttheme{professionalfonts}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{wrapfig}
+
+\usepackage[T1]{fontenc}
+
+\lstset{ basicstyle=\tiny, stringstyle=\ttfamily, showstringspaces=false }
+
+\everymath{\displaystyle}
+
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+
+\makeatletter\newenvironment{blackbox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{0.95\columnwidth}}{\end{minipage}\end{lrbox}%
+   \colorbox{black}{\usebox{\@tempboxa}}
+}\makeatother
+
+\title[IMF (6)]{Informatika pro moderní fyziky (6)\\zpracování výstupních dat, procvičení OOP, složitější výstupy}
+
+\author[Franti\v{s}ek HAVL\r{U}J, ORF ÚJV Řež]{Franti\v{s}ek HAVL\r{U}J\\{\scriptsize \emph{e-mail: haf@ujv.cz}}}
+
+\date{akademický rok 2026/2027, 29. října 2026}
+
+\institute[ORF ÚJV Řež]
+{ÚJV Řež\\oddělení Reaktorové fyziky a podpory palivového cyklu}
+
+\AtBeginSection[]
+{
+\begin{frame}<beamer>
+\frametitle{Obsah}
+\tableofcontents[currentsection,hideothersubsections]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Co jsme se naučili minule}
+
+\begin{frame}{}
+  \begin{itemize}
+    \item že je to všechno moc práce
+    \item že nám nezbyde, než dále důkladně cvičit! 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kde jsme skončili}
+  \begin{itemize}
+    \item máme třídu ZKE
+    \item umíme vypsat textovou a slušně naformátovanou tabulku 
+  \end{itemize}
+\end{frame}
+
+\section{Zpracování výsledků}
+
+\begin{frame}
+  Chybí nám:
+  \begin{itemize}
+    \item vypsat tabulku do excelu
+    \item vykreslit grafy (x=R2, y=keff) pro každou polohu R1   
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  Jak na to:
+  \begin{itemize}
+    \item přidejte si další metody do třídy ZKE
+    \item co s tím skriptem, který ZKE volá? přestává to být přehledné
+    \item mohli bychom si vytvořit více skriptů, ale to by nebylo lepší 
+    \item na opakované volání je tady \texttt{rake}
+  \end{itemize}
+\end{frame}
+
+\section{Jak na tasky (a závislosti)}
+
+\begin{frame}{Spousta skriptů, spousta zmatku}
+  \begin{itemize}
+    \item mám jeden projekt/práci a potřebuju udělat víc věcí
+    \item zatím jsme měli jeden skript na jednu věc
+    \item což skončí hromadou .rb souborů, kde nebudu vědět co dělá který a budu v tom mít trochu zmatek
+    \item nehledě na to, že bych mohl chtít sdílet nějakou konfiguraci (jména souborů atd.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Nástroj Rake}
+  \begin{itemize}
+    \item alternativa k unixovému MAKE, ale v Ruby (Ruby MAKE = Rake)
+    \item nejjednodušší -- nastrkám si do jednoho Rakefile víc úloh (\texttt{task}) a ty pak snadno spustím
+    \item složitější -- můžu specifikovat závislosti
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Rakefile - příklad}
+  \begin{block}{obsah Rakefile}
+        \scriptsize
+    \begin{verbatim}
+    desc "rearrange keff into a nice table"
+    task :rearrange do
+    ...
+    end
+
+    desc "find something somewhere"
+    task :find do
+    ...
+    end
+    \end{verbatim}
+  \end{block}
+  \begin{block}{spuštění}
+        \scriptsize
+    \begin{verbatim}
+rake find
+rake -T
+    \end{verbatim}
+  \end{block}
+\end{frame}
+
+\section{Vyhodnocení}
+
+%NAJIT KRIT
+\begin{frame}
+  Chtěli bychom dále:
+  \begin{itemize}
+    \item pro každou polohu R1 najít kritickou polohu R2
+    \item opět lze s úspěchem dodělat na třídu ZKE
+    \item vypište na terminál
+    \item vykreslete závislost do grafu (x=R1, y=R2-kritická)   
+  \end{itemize}
+\end{frame}
+
+
+\section{Načítání složitějšího výstupu}
+
+\begin{frame}[fragile]{HELIOS}
+  Tabulka výstupů:
+  \scriptsize
+  \begin{verbatim}
+List name       : list
+List Title(s)  1) This is a table
+               2) of some data
+               3) in many columns
+               4) and has a long title!
+
+               bup        kinf          ab          ab        u235        u238       pu239
+ 0001     0.00E+00     1.16949  9.7053E-03  7.6469E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0002     0.00E+00     1.13213  9.7478E-03  7.9058E-02  1.8806E-04  7.5509E-03  1.0000E-20
+ 0003     1.00E+01     1.13149  9.7488E-03  7.9070E-02  1.8797E-04  7.5509E-03  2.3647E-09
+ 0004     5.00E+01     1.13004  9.7521E-03  7.9093E-02  1.8760E-04  7.5506E-03  5.3144E-08
+ 0005     1.00E+02     1.12826  9.7559E-03  7.9218E-02  1.8714E-04  7.5503E-03  1.8746E-07
+ 0006     1.50E+02     1.12664  9.7594E-03  7.9407E-02  1.8668E-04  7.5500E-03  3.7495E-07
+ 0007     2.50E+02     1.12399  9.7657E-03  7.9869E-02  1.8577E-04  7.5493E-03  8.4139E-07
+ 0008     5.00E+02     1.12007  9.7812E-03  8.1065E-02  1.8351E-04  7.5476E-03  2.1882E-06
+ 0009     1.00E+03     1.11561  9.8203E-03  8.3169E-02  1.7914E-04  7.5443E-03  4.8723E-06
+ 0010     2.00E+03     1.10542  9.9329E-03  8.6731E-02  1.7088E-04  7.5376E-03  9.6873E-06
+ 0011     3.00E+03     1.09354  1.0067E-02  8.9717E-02  1.6316E-04  7.5309E-03  1.3879E-05
+ 0012     4.00E+03     1.08126  1.0207E-02  9.2299E-02  1.5591E-04  7.5242E-03  1.7571E-05
+ 0013     6.00E+03     1.05755  1.0474E-02  9.6562E-02  1.4258E-04  7.5105E-03  2.3760E-05
+  \end{verbatim}
+\end{frame}
+
+\begin{frame}{Co bychom chtěli}
+  \begin{itemize}
+    \item mít načtené jednotlivé tabulky (zatím jen jednu, ale bude jich víc)
+    \item asi po jednotlivých sloupcích, sloupec = pole (hodnot po řádcích)
+    \item sloupce se nějak jmenují, tedy použijeme \texttt{Hash}
+    \item \texttt{table["kinf"]}
+    \item pozor na \texttt{ab}, asi budeme muset vyrobit něco jako \texttt{ab1}, \texttt{ab2} (ale to až za chvíli)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Nástrahy, chytáky a podobně}
+  \begin{itemize}
+    \item tabulka skládající se z více bloků
+    \item více tabulek
+    \item tabulky mají jméno \texttt{list name} a popisek \texttt{list title(s)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Jak uspořádat data?}
+  \begin{itemize}
+    \item pole s tabulkami + pole s názvy + pole s titulky?
+    \pause
+    \item co hashe tabulky[název] a titulky[název]?
+    \pause
+    \item nejchytřeji: \verb!{"a"=>{:title => "Table title",! \\ \verb!:data => {"kinf"=>...}}}!
+    \pause
+    \item ``nová'' syntaxe: \verb!{"a"=>{title: "Table title",! \\ \verb!data: {"kinf"=>...}}}!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Z příkazové řádky}
+  \begin{itemize}
+    \item a co takhle z toho udělat skript, který lze pustit s~argumentem = univerzální
+    \item \texttt{ruby read\_helios.rb helios1.out}
+    \item vypíše seznam všech tabulek, seznam jejich sloupců, počet řádků
+    \item pole \texttt{ARGV} -- seznam všech argumentů
+    \item vylepšení – provede pro všechny zadané soubory: \texttt{ruby read\_helios.rb helios1.out helios2.out} (tip: využívejte vlastní metody, kde to jen jde)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{A to je vše, přátelé!}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{looney_tunes}
+  \end{center}
+\end{frame}
+
+\end{document}
